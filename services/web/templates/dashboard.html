@@ -81,7 +81,7 @@
 
                 <button onclick="cambiarSeccion('churn')" id="navBtnChurn" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-100 transition text-left">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                    <span>Radar Anti-Churn</span>
+                    <span>Socios en Riesgo de Cancelar</span>
                 </button>
 
                 <button onclick="cambiarSeccion('subircsv')" id="navBtnSubirCsv" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-100 transition text-left">
@@ -450,8 +450,8 @@
             } else if (seccion === 'churn') {
                 document.getElementById('navBtnChurn').classList.add('active');
                 document.getElementById('panelChurn').classList.remove('hidden');
-                tit.innerText = 'Radar Anti-Churn (Socios en Riesgo)';
-                sub.innerText = 'Identificacion temprana de socios propensos a cancelar su membresia.';
+                tit.innerText = 'Socios en Riesgo de Cancelar (Retencion)';
+                sub.innerText = 'Identificacion temprana de socios propensos a cancelar su membresia para recuperarlos a tiempo.';
             } else if (seccion === 'subircsv') {
                 document.getElementById('navBtnSubirCsv').classList.add('active');
                 document.getElementById('panelSubirCsv').classList.remove('hidden');
