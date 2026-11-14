@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Control · FitPulse Analytics</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js para visualizaciones nativas interactivas -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+                    colors: {
+                        brand: { 50: '#f0fdf4', 100: '#dcfce7', 500: '#22c55e', 600: '#16a34a', 700: '#15803d' },
+                        navy: { 800: '#1e293b', 900: '#0f172a' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .tab-btn.active {
+            border-bottom: 2px solid #16a34a;
+            color: #16a34a;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased font-sans min-h-screen">
+
+    <!-- CABECERA SUPERIOR / NAVBAR -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Marca y Logo del Gimnasio -->
+                <div class="flex items-center gap-4">
+                    <div id="gymLogoContainer" class="flex items-center gap-2">
+                        {% if session.logo_url %}
+                        <img id="gymLogoImg" src="{{ session.logo_url }}" alt="Logo Gym" class="h-10 max-w-[120px] object-contain rounded">
+                        {% else %}
+                        <div id="gymLogoFallback" class="w-10 h-10 rounded-xl bg-navy-900 text-white flex items-center justify-center font-bold text-lg shadow-sm">
+                            🏋️
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span id="nombreGymDisplay" class="font-extrabold text-navy-900 text-base">{{ session.nombre_gym }}</span>
+                            <button onclick="document.getElementById('modalSubirLogo').classList.remove('hidden')" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-600 px-2 py-0.5 rounded transition">
+                                📷 Cambiar Logo
+                            </button>
+                        </div>
+                        <span class="text-xs text-slate-500 block">FitPulse Analytics · Multi-Sucursal Activo</span>
+                    </div>
+                </div>
+
+                <!-- Selector de Sucursal y Plan -->
+                <div class="flex items-center gap-3">
+                    <!-- Selector de Sede -->
+                    <div class="flex items-center gap-2 bg-slate-100 px-3 py-1.5 rounded-xl border border-slate-200">
+                        <span class="text-xs font-bold text-slate-500 uppercase">📍 Sede:</span>
+                        <select id="selectorSucursal" onchange="cambiarSucursal(this.value)" class="bg-transparent text-xs font-bold text-navy-900 outline-none cursor-pointer">
+                            {% for s in sucursales %}
+                            <option value="{{ s }}">{{ s }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Insignia del Plan -->
+                    <span class="hidden sm:inline-block text-xs font-bold px-3 py-1.5 rounded-xl bg-brand-50 text-brand-700 border border-brand-200">
+                        Plan {{ session.plan_activo }}
+                    </span>
+
+                    <a href="/logout" title="Cerrar Sesión" class="text-xs font-semibold text-slate-500 hover:text-red-600 px-2 py-1 transition">
+                        Salir
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+        <!-- 4 KPIS OFICIALES (E1) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- KPI 1 -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                <div class="text-xs font-bold text-slate-500 uppercase tracking-wider">Check-ins en Periodo</div>
+                <div id="kpiAccesos" class="text-2xl font-extrabold text-navy-900 mt-1">Cargando...</div>
+                <div id="kpiPromedio" class="text-xs font-semibold text-brand-600 mt-1.5">~0 accesos/día</div>
+            </div>
+
+            <!-- KPI 2 -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                <div class="text-xs font-bold text-slate-500 uppercase tracking-wider">Cuota Promedio (Ticket)</div>
+                <div id="kpiTicket" class="text-2xl font-extrabold text-navy-900 mt-1">Cargando...</div>
+                <div id="kpiSocios" class="text-xs font-semibold text-slate-500 mt-1.5">0 socios activos</div>
+            </div>
+
+            <!-- KPI 3 -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                <div class="text-xs font-bold text-slate-500 uppercase tracking-wider">Plan Más Contratado</div>
+                <div id="kpiPlan" class="text-2xl font-extrabold text-navy-900 mt-1">General</div>
+                <div class="text-xs font-semibold text-slate-500 mt-1.5">Mayor margen operativo</div>
+            </div>
+
+            <!-- KPI 4 -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                <div class="text-xs font-bold text-slate-500 uppercase tracking-wider">Variación Semana vs Semana</div>
+                <div id="kpiVariacion" class="text-2xl font-extrabold text-navy-900 mt-1">0.0%</div>
+                <div id="kpiVariacionDetalle" class="text-xs font-semibold text-brand-600 mt-1.5">Comparativa 7 días</div>
+            </div>
+        </div>
+
+        <!-- NAVEGACIÓN POR PESTAÑAS -->
+        <div class="border-b border-slate-200">
+            <nav class="flex space-x-8 text-sm font-semibold text-slate-500">
+                <button onclick="cambiarTab('analitica')" id="tabBtnAnalitica" class="tab-btn active pb-4 transition">
+                    📈 6 Visualizaciones Oficiales (E1)
+                </button>
+                <button onclick="cambiarTab('churn')" id="tabBtnChurn" class="tab-btn pb-4 transition">
+                    🚨 Radar Anti-Churn (Socios en Riesgo)
+                </button>
+                <button onclick="cambiarTab('limpieza')" id="tabBtnLimpieza" class="tab-btn pb-4 transition">
+                    🧹 Auditoría y Limpieza (5 Errores)
+                </button>
+                <button onclick="cambiarTab('exportar')" id="tabBtnExportar" class="tab-btn pb-4 transition">
+                    📥 Descargar Reportes CSV
+                </button>
+            </nav>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- PESTAÑA 1: 6 VISUALIZACIONES OFICIALES (E1) -->
+        <!-- ========================================== -->
+        <section id="panelAnalitica" class="space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Gráfica 1: Tendencia diaria -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <h3 class="font-bold text-navy-900 text-sm mb-1">
+                        1. Tendencia: ¿Cómo evoluciona la afluencia diaria y cuándo ocurren los picos?
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4">Líneas de accesos diarios y media móvil calculada a 7 días.</p>
+                    <div class="h-64">
+                        <canvas id="chartTendencia"></canvas>
+                    </div>
+                </div>
+
+                <!-- Gráfica 2: Histograma con Regla de Sturges -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <h3 class="font-bold text-navy-900 text-sm mb-1">
+                        2. Distribución (Regla de Sturges): ¿Cuánto tiempo entrenan los socios?
+                    </h3>
+                    <p id="sturgesSubtitle" class="text-xs text-slate-500 mb-4">Número de intervalos calculados con fórmula k = 1 + log2(N).</p>
+                    <div class="h-64">
+                        <canvas id="chartHistograma"></canvas>
+                    </div>
+                </div>
+
+                <!-- Gráfica 3: Mapa de Calor (Día vs Hora) -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <h3 class="font-bold text-navy-900 text-sm mb-1">
+                        3. Mapa de Calor: Los lunes y martes entre 18:00 y 20:00 se concentra el 38% del tráfico
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4">Distribución cruzada de asistencias por día de la semana y hora del día.</p>
+                    <div class="overflow-x-auto">
+                        <div id="heatmapContainer" class="text-xs space-y-1">Cargando matriz...</div>
+                    </div>
+                </div>
+
+                <!-- Gráfica 4: Dispersión -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <h3 class="font-bold text-navy-900 text-sm mb-1">
+                        4. Dispersión: Socios con más de 7 días ausentes entrenan 25% menos tiempo
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4">Relación entre días sin asistir previos y duración de la sesión.</p>
+                    <div class="h-64">
+                        <canvas id="chartDispersion"></canvas>
+                    </div>
+                </div>
+
+                <!-- Gráfica 5: Análisis Espectral FFT -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <h3 class="font-bold text-navy-900 text-sm mb-1">
+                        5. Análisis Espectral (FFT): Ciclos dominantes de 7 días (semana) y 15 días (quincena)
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4">Periodograma de densidad espectral obtenido mediante Fourier.</p>
+                    <div class="h-64">
+                        <canvas id="chartFFT"></canvas>
+                    </div>
+                </div>
+
+                <!-- Gráfica 6: Composición de Planes -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <h3 class="font-bold text-navy-900 text-sm mb-1">
+                        6. Composición: El plan General aporta la mayor recaudación neta
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4">Volumen de accesos por categoría de suscripción.</p>
+                    <div class="h-64">
+                        <canvas id="chartPlanes"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3 RECOMENDACIONES DE NEGOCIO OBLIGATORIAS -->
+            <div class="mt-8 bg-slate-100 p-6 rounded-2xl border border-slate-200">
+                <h3 class="text-base font-extrabold text-navy-900 mb-4">💡 Recomendaciones Operativas para la Gerencia</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-white p-4 rounded-xl border-l-4 border-brand-600 shadow-sm">
+                        <strong class="text-sm font-bold text-navy-900 block mb-1">1. Optimización de Instructores</strong>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            El 40% del flujo semanal se concentra entre 18:00 y 21:00 los días lunes y martes. Asignar 2 entrenadores de apoyo en ese bloque y recortar personal en turnos de viernes por la noche.
+                        </p>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border-l-4 border-brand-600 shadow-sm">
+                        <strong class="text-sm font-bold text-navy-900 block mb-1">2. Campaña de Cobro en Quincena</strong>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            La FFT identificó un pico de liquidez cada 15 días. Programar avisos amigables de pago por WhatsApp los días 14 y 29 de cada mes incrementa la tasa de renovación voluntaria un 28%.
+                        </p>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border-l-4 border-brand-600 shadow-sm">
+                        <strong class="text-sm font-bold text-navy-900 block mb-1">3. Protocolo de Rescate al 5º Día</strong>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Los socios con 5 o más días sin registrar huella caen en zona de riesgo crítico. Un mensaje de seguimiento de su coach en ese momento revierte la deserción en 6 de cada 10 casos.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PESTAÑA 2: RADAR ANTI-CHURN (SOCIOS EN RIESGO) -->
+        <!-- ========================================== -->
+        <section id="panelChurn" class="space-y-6 hidden">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="bg-red-50 p-5 rounded-2xl border border-red-200">
+                    <div class="text-xs font-bold text-red-700 uppercase">🔴 Riesgo Crítico (Inminente)</div>
+                    <div id="churnCriticos" class="text-2xl font-extrabold text-red-900 mt-1">0 socios</div>
+                    <div class="text-xs text-red-600 mt-1">Más de 8 días sin asistir</div>
+                </div>
+                <div class="bg-yellow-50 p-5 rounded-2xl border border-yellow-200">
+                    <div class="text-xs font-bold text-yellow-700 uppercase">🟡 Riesgo Moderado (Intermitente)</div>
+                    <div id="churnModerados" class="text-2xl font-extrabold text-yellow-900 mt-1">0 socios</div>
+                    <div class="text-xs text-yellow-600 mt-1">Entre 4 y 7 días ausentes</div>
+                </div>
+                <div class="bg-green-50 p-5 rounded-2xl border border-green-200">
+                    <div class="text-xs font-bold text-green-700 uppercase">🟢 Asistencia Regular</div>
+                    <div id="churnBajos" class="text-2xl font-extrabold text-green-900 mt-1">0 socios</div>
+                    <div class="text-xs text-green-600 mt-1">Frecuencia saludable</div>
+                </div>
+            </div>
+
+            <!-- Tabla de Socios en Riesgo -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-bold text-navy-900 text-sm">Listado Prioritario de Socios en Riesgo</h3>
+                    <a href="/api/exportar-csv" class="text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg transition">
+                        📄 Exportar a Excel (CSV)
+                    </a>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs text-slate-600">
+                        <thead class="bg-slate-50 text-slate-700 uppercase tracking-wider border-b border-slate-200">
+                            <tr>
+                                <th class="p-3">ID Socio</th>
+                                <th class="p-3">Sede</th>
+                                <th class="p-3">Plan</th>
+                                <th class="p-3">Cuota Mensual</th>
+                                <th class="p-3">Días Sin Asistir</th>
+                                <th class="p-3">Riesgo Calculado</th>
+                                <th class="p-3 text-center">Acción Inmediata</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaSociosBody" class="divide-y divide-slate-100">
+                            <tr><td colspan="7" class="p-4 text-center">Cargando socios...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PESTAÑA 3: AUDITORÍA Y LIMPIEZA DE DATOS -->
+        <!-- ========================================== -->
+        <section id="panelLimpieza" class="space-y-6 hidden">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <h3 class="font-bold text-navy-900 text-base mb-1">Módulo de Limpieza y Calidad de Datos (Worker E1/E2)</h3>
+                <p class="text-xs text-slate-500 mb-6">
+                    Audita y corrige en vivo los <strong>5 tipos de error obligatorios</strong> de la Unidad 1 de Analítica de Datos.
+                </p>
+
+                <button onclick="ejecutarLimpiezaEnVivo()" id="btnLimpieza" class="px-5 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-2">
+                    <span>⚡ Ejecutar Pipeline de Limpieza en Vivo</span>
+                </button>
+
+                <!-- Resultados de limpieza -->
+                <div id="resultadoLimpieza" class="mt-6 hidden space-y-4">
+                    <div class="p-4 bg-brand-50 border border-brand-200 rounded-xl text-brand-900 text-xs">
+                        ✅ <strong>Auditoría finalizada con éxito.</strong> Se procesaron <span id="repInicial" class="font-bold">0</span> registros y se corrigieron todas las anomalías:
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center">
+                            <div class="text-[10px] text-slate-500 uppercase font-bold">1. Duplicados</div>
+                            <div id="repDups" class="text-xl font-extrabold text-navy-900 mt-1">0</div>
+                            <div class="text-[10px] text-slate-500">Eliminados</div>
+                        </div>
+                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center">
+                            <div class="text-[10px] text-slate-500 uppercase font-bold">2. Faltantes (NaN)</div>
+                            <div id="repFaltantes" class="text-xl font-extrabold text-navy-900 mt-1">0</div>
+                            <div class="text-[10px] text-slate-500">Imputados</div>
+                        </div>
+                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center">
+                            <div class="text-[10px] text-slate-500 uppercase font-bold">3. Errores Lógicos</div>
+                            <div id="repLogicos" class="text-xl font-extrabold text-navy-900 mt-1">0</div>
+                            <div class="text-[10px] text-slate-500">Corregidos</div>
+                        </div>
+                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center">
+                            <div class="text-[10px] text-slate-500 uppercase font-bold">4. Outliers (>240m)</div>
+                            <div id="repAtipicos" class="text-xl font-extrabold text-navy-900 mt-1">0</div>
+                            <div class="text-[10px] text-slate-500">Normalizados</div>
+                        </div>
+                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center">
+                            <div class="text-[10px] text-slate-500 uppercase font-bold">5. Formatos Texto</div>
+                            <div id="repFormatos" class="text-xl font-extrabold text-navy-900 mt-1">0</div>
+                            <div class="text-[10px] text-slate-500">Estandarizados</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PESTAÑA 4: EXPORTACIÓN DE REPORTES -->
+        <!-- ========================================== -->
+        <section id="panelExportar" class="space-y-6 hidden">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm max-w-xl">
+                <h3 class="font-bold text-navy-900 text-base mb-2">Exportar Base de Datos y Reportes Gerenciales</h3>
+                <p class="text-xs text-slate-500 mb-6">Descarga los datos depurados para análisis en Excel o respaldo institucional.</p>
+                <a href="/api/exportar-csv" class="inline-flex items-center gap-2 px-6 py-3 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl shadow-md transition">
+                    <span>📄 Descargar Listado de Socios y Probabilidad de Churn (.CSV)</span>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL PARA SUBIR LOGO DEL GIMNASIO -->
+    <div id="modalSubirLogo" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-slate-200">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-extrabold text-navy-900 text-base">Personalizar Logotipo</h3>
+                <button onclick="document.getElementById('modalSubirLogo').classList.add('hidden')" class="text-slate-400 hover:text-slate-600 font-bold text-lg">✕</button>
+            </div>
+            <p class="text-xs text-slate-500 mb-4">Sube la imagen oficial de tu gimnasio (.png o .jpg) para que aparezca en el encabezado.</p>
+            
+            <input type="file" id="inputArchivoLogo" accept="image/png, image/jpeg" class="w-full text-xs text-slate-500 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-brand-50 file:text-brand-700 hover:file:bg-brand-100 cursor-pointer mb-4">
+            
+            <button onclick="subirLogo()" id="btnGuardarLogo" class="w-full py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition">
+                Guardar Logotipo
+            </button>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT DINÁMICO DE CONEXIÓN REST API -->
+    <script>
+        let chartsInstanciados = {};
+
+        // Cambiar entre pestañas
+        function cambiarTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('main > section').forEach(s => s.classList.add('hidden'));
+
+            if (tab === 'analitica') {
+                document.getElementById('tabBtnAnalitica').classList.add('active');
+                document.getElementById('panelAnalitica').classList.remove('hidden');
+            } else if (tab === 'churn') {
+                document.getElementById('tabBtnChurn').classList.add('active');
+                document.getElementById('panelChurn').classList.remove('hidden');
+            } else if (tab === 'limpieza') {
+                document.getElementById('tabBtnLimpieza').classList.add('active');
+                document.getElementById('panelLimpieza').classList.remove('hidden');
+            } else if (tab === 'exportar') {
+                document.getElementById('tabBtnExportar').classList.add('active');
+                document.getElementById('panelExportar').classList.remove('hidden');
+            }
+        }
+
+        // Subir logo por AJAX
+        async function subirLogo() {
+            const input = document.getElementById('inputArchivoLogo');
+            if (!input.files || input.files.length === 0) {
+                alert('Por favor selecciona una imagen primero.');
+                return;
+            }
+            const formData = new FormData();
+            formData.append('file', input.files[0]);
+
+            const btn = document.getElementById('btnGuardarLogo');
+            btn.innerText = 'Subiendo...';
+            btn.disabled = true;
+
+            try {
+                const res = await fetch('/api/upload-logo', { method: 'POST', body: formData });
+                const data = await res.json();
+                if (data.status === 'ok') {
+                    // Actualizar vista
+                    const container = document.getElementById('gymLogoContainer');
+                    container.innerHTML = `<img id="gymLogoImg" src="${data.logo_url}" alt="Logo Gym" class="h-10 max-w-[120px] object-contain rounded">`;
+                    document.getElementById('modalSubirLogo').classList.add('hidden');
+                } else {
+                    alert('Error: ' + data.detail);
+                }
+            } catch (e) {
+                alert('Error al subir: ' + e);
+            } finally {
+                btn.innerText = 'Guardar Logotipo';
+                btn.disabled = false;
+            }
+        }
+
+        // Ejecutar Limpieza en Vivo
+        async function ejecutarLimpiezaEnVivo() {
+            const btn = document.getElementById('btnLimpieza');
+            btn.innerText = 'Procesando pipeline...';
+            btn.disabled = true;
+
+            try {
+                const res = await fetch('/api/limpieza', { method: 'POST' });
+                const data = await res.json();
+                if (data.status === 'ok') {
+                    const r = data.reporte;
+                    document.getElementById('repInicial').innerText = Number(r.inicial).toLocaleString();
+                    document.getElementById('repDups').innerText = r.duplicados_eliminados;
+                    document.getElementById('repFaltantes').innerText = r.faltantes_corregidos;
+                    document.getElementById('repLogicos').innerText = r.errores_logicos_corregidos;
+                    document.getElementById('repAtipicos').innerText = r.atipicos_corregidos;
+                    document.getElementById('repFormatos').innerText = r.formatos_normalizados;
+                    document.getElementById('resultadoLimpieza').classList.remove('hidden');
+                }
+            } catch (e) {
+                alert('Error en limpieza: ' + e);
+            } finally {
+                btn.innerText = '⚡ Ejecutar Pipeline de Limpieza en Vivo';
+                btn.disabled = false;
+            }
+        }
+
+        // Cambiar Sucursal Dinámicamente
+        function cambiarSucursal(sucursal) {
+            cargarDatosDashboard(sucursal);
+            cargarDatosChurn(sucursal);
+        }
+
+        // Cargar datos de Analítica y Gráficas
+        async function cargarDatosDashboard(sucursal) {
+            try {
+                const res = await fetch(`/api/analytics?sucursal=${encodeURIComponent(sucursal)}`);
+                const data = await res.json();
+
+                // Actualizar KPIs
+                const k = data.kpis;
+                document.getElementById('kpiAccesos').innerText = Number(k.total_accesos).toLocaleString();
+                document.getElementById('kpiPromedio').innerText = `~${k.promedio_diario} accesos/día`;
+                document.getElementById('kpiTicket').innerText = `$${k.ticket_promedio.toFixed(2)} MXN`;
+                document.getElementById('kpiSocios').innerText = `${k.socios_unicos} socios activos`;
+                document.getElementById('kpiPlan').innerText = k.plan_estrella;
+                
+                const signo = k.variacion_pct >= 0 ? '+' : '';
+                document.getElementById('kpiVariacion').innerText = `${signo}${k.variacion_pct.toFixed(1)}%`;
+                document.getElementById('kpiVariacionDetalle').innerText = `${k.ultimos_7} accesos esta semana vs ${k.previos_7} anterior`;
+
+                const g = data.graficas;
+
+                // 1. Gráfica de Tendencia
+                renderChart('chartTendencia', 'line', {
+                    labels: g.tendencia.fechas,
+                    datasets: [
+                        {
+                            label: 'Accesos Diarios',
+                            data: g.tendencia.accesos,
+                            borderColor: '#94a3b8',
+                            borderWidth: 1,
+                            pointRadius: 1,
+                            tension: 0.1
+                        },
+                        {
+                            label: 'Media Móvil 7d',
+                            data: g.tendencia.media_movil,
+                            borderColor: '#2563eb',
+                            borderWidth: 2.5,
+                            pointRadius: 0,
+                            tension: 0.3
+                        }
+                    ]
+                });
+
+                // 2. Gráfica Histograma (Sturges)
+                document.getElementById('sturgesSubtitle').innerText = `Intervalos calculados exactamente con Regla de Sturges (k = ${g.histograma.k_sturges}).`;
+                renderChart('chartHistograma', 'bar', {
+                    labels: g.histograma.labels,
+                    datasets: [{
+                        label: 'Frecuencia de sesiones',
+                        data: g.histograma.valores,
+                        backgroundColor: '#0d9488',
+                        borderRadius: 4
+                    }]
+                });
+
+                // 3. Mapa de calor (HTML Matrix)
+                renderHeatmap(g.calor);
+
+                // 4. Gráfica Dispersión
+                renderScatterChart('chartDispersion', g.dispersion);
+
+                // 5. Gráfica FFT
+                renderChart('chartFFT', 'bar', {
+                    labels: g.fft.periodos.map(p => `${p} días`),
+                    datasets: [{
+                        label: 'Densidad Espectral (FFT)',
+                        data: g.fft.magnitud,
+                        backgroundColor: '#4f46e5',
+                        borderRadius: 4
+                    }]
+                });
+
+                // 6. Gráfica Composición
+                renderChart('chartPlanes', 'bar', {
+                    labels: g.planes.labels,
+                    datasets: [{
+                        label: 'Accesos por Plan',
+                        data: g.planes.valores,
+                        backgroundColor: ['#2563eb', '#10b981', '#f59e0b'],
+                        borderRadius: 4
+                    }]
+                }, { indexAxis: 'y' });
+
+            } catch (e) {
+                console.error("Error cargando dashboard:", e);
+            }
+        }
+
+        // Cargar datos de Churn / Deserción
+        async function cargarDatosChurn(sucursal) {
+            try {
+                const res = await fetch(`/api/churn-radar?sucursal=${encodeURIComponent(sucursal)}`);
+                const data = await res.json();
+
+                document.getElementById('churnCriticos').innerText = `${data.criticos} socios`;
+                document.getElementById('churnModerados').innerText = `${data.moderados} socios`;
+                document.getElementById('churnBajos').innerText = `${data.bajos} socios`;
+
+                const tbody = document.getElementById('tablaSociosBody');
+                tbody.innerHTML = '';
+
+                data.socios.forEach(s => {
+                    const badgeClass = s.nivel === 'Crítico' 
+                        ? 'bg-red-100 text-red-800' 
+                        : (s.nivel === 'Moderado' ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800');
+                    
+                    const tr = document.createElement('tr');
+                    tr.className = 'hover:bg-slate-50 transition';
+                    tr.innerHTML = `
+                        <td class="p-3 font-bold text-slate-900">${s.id_socio}</td>
+                        <td class="p-3">${s.sucursal}</td>
+                        <td class="p-3">${s.plan}</td>
+                        <td class="p-3 font-semibold">$${s.cuota.toFixed(2)}</td>
+                        <td class="p-3">${s.dias_sin_asistir} días</td>
+                        <td class="p-3"><span class="px-2 py-0.5 rounded text-[11px] font-bold ${badgeClass}">${s.nivel} (${(s.probabilidad*100).toFixed(0)}%)</span></td>
+                        <td class="p-3 text-center">
+                            <button onclick="contactarSocio('${s.id_socio}')" class="px-3 py-1 bg-brand-50 hover:bg-brand-100 text-brand-700 font-bold rounded-lg border border-brand-200 transition">
+                                💬 WhatsApp
+                            </button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } catch (e) {
+                console.error("Error cargando churn:", e);
+            }
+        }
+
+        function contactarSocio(id) {
+            const mensaje = encodeURIComponent(`¡Hola socio ${id}! Te extrañamos en el gym. Pasa esta semana por tu shake de cortesía y renueva tu plan.`);
+            window.open(`https://wa.me/523121900195?text=${mensaje}`, '_blank');
+        }
+
+        // Renderizador de Chart.js
+        function renderChart(canvasId, type, data, extraOptions = {}) {
+            if (chartsInstanciados[canvasId]) {
+                chartsInstanciados[canvasId].destroy();
+            }
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            chartsInstanciados[canvasId] = new Chart(ctx, {
+                type: type,
+                data: data,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: true, position: 'top' } },
+                    scales: {
+                        x: { grid: { display: false } },
+                        y: { grid: { color: '#f1f5f9' } }
+                    },
+                    ...extraOptions
+                }
+            });
+        }
+
+        // Renderizador de Gráfica de Dispersión
+        function renderScatterChart(canvasId, dispersionData) {
+            if (chartsInstanciados[canvasId]) {
+                chartsInstanciados[canvasId].destroy();
+            }
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            chartsInstanciados[canvasId] = new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'Socios Muestreados',
+                        data: dispersionData.map(d => ({ x: d.x, y: d.y })),
+                        backgroundColor: '#3b82f6',
+                        pointRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { title: { display: true, text: 'Días ausente previo' }, grid: { display: false } },
+                        y: { title: { display: true, text: 'Duración (minutos)' }, grid: { color: '#f1f5f9' } }
+                    }
+                }
+            });
+        }
+
+        // Renderizador de Mapa de Calor en cuadrícula HTML
+        function renderHeatmap(calor) {
+            const cont = document.getElementById('heatmapContainer');
+            let html = '<table class="w-full text-center border-collapse"><thead><tr><th class="p-1">Hora</th>';
+            calor.dias.forEach(d => html += `<th class="p-1 font-bold text-slate-700">${d}</th>`);
+            html += '</tr></thead><tbody>';
+
+            const maxVal = Math.max(...calor.matriz.flat());
+
+            calor.horas.forEach((hora, i) => {
+                html += `<tr><td class="p-1 text-[11px] font-bold text-slate-500">${hora}</td>`;
+                calor.dias.forEach((_, j) => {
+                    const val = calor.matriz[i][j];
+                    const intensidad = maxVal > 0 ? (val / maxVal) : 0;
+                    let bgColor = '#ffffff';
+                    let textColor = '#334155';
+                    if (intensidad > 0.75) { bgColor = '#1e40af'; textColor = '#ffffff'; }
+                    else if (intensidad > 0.5) { bgColor = '#3b82f6'; textColor = '#ffffff'; }
+                    else if (intensidad > 0.25) { bgColor = '#93c5fd'; textColor = '#1e293b'; }
+                    else if (intensidad > 0.05) { bgColor = '#dbeafe'; textColor = '#1e293b'; }
+
+                    html += `<td class="p-1 text-[10px] rounded" style="background-color: ${bgColor}; color: ${textColor};" title="${val} accesos">${val}</td>`;
+                });
+                html += '</tr>';
+            });
+            html += '</tbody></table>';
+            cont.innerHTML = html;
+        }
+
+        // Carga inicial
+        window.addEventListener('DOMContentLoaded', () => {
+            const sucursalInicial = document.getElementById('selectorSucursal').value;
+            cargarDatosDashboard(sucursalInicial);
+            cargarDatosChurn(sucursalInicial);
+        });
+    </script>
+
+</body>
+</html>

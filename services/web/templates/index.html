@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitPulse Analytics · Inteligencia Predictiva para Gimnasios y Centros Fitness</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            900: '#14532d',
+                        },
+                        navy: {
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased font-sans selection:bg-brand-500 selection:text-white">
+
+    <!-- BARRA DE NAVEGACIÓN -->
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-brand-600 flex items-center justify-center text-white font-bold text-xl shadow-sm shadow-brand-500/30">
+                        ⚡
+                    </div>
+                    <div>
+                        <span class="text-xl font-extrabold tracking-tight text-navy-900">FitPulse</span>
+                        <span class="text-xs block text-brand-600 font-semibold tracking-wider uppercase">Analytics Cloud</span>
+                    </div>
+                </div>
+
+                <!-- Enlaces de navegación -->
+                <div class="hidden md:flex items-center space-x-8 text-sm font-semibold text-slate-600">
+                    <a href="#solucion" class="hover:text-brand-600 transition">¿Qué Ofrecemos?</a>
+                    <a href="#mision-vision" class="hover:text-brand-600 transition">Misión y Visión</a>
+                    <a href="#planes" class="hover:text-brand-600 transition">Planes Multi-Sucursal</a>
+                    <a href="#contacto" class="hover:text-brand-600 transition">Contacto Directo</a>
+                </div>
+
+                <!-- Botones de Acción -->
+                <div class="flex items-center gap-3">
+                    <a href="/login" class="text-sm font-semibold text-slate-700 hover:text-brand-600 px-3 py-2 rounded-lg transition">
+                        Iniciar Sesión
+                    </a>
+                    <a href="/registro" class="text-sm font-bold bg-brand-600 hover:bg-brand-700 text-white px-5 py-2.5 rounded-xl shadow-md shadow-brand-600/20 hover:shadow-lg transition">
+                        Empezar a Ganar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HÉROE PRINCIPAL -->
+    <header class="relative overflow-hidden pt-16 pb-20 lg:pt-24 lg:pb-32 bg-gradient-to-b from-white to-slate-50 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-50 border border-brand-200 text-brand-700 text-xs font-bold uppercase tracking-wider mb-6">
+                <span>📍 Soporte Multi-Sucursal en Todos los Planes</span>
+            </div>
+
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-navy-900 tracking-tight max-w-4xl mx-auto leading-tight">
+                Detén la deserción de socios y optimiza tus horas pico con <span class="text-brand-600">Inteligencia Predictiva</span>
+            </h1>
+
+            <p class="mt-6 text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                El 55% de los miembros abandonan el gimnasio en los primeros 90 días. FitPulse analiza tus check-ins de torniquete para alertarte <strong>antes de que cancelen</strong> y proyectar la afluencia de todas tus sucursales.
+            </p>
+
+            <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="/registro" class="w-full sm:w-auto px-8 py-4 text-base font-bold text-white bg-brand-600 hover:bg-brand-700 rounded-xl shadow-xl shadow-brand-600/25 hover:shadow-brand-600/35 transition flex items-center justify-center gap-2">
+                    <span>🚀 Empezar a Ganar Hoy</span>
+                </a>
+                <a href="/dashboard" class="w-full sm:w-auto px-8 py-4 text-base font-semibold text-slate-700 bg-white hover:bg-slate-100 border border-slate-300 rounded-xl transition flex items-center justify-center gap-2">
+                    <span>📊 Ver Demo en Vivo</span>
+                </a>
+            </div>
+
+            <div class="mt-12 flex items-center justify-center gap-8 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                <div class="flex items-center gap-1.5">
+                    <svg class="w-4 h-4 text-brand-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                    <span>Sin contratos forzosos</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                    <svg class="w-4 h-4 text-brand-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                    <span>Personalizable con tu logo</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                    <svg class="w-4 h-4 text-brand-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                    <span>Conexión torniquete o CSV</span>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- SECCIÓN: ¿QUÉ OFRECE Y PARA QUÉ SIRVE? -->
+    <section id="solucion" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-bold text-brand-600 uppercase tracking-widest">¿Para qué sirve?</h2>
+                <p class="mt-2 text-3xl font-extrabold text-navy-900 sm:text-4xl">
+                    Deja de adivinar y convierte los datos de tus socios en dinero
+                </p>
+                <p class="mt-4 text-base text-slate-600">
+                    La mayoría de los gimnasios pierden hasta $25,000 MXN mensuales por socios que simplemente dejan de ir y cancelan silenciosamente. FitPulse te da control total con herramientas que funcionan.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Tarjeta 1 -->
+                <div class="p-8 rounded-2xl bg-slate-50 border border-slate-200 hover:border-brand-500 hover:shadow-lg transition">
+                    <div class="w-12 h-12 rounded-xl bg-red-100 text-red-600 flex items-center justify-center text-2xl font-bold mb-6">
+                        🚨
+                    </div>
+                    <h3 class="text-xl font-bold text-navy-900 mb-3">Radar Anti-Churn (Deserción)</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Detecta con días de anticipación qué socios están disminuyendo su frecuencia de entrenamiento. Te genera una lista en semáforo para enviar recordatorios y ofertas antes de que decidan no renovar.
+                    </p>
+                </div>
+
+                <!-- Tarjeta 2 -->
+                <div class="p-8 rounded-2xl bg-slate-50 border border-slate-200 hover:border-brand-500 hover:shadow-lg transition">
+                    <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-2xl font-bold mb-6">
+                        📈
+                    </div>
+                    <h3 class="text-xl font-bold text-navy-900 mb-3">Mapa de Horas Pico y Afluencia</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Visualiza exactamente a qué hora y en qué días se saturan tus instalaciones. Ahorra nómina reduciendo instructores y personal en turnos muertos y reforzando las horas de mayor tráfico.
+                    </p>
+                </div>
+
+                <!-- Tarjeta 3 -->
+                <div class="p-8 rounded-2xl bg-slate-50 border border-slate-200 hover:border-brand-500 hover:shadow-lg transition">
+                    <div class="w-12 h-12 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center text-2xl font-bold mb-6">
+                        📍
+                    </div>
+                    <h3 class="text-xl font-bold text-navy-900 mb-3">Multi-Sucursal Centralizada</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Ya sea que tengas 2 o 10 sucursales, monitorea cada gimnasio por separado o consolida todos los números en una sola pantalla directiva. Cambia de sede con un solo clic.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Comparativa visual -->
+            <div class="mt-16 bg-navy-900 rounded-3xl p-8 lg:p-12 text-white">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <span class="text-xs font-bold text-brand-500 uppercase tracking-widest">El Retorno de Inversión</span>
+                        <h3 class="text-2xl sm:text-3xl font-extrabold mt-2">
+                            El software se paga solo con rescatar a 1 solo socio al mes
+                        </h3>
+                        <p class="mt-4 text-slate-300 text-sm sm:text-base leading-relaxed">
+                            Si tu cuota promedio de gimnasio es de $650 MXN y nuestro Plan Básico cuesta $499 MXN, evitar que una sola persona cancele ya cubre el 100% del costo de la plataforma. Todo lo demás es ganancia pura para tu negocio.
+                        </p>
+                    </div>
+                    <div class="bg-navy-800 p-6 rounded-2xl border border-slate-700 space-y-4">
+                        <div class="flex items-center justify-between pb-3 border-b border-slate-700">
+                            <span class="text-sm text-slate-400">Cuota promedio de socio:</span>
+                            <span class="font-bold text-white text-lg">$650.00 MXN</span>
+                        </div>
+                        <div class="flex items-center justify-between pb-3 border-b border-slate-700">
+                            <span class="text-sm text-slate-400">Inversión mensual FitPulse:</span>
+                            <span class="font-bold text-brand-400 text-lg">$499.00 MXN</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-semibold text-white">Socios rescatados por mes (promedio):</span>
+                            <span class="font-extrabold text-brand-500 text-xl">4 a 9 socios</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECCIÓN: MISIÓN, VISIÓN Y NUESTRA META -->
+    <section id="mision-vision" class="py-20 bg-slate-50 border-t border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-bold text-brand-600 uppercase tracking-widest">Nuestra Filosofía</h2>
+                <p class="mt-2 text-3xl font-extrabold text-navy-900 sm:text-4xl">
+                    Misión, Visión y Nuestra Meta
+                </p>
+                <p class="mt-4 text-base text-slate-600">
+                    Construido por ingenieros en inteligencia artificial con un objetivo concreto: impulsar el crecimiento real de los negocios deportivos.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Misión -->
+                <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="text-3xl mb-4">🎯</div>
+                    <h3 class="text-xl font-bold text-navy-900 mb-3">Nuestra Misión</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Empoderar a los dueños y administradores de gimnasios independientes y estudios deportivos con herramientas de analítica predictiva de estándar industrial, simplificando la toma de decisiones para erradicar las fugas financieras por cancelaciones imprevistas.
+                    </p>
+                </div>
+
+                <!-- Visión -->
+                <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="text-3xl mb-4">🔭</div>
+                    <h3 class="text-xl font-bold text-navy-900 mb-3">Nuestra Visión</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Ser el estándar tecnológico de inteligencia operativa y retención de clientes para centros deportivos en México y Latinoamérica, demostrando que la analítica avanzada y la nube deben ser accesibles, intuitivas y de alto rendimiento económico.
+                    </p>
+                </div>
+
+                <!-- Meta -->
+                <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="text-3xl mb-4">🏆</div>
+                    <h3 class="text-xl font-bold text-navy-900 mb-3">Nuestra Meta</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Garantizar que el 100% de los gimnasios afiliados logren recuperar al menos el 15% de sus socios en riesgo durante los primeros 45 días de implementación, manteniendo un costo operativo en la nube de $0 pesos en fase de inicio para máxima rentabilidad.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN: PLANES MULTI-SUCURSAL -->
+    <section id="planes" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold text-brand-600 uppercase tracking-widest">Precios Transparentes</span>
+                <h2 class="mt-2 text-3xl font-extrabold text-navy-900 sm:text-4xl">
+                    Planes diseñados a la medida de tu gimnasio
+                </h2>
+                <p class="mt-4 text-base text-slate-600">
+                    Todos los planes incluyen <strong>soporte multi-sucursal</strong> y se operan desde cualquier navegador o celular sin instalaciones complicadas.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+                {% for plan in planes %}
+                <div class="flex flex-col justify-between p-8 rounded-3xl border {% if plan.destacado %}border-2 border-brand-500 bg-white shadow-xl shadow-brand-500/10 relative{% else %}border-slate-200 bg-slate-50{% endif %}">
+                    {% if plan.destacado %}
+                    <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-brand-600 text-white text-xs font-bold px-4 py-1 rounded-full uppercase tracking-wider">
+                        Recomendado para Gimnasios
+                    </span>
+                    {% endif %}
+                    
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xl font-bold text-navy-900">{{ plan.nombre }}</h3>
+                            <span class="text-xs font-semibold px-2.5 py-1 rounded-md {% if plan.destacado %}bg-brand-100 text-brand-700{% else %}bg-slate-200 text-slate-700{% endif %}">
+                                {{ plan.sedes }}
+                            </span>
+                        </div>
+                        <div class="mb-6">
+                            <span class="text-4xl font-extrabold text-navy-900">${{ plan.precio }}</span>
+                            <span class="text-slate-500 text-sm">MXN / mes</span>
+                        </div>
+
+                        <ul class="space-y-3 mb-8 text-sm text-slate-600">
+                            {% for c in plan.caracteristicas %}
+                            <li class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-brand-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                <span>{{ c }}</span>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div>
+                        <a href="/registro?plan={{ plan.id }}" class="block text-center w-full py-3.5 px-4 rounded-xl font-bold text-sm transition {% if plan.destacado %}bg-brand-600 hover:bg-brand-700 text-white shadow-md shadow-brand-600/25{% else %}bg-navy-900 hover:bg-slate-800 text-white{% endif %}">
+                            Elegir {{ plan.nombre }}
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="mt-8 text-center text-xs text-slate-500">
+                💳 Pasarela de pagos con <strong>Mercado Pago</strong> (Activa próximamente en producción).
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE CONTACTO DIRECTO -->
+    <section id="contacto" class="py-20 bg-slate-100 border-t border-slate-200">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <span class="text-xs font-bold text-brand-600 uppercase tracking-widest">Atención Personalizada</span>
+            <h2 class="text-3xl font-extrabold text-navy-900 mt-2">¿Tienes dudas o quieres una demostración en tu gimnasio?</h2>
+            <p class="mt-4 text-slate-600 text-base">
+                Comunícate directamente con nosotros. Te ayudamos a conectar tus datos hoy mismo.
+            </p>
+
+            <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto text-left">
+                <!-- Teléfono / WhatsApp -->
+                <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center text-2xl font-bold flex-shrink-0">
+                        📱
+                    </div>
+                    <div>
+                        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Teléfono / WhatsApp</div>
+                        <a href="https://wa.me/{{ contacto.telefono_link }}?text=Hola%20Dylan,%20me%20interesa%20FitPulse%20para%20mi%20gimnasio" target="_blank" class="text-base font-bold text-navy-900 hover:text-brand-600 transition block mt-1">
+                            {{ contacto.telefono }}
+                        </a>
+                        <span class="text-xs text-slate-500">Atención directa con Dylan Espinosa</span>
+                    </div>
+                </div>
+
+                <!-- Correo -->
+                <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-2xl font-bold flex-shrink-0">
+                        ✉️
+                    </div>
+                    <div>
+                        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Correo Electrónico</div>
+                        <a href="mailto:{{ contacto.correo }}" class="text-base font-bold text-navy-900 hover:text-brand-600 transition block mt-1 break-all">
+                            {{ contacto.correo }}
+                        </a>
+                        <span class="text-xs text-slate-500">Respuesta en menos de 2 horas</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-10">
+                <a href="/registro" class="inline-flex items-center gap-2 px-8 py-4 text-base font-bold text-white bg-brand-600 hover:bg-brand-700 rounded-xl shadow-md transition">
+                    <span>Empezar Ahora</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-navy-900 text-slate-400 py-12 border-t border-slate-800 text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center text-white font-bold text-sm">
+                    ⚡
+                </div>
+                <span class="font-extrabold text-white text-base">FitPulse Analytics</span>
+                <span class="text-xs text-slate-500">· Cómputo en la Nube × Analítica de Datos</span>
+            </div>
+            <div>
+                © {{ contacto.ano }} FitPulse. Todos los derechos reservados · Fundador: {{ contacto.fundador }}
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

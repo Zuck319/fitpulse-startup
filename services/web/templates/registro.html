@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro · FitPulse Analytics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+                    colors: {
+                        brand: { 600: '#16a34a', 700: '#15803d' },
+                        navy: { 900: '#0f172a' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased font-sans min-h-screen flex flex-col justify-between">
+
+    <!-- NAVBAR SIMPLE -->
+    <header class="bg-white border-b border-slate-200 py-4">
+        <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+            <a href="/" class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center text-white font-bold text-lg">⚡</div>
+                <span class="text-xl font-extrabold text-navy-900">FitPulse</span>
+            </a>
+            <div class="text-sm">
+                ¿Ya tienes cuenta? <a href="/login" class="text-brand-600 font-bold hover:underline">Iniciar Sesión</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- FORMULARIO DE REGISTRO -->
+    <main class="py-12 px-4 sm:px-6 lg:px-8 max-w-xl mx-auto w-full">
+        <div class="bg-white p-8 sm:p-10 rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50">
+            <div class="text-center mb-8">
+                <span class="text-xs font-bold text-brand-600 uppercase tracking-widest">Empieza a ganar hoy</span>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-navy-900 mt-2">Crea la cuenta de tu Gimnasio</h1>
+                <p class="text-slate-500 text-sm mt-1">Configuración en 2 minutos sin complicaciones.</p>
+            </div>
+
+            <form action="/registro" method="POST" class="space-y-5">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Nombre del Gimnasio o Estudio</label>
+                    <input type="text" name="nombre_gym" required placeholder="Ej. Titan Fitness Club" value="Titan Fitness Center" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-600 focus:border-brand-600 outline-none text-sm transition">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Nombre del Administrador</label>
+                        <input type="text" name="nombre_dueno" required placeholder="Tu nombre" value="Carlos Mendoza" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-600 focus:border-brand-600 outline-none text-sm transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Número de Sucursales</label>
+                        <input type="number" name="num_sucursales" min="1" max="50" value="2" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-600 focus:border-brand-600 outline-none text-sm transition">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Correo Electrónico de Contacto</label>
+                    <input type="email" name="email" required placeholder="contacto@tugym.com" value="gerencia@titanfit.com" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-600 focus:border-brand-600 outline-none text-sm transition">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Contraseña</label>
+                    <input type="password" name="password" required value="fitpulse123" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-600 focus:border-brand-600 outline-none text-sm transition">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Selecciona tu Plan (Multi-Sucursal)</label>
+                    <div class="grid grid-cols-3 gap-2">
+                        <label class="border rounded-xl p-3 text-center cursor-pointer hover:border-brand-500 transition block {% if plan_seleccionado == 'basico' %}border-brand-600 bg-brand-50/50 font-bold{% endif %}">
+                            <input type="radio" name="plan_elegido" value="basico" class="sr-only" {% if plan_seleccionado == 'basico' %}checked{% endif %}>
+                            <div class="text-xs font-bold text-navy-900">Básico</div>
+                            <div class="text-xs text-brand-700 font-extrabold mt-0.5">$499</div>
+                            <div class="text-[10px] text-slate-500">Hasta 2 sedes</div>
+                        </label>
+                        <label class="border rounded-xl p-3 text-center cursor-pointer hover:border-brand-500 transition block {% if plan_seleccionado == 'pro' or not plan_seleccionado %}border-brand-600 bg-brand-50/50 font-bold{% endif %}">
+                            <input type="radio" name="plan_elegido" value="pro" class="sr-only" {% if plan_seleccionado == 'pro' or not plan_seleccionado %}checked{% endif %}>
+                            <div class="text-xs font-bold text-navy-900">Pro ⭐</div>
+                            <div class="text-xs text-brand-700 font-extrabold mt-0.5">$899</div>
+                            <div class="text-[10px] text-slate-500">Hasta 5 sedes</div>
+                        </label>
+                        <label class="border rounded-xl p-3 text-center cursor-pointer hover:border-brand-500 transition block {% if plan_seleccionado == 'premium' %}border-brand-600 bg-brand-50/50 font-bold{% endif %}">
+                            <input type="radio" name="plan_elegido" value="premium" class="sr-only" {% if plan_seleccionado == 'premium' %}checked{% endif %}>
+                            <div class="text-xs font-bold text-navy-900">Premium</div>
+                            <div class="text-xs text-brand-700 font-extrabold mt-0.5">$1,499</div>
+                            <div class="text-[10px] text-slate-500">Ilimitadas</div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Aviso de Pasarela Mercado Pago -->
+                <div class="p-3.5 rounded-xl bg-slate-100 border border-slate-200 text-xs text-slate-600 flex items-start gap-3">
+                    <span class="text-lg">💳</span>
+                    <div>
+                        <strong class="text-slate-800">Pasarela Mercado Pago (En integración):</strong><br>
+                        Durante este periodo de prueba, tu acceso comienza sin cobro inmediato. Podrás probar todo el panel de analítica hoy mismo.
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-4 px-4 bg-brand-600 hover:bg-brand-700 text-white font-bold text-sm rounded-xl shadow-lg shadow-brand-600/25 transition">
+                    Activar Cuenta y Entrar al Dashboard →
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <!-- FOOTER SIMPLE -->
+    <footer class="py-6 text-center text-xs text-slate-400 border-t border-slate-200">
+        FitPulse Analytics · Dylan Espinosa (+52 312 190 0195) · espinosadylan616@gmail.com
+    </footer>
+
+</body>
+</html>
