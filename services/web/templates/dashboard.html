@@ -23,332 +23,395 @@
         }
     </script>
     <style>
-        .tab-btn.active {
-            border-bottom: 2px solid #16a34a;
+        .nav-item.active {
+            background-color: #f0fdf4;
             color: #16a34a;
             font-weight: 700;
+            border-right: 3px solid #16a34a;
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased font-sans min-h-screen">
+<body class="bg-slate-50 text-slate-800 antialiased font-sans min-h-screen flex flex-col md:flex-row">
 
-    <!-- CABECERA SUPERIOR / NAVBAR -->
-    <header class="bg-white border-b border-slate-200 sticky top-0 z-40">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!-- Marca y Logo del Gimnasio -->
-                <div class="flex items-center gap-4">
-                    <div id="gymLogoContainer" class="flex items-center gap-2">
+    <!-- BARRA LATERAL IZQUIERDA (SIDEBAR DE NAVEGACION) -->
+    <aside class="w-full md:w-64 bg-white border-r border-slate-200 flex flex-col justify-between md:h-screen md:sticky md:top-0 z-30">
+        <div>
+            <!-- Cabecera de Marca y Logo -->
+            <div class="p-6 border-b border-slate-200">
+                <div class="flex items-center gap-3 mb-3">
+                    <div id="gymLogoContainer" class="flex items-center">
                         {% if session.logo_url %}
-                        <img id="gymLogoImg" src="{{ session.logo_url }}" alt="Logo Gym" class="h-10 max-w-[120px] object-contain rounded">
+                        <img id="gymLogoImg" src="{{ session.logo_url }}" alt="Logo Gym" class="h-10 max-w-[100px] object-contain rounded">
                         {% else %}
                         <div id="gymLogoFallback" class="w-10 h-10 rounded-xl bg-navy-900 text-white flex items-center justify-center font-bold text-sm shadow-sm">
                             FP
                         </div>
                         {% endif %}
                     </div>
-                    <div>
-                        <div class="flex items-center gap-2">
-                            <span id="nombreGymDisplay" class="font-extrabold text-navy-900 text-base">{{ session.nombre_gym }}</span>
-                            <button onclick="document.getElementById('modalSubirLogo').classList.remove('hidden')" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-600 px-2 py-0.5 rounded transition flex items-center gap-1">
-                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                                <span>Cambiar Logo</span>
-                            </button>
-                        </div>
-                        <span class="text-xs text-slate-500 block">FitPulse Analytics · Multi-Sucursal Activo</span>
+                    <div class="overflow-hidden">
+                        <span id="nombreGymDisplay" class="font-extrabold text-navy-900 text-sm block truncate">{{ session.nombre_gym }}</span>
+                        <span class="text-[10px] text-slate-400 block tracking-wider uppercase font-semibold">FitPulse Cloud</span>
                     </div>
                 </div>
 
-                <!-- Selector de Sucursal y Plan -->
-                <div class="flex items-center gap-3">
-                    <!-- Selector de Sede -->
-                    <div class="flex items-center gap-2 bg-slate-100 px-3 py-1.5 rounded-xl border border-slate-200">
-                        <span class="text-xs font-bold text-slate-500 uppercase">Sede:</span>
-                        <select id="selectorSucursal" onchange="cambiarSucursal(this.value)" class="bg-transparent text-xs font-bold text-navy-900 outline-none cursor-pointer">
-                            {% for s in sucursales %}
-                            <option value="{{ s }}">{{ s }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
+                <button onclick="document.getElementById('modalSubirLogo').classList.remove('hidden')" class="w-full text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 py-1.5 px-3 rounded-lg transition flex items-center justify-center gap-1.5">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    <span>Cambiar Logo</span>
+                </button>
+            </div>
 
-                    <!-- Insignia del Plan -->
-                    <span class="hidden sm:inline-block text-xs font-bold px-3 py-1.5 rounded-xl bg-brand-50 text-brand-700 border border-brand-200">
-                        Plan {{ session.plan_activo }}
-                    </span>
-
-                    <a href="/logout" title="Cerrar Sesion" class="text-xs font-semibold text-slate-500 hover:text-red-600 px-2 py-1 transition">
-                        Salir
-                    </a>
+            <!-- Selector de Sucursal en Sidebar -->
+            <div class="px-6 py-4 border-b border-slate-100 bg-slate-50/50">
+                <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">Sede Activa</label>
+                <div class="relative">
+                    <select id="selectorSucursal" onchange="cambiarSucursal(this.value)" class="w-full bg-white text-xs font-bold text-navy-900 border border-slate-200 rounded-lg px-2.5 py-2 outline-none cursor-pointer focus:border-brand-600 transition">
+                        {% for s in sucursales %}
+                        <option value="{{ s }}">{{ s }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
             </div>
-        </div>
-    </header>
 
-    <!-- CONTENIDO PRINCIPAL -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-
-        <!-- 4 KPIS OFICIALES (E1) -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <!-- KPI 1 -->
-            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                <div class="text-xs font-bold text-slate-500 uppercase tracking-wider">Check-ins en Periodo</div>
-                <div id="kpiAccesos" class="text-2xl font-extrabold text-navy-900 mt-1">Cargando...</div>
-                <div id="kpiPromedio" class="text-xs font-semibold text-brand-600 mt-1.5">~0 accesos/dia</div>
-            </div>
-
-            <!-- KPI 2 -->
-            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                <div class="text-xs font-bold text-slate-500 uppercase tracking-wider">Cuota Promedio (Ticket)</div>
-                <div id="kpiTicket" class="text-2xl font-extrabold text-navy-900 mt-1">Cargando...</div>
-                <div id="kpiSocios" class="text-xs font-semibold text-slate-500 mt-1.5">0 socios activos</div>
-            </div>
-
-            <!-- KPI 3 -->
-            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                <div class="text-xs font-bold text-slate-500 uppercase tracking-wider">Plan Mas Contratado</div>
-                <div id="kpiPlan" class="text-2xl font-extrabold text-navy-900 mt-1">General</div>
-                <div class="text-xs font-semibold text-slate-500 mt-1.5">Mayor margen operativo</div>
-            </div>
-
-            <!-- KPI 4 -->
-            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                <div class="text-xs font-bold text-slate-500 uppercase tracking-wider">Variacion Semana vs Semana</div>
-                <div id="kpiVariacion" class="text-2xl font-extrabold text-navy-900 mt-1">0.0%</div>
-                <div id="kpiVariacionDetalle" class="text-xs font-semibold text-brand-600 mt-1.5">Comparativa 7 dias</div>
-            </div>
-        </div>
-
-        <!-- NAVEGACION POR PESTAÑAS -->
-        <div class="border-b border-slate-200">
-            <nav class="flex space-x-8 text-sm font-semibold text-slate-500">
-                <button onclick="cambiarTab('analitica')" id="tabBtnAnalitica" class="tab-btn active pb-4 transition">
-                    6 Visualizaciones Oficiales (E1)
+            <!-- Menú de Navegación Vertical -->
+            <nav class="p-4 space-y-1 text-xs font-semibold text-slate-600">
+                <button onclick="cambiarSeccion('analitica')" id="navBtnAnalitica" class="nav-item active w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-100 transition text-left">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                    <span>Metricas y Graficas (E1)</span>
                 </button>
-                <button onclick="cambiarTab('churn')" id="tabBtnChurn" class="tab-btn pb-4 transition">
-                    Radar Anti-Churn (Socios en Riesgo)
+
+                <button onclick="cambiarSeccion('churn')" id="navBtnChurn" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-100 transition text-left">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                    <span>Radar Anti-Churn</span>
                 </button>
-                <button onclick="cambiarTab('limpieza')" id="tabBtnLimpieza" class="tab-btn pb-4 transition">
-                    Auditoria y Limpieza (5 Errores)
+
+                <button onclick="cambiarSeccion('subircsv')" id="navBtnSubirCsv" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-100 transition text-left">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                    <span>Subir Archivo CSV</span>
                 </button>
-                <button onclick="cambiarTab('exportar')" id="tabBtnExportar" class="tab-btn pb-4 transition">
-                    Descargar Reportes CSV
+
+                <button onclick="cambiarSeccion('limpieza')" id="navBtnLimpieza" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-100 transition text-left">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+                    <span>Calidad y Limpieza (5 Errores)</span>
+                </button>
+
+                <button onclick="cambiarSeccion('exportar')" id="navBtnExportar" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-100 transition text-left">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    <span>Exportar Reportes</span>
                 </button>
             </nav>
         </div>
 
-        <!-- ========================================== -->
-        <!-- PESTAÑA 1: 6 VISUALIZACIONES OFICIALES (E1) -->
-        <!-- ========================================== -->
-        <section id="panelAnalitica" class="space-y-6">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <!-- Grafica 1: Tendencia diaria -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                    <h3 class="font-bold text-navy-900 text-sm mb-1">
-                        1. Tendencia: ¿Como evoluciona la afluencia diaria y cuando ocurren los picos?
-                    </h3>
-                    <p class="text-xs text-slate-500 mb-4">Lineas de accesos diarios y media movil calculada a 7 dias.</p>
-                    <div class="h-64">
-                        <canvas id="chartTendencia"></canvas>
-                    </div>
-                </div>
-
-                <!-- Grafica 2: Histograma con Regla de Sturges -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                    <h3 class="font-bold text-navy-900 text-sm mb-1">
-                        2. Distribucion (Regla de Sturges): ¿Cuanto tiempo entrenan los socios?
-                    </h3>
-                    <p id="sturgesSubtitle" class="text-xs text-slate-500 mb-4">Numero de intervalos calculados con formula k = 1 + log2(N).</p>
-                    <div class="h-64">
-                        <canvas id="chartHistograma"></canvas>
-                    </div>
-                </div>
-
-                <!-- Grafica 3: Mapa de Calor (Dia vs Hora) -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                    <h3 class="font-bold text-navy-900 text-sm mb-1">
-                        3. Mapa de Calor: Los lunes y martes entre 18:00 y 20:00 se concentra el 38% del trafico
-                    </h3>
-                    <p class="text-xs text-slate-500 mb-4">Distribucion cruzada de asistencias por dia de la semana y hora del dia.</p>
-                    <div class="overflow-x-auto">
-                        <div id="heatmapContainer" class="text-xs space-y-1">Cargando matriz...</div>
-                    </div>
-                </div>
-
-                <!-- Grafica 4: Dispersion -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                    <h3 class="font-bold text-navy-900 text-sm mb-1">
-                        4. Dispersion: Socios con mas de 7 dias ausentes entrenan 25% menos tiempo
-                    </h3>
-                    <p class="text-xs text-slate-500 mb-4">Relacion entre dias sin asistir previos y duracion de la sesion.</p>
-                    <div class="h-64">
-                        <canvas id="chartDispersion"></canvas>
-                    </div>
-                </div>
-
-                <!-- Grafica 5: Analisis Espectral FFT -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                    <h3 class="font-bold text-navy-900 text-sm mb-1">
-                        5. Analisis Espectral (FFT): Ciclos dominantes de 7 dias (semana) y 15 dias (quincena)
-                    </h3>
-                    <p class="text-xs text-slate-500 mb-4">Periodograma de densidad espectral obtenido mediante Fourier.</p>
-                    <div class="h-64">
-                        <canvas id="chartFFT"></canvas>
-                    </div>
-                </div>
-
-                <!-- Grafica 6: Composicion de Planes -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                    <h3 class="font-bold text-navy-900 text-sm mb-1">
-                        6. Composicion: El plan General aporta la mayor recaudacion neta
-                    </h3>
-                    <p class="text-xs text-slate-500 mb-4">Volumen de accesos por categoria de suscripcion.</p>
-                    <div class="h-64">
-                        <canvas id="chartPlanes"></canvas>
-                    </div>
-                </div>
+        <!-- Pie de Barra Lateral -->
+        <div class="p-4 border-t border-slate-200 bg-slate-50">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-bold uppercase text-slate-500">Suscripcion</span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-brand-100 text-brand-700">Plan {{ session.plan_activo }}</span>
             </div>
+            <div class="text-[11px] text-slate-500 truncate mb-3">{{ session.email }}</div>
+            <a href="/logout" class="block text-center w-full py-1.5 px-3 bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 rounded-lg text-xs font-semibold transition">
+                Cerrar Sesion
+            </a>
+        </div>
+    </aside>
 
-            <!-- 3 RECOMENDACIONES DE NEGOCIO OBLIGATORIAS -->
-            <div class="mt-8 bg-slate-100 p-6 rounded-2xl border border-slate-200">
-                <h3 class="text-base font-extrabold text-navy-900 mb-4">Recomendaciones Operativas para la Gerencia</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="bg-white p-4 rounded-xl border-l-4 border-brand-600 shadow-sm">
-                        <strong class="text-sm font-bold text-navy-900 block mb-1">1. Optimizacion de Instructores</strong>
-                        <p class="text-xs text-slate-600 leading-relaxed">
-                            El 40% del flujo semanal se concentra entre 18:00 y 21:00 los dias lunes y martes. Asignar 2 entrenadores de apoyo en ese bloque y recortar personal en turnos de viernes por la noche.
-                        </p>
-                    </div>
-                    <div class="bg-white p-4 rounded-xl border-l-4 border-brand-600 shadow-sm">
-                        <strong class="text-sm font-bold text-navy-900 block mb-1">2. Campaña de Cobro en Quincena</strong>
-                        <p class="text-xs text-slate-600 leading-relaxed">
-                            La FFT identifico un pico de liquidez cada 15 dias. Programar avisos amigables de pago por WhatsApp los dias 14 y 29 de cada mes incrementa la tasa de renovacion voluntaria un 28%.
-                        </p>
-                    </div>
-                    <div class="bg-white p-4 rounded-xl border-l-4 border-brand-600 shadow-sm">
-                        <strong class="text-sm font-bold text-navy-900 block mb-1">3. Protocolo de Rescate al 5º Dia</strong>
-                        <p class="text-xs text-slate-600 leading-relaxed">
-                            Los socios con 5 o mas dias sin registrar huella caen en zona de riesgo critico. Un mensaje de seguimiento de su coach en ese momento revierte la desercion en 6 de cada 10 casos.
-                        </p>
-                    </div>
-                </div>
+    <!-- AREA DE CONTENIDO PRINCIPAL -->
+    <div class="flex-1 flex flex-col min-w-0 overflow-y-auto">
+
+        <!-- Barra Superior Auxiliar -->
+        <header class="bg-white border-b border-slate-200 px-6 py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+            <div>
+                <h1 id="tituloSeccion" class="text-lg font-extrabold text-navy-900">Metricas y Visualizaciones de Negocio</h1>
+                <p id="subtituloSeccion" class="text-xs text-slate-500">Monitoreo y pronostico de la afluencia en tiempo real.</p>
             </div>
-        </section>
-
-        <!-- ========================================== -->
-        <!-- PESTAÑA 2: RADAR ANTI-CHURN (SOCIOS EN RIESGO) -->
-        <!-- ========================================== -->
-        <section id="panelChurn" class="space-y-6 hidden">
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div class="bg-red-50 p-5 rounded-2xl border border-red-200">
-                    <div class="text-xs font-bold text-red-700 uppercase">Riesgo Critico (Inminente)</div>
-                    <div id="churnCriticos" class="text-2xl font-extrabold text-red-900 mt-1">0 socios</div>
-                    <div class="text-xs text-red-600 mt-1">Mas de 8 dias sin asistir</div>
-                </div>
-                <div class="bg-yellow-50 p-5 rounded-2xl border border-yellow-200">
-                    <div class="text-xs font-bold text-yellow-700 uppercase">Riesgo Moderado (Intermitente)</div>
-                    <div id="churnModerados" class="text-2xl font-extrabold text-yellow-900 mt-1">0 socios</div>
-                    <div class="text-xs text-yellow-600 mt-1">Entre 4 y 7 dias ausentes</div>
-                </div>
-                <div class="bg-green-50 p-5 rounded-2xl border border-green-200">
-                    <div class="text-xs font-bold text-green-700 uppercase">Asistencia Regular</div>
-                    <div id="churnBajos" class="text-2xl font-extrabold text-green-900 mt-1">0 socios</div>
-                    <div class="text-xs text-green-600 mt-1">Frecuencia saludable</div>
-                </div>
-            </div>
-
-            <!-- Tabla de Socios en Riesgo -->
-            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="font-bold text-navy-900 text-sm">Listado Prioritario de Socios en Riesgo</h3>
-                    <a href="/api/exportar-csv" class="text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg transition">
-                        Exportar a Excel (CSV)
-                    </a>
-                </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-xs text-slate-600">
-                        <thead class="bg-slate-50 text-slate-700 uppercase tracking-wider border-b border-slate-200">
-                            <tr>
-                                <th class="p-3">ID Socio</th>
-                                <th class="p-3">Sede</th>
-                                <th class="p-3">Plan</th>
-                                <th class="p-3">Cuota Mensual</th>
-                                <th class="p-3">Dias Sin Asistir</th>
-                                <th class="p-3">Riesgo Calculado</th>
-                                <th class="p-3 text-center">Accion Inmediata</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tablaSociosBody" class="divide-y divide-slate-100">
-                            <tr><td colspan="7" class="p-4 text-center">Cargando socios...</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <!-- ========================================== -->
-        <!-- PESTAÑA 3: AUDITORIA Y LIMPIEZA DE DATOS -->
-        <!-- ========================================== -->
-        <section id="panelLimpieza" class="space-y-6 hidden">
-            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                <h3 class="font-bold text-navy-900 text-base mb-1">Modulo de Limpieza y Calidad de Datos (Worker E1/E2)</h3>
-                <p class="text-xs text-slate-500 mb-6">
-                    Audita y corrige en vivo los <strong>5 tipos de error obligatorios</strong> de la Unidad 1 de Analitica de Datos.
-                </p>
-
-                <button onclick="ejecutarLimpiezaEnVivo()" id="btnLimpieza" class="px-5 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-2">
-                    <span>Ejecutar Pipeline de Limpieza en Vivo</span>
-                </button>
-
-                <!-- Resultados de limpieza -->
-                <div id="resultadoLimpieza" class="mt-6 hidden space-y-4">
-                    <div class="p-4 bg-brand-50 border border-brand-200 rounded-xl text-brand-900 text-xs">
-                        <strong>Auditoria finalizada con exito.</strong> Se procesaron <span id="repInicial" class="font-bold">0</span> registros y se corrigieron todas las anomalias:
-                    </div>
-                    <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
-                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center">
-                            <div class="text-[10px] text-slate-500 uppercase font-bold">1. Duplicados</div>
-                            <div id="repDups" class="text-xl font-extrabold text-navy-900 mt-1">0</div>
-                            <div class="text-[10px] text-slate-500">Eliminados</div>
-                        </div>
-                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center">
-                            <div class="text-[10px] text-slate-500 uppercase font-bold">2. Faltantes (NaN)</div>
-                            <div id="repFaltantes" class="text-xl font-extrabold text-navy-900 mt-1">0</div>
-                            <div class="text-[10px] text-slate-500">Imputados</div>
-                        </div>
-                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center">
-                            <div class="text-[10px] text-slate-500 uppercase font-bold">3. Errores Logicos</div>
-                            <div id="repLogicos" class="text-xl font-extrabold text-navy-900 mt-1">0</div>
-                            <div class="text-[10px] text-slate-500">Corregidos</div>
-                        </div>
-                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center">
-                            <div class="text-[10px] text-slate-500 uppercase font-bold">4. Outliers (>240m)</div>
-                            <div id="repAtipicos" class="text-xl font-extrabold text-navy-900 mt-1">0</div>
-                            <div class="text-[10px] text-slate-500">Normalizados</div>
-                        </div>
-                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center">
-                            <div class="text-[10px] text-slate-500 uppercase font-bold">5. Formatos Texto</div>
-                            <div id="repFormatos" class="text-xl font-extrabold text-navy-900 mt-1">0</div>
-                            <div class="text-[10px] text-slate-500">Estandarizados</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ========================================== -->
-        <!-- PESTAÑA 4: EXPORTACION DE REPORTES -->
-        <!-- ========================================== -->
-        <section id="panelExportar" class="space-y-6 hidden">
-            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm max-w-xl">
-                <h3 class="font-bold text-navy-900 text-base mb-2">Exportar Base de Datos y Reportes Gerenciales</h3>
-                <p class="text-xs text-slate-500 mb-6">Descarga los datos depurados para analisis en Excel o respaldo institucional.</p>
-                <a href="/api/exportar-csv" class="inline-flex items-center gap-2 px-6 py-3 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl shadow-md transition">
-                    <span>Descargar Listado de Socios y Probabilidad de Churn (.CSV)</span>
+            <div class="flex items-center gap-2">
+                <span id="badgeDataset" class="text-xs font-semibold px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 border border-slate-200">
+                    Dataset: Muestra (65,050 reg)
+                </span>
+                <a href="/" class="text-xs font-semibold text-slate-600 hover:text-brand-600 px-2 py-1 transition">
+                    Inicio
                 </a>
             </div>
-        </section>
+        </header>
 
-    </main>
+        <main class="p-6 md:p-8 space-y-8 max-w-7xl">
+
+            <!-- ========================================== -->
+            <!-- SECCION 1: METRICAS Y 6 GRAFICAS (E1)      -->
+            <!-- ========================================== -->
+            <section id="panelAnalitica" class="space-y-6">
+                <!-- 4 KPIS OFICIALES -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                        <div class="text-xs font-bold text-slate-500 uppercase tracking-wider">Check-ins en Periodo</div>
+                        <div id="kpiAccesos" class="text-2xl font-extrabold text-navy-900 mt-1">Cargando...</div>
+                        <div id="kpiPromedio" class="text-xs font-semibold text-brand-600 mt-1.5">~0 accesos/dia</div>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                        <div class="text-xs font-bold text-slate-500 uppercase tracking-wider">Cuota Promedio (Ticket)</div>
+                        <div id="kpiTicket" class="text-2xl font-extrabold text-navy-900 mt-1">Cargando...</div>
+                        <div id="kpiSocios" class="text-xs font-semibold text-slate-500 mt-1.5">0 socios activos</div>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                        <div class="text-xs font-bold text-slate-500 uppercase tracking-wider">Plan Mas Contratado</div>
+                        <div id="kpiPlan" class="text-2xl font-extrabold text-navy-900 mt-1">General</div>
+                        <div class="text-xs font-semibold text-slate-500 mt-1.5">Mayor margen operativo</div>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                        <div class="text-xs font-bold text-slate-500 uppercase tracking-wider">Variacion Semana vs Semana</div>
+                        <div id="kpiVariacion" class="text-2xl font-extrabold text-navy-900 mt-1">0.0%</div>
+                        <div id="kpiVariacionDetalle" class="text-xs font-semibold text-brand-600 mt-1.5">Comparativa 7 dias</div>
+                    </div>
+                </div>
+
+                <!-- 6 GRAFICAS EN GRID -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <h3 class="font-bold text-navy-900 text-sm mb-1">
+                            1. Tendencia: ¿Como evoluciona la afluencia diaria y cuando ocurren los picos?
+                        </h3>
+                        <p class="text-xs text-slate-500 mb-4">Lineas de accesos diarios y media movil calculada a 7 dias.</p>
+                        <div class="h-64"><canvas id="chartTendencia"></canvas></div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <h3 class="font-bold text-navy-900 text-sm mb-1">
+                            2. Distribucion (Regla de Sturges): ¿Cuanto tiempo entrenan los socios?
+                        </h3>
+                        <p id="sturgesSubtitle" class="text-xs text-slate-500 mb-4">Numero de intervalos calculados con formula k = 1 + log2(N).</p>
+                        <div class="h-64"><canvas id="chartHistograma"></canvas></div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <h3 class="font-bold text-navy-900 text-sm mb-1">
+                            3. Mapa de Calor: Los lunes y martes entre 18:00 y 20:00 se concentra el 38% del trafico
+                        </h3>
+                        <p class="text-xs text-slate-500 mb-4">Distribucion cruzada de asistencias por dia de la semana y hora del dia.</p>
+                        <div class="overflow-x-auto"><div id="heatmapContainer" class="text-xs space-y-1">Cargando matriz...</div></div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <h3 class="font-bold text-navy-900 text-sm mb-1">
+                            4. Dispersion: Socios con mas de 7 dias ausentes entrenan 25% menos tiempo
+                        </h3>
+                        <p class="text-xs text-slate-500 mb-4">Relacion entre dias sin asistir previos y duracion de la sesion.</p>
+                        <div class="h-64"><canvas id="chartDispersion"></canvas></div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <h3 class="font-bold text-navy-900 text-sm mb-1">
+                            5. Analisis Espectral (FFT): Ciclos dominantes de 7 dias (semana) y 15 dias (quincena)
+                        </h3>
+                        <p class="text-xs text-slate-500 mb-4">Periodograma de densidad espectral obtenido mediante Fourier.</p>
+                        <div class="h-64"><canvas id="chartFFT"></canvas></div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <h3 class="font-bold text-navy-900 text-sm mb-1">
+                            6. Composicion: El plan General aporta la mayor recaudacion neta
+                        </h3>
+                        <p class="text-xs text-slate-500 mb-4">Volumen de accesos por categoria de suscripcion.</p>
+                        <div class="h-64"><canvas id="chartPlanes"></canvas></div>
+                    </div>
+                </div>
+
+                <!-- 3 RECOMENDACIONES DE NEGOCIO OBLIGATORIAS -->
+                <div class="bg-slate-100 p-6 rounded-2xl border border-slate-200">
+                    <h3 class="text-base font-extrabold text-navy-900 mb-4">Recomendaciones Operativas para la Gerencia</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-white p-4 rounded-xl border-l-4 border-brand-600 shadow-sm">
+                            <strong class="text-sm font-bold text-navy-900 block mb-1">1. Optimizacion de Instructores</strong>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                El 40% del flujo semanal se concentra entre 18:00 y 21:00 los dias lunes y martes. Asignar 2 entrenadores de apoyo en ese bloque y recortar personal en turnos de viernes por la noche.
+                            </p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border-l-4 border-brand-600 shadow-sm">
+                            <strong class="text-sm font-bold text-navy-900 block mb-1">2. Campaña de Cobro en Quincena</strong>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                La FFT identifico un pico de liquidez cada 15 dias. Programar avisos amigables de pago por WhatsApp los dias 14 y 29 de cada mes incrementa la tasa de renovacion voluntaria un 28%.
+                            </p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border-l-4 border-brand-600 shadow-sm">
+                            <strong class="text-sm font-bold text-navy-900 block mb-1">3. Protocolo de Rescate al 5º Dia</strong>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Los socios con 5 o mas dias sin registrar huella caen en zona de riesgo critico. Un mensaje de seguimiento de su coach en ese momento revierte la desercion en 6 de cada 10 casos.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- SECCION 2: RADAR ANTI-CHURN (DESERCION)    -->
+            <!-- ========================================== -->
+            <section id="panelChurn" class="space-y-6 hidden">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="bg-red-50 p-5 rounded-2xl border border-red-200">
+                        <div class="text-xs font-bold text-red-700 uppercase">Riesgo Critico (Inminente)</div>
+                        <div id="churnCriticos" class="text-2xl font-extrabold text-red-900 mt-1">0 socios</div>
+                        <div class="text-xs text-red-600 mt-1">Mas de 8 dias sin asistir</div>
+                    </div>
+                    <div class="bg-yellow-50 p-5 rounded-2xl border border-yellow-200">
+                        <div class="text-xs font-bold text-yellow-700 uppercase">Riesgo Moderado (Intermitente)</div>
+                        <div id="churnModerados" class="text-2xl font-extrabold text-yellow-900 mt-1">0 socios</div>
+                        <div class="text-xs text-yellow-600 mt-1">Entre 4 y 7 dias ausentes</div>
+                    </div>
+                    <div class="bg-green-50 p-5 rounded-2xl border border-green-200">
+                        <div class="text-xs font-bold text-green-700 uppercase">Asistencia Regular</div>
+                        <div id="churnBajos" class="text-2xl font-extrabold text-green-900 mt-1">0 socios</div>
+                        <div class="text-xs text-green-600 mt-1">Frecuencia saludable</div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-bold text-navy-900 text-sm">Listado Prioritario de Socios en Riesgo</h3>
+                        <a href="/api/exportar-csv" class="text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg transition">
+                            Exportar a Excel (CSV)
+                        </a>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs text-slate-600">
+                            <thead class="bg-slate-50 text-slate-700 uppercase tracking-wider border-b border-slate-200">
+                                <tr>
+                                    <th class="p-3">ID Socio</th>
+                                    <th class="p-3">Sede</th>
+                                    <th class="p-3">Plan</th>
+                                    <th class="p-3">Cuota Mensual</th>
+                                    <th class="p-3">Dias Sin Asistir</th>
+                                    <th class="p-3">Riesgo Calculado</th>
+                                    <th class="p-3 text-center">Accion Inmediata</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablaSociosBody" class="divide-y divide-slate-100">
+                                <tr><td colspan="7" class="p-4 text-center">Cargando socios...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- SECCION 3: SUBIR ARCHIVO CSV PROPIO        -->
+            <!-- ========================================== -->
+            <section id="panelSubirCsv" class="space-y-6 hidden">
+                <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-sm">
+                    <div class="max-w-2xl">
+                        <h2 class="text-lg font-extrabold text-navy-900 mb-2">Carga tus Propios Datos de Gimnasio</h2>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-6">
+                            Sube el archivo CSV con las entradas de tu torniquete, huella digital o libreta de recepcion. FitPulse analizara las columnas, ejecutara el pipeline de limpieza y actualizara todas las metricas y graficas de tus sucursales al instante.
+                        </p>
+                    </div>
+
+                    <!-- Zona de arrastre / seleccion de archivo -->
+                    <div class="border-2 border-dashed border-slate-300 hover:border-brand-500 rounded-2xl p-8 text-center bg-slate-50/50 transition">
+                        <svg class="w-10 h-10 text-slate-400 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+                        
+                        <p class="text-xs font-bold text-slate-700 mb-1">Selecciona o arrastra tu archivo CSV aqui</p>
+                        <p class="text-[11px] text-slate-400 mb-4">Admite archivos .csv de Excel, sistemas de torniquetes o bases de datos</p>
+
+                        <input type="file" id="inputCsvUsuario" accept=".csv" class="text-xs text-slate-500 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-brand-50 file:text-brand-700 hover:file:bg-brand-100 cursor-pointer">
+                    </div>
+
+                    <div class="mt-6 flex flex-wrap gap-3">
+                        <button onclick="procesarCsvSubido()" id="btnProcesarCsv" class="px-6 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-2">
+                            <span>Procesar y Aplicar al Dashboard</span>
+                        </button>
+                        
+                        <button onclick="restablecerDatasetMuestra()" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs rounded-xl transition">
+                            Restablecer a Datos de Muestra (65,050 registros)
+                        </button>
+
+                        <a href="/api/exportar-csv" class="px-4 py-2.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-semibold text-xs rounded-xl transition">
+                            Descargar Plantilla de Ejemplo
+                        </a>
+                    </div>
+
+                    <!-- Mensaje de Resultado de Carga -->
+                    <div id="resultadoSubidaCsv" class="mt-6 hidden p-4 rounded-xl border text-xs"></div>
+
+                    <!-- Formato Sugerido -->
+                    <div class="mt-8 pt-6 border-t border-slate-200">
+                        <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Columnas Recomendadas:</h4>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px] text-slate-600 font-mono">
+                            <span class="p-2 bg-slate-100 rounded">fecha (AAAA-MM-DD)</span>
+                            <span class="p-2 bg-slate-100 rounded">sucursal (Texto)</span>
+                            <span class="p-2 bg-slate-100 rounded">id_socio (Ej. SOC-001)</span>
+                            <span class="p-2 bg-slate-100 rounded">plan_membresia</span>
+                        </div>
+                        <p class="text-[10px] text-slate-400 mt-2">
+                            * Si tu archivo no incluye alguna de estas columnas, el sistema autocompleta los datos faltantes con valores promedio calculados.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- SECCION 4: AUDITORIA Y LIMPIEZA            -->
+            <!-- ========================================== -->
+            <section id="panelLimpieza" class="space-y-6 hidden">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <h3 class="font-bold text-navy-900 text-base mb-1">Modulo de Limpieza y Calidad de Datos (Worker E1/E2)</h3>
+                    <p class="text-xs text-slate-500 mb-6">
+                        Audita y corrige en vivo los <strong>5 tipos de error obligatorios</strong> de la Unidad 1 de Analitica de Datos.
+                    </p>
+
+                    <button onclick="ejecutarLimpiezaEnVivo()" id="btnLimpieza" class="px-5 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-2">
+                        <span>Ejecutar Pipeline de Limpieza en Vivo</span>
+                    </button>
+
+                    <div id="resultadoLimpieza" class="mt-6 hidden space-y-4">
+                        <div class="p-4 bg-brand-50 border border-brand-200 rounded-xl text-brand-900 text-xs">
+                            <strong>Auditoria finalizada con exito.</strong> Se procesaron <span id="repInicial" class="font-bold">0</span> registros y se corrigieron todas las anomalias:
+                        </div>
+                        <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center">
+                                <div class="text-[10px] text-slate-500 uppercase font-bold">1. Duplicados</div>
+                                <div id="repDups" class="text-xl font-extrabold text-navy-900 mt-1">0</div>
+                                <div class="text-[10px] text-slate-500">Eliminados</div>
+                            </div>
+                            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center">
+                                <div class="text-[10px] text-slate-500 uppercase font-bold">2. Faltantes (NaN)</div>
+                                <div id="repFaltantes" class="text-xl font-extrabold text-navy-900 mt-1">0</div>
+                                <div class="text-[10px] text-slate-500">Imputados</div>
+                            </div>
+                            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center">
+                                <div class="text-[10px] text-slate-500 uppercase font-bold">3. Errores Logicos</div>
+                                <div id="repLogicos" class="text-xl font-extrabold text-navy-900 mt-1">0</div>
+                                <div class="text-[10px] text-slate-500">Corregidos</div>
+                            </div>
+                            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center">
+                                <div class="text-[10px] text-slate-500 uppercase font-bold">4. Outliers (>240m)</div>
+                                <div id="repAtipicos" class="text-xl font-extrabold text-navy-900 mt-1">0</div>
+                                <div class="text-[10px] text-slate-500">Normalizados</div>
+                            </div>
+                            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center">
+                                <div class="text-[10px] text-slate-500 uppercase font-bold">5. Formatos Texto</div>
+                                <div id="repFormatos" class="text-xl font-extrabold text-navy-900 mt-1">0</div>
+                                <div class="text-[10px] text-slate-500">Estandarizados</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- SECCION 5: EXPORTACION DE REPORTES         -->
+            <!-- ========================================== -->
+            <section id="panelExportar" class="space-y-6 hidden">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm max-w-xl">
+                    <h3 class="font-bold text-navy-900 text-base mb-2">Exportar Base de Datos y Reportes Gerenciales</h3>
+                    <p class="text-xs text-slate-500 mb-6">Descarga los datos depurados para analisis en Excel o respaldo institucional.</p>
+                    <a href="/api/exportar-csv" class="inline-flex items-center gap-2 px-6 py-3 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl shadow-md transition">
+                        <span>Descargar Listado de Socios y Probabilidad de Churn (.CSV)</span>
+                    </a>
+                </div>
+            </section>
+
+        </main>
+    </div>
 
     <!-- MODAL PARA SUBIR LOGO DEL GIMNASIO -->
     <div id="modalSubirLogo" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
@@ -357,7 +420,7 @@
                 <h3 class="font-extrabold text-navy-900 text-base">Personalizar Logotipo</h3>
                 <button onclick="document.getElementById('modalSubirLogo').classList.add('hidden')" class="text-slate-400 hover:text-slate-600 font-bold text-lg">✕</button>
             </div>
-            <p class="text-xs text-slate-500 mb-4">Sube la imagen oficial de tu gimnasio (.png o .jpg) para que aparezca en el encabezado.</p>
+            <p class="text-xs text-slate-500 mb-4">Sube la imagen oficial de tu gimnasio (.png o .jpg) para que aparezca en la barra lateral.</p>
             
             <input type="file" id="inputArchivoLogo" accept="image/png, image/jpeg" class="w-full text-xs text-slate-500 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-brand-50 file:text-brand-700 hover:file:bg-brand-100 cursor-pointer mb-4">
             
@@ -371,23 +434,112 @@
     <script>
         let chartsInstanciados = {};
 
-        // Cambiar entre pestañas
-        function cambiarTab(tab) {
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        // Cambiar entre secciones mediante la barra lateral
+        function cambiarSeccion(seccion) {
+            document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('main > section').forEach(s => s.classList.add('hidden'));
 
-            if (tab === 'analitica') {
-                document.getElementById('tabBtnAnalitica').classList.add('active');
+            const tit = document.getElementById('tituloSeccion');
+            const sub = document.getElementById('subtituloSeccion');
+
+            if (seccion === 'analitica') {
+                document.getElementById('navBtnAnalitica').classList.add('active');
                 document.getElementById('panelAnalitica').classList.remove('hidden');
-            } else if (tab === 'churn') {
-                document.getElementById('tabBtnChurn').classList.add('active');
+                tit.innerText = 'Metricas y Visualizaciones de Negocio';
+                sub.innerText = 'Monitoreo y pronostico de la afluencia en tiempo real.';
+            } else if (seccion === 'churn') {
+                document.getElementById('navBtnChurn').classList.add('active');
                 document.getElementById('panelChurn').classList.remove('hidden');
-            } else if (tab === 'limpieza') {
-                document.getElementById('tabBtnLimpieza').classList.add('active');
+                tit.innerText = 'Radar Anti-Churn (Socios en Riesgo)';
+                sub.innerText = 'Identificacion temprana de socios propensos a cancelar su membresia.';
+            } else if (seccion === 'subircsv') {
+                document.getElementById('navBtnSubirCsv').classList.add('active');
+                document.getElementById('panelSubirCsv').classList.remove('hidden');
+                tit.innerText = 'Carga de Archivo CSV Propio';
+                sub.innerText = 'Importa y procesa los registros de torniquete o asistencia de tu gimnasio.';
+            } else if (seccion === 'limpieza') {
+                document.getElementById('navBtnLimpieza').classList.add('active');
                 document.getElementById('panelLimpieza').classList.remove('hidden');
-            } else if (tab === 'exportar') {
-                document.getElementById('tabBtnExportar').classList.add('active');
+                tit.innerText = 'Modulo de Auditoria y Limpieza de Datos';
+                sub.innerText = 'Validacion automatizada de los 5 tipos de error de analitica.';
+            } else if (seccion === 'exportar') {
+                document.getElementById('navBtnExportar').classList.add('active');
                 document.getElementById('panelExportar').classList.remove('hidden');
+                tit.innerText = 'Exportacion de Reportes y Datos';
+                sub.innerText = 'Descarga en formato CSV compatible con Excel para direccion general.';
+            }
+        }
+
+        // Subir y Procesar CSV Propio
+        async function procesarCsvSubido() {
+            const input = document.getElementById('inputCsvUsuario');
+            if (!input.files || input.files.length === 0) {
+                alert('Por favor selecciona un archivo .csv primero.');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', input.files[0]);
+
+            const btn = document.getElementById('btnProcesarCsv');
+            const resDiv = document.getElementById('resultadoSubidaCsv');
+            btn.innerText = 'Procesando archivo...';
+            btn.disabled = true;
+
+            try {
+                const res = await fetch('/api/upload-csv', { method: 'POST', body: formData });
+                const data = await res.json();
+
+                if (res.ok && data.status === 'ok') {
+                    resDiv.className = 'mt-6 p-4 rounded-xl border bg-brand-50 border-brand-200 text-brand-900 text-xs block';
+                    resDiv.innerHTML = `
+                        <strong>Archivo ${data.nombre_archivo} procesado con exito.</strong><br>
+                        Se cargaron ${Number(data.registros).toLocaleString()} registros limpios al sistema.<br>
+                        Duplicados eliminados: ${data.reporte.duplicados_eliminados} | Faltantes corregidos: ${data.reporte.faltantes_corregidos}
+                    `;
+
+                    // Actualizar selector de sucursales si el CSV trajo nuevas
+                    const select = document.getElementById('selectorSucursal');
+                    select.innerHTML = '';
+                    data.sucursales.forEach(s => {
+                        const opt = document.createElement('option');
+                        opt.value = s;
+                        opt.innerText = s;
+                        select.appendChild(opt);
+                    });
+
+                    // Actualizar badge
+                    document.getElementById('badgeDataset').innerText = `Dataset: ${data.nombre_archivo} (${data.registros} reg)`;
+
+                    // Recargar analitica con los nuevos datos
+                    cambiarSucursal(select.value);
+                } else {
+                    resDiv.className = 'mt-6 p-4 rounded-xl border bg-red-50 border-red-200 text-red-900 text-xs block';
+                    resDiv.innerText = 'Error al procesar: ' + (data.detail || 'Formato no valido');
+                }
+            } catch (e) {
+                alert('Error de conexion: ' + e);
+            } finally {
+                btn.innerText = 'Procesar y Aplicar al Dashboard';
+                btn.disabled = false;
+            }
+        }
+
+        // Restablecer al dataset de muestra original
+        async function restablecerDatasetMuestra() {
+            if (!confirm('¿Deseas restablecer el tablero al conjunto de datos de muestra original?')) return;
+            try {
+                await fetch('/api/reset-data', { method: 'POST' });
+                document.getElementById('badgeDataset').innerText = 'Dataset: Muestra (65,050 reg)';
+                const resDiv = document.getElementById('resultadoSubidaCsv');
+                resDiv.className = 'mt-6 p-4 rounded-xl border bg-slate-100 border-slate-200 text-slate-700 text-xs block';
+                resDiv.innerText = 'Datos restablecidos al conjunto de muestra original.';
+                
+                // Recargar
+                const select = document.getElementById('selectorSucursal');
+                cambiarSucursal(select.value);
+            } catch (e) {
+                alert('Error al restablecer: ' + e);
             }
         }
 
@@ -409,9 +561,8 @@
                 const res = await fetch('/api/upload-logo', { method: 'POST', body: formData });
                 const data = await res.json();
                 if (data.status === 'ok') {
-                    // Actualizar vista
                     const container = document.getElementById('gymLogoContainer');
-                    container.innerHTML = `<img id="gymLogoImg" src="${data.logo_url}" alt="Logo Gym" class="h-10 max-w-[120px] object-contain rounded">`;
+                    container.innerHTML = `<img id="gymLogoImg" src="${data.logo_url}" alt="Logo Gym" class="h-10 max-w-[100px] object-contain rounded">`;
                     document.getElementById('modalSubirLogo').classList.add('hidden');
                 } else {
                     alert('Error: ' + data.detail);

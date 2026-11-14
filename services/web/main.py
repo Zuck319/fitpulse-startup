@@ -34,6 +34,8 @@ app = FastAPI(
 app.mount("/static", StaticFiles(directory=os.path.join(BASE_DIR, "static")), name="static")
 templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
 
+CUSTOM_DATA_PATH = os.path.join(UPLOADS_DIR, "custom_dataset.csv")
+
 # Estado en memoria simple para la sesión de demostración
 SESSION_STATE = {
     "usuario_autenticado": True,
@@ -42,13 +44,25 @@ SESSION_STATE = {
     "plan_activo": "Pro",
     "email": "espinosadylan616@gmail.com",
     "logo_url": None, # URL relativa si se sube logo
-    "sucursal_activa": "Todas las sucursales (Consolidado)"
+    "sucursal_activa": "Todas las sucursales (Consolidado)",
+    "custom_data_loaded": False,
+    "custom_data_name": None
 }
 
 # --------------------------------------------------------------------------
-# CARGA Y CACHÉ DE DATOS
+# CARGA Y CACHE DE DATOS
 # --------------------------------------------------------------------------
 def obtener_dataframe_limpio() -> pd.DataFrame:
+    # Si el usuario subió su propio CSV, usarlo con prioridad
+    if SESSION_STATE.get("custom_data_loaded") and os.path.exists(CUSTOM_DATA_PATH):
+        try:
+            df = pd.read_csv(CUSTOM_DATA_PATH)
+            if 'fecha' in df.columns:
+                df['fecha'] = pd.to_datetime(df['fecha'])
+            return df
+        except Exception:
+            pass
+
     if os.path.exists(DATA_PATH):
         df = pd.read_csv(DATA_PATH)
         df['fecha'] = pd.to_datetime(df['fecha'])
@@ -464,9 +478,66 @@ async def api_exportar_csv():
     stream = io.StringIO()
     resumen.to_csv(stream, index=False)
     
-    response = StreamingResponse(iter([stream.getvalue()]), media_type="text/csv")
-    response.headers["Content-Disposition"] = f"attachment; filename=fitpulse_socios_{datetime.now().strftime('%Y%m%d')}.csv"
-    return response
+@app.post("/api/upload-csv")
+async def api_upload_csv(file: UploadFile = File(...)):
+    """Permite al gimnasio subir su propio archivo CSV de accesos/asistencias."""
+    if not file.filename.lower().endswith(".csv"):
+        raise HTTPException(status_code=400, detail="El archivo debe tener extension .csv")
+        
+    try:
+        contenido = await file.read()
+        df_subido = pd.read_csv(io.BytesIO(contenido))
+        
+        # Validar y autocompletar columnas mínimas si faltan
+        if "fecha" not in df_subido.columns:
+            df_subido["fecha"] = pd.date_range(end=datetime.now(), periods=len(df_subido), freq="h").strftime("%Y-%m-%d")
+        if "id_socio" not in df_subido.columns:
+            df_subido["id_socio"] = [f"SOC-{i%150:04d}" for i in range(len(df_subido))]
+        if "plan_membresia" not in df_subido.columns:
+            df_subido["plan_membresia"] = "General"
+        if "monto_mensualidad" not in df_subido.columns:
+            df_subido["monto_mensualidad"] = 650.0
+        if "duracion_minutos" not in df_subido.columns:
+            df_subido["duracion_minutos"] = 60
+        if "dias_sin_asistir" not in df_subido.columns:
+            df_subido["dias_sin_asistir"] = 2
+        if "sucursal" not in df_subido.columns:
+            df_subido["sucursal"] = "Sucursal Principal"
+            
+        # Ejecutar limpieza automatica
+        from services.worker.limpieza import limpiar_datos_accesos
+        df_limpio, reporte = limpiar_datos_accesos(df_subido)
+        
+        # Guardar en archivo personalizado
+        df_limpio.to_csv(CUSTOM_DATA_PATH, index=False)
+        SESSION_STATE["custom_data_loaded"] = True
+        SESSION_STATE["custom_data_name"] = file.filename
+        
+        sucursales = ["Todas las sucursales (Consolidado)"] + sorted(df_limpio["sucursal"].dropna().unique().tolist())
+        
+        return {
+            "status": "ok",
+            "registros": len(df_limpio),
+            "nombre_archivo": file.filename,
+            "reporte": reporte,
+            "sucursales": sucursales
+        }
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Error al procesar el archivo CSV: {str(e)}")
+
+
+@app.post("/api/reset-data")
+async def api_reset_data():
+    """Restablece el dataset al conjunto de datos de muestra original."""
+    SESSION_STATE["custom_data_loaded"] = False
+    SESSION_STATE["custom_data_name"] = None
+    if os.path.exists(CUSTOM_DATA_PATH):
+        try:
+            os.remove(CUSTOM_DATA_PATH)
+        except Exception:
+            pass
+    return {"status": "ok", "mensaje": "Datos restablecidos al conjunto de muestra"}
+
 
 if __name__ == "__main__":
     import uvicorn
