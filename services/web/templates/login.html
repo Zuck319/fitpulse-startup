@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión · FitPulse Analytics</title>
+    <title>Iniciar Sesion · FitPulse Analytics</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
@@ -25,7 +25,7 @@
     <header class="bg-white border-b border-slate-200 py-4">
         <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
             <a href="/" class="flex items-center gap-2">
-                <div class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center text-white font-bold text-lg">⚡</div>
+                <div class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center text-white font-bold text-sm">FP</div>
                 <span class="text-xl font-extrabold text-navy-900">FitPulse</span>
             </a>
             <div class="text-sm">
@@ -37,16 +37,16 @@
     <main class="py-12 px-4 sm:px-6 lg:px-8 max-w-md mx-auto w-full">
         <div class="bg-white p-8 sm:p-10 rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50">
             <div class="text-center mb-8">
-                <div class="w-12 h-12 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-                    🔐
+                <div class="w-12 h-12 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center font-bold mx-auto mb-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                 </div>
                 <h1 class="text-2xl font-extrabold text-navy-900">Bienvenido de nuevo</h1>
-                <p class="text-slate-500 text-sm mt-1">Ingresa a tu panel de analítica y retención.</p>
+                <p class="text-slate-500 text-sm mt-1">Ingresa a tu panel de analitica y retencion.</p>
             </div>
 
             <form action="/login" method="POST" class="space-y-4">
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Correo Electrónico</label>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Correo Electronico</label>
                     <input type="email" name="email" required value="gerencia@titanfit.com" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-600 focus:border-brand-600 outline-none text-sm transition">
                 </div>
 
@@ -59,13 +59,13 @@
                 </div>
 
                 <button type="submit" class="w-full py-3.5 px-4 bg-brand-600 hover:bg-brand-700 text-white font-bold text-sm rounded-xl shadow-md shadow-brand-600/25 transition">
-                    Iniciar Sesión
+                    Iniciar Sesion
                 </button>
             </form>
 
             <div class="mt-6 pt-6 border-t border-slate-200 text-center">
                 <a href="/dashboard" class="inline-block w-full py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs rounded-xl transition">
-                    ⚡ Entrar directamente a Demo (Sin escribir contraseña)
+                    Acceder directamente a Demo (Sin escribir contraseña)
                 </a>
             </div>
         </div>
