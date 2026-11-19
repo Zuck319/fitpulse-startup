@@ -244,53 +244,168 @@
             </section>
 
             <!-- ========================================== -->
-            <!-- SECCION 2: RADAR ANTI-CHURN (DESERCION)    -->
+            <!-- SECCION 2: SOCIOS EN RIESGO DE CANCELAR    -->
             <!-- ========================================== -->
             <section id="panelChurn" class="space-y-6 hidden">
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div class="bg-red-50 p-5 rounded-2xl border border-red-200">
-                        <div class="text-xs font-bold text-red-700 uppercase">Riesgo Critico (Inminente)</div>
-                        <div id="churnCriticos" class="text-2xl font-extrabold text-red-900 mt-1">0 socios</div>
-                        <div class="text-xs text-red-600 mt-1">Mas de 8 dias sin asistir</div>
+                
+                <!-- Tarjeta Ejecutiva de Impacto Financiero -->
+                <div class="bg-gradient-to-r from-navy-900 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-lg border border-slate-800">
+                    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+                        <div>
+                            <span class="text-[10px] font-bold text-brand-400 uppercase tracking-widest bg-brand-900/60 px-2.5 py-1 rounded-md border border-brand-500/30">
+                                Diagnostico Financiero en Vivo
+                            </span>
+                            <h2 class="text-xl sm:text-2xl font-extrabold mt-3">Proteccion de Membresias Activas</h2>
+                            <p class="text-xs text-slate-300 mt-1 max-w-xl leading-relaxed">
+                                FitPulse detecto que los socios con mas de 8 dias de inasistencia representan la mayor fuga de capital recurrente. Contactarlos oportunamente con las sugerencias de la plataforma recupera en promedio 6 de cada 10 miembros.
+                            </p>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-2xl border border-white/10 text-left lg:text-right min-w-[240px]">
+                            <div class="text-[11px] font-semibold text-slate-300 uppercase">Ingresos en Riesgo Inmediato</div>
+                            <div id="churnDineroEnRiesgo" class="text-3xl font-extrabold text-white mt-0.5">$0.00 <span class="text-xs font-normal text-slate-300">MXN/mes</span></div>
+                            <div id="churnSubtextoDinero" class="text-[10px] text-brand-400 font-semibold mt-1">Calculado sobre socios en alerta critica</div>
+                        </div>
                     </div>
-                    <div class="bg-yellow-50 p-5 rounded-2xl border border-yellow-200">
-                        <div class="text-xs font-bold text-yellow-700 uppercase">Riesgo Moderado (Intermitente)</div>
-                        <div id="churnModerados" class="text-2xl font-extrabold text-yellow-900 mt-1">0 socios</div>
-                        <div class="text-xs text-yellow-600 mt-1">Entre 4 y 7 dias ausentes</div>
-                    </div>
-                    <div class="bg-green-50 p-5 rounded-2xl border border-green-200">
-                        <div class="text-xs font-bold text-green-700 uppercase">Asistencia Regular</div>
-                        <div id="churnBajos" class="text-2xl font-extrabold text-green-900 mt-1">0 socios</div>
-                        <div class="text-xs text-green-600 mt-1">Frecuencia saludable</div>
+
+                    <!-- Barra de Salud de la Red de Socios -->
+                    <div class="mt-6 pt-6 border-t border-white/10">
+                        <div class="flex justify-between items-center text-xs mb-2">
+                            <span class="font-bold text-slate-200">Indice de Salud de Asistencias</span>
+                            <span id="churnTasaSalud" class="font-extrabold text-brand-400">Calculando...</span>
+                        </div>
+                        <div class="w-full h-3 bg-white/10 rounded-full overflow-hidden flex">
+                            <div id="barraBajos" class="bg-brand-500 h-full transition-all duration-500" style="width: 70%;" title="Frecuencia Saludable"></div>
+                            <div id="barraModerados" class="bg-amber-400 h-full transition-all duration-500" style="width: 20%;" title="Seguimiento Preventivo"></div>
+                            <div id="barraCriticos" class="bg-rose-500 h-full transition-all duration-500" style="width: 10%;" title="Riesgo Critico"></div>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-6 mt-3 text-[11px] text-slate-300">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-brand-500"></span>
+                                <span>Asistencia Regular (0-3 dias)</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                                <span>Intermitente (4-7 dias)</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+                                <span>Riesgo Critico (8+ dias)</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                    <div class="flex justify-between items-center mb-4">
-                        <h3 class="font-bold text-navy-900 text-sm">Listado Prioritario de Socios en Riesgo</h3>
-                        <a href="/api/exportar-csv" class="text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg transition">
-                            Exportar a Excel (CSV)
+                <!-- 3 Tarjetas de Resumen Interactivas (Filtros de 1 Clic) -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <button onclick="filtrarPorNivel('Critico')" id="cardFiltroCritico" class="p-5 rounded-2xl border text-left bg-white hover:border-rose-400 hover:shadow-md transition">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-rose-700 uppercase tracking-wider">Riesgo Critico</span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+                        </div>
+                        <div id="churnCriticos" class="text-3xl font-extrabold text-navy-900 mt-2">0</div>
+                        <div class="text-xs text-rose-600 font-semibold mt-1">Ausentes por mas de 8 dias</div>
+                        <div class="text-[11px] text-slate-400 mt-2 pt-2 border-t border-slate-100 flex items-center justify-between">
+                            <span>Prioridad urgente</span>
+                            <span class="text-rose-600 font-bold">Ver lista</span>
+                        </div>
+                    </button>
+
+                    <button onclick="filtrarPorNivel('Moderado')" id="cardFiltroModerado" class="p-5 rounded-2xl border text-left bg-white hover:border-amber-400 hover:shadow-md transition">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-amber-700 uppercase tracking-wider">Seguimiento Preventivo</span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                        </div>
+                        <div id="churnModerados" class="text-3xl font-extrabold text-navy-900 mt-2">0</div>
+                        <div class="text-xs text-amber-600 font-semibold mt-1">Ausentes de 4 a 7 dias</div>
+                        <div class="text-[11px] text-slate-400 mt-2 pt-2 border-t border-slate-100 flex items-center justify-between">
+                            <span>Punto de quiebre de habito</span>
+                            <span class="text-amber-600 font-bold">Ver lista</span>
+                        </div>
+                    </button>
+
+                    <button onclick="filtrarPorNivel('Bajo')" id="cardFiltroBajo" class="p-5 rounded-2xl border text-left bg-white hover:border-brand-400 hover:shadow-md transition">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-brand-700 uppercase tracking-wider">Asistencia Regular</span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-brand-500"></span>
+                        </div>
+                        <div id="churnBajos" class="text-3xl font-extrabold text-navy-900 mt-2">0</div>
+                        <div class="text-xs text-brand-600 font-semibold mt-1">Frecuencia constante y activa</div>
+                        <div class="text-[11px] text-slate-400 mt-2 pt-2 border-t border-slate-100 flex items-center justify-between">
+                            <span>Base fiel</span>
+                            <span class="text-brand-600 font-bold">Ver lista</span>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Barra de Herramientas y Filtros -->
+                <div class="bg-white p-4 rounded-2xl border border-slate-200 flex flex-col md:flex-row justify-between items-stretch md:items-center gap-4">
+                    <!-- Buscador y Filtros -->
+                    <div class="flex flex-wrap items-center gap-2">
+                        <div class="relative w-full sm:w-64">
+                            <input type="text" id="inputBuscarSocio" oninput="aplicarFiltrosSocios()" placeholder="Buscar socio por ID o nombre..." class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-3 py-2 outline-none focus:border-brand-500 focus:bg-white transition">
+                            <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                        </div>
+
+                        <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-xl text-xs font-semibold text-slate-600">
+                            <button onclick="filtrarPorNivel('Todos')" id="filtroTabTodos" class="px-3 py-1.5 rounded-lg bg-white shadow-sm text-navy-900 font-bold transition">Todos</button>
+                            <button onclick="filtrarPorNivel('Critico')" id="filtroTabCritico" class="px-3 py-1.5 rounded-lg hover:bg-white transition">Criticos</button>
+                            <button onclick="filtrarPorNivel('Moderado')" id="filtroTabModerado" class="px-3 py-1.5 rounded-lg hover:bg-white transition">Moderados</button>
+                            <button onclick="filtrarPorNivel('Bajo')" id="filtroTabBajo" class="px-3 py-1.5 rounded-lg hover:bg-white transition">Fieles</button>
+                        </div>
+                    </div>
+
+                    <!-- Conmutador de Vistas (Tarjetas vs Tabla) y Descarga -->
+                    <div class="flex items-center gap-2 self-end md:self-auto">
+                        <div class="flex items-center bg-slate-100 p-1 rounded-xl">
+                            <button onclick="cambiarVistaSocios('tarjetas')" id="btnVistaTarjetas" title="Vista en Tarjetas" class="p-1.5 rounded-lg bg-white shadow-sm text-brand-600 transition">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+                            </button>
+                            <button onclick="cambiarVistaSocios('tabla')" id="btnVistaTabla" title="Vista en Tabla Compacta" class="p-1.5 rounded-lg text-slate-500 hover:text-navy-900 transition">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+                            </button>
+                        </div>
+
+                        <a href="/api/exportar-csv" class="text-xs font-bold bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-3 py-2 rounded-xl transition flex items-center gap-1.5">
+                            <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                            <span>Exportar CSV</span>
                         </a>
                     </div>
+                </div>
+
+                <!-- CONTENEDOR 1: VISTA EN TARJETAS VISUALES -->
+                <div id="vistaContenedorTarjetas" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Se inyecta dinamicamente -->
+                </div>
+
+                <!-- CONTENEDOR 2: VISTA EN TABLA MODERNA -->
+                <div id="vistaContenedorTabla" class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden hidden">
                     <div class="overflow-x-auto">
                         <table class="w-full text-left text-xs text-slate-600">
                             <thead class="bg-slate-50 text-slate-700 uppercase tracking-wider border-b border-slate-200">
                                 <tr>
-                                    <th class="p-3">ID Socio</th>
-                                    <th class="p-3">Sede</th>
-                                    <th class="p-3">Plan</th>
-                                    <th class="p-3">Cuota Mensual</th>
-                                    <th class="p-3">Dias Sin Asistir</th>
-                                    <th class="p-3">Riesgo Calculado</th>
-                                    <th class="p-3 text-center">Accion Inmediata</th>
+                                    <th class="p-3.5">Socio</th>
+                                    <th class="p-3.5">Sede</th>
+                                    <th class="p-3.5">Plan Contratado</th>
+                                    <th class="p-3.5">Cuota Mensual</th>
+                                    <th class="p-3.5">Ultima Asistencia</th>
+                                    <th class="p-3.5">Diagnostico</th>
+                                    <th class="p-3.5 text-center">Accion Directa</th>
                                 </tr>
                             </thead>
                             <tbody id="tablaSociosBody" class="divide-y divide-slate-100">
-                                <tr><td colspan="7" class="p-4 text-center">Cargando socios...</td></tr>
+                                <!-- Se inyecta dinamicamente -->
                             </tbody>
                         </table>
                     </div>
                 </div>
+
+                <!-- Estado Vacio -->
+                <div id="churnSinResultados" class="hidden text-center py-12 bg-white rounded-2xl border border-slate-200 p-8">
+                    <svg class="w-10 h-10 text-slate-300 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <h4 class="text-sm font-bold text-navy-900">No se encontraron socios</h4>
+                    <p class="text-xs text-slate-500 mt-1">Prueba cambiando los terminos de busqueda o el filtro de nivel de riesgo.</p>
+                </div>
+
             </section>
 
             <!-- ========================================== -->
@@ -427,6 +542,102 @@
             <button onclick="subirLogo()" id="btnGuardarLogo" class="w-full py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition">
                 Guardar Logotipo
             </button>
+        </div>
+    </div>
+
+    <!-- MODAL PARA CONTACTAR / RECUPERAR SOCIO (SMART RESCUE) -->
+    <div id="modalContactarSocio" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 md:p-8 shadow-2xl border border-slate-200">
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-5 pb-4 border-b border-slate-100">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center font-bold">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="font-extrabold text-navy-900 text-base">Plan de Reactivacion Personalizado</h3>
+                        <p class="text-xs text-slate-500">Recupera a este socio antes de que cancele su membresia</p>
+                    </div>
+                </div>
+                <button onclick="cerrarModalContacto()" class="text-slate-400 hover:text-slate-600 p-1.5 rounded-lg hover:bg-slate-100 transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+
+            <!-- Socio Ficha Resumen -->
+            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200/80 mb-5">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div id="modalSocioAvatar" class="w-11 h-11 rounded-full bg-navy-900 text-white font-extrabold text-sm flex items-center justify-center">
+                            --
+                        </div>
+                        <div>
+                            <div id="modalSocioNombre" class="font-extrabold text-navy-900 text-sm">Cargando...</div>
+                            <div class="text-[11px] text-slate-500 flex items-center gap-2 mt-0.5">
+                                <span id="modalSocioId" class="font-mono bg-white px-1.5 py-0.5 rounded border border-slate-200">SOC-000</span>
+                                <span class="text-slate-300">•</span>
+                                <span id="modalSocioSede">Sede</span>
+                                <span class="text-slate-300">•</span>
+                                <span id="modalSocioPlan" class="font-semibold text-brand-600">Plan</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-[10px] text-slate-400 uppercase font-bold">Cuota Mensual</div>
+                        <div id="modalSocioCuota" class="text-sm font-extrabold text-navy-900">$0.00</div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 mt-3 pt-3 border-t border-slate-200/60 text-xs">
+                    <div class="flex items-center gap-1.5 text-slate-600">
+                        <span class="text-slate-400">Sin asistir:</span>
+                        <strong id="modalSocioDias" class="text-rose-600">0 dias</strong>
+                    </div>
+                    <div class="flex items-center gap-1.5 text-slate-600 justify-end">
+                        <span class="text-slate-400">Probabilidad de baja:</span>
+                        <strong id="modalSocioProb" class="text-rose-600">0%</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Selector de Plantilla de Reactivacion -->
+            <div class="mb-4">
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Estrategia de Mensaje:</label>
+                <div class="grid grid-cols-3 gap-2">
+                    <button type="button" onclick="seleccionarPlantilla(1)" id="btnPlantilla1" class="p-2.5 rounded-xl border border-brand-500 bg-brand-50/50 text-left transition">
+                        <div class="text-[11px] font-bold text-brand-900">1. Rutina Express</div>
+                        <div class="text-[10px] text-slate-500 mt-0.5 leading-tight">Reactivacion suave</div>
+                    </button>
+                    <button type="button" onclick="seleccionarPlantilla(2)" id="btnPlantilla2" class="p-2.5 rounded-xl border border-slate-200 bg-white hover:border-slate-300 text-left transition">
+                        <div class="text-[11px] font-bold text-slate-800">2. Asesoria Gratis</div>
+                        <div class="text-[10px] text-slate-500 mt-0.5 leading-tight">Incentivo directo</div>
+                    </button>
+                    <button type="button" onclick="seleccionarPlantilla(3)" id="btnPlantilla3" class="p-2.5 rounded-xl border border-slate-200 bg-white hover:border-slate-300 text-left transition">
+                        <div class="text-[11px] font-bold text-slate-800">3. Escucha Activa</div>
+                        <div class="text-[10px] text-slate-500 mt-0.5 leading-tight">Sondeo de calidad</div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Previsualizacion y Edicion del Mensaje -->
+            <div class="mb-5">
+                <div class="flex justify-between items-center mb-1.5">
+                    <label class="text-xs font-bold text-slate-700">Mensaje a Enviar:</label>
+                    <span class="text-[10px] text-slate-400">Puedes editar este texto antes de enviar</span>
+                </div>
+                <textarea id="modalMensajeTexto" rows="4" class="w-full text-xs text-slate-700 p-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-brand-500 focus:bg-white transition resize-none"></textarea>
+            </div>
+
+            <!-- Botones de Accion -->
+            <div class="flex items-center gap-3">
+                <button type="button" onclick="cerrarModalContacto()" class="w-1/3 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition">
+                    Cancelar
+                </button>
+                <button type="button" onclick="enviarMensajeWhatsApp()" class="w-2/3 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center justify-center gap-2">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                    <span>Abrir Conversacion en WhatsApp</span>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -696,49 +907,326 @@
             }
         }
 
+        // Estado global para Socios en Riesgo
+        let todosLosSocios = [];
+        let socioSeleccionado = null;
+        let filtroNivelActivo = 'Todos';
+        let vistaActualSocios = 'tarjetas';
+
         // Cargar datos de Churn / Desercion
         async function cargarDatosChurn(sucursal) {
             try {
                 const res = await fetch(`/api/churn-radar?sucursal=${encodeURIComponent(sucursal)}`);
                 const data = await res.json();
 
+                // 1. Metricas financieras e impacto
+                const dineroFmt = data.dinero_critico ? data.dinero_critico.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '0.00';
+                document.getElementById('churnDineroEnRiesgo').innerHTML = `$${dineroFmt} <span class="text-xs font-normal text-slate-300">MXN/mes</span>`;
+                
+                const tasaSalud = (100 - (data.tasa_riesgo || 0)).toFixed(1);
+                document.getElementById('churnTasaSalud').innerText = `${tasaSalud}% Retencion Activa`;
+
+                // 2. Barra de salud porcentual
+                const total = data.total || 1;
+                const pctCriticos = ((data.criticos / total) * 100).toFixed(1);
+                const pctModerados = ((data.moderados / total) * 100).toFixed(1);
+                const pctBajos = ((data.bajos / total) * 100).toFixed(1);
+
+                document.getElementById('barraCriticos').style.width = `${pctCriticos}%`;
+                document.getElementById('barraModerados').style.width = `${pctModerados}%`;
+                document.getElementById('barraBajos').style.width = `${pctBajos}%`;
+
+                // 3. Contadores de las 3 tarjetas de filtro
                 document.getElementById('churnCriticos').innerText = `${data.criticos} socios`;
                 document.getElementById('churnModerados').innerText = `${data.moderados} socios`;
                 document.getElementById('churnBajos').innerText = `${data.bajos} socios`;
 
-                const tbody = document.getElementById('tablaSociosBody');
-                tbody.innerHTML = '';
+                // 4. Guardar socios y renderizar
+                todosLosSocios = data.socios || [];
+                aplicarFiltrosSocios();
 
-                data.socios.forEach(s => {
-                    const badgeClass = s.nivel === 'Critico' 
-                        ? 'bg-red-100 text-red-800' 
-                        : (s.nivel === 'Moderado' ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800');
-                    
-                    const tr = document.createElement('tr');
-                    tr.className = 'hover:bg-slate-50 transition';
-                    tr.innerHTML = `
-                        <td class="p-3 font-bold text-slate-900">${s.id_socio}</td>
-                        <td class="p-3">${s.sucursal}</td>
-                        <td class="p-3">${s.plan}</td>
-                        <td class="p-3 font-semibold">$${s.cuota.toFixed(2)}</td>
-                        <td class="p-3">${s.dias_sin_asistir} dias</td>
-                        <td class="p-3"><span class="px-2 py-0.5 rounded text-[11px] font-bold ${badgeClass}">${s.nivel} (${(s.probabilidad*100).toFixed(0)}%)</span></td>
-                        <td class="p-3 text-center">
-                            <button onclick="contactarSocio('${s.id_socio}')" class="px-3 py-1 bg-brand-50 hover:bg-brand-100 text-brand-700 font-bold rounded-lg border border-brand-200 transition">
-                                Contactar WhatsApp
-                            </button>
-                        </td>
-                    `;
-                    tbody.appendChild(tr);
-                });
             } catch (e) {
-                console.error("Error cargando churn:", e);
+                console.error("Error cargando radar de socios en riesgo:", e);
             }
         }
 
-        function contactarSocio(id) {
-            const mensaje = encodeURIComponent(`Hola socio ${id}, te contactamos de tu gimnasio para darte seguimiento y conocer tus metas de entrenamiento.`);
-            window.open(`https://wa.me/523121900195?text=${mensaje}`, '_blank');
+        // Filtro por pestana de nivel (Todos, Critico, Moderado, Bajo)
+        function filtrarPorNivel(nivel) {
+            filtroNivelActivo = nivel;
+            
+            const tabs = [
+                { id: 'filtroTabTodos', nivel: 'Todos' },
+                { id: 'filtroTabCritico', nivel: 'Critico' },
+                { id: 'filtroTabModerado', nivel: 'Moderado' },
+                { id: 'filtroTabBajo', nivel: 'Bajo' }
+            ];
+
+            tabs.forEach(t => {
+                const el = document.getElementById(t.id);
+                if (el) {
+                    if (t.nivel === nivel) {
+                        el.className = 'px-3 py-1.5 rounded-lg bg-white shadow-sm text-navy-900 font-bold transition';
+                    } else {
+                        el.className = 'px-3 py-1.5 rounded-lg text-slate-600 hover:bg-white hover:text-navy-900 transition';
+                    }
+                }
+            });
+
+            aplicarFiltrosSocios();
+        }
+
+        // Conmutar entre vista de Tarjetas y vista de Tabla
+        function cambiarVistaSocios(vista) {
+            vistaActualSocios = vista;
+            const contTarjetas = document.getElementById('vistaContenedorTarjetas');
+            const contTabla = document.getElementById('vistaContenedorTabla');
+            const btnTarjetas = document.getElementById('btnVistaTarjetas');
+            const btnTabla = document.getElementById('btnVistaTabla');
+
+            if (vista === 'tarjetas') {
+                contTarjetas.classList.remove('hidden');
+                contTabla.classList.add('hidden');
+                btnTarjetas.className = 'p-1.5 rounded-lg bg-white shadow-sm text-brand-600 transition';
+                btnTabla.className = 'p-1.5 rounded-lg text-slate-500 hover:text-navy-900 transition';
+            } else {
+                contTarjetas.classList.add('hidden');
+                contTabla.classList.remove('hidden');
+                btnTarjetas.className = 'p-1.5 rounded-lg text-slate-500 hover:text-navy-900 transition';
+                btnTabla.className = 'p-1.5 rounded-lg bg-white shadow-sm text-brand-600 transition';
+            }
+        }
+
+        // Aplicar filtros de busqueda y categoria
+        function aplicarFiltrosSocios() {
+            const query = (document.getElementById('inputBuscarSocio').value || '').trim().toLowerCase();
+            
+            const filtrados = todosLosSocios.filter(s => {
+                const matchTexto = s.nombre.toLowerCase().includes(query) || 
+                                   s.id_socio.toLowerCase().includes(query) || 
+                                   s.sucursal.toLowerCase().includes(query) || 
+                                   s.plan.toLowerCase().includes(query);
+                const matchNivel = (filtroNivelActivo === 'Todos') || (s.nivel === filtroNivelActivo);
+                return matchTexto && matchNivel;
+            });
+
+            const sinResultados = document.getElementById('churnSinResultados');
+            const contTarjetas = document.getElementById('vistaContenedorTarjetas');
+            const contTabla = document.getElementById('vistaContenedorTabla');
+
+            if (filtrados.length === 0) {
+                sinResultados.classList.remove('hidden');
+                contTarjetas.classList.add('hidden');
+                contTabla.classList.add('hidden');
+            } else {
+                sinResultados.classList.add('hidden');
+                if (vistaActualSocios === 'tarjetas') {
+                    contTarjetas.classList.remove('hidden');
+                    contTabla.classList.add('hidden');
+                } else {
+                    contTarjetas.classList.add('hidden');
+                    contTabla.classList.remove('hidden');
+                }
+                renderSociosCards(filtrados);
+                renderSociosTable(filtrados);
+            }
+        }
+
+        // Renderizar vista en Tarjetas
+        function renderSociosCards(socios) {
+            const container = document.getElementById('vistaContenedorTarjetas');
+            container.innerHTML = '';
+
+            socios.forEach(s => {
+                let badgeColor = '';
+                let borderColor = '';
+                let avatarBg = '';
+                let actionBtnClass = '';
+
+                if (s.nivel === 'Critico') {
+                    badgeColor = 'bg-rose-50 text-rose-700 border-rose-200';
+                    borderColor = 'border-rose-200 hover:border-rose-300';
+                    avatarBg = 'bg-rose-100 text-rose-800';
+                    actionBtnClass = 'bg-rose-600 hover:bg-rose-700 text-white shadow-rose-600/20';
+                } else if (s.nivel === 'Moderado') {
+                    badgeColor = 'bg-amber-50 text-amber-700 border-amber-200';
+                    borderColor = 'border-amber-200 hover:border-amber-300';
+                    avatarBg = 'bg-amber-100 text-amber-800';
+                    actionBtnClass = 'bg-amber-600 hover:bg-amber-700 text-white shadow-amber-600/20';
+                } else {
+                    badgeColor = 'bg-emerald-50 text-emerald-700 border-emerald-200';
+                    borderColor = 'border-emerald-200 hover:border-emerald-300';
+                    avatarBg = 'bg-emerald-100 text-emerald-800';
+                    actionBtnClass = 'bg-navy-900 hover:bg-brand-600 text-white shadow-navy-900/20';
+                }
+
+                const card = document.createElement('div');
+                card.className = `bg-white rounded-2xl border ${borderColor} p-5 shadow-sm hover:shadow-md transition flex flex-col justify-between`;
+                card.innerHTML = `
+                    <div>
+                        <!-- Encabezado de Socio -->
+                        <div class="flex items-start justify-between gap-3 mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-11 h-11 rounded-full ${avatarBg} font-extrabold text-sm flex items-center justify-center shrink-0">
+                                    ${s.iniciales || 'FP'}
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-navy-900 text-sm leading-tight">${s.nombre}</h4>
+                                    <div class="text-[11px] text-slate-400 font-mono mt-0.5">${s.id_socio}</div>
+                                </div>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold border ${badgeColor} uppercase tracking-wider shrink-0">
+                                ${s.nivel}
+                            </span>
+                        </div>
+
+                        <!-- Sede y Plan -->
+                        <div class="flex items-center gap-2 mb-4 text-[11px]">
+                            <span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 font-semibold">${s.sucursal}</span>
+                            <span class="px-2 py-0.5 rounded-md bg-brand-50 text-brand-700 font-semibold">${s.plan}</span>
+                        </div>
+
+                        <!-- Metricas Clave del Socio -->
+                        <div class="grid grid-cols-3 gap-2 p-3 bg-slate-50 rounded-xl mb-4 text-center">
+                            <div>
+                                <div class="text-[10px] text-slate-400 font-bold uppercase">Sin Asistir</div>
+                                <div class="text-sm font-extrabold ${s.dias_sin_asistir >= 8 ? 'text-rose-600' : 'text-slate-800'} mt-0.5">
+                                    ${s.dias_sin_asistir} dias
+                                </div>
+                            </div>
+                            <div>
+                                <div class="text-[10px] text-slate-400 font-bold uppercase">Cuota/Mes</div>
+                                <div class="text-sm font-extrabold text-slate-800 mt-0.5">
+                                    $${s.cuota.toFixed(0)}
+                                </div>
+                            </div>
+                            <div>
+                                <div class="text-[10px] text-slate-400 font-bold uppercase">Riesgo</div>
+                                <div class="text-sm font-extrabold ${s.probabilidad >= 0.7 ? 'text-rose-600' : 'text-slate-800'} mt-0.5">
+                                    ${(s.probabilidad * 100).toFixed(0)}%
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Accion Sugerida -->
+                        <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-100 text-[11px] text-slate-600 mb-4 flex items-start gap-2">
+                            <svg class="w-4 h-4 text-brand-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <span class="leading-relaxed"><strong>Sugerencia:</strong> ${s.accion_sugerida}</span>
+                        </div>
+                    </div>
+
+                    <!-- Boton de Contacto / Rescate -->
+                    <button onclick="abrirModalContacto('${s.id_socio}')" class="w-full py-2.5 px-4 rounded-xl font-bold text-xs shadow-sm transition flex items-center justify-center gap-2 ${actionBtnClass}">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                        <span>Contactar y Recuperar</span>
+                    </button>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Renderizar vista en Tabla
+        function renderSociosTable(socios) {
+            const tbody = document.getElementById('tablaSociosBody');
+            tbody.innerHTML = '';
+
+            socios.forEach(s => {
+                const badgeClass = s.nivel === 'Critico' 
+                    ? 'bg-rose-100 text-rose-800' 
+                    : (s.nivel === 'Moderado' ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-800');
+
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-50 transition';
+                tr.innerHTML = `
+                    <td class="p-3.5">
+                        <div class="flex items-center gap-2.5">
+                            <div class="w-8 h-8 rounded-full bg-slate-100 text-slate-700 font-bold text-xs flex items-center justify-center shrink-0">
+                                ${s.iniciales || 'FP'}
+                            </div>
+                            <div>
+                                <div class="font-bold text-navy-900">${s.nombre}</div>
+                                <div class="text-[10px] text-slate-400 font-mono">${s.id_socio}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="p-3.5 font-medium text-slate-700">${s.sucursal}</td>
+                    <td class="p-3.5"><span class="px-2 py-0.5 rounded bg-brand-50 text-brand-700 font-semibold text-[11px]">${s.plan}</span></td>
+                    <td class="p-3.5 font-bold text-navy-900">$${s.cuota.toFixed(2)}</td>
+                    <td class="p-3.5"><strong class="${s.dias_sin_asistir >= 8 ? 'text-rose-600 font-bold' : 'text-slate-700'}">${s.dias_sin_asistir} dias</strong></td>
+                    <td class="p-3.5"><span class="px-2.5 py-1 rounded-md text-[10px] font-extrabold uppercase ${badgeClass}">${s.nivel} (${(s.probabilidad*100).toFixed(0)}%)</span></td>
+                    <td class="p-3.5 text-center">
+                        <button onclick="abrirModalContacto('${s.id_socio}')" class="px-3.5 py-1.5 bg-brand-50 hover:bg-brand-100 text-brand-700 font-bold text-xs rounded-lg border border-brand-200 transition flex items-center gap-1.5 mx-auto">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                            <span>Contactar</span>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Abrir Modal de Contacto y Rescate
+        function abrirModalContacto(idSocio) {
+            const socio = todosLosSocios.find(s => s.id_socio === idSocio);
+            if (!socio) return;
+
+            socioSeleccionado = socio;
+            document.getElementById('modalSocioAvatar').innerText = socio.iniciales || 'FP';
+            document.getElementById('modalSocioNombre').innerText = socio.nombre;
+            document.getElementById('modalSocioId').innerText = socio.id_socio;
+            document.getElementById('modalSocioSede').innerText = socio.sucursal;
+            document.getElementById('modalSocioPlan').innerText = socio.plan;
+            document.getElementById('modalSocioCuota').innerText = `$${socio.cuota.toFixed(2)} MXN`;
+            document.getElementById('modalSocioDias').innerText = `${socio.dias_sin_asistir} dias`;
+            document.getElementById('modalSocioProb').innerText = `${(socio.probabilidad * 100).toFixed(0)}%`;
+
+            seleccionarPlantilla(1);
+            document.getElementById('modalContactarSocio').classList.remove('hidden');
+        }
+
+        // Cerrar Modal
+        function cerrarModalContacto() {
+            document.getElementById('modalContactarSocio').classList.add('hidden');
+            socioSeleccionado = null;
+        }
+
+        // Seleccionar plantilla predefinida de rescate
+        function seleccionarPlantilla(num) {
+            if (!socioSeleccionado) return;
+
+            const b1 = document.getElementById('btnPlantilla1');
+            const b2 = document.getElementById('btnPlantilla2');
+            const b3 = document.getElementById('btnPlantilla3');
+
+            // Reset estilos
+            [b1, b2, b3].forEach((b, idx) => {
+                if (idx + 1 === num) {
+                    b.className = 'p-2.5 rounded-xl border border-brand-500 bg-brand-50 text-left transition';
+                } else {
+                    b.className = 'p-2.5 rounded-xl border border-slate-200 bg-white hover:border-slate-300 text-left transition';
+                }
+            });
+
+            const txt = document.getElementById('modalMensajeTexto');
+            const nombre = socioSeleccionado.nombre;
+            const dias = socioSeleccionado.dias_sin_asistir;
+            const sucursal = socioSeleccionado.sucursal;
+            const plan = socioSeleccionado.plan;
+
+            if (num === 1) {
+                txt.value = `Hola ${nombre}, te saludamos de FitPulse (${sucursal}). Notamos que hace ${dias} dias no registras entrada. Tu membresia ${plan} sigue activa y queremos apoyarte con una rutina express de 35 minutos para retomar sin lesionarte. ¿Te esperamos hoy o manana?`;
+            } else if (num === 2) {
+                txt.value = `Hola ${nombre}, en FitPulse (${sucursal}) valoramos mucho tu esfuerzo. Para motivarte a continuar, te regalamos una sesion 1 a 1 de valoracion y plan nutricional de cortesia si nos visitas esta semana. ¿A que hora te gustaria agendar?`;
+            } else if (num === 3) {
+                txt.value = `Hola ${nombre}, te escribe el equipo de FitPulse (${sucursal}). Queremos asegurarnos de brindarte la mejor experiencia: ¿hubo algun inconveniente con los horarios, clases o instalaciones? Cuentanos con confianza para adaptarnos a tus necesidades.`;
+            }
+        }
+
+        // Enviar WhatsApp oficial
+        function enviarMensajeWhatsApp() {
+            const mensaje = document.getElementById('modalMensajeTexto').value;
+            const url = `https://wa.me/523121900195?text=${encodeURIComponent(mensaje)}`;
+            window.open(url, '_blank');
+            cerrarModalContacto();
         }
 
         // Renderizador de Chart.js

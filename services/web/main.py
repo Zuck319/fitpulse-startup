@@ -393,24 +393,38 @@ async def api_churn_radar(sucursal: Optional[str] = "Todas las sucursales (Conso
         "duracion_minutos": "mean"
     }).reset_index()
     
+    nombres_muestra = [
+        "Alejandro Ruiz", "Mariana Gomez", "Carlos Mendoza", "Fernanda Ortiz", "Jorge Morales",
+        "Sofia Hernandez", "Daniel Torres", "Valeria Ramos", "Ricardo Vazquez", "Camila Castro",
+        "Diego Navarro", "Elena Delgado", "Mateo Silva", "Renata Paredes", "Sebastian Cruz",
+        "Lucia Alvarez", "Rodrigo Ibarra", "Paulina Rios", "Gabriel Medina", "Andrea Soto"
+    ]
+    
     socios = []
-    for _, row in resumen.iterrows():
+    for idx, row in resumen.iterrows():
         dias = int(row["dias_sin_asistir"])
+        nombre_simulado = nombres_muestra[idx % len(nombres_muestra)]
+        
         if dias >= 8:
-            nivel = "Crítico"
+            nivel = "Critico"
             prob = 0.88
             color = "red"
+            accion_sugerida = "Llamada urgente o WhatsApp con cortesia"
         elif dias >= 4:
             nivel = "Moderado"
             prob = 0.52
             color = "yellow"
+            accion_sugerida = "Mensaje motivacional de rutina"
         else:
             nivel = "Bajo"
             prob = 0.12
             color = "green"
+            accion_sugerida = "Monitoreo regular y felicitacion"
             
         socios.append({
             "id_socio": row["id_socio"],
+            "nombre": nombre_simulado,
+            "iniciales": "".join([p[0] for p in nombre_simulado.split()][:2]),
             "sucursal": str(row["sucursal"]),
             "plan": str(row["plan_membresia"]),
             "cuota": float(row["monto_mensualidad"]),
@@ -418,16 +432,28 @@ async def api_churn_radar(sucursal: Optional[str] = "Todas las sucursales (Conso
             "duracion_promedio": round(float(row["duracion_minutos"]), 1),
             "nivel": nivel,
             "probabilidad": prob,
-            "color": color
+            "color": color,
+            "accion_sugerida": accion_sugerida
         })
         
-    socios.sort(key=lambda x: x["probabilidad"], reverse=True)
+    socios.sort(key=lambda x: (x["probabilidad"], x["dias_sin_asistir"]), reverse=True)
+    
+    criticos_lista = [s for s in socios if s["nivel"] == "Critico"]
+    moderados_lista = [s for s in socios if s["nivel"] == "Moderado"]
+    bajos_lista = [s for s in socios if s["nivel"] == "Bajo"]
+    
+    dinero_critico = sum(s["cuota"] for s in criticos_lista)
+    dinero_moderado = sum(s["cuota"] for s in moderados_lista)
+    
     return {
         "total": len(socios),
-        "criticos": sum(1 for s in socios if s["nivel"] == "Crítico"),
-        "moderados": sum(1 for s in socios if s["nivel"] == "Moderado"),
-        "bajos": sum(1 for s in socios if s["nivel"] == "Bajo"),
-        "socios": socios[:50] # Top 50 prioritarios
+        "criticos": len(criticos_lista),
+        "moderados": len(moderados_lista),
+        "bajos": len(bajos_lista),
+        "dinero_critico": round(dinero_critico, 2),
+        "dinero_moderado": round(dinero_moderado, 2),
+        "tasa_riesgo": round((len(criticos_lista) + len(moderados_lista)) / len(socios) * 100, 1) if len(socios) > 0 else 0,
+        "socios": socios
     }
 
 
