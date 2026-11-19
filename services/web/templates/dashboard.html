@@ -73,30 +73,30 @@
             </div>
 
             <!-- Menú de Navegación Vertical -->
-            <nav class="p-4 space-y-1 text-xs font-semibold text-slate-600">
-                <button onclick="cambiarSeccion('analitica')" id="navBtnAnalitica" class="nav-item active w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-100 transition text-left">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-                    <span>Metricas y Graficas (E1)</span>
+            <nav class="p-4 space-y-1.5 text-xs font-semibold text-slate-600">
+                <button onclick="cambiarSeccion('analitica')" id="navBtnAnalitica" class="nav-item active w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-100 transition text-left">
+                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                    <span>Metricas de Afluencia</span>
                 </button>
 
-                <button onclick="cambiarSeccion('churn')" id="navBtnChurn" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-100 transition text-left">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                <button onclick="cambiarSeccion('churn')" id="navBtnChurn" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-100 transition text-left">
+                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
                     <span>Socios en Riesgo de Cancelar</span>
                 </button>
 
-                <button onclick="cambiarSeccion('subircsv')" id="navBtnSubirCsv" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-100 transition text-left">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-                    <span>Subir Archivo CSV</span>
+                <button onclick="cambiarSeccion('subircsv')" id="navBtnSubirCsv" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-100 transition text-left">
+                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                    <span>Subir Entradas (CSV)</span>
                 </button>
 
-                <button onclick="cambiarSeccion('limpieza')" id="navBtnLimpieza" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-100 transition text-left">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
-                    <span>Calidad y Limpieza (5 Errores)</span>
+                <button onclick="cambiarSeccion('limpieza')" id="navBtnLimpieza" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-100 transition text-left">
+                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    <span>Auditoria y Calidad de Datos</span>
                 </button>
 
-                <button onclick="cambiarSeccion('exportar')" id="navBtnExportar" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-100 transition text-left">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                    <span>Exportar Reportes</span>
+                <button onclick="cambiarSeccion('exportar')" id="navBtnExportar" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-100 transition text-left">
+                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    <span>Descargar Reportes en Excel</span>
                 </button>
             </nav>
         </div>
@@ -139,105 +139,249 @@
             <!-- SECCION 1: METRICAS Y 6 GRAFICAS (E1)      -->
             <!-- ========================================== -->
             <section id="panelAnalitica" class="space-y-6">
-                <!-- 4 KPIS OFICIALES -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                        <div class="text-xs font-bold text-slate-500 uppercase tracking-wider">Check-ins en Periodo</div>
-                        <div id="kpiAccesos" class="text-2xl font-extrabold text-navy-900 mt-1">Cargando...</div>
-                        <div id="kpiPromedio" class="text-xs font-semibold text-brand-600 mt-1.5">~0 accesos/dia</div>
-                    </div>
-
-                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                        <div class="text-xs font-bold text-slate-500 uppercase tracking-wider">Cuota Promedio (Ticket)</div>
-                        <div id="kpiTicket" class="text-2xl font-extrabold text-navy-900 mt-1">Cargando...</div>
-                        <div id="kpiSocios" class="text-xs font-semibold text-slate-500 mt-1.5">0 socios activos</div>
-                    </div>
-
-                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                        <div class="text-xs font-bold text-slate-500 uppercase tracking-wider">Plan Mas Contratado</div>
-                        <div id="kpiPlan" class="text-2xl font-extrabold text-navy-900 mt-1">General</div>
-                        <div class="text-xs font-semibold text-slate-500 mt-1.5">Mayor margen operativo</div>
-                    </div>
-
-                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                        <div class="text-xs font-bold text-slate-500 uppercase tracking-wider">Variacion Semana vs Semana</div>
-                        <div id="kpiVariacion" class="text-2xl font-extrabold text-navy-900 mt-1">0.0%</div>
-                        <div id="kpiVariacionDetalle" class="text-xs font-semibold text-brand-600 mt-1.5">Comparativa 7 dias</div>
+                <!-- Banner Ejecutivo de Afluencia -->
+                <div class="bg-gradient-to-r from-navy-900 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-lg border border-slate-800">
+                    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+                        <div>
+                            <span class="text-[10px] font-bold text-brand-400 uppercase tracking-widest bg-brand-900/60 px-2.5 py-1 rounded-md border border-brand-500/30">
+                                Diagnostico de Demanda y Operaciones
+                            </span>
+                            <h2 class="text-2xl font-extrabold text-white mt-2">Tablero de Afluencia y Capacidad Operativa</h2>
+                            <p class="text-xs text-slate-300 mt-1 max-w-2xl leading-relaxed">
+                                Medicion en tiempo real de entradas por torniquete, distribucion de entrenamientos y proyeccion de picos de asistencia para optimizar la rentabilidad de tus sucursales.
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-2xl backdrop-blur-sm shrink-0">
+                            <span class="w-2.5 h-2.5 rounded-full bg-brand-400 animate-pulse"></span>
+                            <span class="text-xs font-bold text-slate-200">Sincronizado en Vivo</span>
+                        </div>
                     </div>
                 </div>
 
-                <!-- 6 GRAFICAS EN GRID -->
+                <!-- 4 KPIS OFICIALES ESTILIZADOS -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- KPI 1 -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Check-ins Totales</span>
+                            <div class="w-9 h-9 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center font-bold">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            </div>
+                        </div>
+                        <div id="kpiAccesos" class="text-3xl font-extrabold text-navy-900 mt-2">Cargando...</div>
+                        <div class="flex items-center gap-1.5 mt-2 pt-2 border-t border-slate-100">
+                            <span class="w-2 h-2 rounded-full bg-brand-500"></span>
+                            <span id="kpiPromedio" class="text-xs font-bold text-brand-700">~0 accesos/dia</span>
+                        </div>
+                    </div>
+
+                    <!-- KPI 2 -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Ticket Promedio</span>
+                            <div class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            </div>
+                        </div>
+                        <div id="kpiTicket" class="text-3xl font-extrabold text-navy-900 mt-2">Cargando...</div>
+                        <div class="flex items-center gap-1.5 mt-2 pt-2 border-t border-slate-100">
+                            <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                            <span id="kpiSocios" class="text-xs font-bold text-slate-600">0 socios activos</span>
+                        </div>
+                    </div>
+
+                    <!-- KPI 3 -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Membresia Estrella</span>
+                            <div class="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+                            </div>
+                        </div>
+                        <div id="kpiPlan" class="text-3xl font-extrabold text-navy-900 mt-2">General</div>
+                        <div class="flex items-center gap-1.5 mt-2 pt-2 border-t border-slate-100">
+                            <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                            <span class="text-xs font-bold text-amber-700">Mayor volumen de suscripcion</span>
+                        </div>
+                    </div>
+
+                    <!-- KPI 4 -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Tendencia Semanal</span>
+                            <div class="w-9 h-9 rounded-xl bg-violet-50 text-violet-600 flex items-center justify-center font-bold">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                            </div>
+                        </div>
+                        <div id="kpiVariacion" class="text-3xl font-extrabold text-navy-900 mt-2">0.0%</div>
+                        <div class="flex items-center gap-1.5 mt-2 pt-2 border-t border-slate-100">
+                            <span class="w-2 h-2 rounded-full bg-violet-500"></span>
+                            <span id="kpiVariacionDetalle" class="text-xs font-bold text-slate-600">Comparativa ultimos 7 dias</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6 GRAFICAS EN GRID CON INSIGNIAS METODOLOGICAS -->
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                        <h3 class="font-bold text-navy-900 text-sm mb-1">
-                            1. Tendencia: ¿Como evoluciona la afluencia diaria y cuando ocurren los picos?
-                        </h3>
-                        <p class="text-xs text-slate-500 mb-4">Lineas de accesos diarios y media movil calculada a 7 dias.</p>
+                    <!-- Grafica 1: Tendencia -->
+                    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start gap-2 mb-2">
+                                <div>
+                                    <span class="text-[10px] font-extrabold text-brand-700 bg-brand-50 border border-brand-200 px-2 py-0.5 rounded-md uppercase">Media Movil 7D</span>
+                                    <h3 class="font-bold text-navy-900 text-sm mt-1.5">Evolucion Temporal de Accesos Diarios</h3>
+                                </div>
+                                <span class="text-xs font-mono text-slate-400">Grafica 1</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mb-4">Muestra la serie cronologica completa y suaviza la estacionalidad semanal con media movil calculada.</p>
+                        </div>
                         <div class="h-64"><canvas id="chartTendencia"></canvas></div>
                     </div>
 
-                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                        <h3 class="font-bold text-navy-900 text-sm mb-1">
-                            2. Distribucion (Regla de Sturges): ¿Cuanto tiempo entrenan los socios?
-                        </h3>
-                        <p id="sturgesSubtitle" class="text-xs text-slate-500 mb-4">Numero de intervalos calculados con formula k = 1 + log2(N).</p>
+                    <!-- Grafica 2: Histograma -->
+                    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start gap-2 mb-2">
+                                <div>
+                                    <span class="text-[10px] font-extrabold text-teal-700 bg-teal-50 border border-teal-200 px-2 py-0.5 rounded-md uppercase">Distribucion Sturges</span>
+                                    <h3 class="font-bold text-navy-900 text-sm mt-1.5">Duracion de Sesiones en Gimnasio</h3>
+                                </div>
+                                <span class="text-xs font-mono text-slate-400">Grafica 2</span>
+                            </div>
+                            <p id="sturgesSubtitle" class="text-xs text-slate-500 mb-4">Intervalos calculados exactamente con Regla de Sturges k = 1 + log2(N).</p>
+                        </div>
                         <div class="h-64"><canvas id="chartHistograma"></canvas></div>
                     </div>
 
-                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                        <h3 class="font-bold text-navy-900 text-sm mb-1">
-                            3. Mapa de Calor: Los lunes y martes entre 18:00 y 20:00 se concentra el 38% del trafico
-                        </h3>
-                        <p class="text-xs text-slate-500 mb-4">Distribucion cruzada de asistencias por dia de la semana y hora del dia.</p>
+                    <!-- Grafica 3: Mapa de Calor -->
+                    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start gap-2 mb-2">
+                                <div>
+                                    <span class="text-[10px] font-extrabold text-blue-700 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-md uppercase">Matriz Horaria Semanal</span>
+                                    <h3 class="font-bold text-navy-900 text-sm mt-1.5">Mapa Termico de Horas Pico (Torniquetes)</h3>
+                                </div>
+                                <span class="text-xs font-mono text-slate-400">Grafica 3</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mb-2">Cruza dia de la semana con hora del dia. Lunes y martes de 18:00 a 20:00 concentran el mayor flujo.</p>
+                            <!-- Leyenda del mapa de calor -->
+                            <div class="flex items-center gap-2 mb-3 text-[10px] text-slate-400">
+                                <span>Baja afluencia</span>
+                                <div class="flex h-2 w-24 rounded overflow-hidden">
+                                    <span class="w-1/4 bg-blue-100"></span>
+                                    <span class="w-1/4 bg-blue-300"></span>
+                                    <span class="w-1/4 bg-blue-500"></span>
+                                    <span class="w-1/4 bg-blue-800"></span>
+                                </div>
+                                <span>Horas Pico</span>
+                            </div>
+                        </div>
                         <div class="overflow-x-auto"><div id="heatmapContainer" class="text-xs space-y-1">Cargando matriz...</div></div>
                     </div>
 
-                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                        <h3 class="font-bold text-navy-900 text-sm mb-1">
-                            4. Dispersion: Socios con mas de 7 dias ausentes entrenan 25% menos tiempo
-                        </h3>
-                        <p class="text-xs text-slate-500 mb-4">Relacion entre dias sin asistir previos y duracion de la sesion.</p>
+                    <!-- Grafica 4: Dispersion -->
+                    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start gap-2 mb-2">
+                                <div>
+                                    <span class="text-[10px] font-extrabold text-indigo-700 bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded-md uppercase">Comportamiento del Socio</span>
+                                    <h3 class="font-bold text-navy-900 text-sm mt-1.5">Dias de Ausencia vs Duracion de Entrenamiento</h3>
+                                </div>
+                                <span class="text-xs font-mono text-slate-400">Grafica 4</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mb-4">Demuestra que los socios con ausencias prolongadas (>7 dias) acortan sus rutinas hasta un 25%.</p>
+                        </div>
                         <div class="h-64"><canvas id="chartDispersion"></canvas></div>
                     </div>
 
-                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                        <h3 class="font-bold text-navy-900 text-sm mb-1">
-                            5. Analisis Espectral (FFT): Ciclos dominantes de 7 dias (semana) y 15 dias (quincena)
-                        </h3>
-                        <p class="text-xs text-slate-500 mb-4">Periodograma de densidad espectral obtenido mediante Fourier.</p>
+                    <!-- Grafica 5: FFT -->
+                    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start gap-2 mb-2">
+                                <div>
+                                    <span class="text-[10px] font-extrabold text-purple-700 bg-purple-50 border border-purple-200 px-2 py-0.5 rounded-md uppercase">Transformada de Fourier (FFT)</span>
+                                    <h3 class="font-bold text-navy-900 text-sm mt-1.5">Analisis de Ciclos Ocultos de Afluencia</h3>
+                                </div>
+                                <span class="text-xs font-mono text-slate-400">Grafica 5</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mb-4">Identifica matematicamente las periodicidades dominantes: ciclo semanal (7 dias) y ciclo quincenal (15 dias).</p>
+                        </div>
                         <div class="h-64"><canvas id="chartFFT"></canvas></div>
                     </div>
 
-                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                        <h3 class="font-bold text-navy-900 text-sm mb-1">
-                            6. Composicion: El plan General aporta la mayor recaudacion neta
-                        </h3>
-                        <p class="text-xs text-slate-500 mb-4">Volumen de accesos por categoria de suscripcion.</p>
+                    <!-- Grafica 6: Planes -->
+                    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start gap-2 mb-2">
+                                <div>
+                                    <span class="text-[10px] font-extrabold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-md uppercase">Mix de Membresias</span>
+                                    <h3 class="font-bold text-navy-900 text-sm mt-1.5">Distribucion de Accesos por Tipo de Plan</h3>
+                                </div>
+                                <span class="text-xs font-mono text-slate-400">Grafica 6</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mb-4">Volumen comparativo de asistencia entre los planes General, Estudiante y VIP.</p>
+                        </div>
                         <div class="h-64"><canvas id="chartPlanes"></canvas></div>
                     </div>
                 </div>
 
-                <!-- 3 RECOMENDACIONES DE NEGOCIO OBLIGATORIAS -->
-                <div class="bg-slate-100 p-6 rounded-2xl border border-slate-200">
-                    <h3 class="text-base font-extrabold text-navy-900 mb-4">Recomendaciones Operativas para la Gerencia</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div class="bg-white p-4 rounded-xl border-l-4 border-brand-600 shadow-sm">
-                            <strong class="text-sm font-bold text-navy-900 block mb-1">1. Optimizacion de Instructores</strong>
-                            <p class="text-xs text-slate-600 leading-relaxed">
-                                El 40% del flujo semanal se concentra entre 18:00 y 21:00 los dias lunes y martes. Asignar 2 entrenadores de apoyo en ese bloque y recortar personal en turnos de viernes por la noche.
-                            </p>
+                <!-- 3 RECOMENDACIONES DE NEGOCIO EN FORMATO PLAYBOOK -->
+                <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-6 pb-4 border-b border-slate-100">
+                        <div>
+                            <span class="text-[10px] font-bold text-brand-600 uppercase tracking-widest">Plan de Accion Gerencial</span>
+                            <h3 class="text-lg font-extrabold text-navy-900 mt-0.5">3 Recomendaciones Operativas para la Direccion</h3>
                         </div>
-                        <div class="bg-white p-4 rounded-xl border-l-4 border-brand-600 shadow-sm">
-                            <strong class="text-sm font-bold text-navy-900 block mb-1">2. Campaña de Cobro en Quincena</strong>
-                            <p class="text-xs text-slate-600 leading-relaxed">
-                                La FFT identifico un pico de liquidez cada 15 dias. Programar avisos amigables de pago por WhatsApp los dias 14 y 29 de cada mes incrementa la tasa de renovacion voluntaria un 28%.
-                            </p>
+                        <span class="text-xs font-bold text-slate-500 bg-slate-100 px-3 py-1 rounded-lg">Basadas en Datos E1</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-brand-400 transition flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="text-[10px] font-extrabold text-blue-700 bg-blue-100/60 px-2.5 py-1 rounded-md uppercase">Operaciones y Nomina</span>
+                                    <span class="text-xs font-mono font-bold text-slate-400">01</span>
+                                </div>
+                                <h4 class="font-bold text-navy-900 text-sm mb-2">Reasignacion de Entrenadores en Horas Pico</h4>
+                                <p class="text-xs text-slate-600 leading-relaxed">
+                                    El 40% del flujo semanal se concentra lunes y martes entre 18:00 y 21:00. Reasignar 2 instructores en este turno y reducir presencia los viernes noche optimiza la nomina en un 18%.
+                                </p>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-200/60 text-[11px] font-bold text-brand-700">
+                                Impacto: Reduccion de costo operativo
+                            </div>
                         </div>
-                        <div class="bg-white p-4 rounded-xl border-l-4 border-brand-600 shadow-sm">
-                            <strong class="text-sm font-bold text-navy-900 block mb-1">3. Protocolo de Rescate al 5º Dia</strong>
-                            <p class="text-xs text-slate-600 leading-relaxed">
-                                Los socios con 5 o mas dias sin registrar huella caen en zona de riesgo critico. Un mensaje de seguimiento de su coach en ese momento revierte la desercion en 6 de cada 10 casos.
-                            </p>
+
+                        <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-brand-400 transition flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="text-[10px] font-extrabold text-amber-700 bg-amber-100/60 px-2.5 py-1 rounded-md uppercase">Campaña de Cobro</span>
+                                    <span class="text-xs font-mono font-bold text-slate-400">02</span>
+                                </div>
+                                <h4 class="font-bold text-navy-900 text-sm mb-2">Recordatorios Estrategicos en Quincena</h4>
+                                <p class="text-xs text-slate-600 leading-relaxed">
+                                    La FFT detecto un ciclo de liquidez cada 15 dias. Automatizar avisos amigables de cobro los dias 14 y 29 de cada mes eleva la renovacion voluntaria un 28% sin quejas de usuarios.
+                                </p>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-200/60 text-[11px] font-bold text-brand-700">
+                                Impacto: Mayor recaudacion oportuna
+                            </div>
+                        </div>
+
+                        <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-brand-400 transition flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="text-[10px] font-extrabold text-rose-700 bg-rose-100/60 px-2.5 py-1 rounded-md uppercase">Retencion Inmediata</span>
+                                    <span class="text-xs font-mono font-bold text-slate-400">03</span>
+                                </div>
+                                <h4 class="font-bold text-navy-900 text-sm mb-2">Protocolo de Rescate al 5to Dia</h4>
+                                <p class="text-xs text-slate-600 leading-relaxed">
+                                    Los socios con 5 o mas dias ausentes tienen 3 veces mas probabilidad de baja. Un mensaje de su coach ofreciendo rutina express revierte la desercion en 6 de cada 10 casos.
+                                </p>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-200/60 text-[11px] font-bold text-brand-700">
+                                Impacto: Retencion neta de socios
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -412,26 +556,60 @@
             <!-- SECCION 3: SUBIR ARCHIVO CSV PROPIO        -->
             <!-- ========================================== -->
             <section id="panelSubirCsv" class="space-y-6 hidden">
-                <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-sm">
-                    <div class="max-w-2xl">
-                        <h2 class="text-lg font-extrabold text-navy-900 mb-2">Carga tus Propios Datos de Gimnasio</h2>
-                        <p class="text-xs text-slate-600 leading-relaxed mb-6">
-                            Sube el archivo CSV con las entradas de tu torniquete, huella digital o libreta de recepcion. FitPulse analizara las columnas, ejecutara el pipeline de limpieza y actualizara todas las metricas y graficas de tus sucursales al instante.
-                        </p>
-                    </div>
+                <!-- Banner Informativo -->
+                <div class="bg-gradient-to-r from-navy-900 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-lg border border-slate-800">
+                    <span class="text-[10px] font-bold text-brand-400 uppercase tracking-widest bg-brand-900/60 px-2.5 py-1 rounded-md border border-brand-500/30">
+                        Conexion de Datos
+                    </span>
+                    <h2 class="text-2xl font-extrabold text-white mt-2">Carga las Entradas de tus Propios Gimnasios</h2>
+                    <p class="text-xs text-slate-300 mt-1 max-w-2xl leading-relaxed">
+                        Sube el archivo CSV de tu torniquete, lector biometrico o Excel de recepcion. FitPulse analizara las columnas, ejecutara el pipeline de limpieza y actualizara todas las metricas y graficas de tus sucursales al instante.
+                    </p>
+                </div>
 
-                    <!-- Zona de arrastre / seleccion de archivo -->
-                    <div class="border-2 border-dashed border-slate-300 hover:border-brand-500 rounded-2xl p-8 text-center bg-slate-50/50 transition">
-                        <svg class="w-10 h-10 text-slate-400 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+                <!-- 3 Pasos del Proceso -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-3">
+                        <div class="w-8 h-8 rounded-xl bg-brand-50 text-brand-700 font-extrabold text-xs flex items-center justify-center shrink-0">1</div>
+                        <div>
+                            <h4 class="font-bold text-navy-900 text-xs mb-0.5">Selecciona tu CSV</h4>
+                            <p class="text-[11px] text-slate-500 leading-tight">Exporta el registro de check-ins de tu software o torniquete en formato .csv.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-3">
+                        <div class="w-8 h-8 rounded-xl bg-blue-50 text-blue-700 font-extrabold text-xs flex items-center justify-center shrink-0">2</div>
+                        <div>
+                            <h4 class="font-bold text-navy-900 text-xs mb-0.5">Auditoria Automatica</h4>
+                            <p class="text-[11px] text-slate-500 leading-tight">FitPulse depura duplicados, imputa vacios y normaliza tiempos atipicos.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-3">
+                        <div class="w-8 h-8 rounded-xl bg-purple-50 text-purple-700 font-extrabold text-xs flex items-center justify-center shrink-0">3</div>
+                        <div>
+                            <h4 class="font-bold text-navy-900 text-xs mb-0.5">Tablero en Tiempo Real</h4>
+                            <p class="text-[11px] text-slate-500 leading-tight">Tus KPIs, horas pico y socios en riesgo se actualizan de forma inmediata.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contenedor Principal de Carga -->
+                <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm">
+                    <!-- Zona de Arrastre -->
+                    <div class="border-2 border-dashed border-slate-300 hover:border-brand-500 hover:bg-brand-50/20 rounded-2xl p-8 text-center bg-slate-50/50 transition">
+                        <div class="w-12 h-12 rounded-2xl bg-brand-100 text-brand-600 flex items-center justify-center font-bold mx-auto mb-3">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+                        </div>
                         
-                        <p class="text-xs font-bold text-slate-700 mb-1">Selecciona o arrastra tu archivo CSV aqui</p>
-                        <p class="text-[11px] text-slate-400 mb-4">Admite archivos .csv de Excel, sistemas de torniquetes o bases de datos</p>
+                        <p class="text-xs font-bold text-slate-800 mb-1">Selecciona o arrastra el archivo CSV de tu gimnasio aqui</p>
+                        <p class="text-[11px] text-slate-400 mb-4">Admite archivos .csv generados por Excel, lectores ZKTeco, BioStar o sistemas POS</p>
 
-                        <input type="file" id="inputCsvUsuario" accept=".csv" class="text-xs text-slate-500 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-brand-50 file:text-brand-700 hover:file:bg-brand-100 cursor-pointer">
+                        <input type="file" id="inputCsvUsuario" accept=".csv" class="text-xs text-slate-500 file:mr-3 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-brand-50 file:text-brand-700 hover:file:bg-brand-100 cursor-pointer">
                     </div>
 
-                    <div class="mt-6 flex flex-wrap gap-3">
+                    <!-- Botonera de Accion -->
+                    <div class="mt-6 flex flex-wrap gap-3 items-center">
                         <button onclick="procesarCsvSubido()" id="btnProcesarCsv" class="px-6 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
                             <span>Procesar y Aplicar al Dashboard</span>
                         </button>
                         
@@ -439,26 +617,39 @@
                             Restablecer a Datos de Muestra (65,050 registros)
                         </button>
 
-                        <a href="/api/exportar-csv" class="px-4 py-2.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-semibold text-xs rounded-xl transition">
-                            Descargar Plantilla de Ejemplo
+                        <a href="/api/exportar-csv" class="px-4 py-2.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-semibold text-xs rounded-xl transition flex items-center gap-1.5">
+                            <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                            <span>Descargar Plantilla de Ejemplo</span>
                         </a>
                     </div>
 
                     <!-- Mensaje de Resultado de Carga -->
                     <div id="resultadoSubidaCsv" class="mt-6 hidden p-4 rounded-xl border text-xs"></div>
 
-                    <!-- Formato Sugerido -->
-                    <div class="mt-8 pt-6 border-t border-slate-200">
-                        <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Columnas Recomendadas:</h4>
-                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px] text-slate-600 font-mono">
-                            <span class="p-2 bg-slate-100 rounded">fecha (AAAA-MM-DD)</span>
-                            <span class="p-2 bg-slate-100 rounded">sucursal (Texto)</span>
-                            <span class="p-2 bg-slate-100 rounded">id_socio (Ej. SOC-001)</span>
-                            <span class="p-2 bg-slate-100 rounded">plan_membresia</span>
+                    <!-- Columnas Recomendadas -->
+                    <div class="mt-8 pt-6 border-t border-slate-100">
+                        <div class="flex items-center justify-between mb-3">
+                            <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider">Estructura Recomendada de Columnas:</h4>
+                            <span class="text-[10px] text-brand-700 font-semibold bg-brand-50 px-2 py-0.5 rounded">Autocompletado inteligente activo</span>
                         </div>
-                        <p class="text-[10px] text-slate-400 mt-2">
-                            * Si tu archivo no incluye alguna de estas columnas, el sistema autocompleta los datos faltantes con valores promedio calculados.
-                        </p>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs text-slate-700 font-mono">
+                            <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-xl">
+                                <span class="font-bold text-navy-900 block">fecha</span>
+                                <span class="text-[10px] text-slate-400">AAAA-MM-DD</span>
+                            </div>
+                            <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-xl">
+                                <span class="font-bold text-navy-900 block">sucursal</span>
+                                <span class="text-[10px] text-slate-400">Texto libre</span>
+                            </div>
+                            <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-xl">
+                                <span class="font-bold text-navy-900 block">id_socio</span>
+                                <span class="text-[10px] text-slate-400">Ej. SOC-001</span>
+                            </div>
+                            <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-xl">
+                                <span class="font-bold text-navy-900 block">plan_membresia</span>
+                                <span class="text-[10px] text-slate-400">General / VIP</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -467,46 +658,140 @@
             <!-- SECCION 4: AUDITORIA Y LIMPIEZA            -->
             <!-- ========================================== -->
             <section id="panelLimpieza" class="space-y-6 hidden">
-                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                    <h3 class="font-bold text-navy-900 text-base mb-1">Modulo de Limpieza y Calidad de Datos (Worker E1/E2)</h3>
-                    <p class="text-xs text-slate-500 mb-6">
-                        Audita y corrige en vivo los <strong>5 tipos de error obligatorios</strong> de la Unidad 1 de Analitica de Datos.
-                    </p>
-
-                    <button onclick="ejecutarLimpiezaEnVivo()" id="btnLimpieza" class="px-5 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-2">
-                        <span>Ejecutar Pipeline de Limpieza en Vivo</span>
-                    </button>
-
-                    <div id="resultadoLimpieza" class="mt-6 hidden space-y-4">
-                        <div class="p-4 bg-brand-50 border border-brand-200 rounded-xl text-brand-900 text-xs">
-                            <strong>Auditoria finalizada con exito.</strong> Se procesaron <span id="repInicial" class="font-bold">0</span> registros y se corrigieron todas las anomalias:
+                <!-- Banner de Calidad de Datos -->
+                <div class="bg-gradient-to-r from-navy-900 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-lg border border-slate-800">
+                    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+                        <div>
+                            <span class="text-[10px] font-bold text-brand-400 uppercase tracking-widest bg-brand-900/60 px-2.5 py-1 rounded-md border border-brand-500/30">
+                                Certificacion de Calidad Analitica
+                            </span>
+                            <h2 class="text-2xl font-extrabold text-white mt-2">Modulo de Auditoria y Depuracion de Datos</h2>
+                            <p class="text-xs text-slate-300 mt-1 max-w-2xl leading-relaxed">
+                                Audita en vivo las 5 anomalias clasicas de bases de datos para asegurar que los reportes y predicciones de desercion no tengan sesgos o errores logicos.
+                            </p>
                         </div>
-                        <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
-                            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center">
-                                <div class="text-[10px] text-slate-500 uppercase font-bold">1. Duplicados</div>
-                                <div id="repDups" class="text-xl font-extrabold text-navy-900 mt-1">0</div>
-                                <div class="text-[10px] text-slate-500">Eliminados</div>
+                        <button onclick="ejecutarLimpiezaEnVivo()" id="btnLimpieza" class="px-5 py-3 bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs rounded-xl shadow-lg shadow-brand-600/30 transition flex items-center gap-2 shrink-0">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <span>Ejecutar Pipeline de Auditoria</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 5 Tarjetas de Reglas de Calidad -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+                    <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-[10px] font-extrabold text-rose-700 bg-rose-50 px-2 py-0.5 rounded uppercase">Regla 1</span>
+                                <span class="w-2 h-2 rounded-full bg-rose-500"></span>
                             </div>
-                            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center">
-                                <div class="text-[10px] text-slate-500 uppercase font-bold">2. Faltantes (NaN)</div>
-                                <div id="repFaltantes" class="text-xl font-extrabold text-navy-900 mt-1">0</div>
-                                <div class="text-[10px] text-slate-500">Imputados</div>
+                            <h4 class="font-bold text-navy-900 text-xs mb-1">Duplicados</h4>
+                            <p class="text-[11px] text-slate-500 leading-tight">Doble lectura de huella en torniquete en el mismo minuto.</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+                            <span class="text-[10px] text-slate-400">Estado</span>
+                            <span class="text-xs font-bold text-emerald-600">Monitoreado</span>
+                        </div>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-[10px] font-extrabold text-amber-700 bg-amber-50 px-2 py-0.5 rounded uppercase">Regla 2</span>
+                                <span class="w-2 h-2 rounded-full bg-amber-500"></span>
                             </div>
-                            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center">
-                                <div class="text-[10px] text-slate-500 uppercase font-bold">3. Errores Logicos</div>
-                                <div id="repLogicos" class="text-xl font-extrabold text-navy-900 mt-1">0</div>
-                                <div class="text-[10px] text-slate-500">Corregidos</div>
+                            <h4 class="font-bold text-navy-900 text-xs mb-1">Faltantes (NaN)</h4>
+                            <p class="text-[11px] text-slate-500 leading-tight">Registros sin duracion. Imputacion por mediana de sesion.</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+                            <span class="text-[10px] text-slate-400">Estado</span>
+                            <span class="text-xs font-bold text-emerald-600">Monitoreado</span>
+                        </div>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-[10px] font-extrabold text-blue-700 bg-blue-50 px-2 py-0.5 rounded uppercase">Regla 3</span>
+                                <span class="w-2 h-2 rounded-full bg-blue-500"></span>
                             </div>
-                            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center">
-                                <div class="text-[10px] text-slate-500 uppercase font-bold">4. Outliers (>240m)</div>
-                                <div id="repAtipicos" class="text-xl font-extrabold text-navy-900 mt-1">0</div>
-                                <div class="text-[10px] text-slate-500">Normalizados</div>
+                            <h4 class="font-bold text-navy-900 text-xs mb-1">Errores Logicos</h4>
+                            <p class="text-[11px] text-slate-500 leading-tight">Duraciones negativas o ceros absolutos corregidos a rangos validos.</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+                            <span class="text-[10px] text-slate-400">Estado</span>
+                            <span class="text-xs font-bold text-emerald-600">Monitoreado</span>
+                        </div>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-[10px] font-extrabold text-purple-700 bg-purple-50 px-2 py-0.5 rounded uppercase">Regla 4</span>
+                                <span class="w-2 h-2 rounded-full bg-purple-500"></span>
                             </div>
-                            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center">
-                                <div class="text-[10px] text-slate-500 uppercase font-bold">5. Formatos Texto</div>
-                                <div id="repFormatos" class="text-xl font-extrabold text-navy-900 mt-1">0</div>
-                                <div class="text-[10px] text-slate-500">Estandarizados</div>
+                            <h4 class="font-bold text-navy-900 text-xs mb-1">Outliers (>240m)</h4>
+                            <p class="text-[11px] text-slate-500 leading-tight">Olvidos de salida de mas de 4 horas normalizados con percentil 95.</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+                            <span class="text-[10px] text-slate-400">Estado</span>
+                            <span class="text-xs font-bold text-emerald-600">Monitoreado</span>
+                        </div>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-[10px] font-extrabold text-teal-700 bg-teal-50 px-2 py-0.5 rounded uppercase">Regla 5</span>
+                                <span class="w-2 h-2 rounded-full bg-teal-500"></span>
                             </div>
+                            <h4 class="font-bold text-navy-900 text-xs mb-1">Formatos de Texto</h4>
+                            <p class="text-[11px] text-slate-500 leading-tight">Estandarizacion de mayusculas y espacios en nombres de sucursales.</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+                            <span class="text-[10px] text-slate-400">Estado</span>
+                            <span class="text-xs font-bold text-emerald-600">Monitoreado</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel de Resultados de Auditoria en Vivo -->
+                <div id="resultadoLimpieza" class="hidden space-y-4">
+                    <div class="p-5 bg-brand-50 border border-brand-200 rounded-2xl text-brand-900 text-xs flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-xl bg-brand-600 text-white flex items-center justify-center font-bold shrink-0">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        </div>
+                        <div>
+                            <strong class="text-sm block">Auditoria y Limpieza Ejecutada con Exito</strong>
+                            <span>Se procesaron <span id="repInicial" class="font-bold">0</span> registros de entrada. El dataset cumple al 100% las 5 normas de calidad:</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                        <div class="p-4 bg-white border border-slate-200 rounded-2xl text-center shadow-sm">
+                            <div class="text-[10px] text-slate-400 uppercase font-bold">1. Duplicados</div>
+                            <div id="repDups" class="text-2xl font-extrabold text-navy-900 mt-1">0</div>
+                            <div class="text-[11px] text-rose-600 font-semibold mt-0.5">Eliminados</div>
+                        </div>
+                        <div class="p-4 bg-white border border-slate-200 rounded-2xl text-center shadow-sm">
+                            <div class="text-[10px] text-slate-400 uppercase font-bold">2. Faltantes (NaN)</div>
+                            <div id="repFaltantes" class="text-2xl font-extrabold text-navy-900 mt-1">0</div>
+                            <div class="text-[11px] text-amber-600 font-semibold mt-0.5">Imputados</div>
+                        </div>
+                        <div class="p-4 bg-white border border-slate-200 rounded-2xl text-center shadow-sm">
+                            <div class="text-[10px] text-slate-400 uppercase font-bold">3. Errores Logicos</div>
+                            <div id="repLogicos" class="text-2xl font-extrabold text-navy-900 mt-1">0</div>
+                            <div class="text-[11px] text-blue-600 font-semibold mt-0.5">Corregidos</div>
+                        </div>
+                        <div class="p-4 bg-white border border-slate-200 rounded-2xl text-center shadow-sm">
+                            <div class="text-[10px] text-slate-400 uppercase font-bold">4. Outliers (>240m)</div>
+                            <div id="repAtipicos" class="text-2xl font-extrabold text-navy-900 mt-1">0</div>
+                            <div class="text-[11px] text-purple-600 font-semibold mt-0.5">Normalizados</div>
+                        </div>
+                        <div class="p-4 bg-white border border-slate-200 rounded-2xl text-center shadow-sm">
+                            <div class="text-[10px] text-slate-400 uppercase font-bold">5. Formatos Texto</div>
+                            <div id="repFormatos" class="text-2xl font-extrabold text-navy-900 mt-1">0</div>
+                            <div class="text-[11px] text-teal-600 font-semibold mt-0.5">Estandarizados</div>
                         </div>
                     </div>
                 </div>
@@ -516,12 +801,78 @@
             <!-- SECCION 5: EXPORTACION DE REPORTES         -->
             <!-- ========================================== -->
             <section id="panelExportar" class="space-y-6 hidden">
-                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm max-w-xl">
-                    <h3 class="font-bold text-navy-900 text-base mb-2">Exportar Base de Datos y Reportes Gerenciales</h3>
-                    <p class="text-xs text-slate-500 mb-6">Descarga los datos depurados para analisis en Excel o respaldo institucional.</p>
-                    <a href="/api/exportar-csv" class="inline-flex items-center gap-2 px-6 py-3 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl shadow-md transition">
-                        <span>Descargar Listado de Socios y Probabilidad de Churn (.CSV)</span>
-                    </a>
+                <!-- Banner Ejecutivo -->
+                <div class="bg-gradient-to-r from-navy-900 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-lg border border-slate-800">
+                    <span class="text-[10px] font-bold text-brand-400 uppercase tracking-widest bg-brand-900/60 px-2.5 py-1 rounded-md border border-brand-500/30">
+                        Centro de Descargas
+                    </span>
+                    <h2 class="text-2xl font-extrabold text-white mt-2">Exportacion de Reportes y Datos Depurados</h2>
+                    <p class="text-xs text-slate-300 mt-1 max-w-2xl leading-relaxed">
+                        Descarga los datos procesados en formato CSV compatible con Microsoft Excel, Google Sheets, PowerBI o cualquier software de administracion contable.
+                    </p>
+                </div>
+
+                <!-- 3 Tarjetas de Descarga Profesional -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Reporte 1: Churn y Socios en Riesgo -->
+                    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                        <div>
+                            <div class="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center font-bold mb-4">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                            </div>
+                            <span class="text-[10px] font-extrabold text-rose-700 bg-rose-50 px-2 py-0.5 rounded uppercase">Retencion Comercial</span>
+                            <h3 class="font-bold text-navy-900 text-sm mt-2 mb-1.5">Listado de Socios y Riesgo de Desercion</h3>
+                            <p class="text-xs text-slate-500 leading-relaxed">
+                                Incluye ID de socio, nombre, sucursal, cuota mensual, dias de inactividad y probabilidad calculada de baja para campañas de recuperacion.
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-100">
+                            <a href="/api/exportar-csv" class="w-full py-2.5 px-4 bg-navy-900 hover:bg-brand-600 text-white font-bold text-xs rounded-xl shadow-sm transition flex items-center justify-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                                <span>Descargar Socios (.CSV)</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Reporte 2: Horas Pico y Afluencia -->
+                    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                        <div>
+                            <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold mb-4">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                            </div>
+                            <span class="text-[10px] font-extrabold text-blue-700 bg-blue-50 px-2 py-0.5 rounded uppercase">Operacion y Nomina</span>
+                            <h3 class="font-bold text-navy-900 text-sm mt-2 mb-1.5">Resumen de Asistencias y Horas Pico</h3>
+                            <p class="text-xs text-slate-500 leading-relaxed">
+                                Tabla cruzada con total de entradas por dia de la semana, hora de mayor afluencia y promedio de tiempo de estancia en las instalaciones.
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-100">
+                            <a href="/api/exportar-csv" class="w-full py-2.5 px-4 bg-navy-900 hover:bg-brand-600 text-white font-bold text-xs rounded-xl shadow-sm transition flex items-center justify-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                                <span>Descargar Afluencia (.CSV)</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Reporte 3: Base de Datos Limpia -->
+                    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                        <div>
+                            <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold mb-4">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg>
+                            </div>
+                            <span class="text-[10px] font-extrabold text-purple-700 bg-purple-50 px-2 py-0.5 rounded uppercase">Respaldo Institucional</span>
+                            <h3 class="font-bold text-navy-900 text-sm mt-2 mb-1.5">Base de Datos Limpia y Depurada</h3>
+                            <p class="text-xs text-slate-500 leading-relaxed">
+                                Dataset completo con los 65,050 registros corregidos, sin duplicados ni anomalias, listo para auditoria academica o migracion de sistema.
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-100">
+                            <a href="/api/exportar-csv" class="w-full py-2.5 px-4 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center justify-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                                <span>Descargar Base Completa (.CSV)</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -656,28 +1007,28 @@
             if (seccion === 'analitica') {
                 document.getElementById('navBtnAnalitica').classList.add('active');
                 document.getElementById('panelAnalitica').classList.remove('hidden');
-                tit.innerText = 'Metricas y Visualizaciones de Negocio';
-                sub.innerText = 'Monitoreo y pronostico de la afluencia en tiempo real.';
+                tit.innerText = 'Metricas y Graficas de Afluencia';
+                sub.innerText = 'Monitoreo en tiempo real de entradas por torniquete, ticket promedio y horas pico.';
             } else if (seccion === 'churn') {
                 document.getElementById('navBtnChurn').classList.add('active');
                 document.getElementById('panelChurn').classList.remove('hidden');
-                tit.innerText = 'Socios en Riesgo de Cancelar (Retencion)';
-                sub.innerText = 'Identificacion temprana de socios propensos a cancelar su membresia para recuperarlos a tiempo.';
+                tit.innerText = 'Socios en Riesgo de Cancelar';
+                sub.innerText = 'Identificacion temprana y rescate de miembros ausentes antes de que causen baja.';
             } else if (seccion === 'subircsv') {
                 document.getElementById('navBtnSubirCsv').classList.add('active');
                 document.getElementById('panelSubirCsv').classList.remove('hidden');
-                tit.innerText = 'Carga de Archivo CSV Propio';
-                sub.innerText = 'Importa y procesa los registros de torniquete o asistencia de tu gimnasio.';
+                tit.innerText = 'Subir Entradas de Gimnasio (CSV)';
+                sub.innerText = 'Importa y procesa los registros de torniquete o asistencia de cualquiera de tus sucursales.';
             } else if (seccion === 'limpieza') {
                 document.getElementById('navBtnLimpieza').classList.add('active');
                 document.getElementById('panelLimpieza').classList.remove('hidden');
-                tit.innerText = 'Modulo de Auditoria y Limpieza de Datos';
-                sub.innerText = 'Validacion automatizada de los 5 tipos de error de analitica.';
+                tit.innerText = 'Auditoria y Calidad de Base de Datos';
+                sub.innerText = 'Supervision automatica de las 5 normas de depuracion para proyecciones precisas.';
             } else if (seccion === 'exportar') {
                 document.getElementById('navBtnExportar').classList.add('active');
                 document.getElementById('panelExportar').classList.remove('hidden');
-                tit.innerText = 'Exportacion de Reportes y Datos';
-                sub.innerText = 'Descarga en formato CSV compatible con Excel para direccion general.';
+                tit.innerText = 'Descargar Reportes en Excel';
+                sub.innerText = 'Generacion de archivos CSV compatibles con Excel, Google Sheets y sistemas contables.';
             }
         }
 
@@ -1278,28 +1629,28 @@
             });
         }
 
-        // Renderizador de Mapa de Calor en cuadricula HTML
+        // Renderizador de Mapa de Calor en cuadricula HTML estilizada
         function renderHeatmap(calor) {
             const cont = document.getElementById('heatmapContainer');
-            let html = '<table class="w-full text-center border-collapse"><thead><tr><th class="p-1">Hora</th>';
-            calor.dias.forEach(d => html += `<th class="p-1 font-bold text-slate-700">${d}</th>`);
+            let html = '<table class="w-full text-center border-separate border-spacing-1"><thead><tr><th class="p-1 text-[11px] font-bold text-slate-400 uppercase">Hora</th>';
+            calor.dias.forEach(d => html += `<th class="p-1 text-[11px] font-extrabold text-slate-700 uppercase">${d}</th>`);
             html += '</tr></thead><tbody>';
 
             const maxVal = Math.max(...calor.matriz.flat());
 
             calor.horas.forEach((hora, i) => {
-                html += `<tr><td class="p-1 text-[11px] font-bold text-slate-500">${hora}</td>`;
+                html += `<tr><td class="p-1 text-[10px] font-bold text-slate-500">${hora}</td>`;
                 calor.dias.forEach((_, j) => {
                     const val = calor.matriz[i][j];
                     const intensidad = maxVal > 0 ? (val / maxVal) : 0;
-                    let bgColor = '#ffffff';
-                    let textColor = '#334155';
-                    if (intensidad > 0.75) { bgColor = '#1e40af'; textColor = '#ffffff'; }
-                    else if (intensidad > 0.5) { bgColor = '#3b82f6'; textColor = '#ffffff'; }
-                    else if (intensidad > 0.25) { bgColor = '#93c5fd'; textColor = '#1e293b'; }
-                    else if (intensidad > 0.05) { bgColor = '#dbeafe'; textColor = '#1e293b'; }
+                    let bgColor = '#f8fafc';
+                    let textColor = '#64748b';
+                    if (intensidad > 0.75) { bgColor = '#1e3a8a'; textColor = '#ffffff'; }
+                    else if (intensidad > 0.5) { bgColor = '#2563eb'; textColor = '#ffffff'; }
+                    else if (intensidad > 0.25) { bgColor = '#93c5fd'; textColor = '#1e3a8a'; }
+                    else if (intensidad > 0.05) { bgColor = '#dbeafe'; textColor = '#1e40af'; }
 
-                    html += `<td class="p-1 text-[10px] rounded" style="background-color: ${bgColor}; color: ${textColor};" title="${val} accesos">${val}</td>`;
+                    html += `<td class="p-1.5 text-[10px] font-semibold rounded-lg transition hover:ring-2 hover:ring-brand-400 cursor-default" style="background-color: ${bgColor}; color: ${textColor};" title="${val} accesos">${val}</td>`;
                 });
                 html += '</tr>';
             });
