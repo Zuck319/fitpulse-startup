@@ -612,27 +612,123 @@
             <!-- ========================================== -->
             <section id="panelChurn" class="space-y-6 hidden">
                 
-                <!-- Tarjeta Ejecutiva de Impacto Financiero -->
-                <div class="bg-gradient-to-r from-navy-900 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-lg border border-slate-800">
-                    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+                <!-- MODULO FINANCIERO: IMPACTO EN INGRESOS Y RETENCION (PROPUESTA 2) -->
+                <div class="bg-gradient-to-r from-navy-900 via-slate-900 to-navy-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-800 relative overflow-hidden">
+                    <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                    <!-- Encabezado Financiero -->
+                    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 pb-6 border-b border-white/10 relative z-10">
                         <div>
-                            <span class="text-[10px] font-bold text-brand-400 uppercase tracking-widest bg-brand-900/60 px-2.5 py-1 rounded-md border border-brand-500/30">
-                                Diagnostico Financiero en Vivo
-                            </span>
-                            <h2 class="text-xl sm:text-2xl font-extrabold mt-3">Proteccion de Membresias Activas</h2>
-                            <p class="text-xs text-slate-300 mt-1 max-w-xl leading-relaxed">
-                                FitPulse detecto que los socios con mas de 8 dias de inasistencia representan la mayor fuga de capital recurrente. Contactarlos oportunamente con las sugerencias de la plataforma recupera en promedio 6 de cada 10 miembros.
+                            <div class="flex items-center gap-2">
+                                <span class="text-[10px] font-black text-brand-400 uppercase tracking-widest bg-brand-900/80 px-2.5 py-1 rounded-md border border-brand-500/40 shadow-xs">
+                                    Modulo Financiero y Retencion Activa
+                                </span>
+                                <span class="text-[10px] font-bold text-slate-400 bg-white/10 px-2 py-0.5 rounded-md">
+                                    Finanzas en Tiempo Real
+                                </span>
+                            </div>
+                            <h2 class="text-xl sm:text-2xl font-black mt-2.5 tracking-tight text-white">Analitica de Ingresos Recurrentes y Retorno de Inversion</h2>
+                            <p class="text-xs text-slate-300 mt-1 max-w-2xl leading-relaxed">
+                                FitPulse detecta la desercion silenciosa antes de la fecha de cobro. Reactivar oportunamente a tus socios con alertas de WhatsApp evita la fuga de mensualidades y maximiza el valor de vida del cliente (LTV).
                             </p>
                         </div>
-                        <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-2xl border border-white/10 text-left lg:text-right min-w-[240px]">
-                            <div class="text-[11px] font-semibold text-slate-300 uppercase">Ingresos en Riesgo Inmediato</div>
-                            <div id="churnDineroEnRiesgo" class="text-3xl font-extrabold text-white mt-0.5">$0.00 <span class="text-xs font-normal text-slate-300">MXN/mes</span></div>
-                            <div id="churnSubtextoDinero" class="text-[10px] text-brand-400 font-semibold mt-1">Calculado sobre socios en alerta critica</div>
+
+                        <!-- Boton de Accion: Cola de Rescate Rapido -->
+                        <div class="shrink-0 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
+                            <button type="button" onclick="iniciarColaRescateRapida()" class="px-5 py-3 bg-brand-500 hover:bg-brand-600 active:scale-95 text-navy-950 font-black text-xs rounded-xl shadow-lg shadow-brand-500/25 transition flex items-center justify-center gap-2 cursor-pointer">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                                <span>Cola de Rescate Rapida (Top 5)</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 4 Tarjetas de Metricas Financieras Clave -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6 relative z-10">
+                        <!-- KPI 1: MRR Total -->
+                        <div class="bg-white/10 backdrop-blur-md p-4 sm:p-5 rounded-2xl border border-white/10">
+                            <div class="flex items-center justify-between text-slate-300 text-[11px] font-semibold uppercase">
+                                <span>MRR en Cartera</span>
+                                <span class="text-[10px] text-brand-300 bg-brand-950/60 px-2 py-0.5 rounded font-mono font-bold">Activo</span>
+                            </div>
+                            <div id="churnMrrTotal" class="text-2xl sm:text-3xl font-black text-white mt-1.5">$0.00</div>
+                            <div class="text-[11px] text-slate-400 mt-1">Facturacion mensual recurrente estimada</div>
+                        </div>
+
+                        <!-- KPI 2: Dinero en Riesgo Critico -->
+                        <div class="bg-rose-950/40 backdrop-blur-md p-4 sm:p-5 rounded-2xl border border-rose-500/30">
+                            <div class="flex items-center justify-between text-rose-300 text-[11px] font-semibold uppercase">
+                                <span>Fuga en Riesgo Critico</span>
+                                <span id="churnPctMrr" class="text-[10px] text-rose-300 bg-rose-900/60 px-2 py-0.5 rounded font-mono font-bold">0% MRR</span>
+                            </div>
+                            <div id="churnDineroEnRiesgo" class="text-2xl sm:text-3xl font-black text-rose-400 mt-1.5">$0.00</div>
+                            <div class="text-[11px] text-rose-300/80 mt-1">Ausentes por mas de 8 dias consecutivos</div>
+                        </div>
+
+                        <!-- KPI 3: Dinero Rescatable Estimado -->
+                        <div class="bg-brand-950/40 backdrop-blur-md p-4 sm:p-5 rounded-2xl border border-brand-500/30">
+                            <div class="flex items-center justify-between text-brand-300 text-[11px] font-semibold uppercase">
+                                <span>Rescate Proyectado</span>
+                                <span class="text-[10px] text-brand-300 bg-brand-900/60 px-2 py-0.5 rounded font-mono font-bold">45% Tasa</span>
+                            </div>
+                            <div id="churnDineroRescatable" class="text-2xl sm:text-3xl font-black text-brand-400 mt-1.5">$0.00</div>
+                            <div class="text-[11px] text-brand-300/80 mt-1">Dinero salvable con intervencion temprana</div>
+                        </div>
+
+                        <!-- KPI 4: Multiplicador ROI FitPulse -->
+                        <div class="bg-emerald-950/40 backdrop-blur-md p-4 sm:p-5 rounded-2xl border border-emerald-500/30">
+                            <div class="flex items-center justify-between text-emerald-300 text-[11px] font-semibold uppercase">
+                                <span>Retorno de Inversion (ROI)</span>
+                                <span class="text-[10px] text-emerald-300 bg-emerald-900/60 px-2 py-0.5 rounded font-mono font-bold">Plan Pro</span>
+                            </div>
+                            <div id="churnMultiploRoi" class="text-2xl sm:text-3xl font-black text-emerald-400 mt-1.5">0.0x</div>
+                            <div class="text-[11px] text-emerald-300/80 mt-1">El software se paga por si mismo</div>
+                        </div>
+                    </div>
+
+                    <!-- Simulador Interactivo de Retencion Financiera en Vivo -->
+                    <div class="mt-6 pt-6 border-t border-white/10 relative z-10 bg-white/5 p-4 sm:p-5 rounded-2xl">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-3">
+                            <div>
+                                <h4 class="text-xs font-black text-white uppercase tracking-wider">Simulador de Retencion Financiera en Tiempo Real</h4>
+                                <p class="text-[11px] text-slate-300 mt-0.5">Ajusta el porcentaje de socios ausentes que tu equipo planea contactar y reactivar este mes:</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-[11px] text-slate-400">Efectividad esperada:</span>
+                                <span id="simValPctLabel" class="text-base font-black text-brand-400 ml-1.5">45%</span>
+                            </div>
+                        </div>
+
+                        <!-- Slider -->
+                        <div class="mb-4">
+                            <input type="range" id="sliderEfectividad" min="10" max="90" value="45" step="5" oninput="actualizarSimuladorFinanciero(this.value)" class="w-full accent-brand-500 cursor-pointer">
+                            <div class="flex justify-between text-[10px] text-slate-400 font-mono mt-1">
+                                <span>10% (Minimo)</span>
+                                <span>30% (Conservador)</span>
+                                <span>50% (Meta Estandar)</span>
+                                <span>75% (Optimo)</span>
+                                <span>90% (Maximo)</span>
+                            </div>
+                        </div>
+
+                        <!-- Resultados del Simulador -->
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center bg-black/30 p-3 rounded-xl border border-white/5">
+                            <div>
+                                <div class="text-[10px] text-slate-400 uppercase font-semibold">Socios Recuperados</div>
+                                <div id="simSociosFmt" class="text-base font-black text-white mt-0.5">0 socios</div>
+                            </div>
+                            <div>
+                                <div class="text-[10px] text-slate-400 uppercase font-semibold">Ingresos Mensuales Salvados</div>
+                                <div id="simDineroFmt" class="text-base font-black text-brand-400 mt-0.5">$0.00 MXN</div>
+                            </div>
+                            <div>
+                                <div class="text-[10px] text-slate-400 uppercase font-semibold">Beneficio Neto tras Licencia FitPulse ($899)</div>
+                                <div id="simNetoFmt" class="text-base font-black text-emerald-400 mt-0.5">+$0.00 MXN</div>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Barra de Salud de la Red de Socios -->
-                    <div class="mt-6 pt-6 border-t border-white/10">
+                    <div class="mt-6 pt-6 border-t border-white/10 relative z-10">
                         <div class="flex justify-between items-center text-xs mb-2">
                             <span class="font-bold text-slate-200">Indice de Salud de Asistencias</span>
                             <span id="churnTasaSalud" class="font-extrabold text-brand-400">Calculando...</span>
@@ -642,18 +738,23 @@
                             <div id="barraModerados" class="bg-amber-400 h-full transition-all duration-500" style="width: 20%;" title="Seguimiento Preventivo"></div>
                             <div id="barraCriticos" class="bg-rose-500 h-full transition-all duration-500" style="width: 10%;" title="Riesgo Critico"></div>
                         </div>
-                        <div class="flex flex-wrap items-center gap-6 mt-3 text-[11px] text-slate-300">
-                            <div class="flex items-center gap-2">
-                                <span class="w-2.5 h-2.5 rounded-full bg-brand-500"></span>
-                                <span>Asistencia Regular (0-3 dias)</span>
+                        <div class="flex flex-wrap items-center justify-between gap-4 mt-3 text-[11px] text-slate-300">
+                            <div class="flex flex-wrap items-center gap-6">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-brand-500"></span>
+                                    <span>Asistencia Regular (0-3 dias)</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                                    <span>Intermitente (4-7 dias)</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+                                    <span>Riesgo Critico (8+ dias)</span>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-2">
-                                <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
-                                <span>Intermitente (4-7 dias)</span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
-                                <span>Riesgo Critico (8+ dias)</span>
+                            <div id="crmIndicadorContactados" class="text-[11px] font-bold text-brand-300 bg-white/10 px-3 py-1 rounded-lg">
+                                Gestion CRM: 0 contactados hoy
                             </div>
                         </div>
                     </div>
@@ -1395,6 +1496,91 @@
         </div>
     </div>
 
+    <!-- MODAL ASISTENTE COLA DE RESCATE RAPIDA (TOP 5 CASOS CRITICOS) -->
+    <div id="modalColaRescate" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 md:p-8 shadow-2xl border border-slate-200 relative animate-pop">
+            <!-- Header Cola -->
+            <div class="flex justify-between items-center mb-5 pb-4 border-b border-slate-100">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h3 class="font-extrabold text-navy-900 text-base">Cola de Rescate Rapida</h3>
+                            <span id="colaProgresoBadge" class="text-[10px] font-black bg-brand-100 text-brand-800 px-2 py-0.5 rounded-full">1 de 5</span>
+                        </div>
+                        <p class="text-xs text-slate-500">Contacta y recupera a los casos mas criticos en 1 minuto</p>
+                    </div>
+                </div>
+                <button onclick="cerrarColaRescate()" class="text-slate-400 hover:text-slate-600 p-1.5 rounded-lg hover:bg-slate-100 transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+
+            <!-- Ficha del Socio en Turno -->
+            <div id="colaContenidoPaso">
+                <div class="bg-rose-50/60 p-4 rounded-2xl border border-rose-200/80 mb-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div id="colaSocioAvatar" class="w-12 h-12 rounded-full bg-rose-600 text-white font-extrabold text-sm flex items-center justify-center shadow-md shadow-rose-600/20">
+                                --
+                            </div>
+                            <div>
+                                <div id="colaSocioNombre" class="font-extrabold text-navy-900 text-base">Cargando...</div>
+                                <div class="text-[11px] text-slate-500 flex items-center gap-2 mt-0.5">
+                                    <span id="colaSocioId" class="font-mono bg-white px-1.5 py-0.5 rounded border border-rose-200">SOC-000</span>
+                                    <span class="text-slate-300">•</span>
+                                    <span id="colaSocioSede">Sede</span>
+                                    <span class="text-slate-300">•</span>
+                                    <span id="colaSocioPlan" class="font-semibold text-rose-700">Plan</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-[10px] font-black uppercase text-rose-700 bg-rose-100 px-2.5 py-1 rounded-md border border-rose-200">Riesgo Critico</span>
+                            <div id="colaSocioDias" class="text-xs font-bold text-rose-800 mt-1">12 dias ausente</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mensaje Pre-cargado -->
+                <div class="mb-5">
+                    <div class="flex justify-between items-center mb-1.5">
+                        <label class="text-xs font-bold text-slate-700">Mensaje a Enviar por WhatsApp:</label>
+                        <span class="text-[10px] text-emerald-600 font-bold">Listo para enviar</span>
+                    </div>
+                    <textarea id="colaMensajeTexto" rows="3" class="w-full text-xs text-slate-700 p-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-emerald-500 focus:bg-white transition resize-none"></textarea>
+                </div>
+
+                <!-- Botones de Accion de Cola -->
+                <div class="flex items-center gap-3">
+                    <button type="button" onclick="saltarSocioCola()" class="w-1/3 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition">
+                        Saltar Socio
+                    </button>
+                    <button type="button" onclick="enviarSocioColaActual()" class="w-2/3 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs rounded-xl shadow-lg shadow-emerald-600/30 transition flex items-center justify-center gap-2 active:scale-95 cursor-pointer">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                        <span>Enviar WhatsApp y Siguiente</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Pantalla de Finalizacion de Cola -->
+            <div id="colaPantallaFinal" class="hidden text-center py-6">
+                <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold mx-auto mb-3">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                </div>
+                <h4 class="text-base font-black text-navy-900">Cola de Rescate Finalizada</h4>
+                <p class="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
+                    Los socios prioritarios han sido contactados. El estatus en el CRM y el simulador financiero se han actualizado.
+                </p>
+                <button type="button" onclick="cerrarColaRescate()" class="mt-5 px-6 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl shadow-md transition">
+                    Cerrar Asistente
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- JAVASCRIPT DINAMICO DE CONEXION REST API -->
     <script>
         let chartsInstanciados = {};
@@ -1912,16 +2098,64 @@
         let socioSeleccionado = null;
         let filtroNivelActivo = 'Todos';
         let vistaActualSocios = 'tarjetas';
+        let datosFinancierosGlobal = null;
+        let colaRescateSocios = [];
+        let indiceColaRescate = 0;
 
-        // Cargar datos de Churn / Desercion
+        // Actualizar Simulador Financiero en Tiempo Real
+        function actualizarSimuladorFinanciero(pctValor) {
+            const pct = parseFloat(pctValor) / 100.0;
+            document.getElementById('simValPctLabel').innerText = `${pctValor}%`;
+
+            if (!datosFinancierosGlobal) return;
+
+            const dineroCritico = datosFinancierosGlobal.dinero_critico || 0.0;
+            const costoSoftware = datosFinancierosGlobal.costo_plan_pro || 899.0;
+            const criticosCount = (todosLosSocios.filter(s => s.nivel === 'Critico')).length;
+
+            const sociosRecuperados = Math.round(criticosCount * pct);
+            const dineroSalvado = dineroCritico * pct;
+            const gananciaNeta = dineroSalvado - costoSoftware;
+
+            document.getElementById('simSociosFmt').innerText = `${sociosRecuperados} socios salvados`;
+            document.getElementById('simDineroFmt').innerText = `$${dineroSalvado.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} MXN`;
+            
+            const signo = gananciaNeta >= 0 ? '+' : '';
+            const netoEl = document.getElementById('simNetoFmt');
+            netoEl.innerText = `${signo}$${gananciaNeta.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} MXN`;
+            if (gananciaNeta >= 0) {
+                netoEl.className = 'text-base font-black text-emerald-400 mt-0.5';
+            } else {
+                netoEl.className = 'text-base font-black text-rose-400 mt-0.5';
+            }
+        }
+
+        // Cargar datos de Churn / Desercion y Modulo Financiero
         async function cargarDatosChurn(sucursal) {
             try {
                 const res = await fetch(`/api/churn-radar?sucursal=${encodeURIComponent(sucursal)}`);
                 const data = await res.json();
 
-                // 1. Metricas financieras e impacto
-                const dineroFmt = data.dinero_critico ? data.dinero_critico.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '0.00';
-                document.getElementById('churnDineroEnRiesgo').innerHTML = `$${dineroFmt} <span class="text-xs font-normal text-slate-300">MXN/mes</span>`;
+                // 1. Metricas financieras e impacto ejecutivo (Propuesta 2)
+                datosFinancierosGlobal = data.financiero || {};
+                
+                const mrrTotal = datosFinancierosGlobal.mrr_total || 0;
+                document.getElementById('churnMrrTotal').innerText = `$${mrrTotal.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+                const dineroCritico = data.dinero_critico || 0;
+                document.getElementById('churnDineroEnRiesgo').innerText = `$${dineroCritico.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+                const pctMrr = datosFinancierosGlobal.pct_mrr_critico || 0;
+                document.getElementById('churnPctMrr').innerText = `${pctMrr}% MRR`;
+
+                const dineroRescatable = datosFinancierosGlobal.dinero_rescatable_est || 0;
+                document.getElementById('churnDineroRescatable').innerText = `$${dineroRescatable.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+                const roiMultiplo = datosFinancierosGlobal.multiplo_roi_pro || 0;
+                document.getElementById('churnMultiploRoi').innerText = `${roiMultiplo}x Inversion`;
+
+                // Inicializar simulador con 45%
+                actualizarSimuladorFinanciero(document.getElementById('sliderEfectividad').value || 45);
                 
                 const tasaSalud = (100 - (data.tasa_riesgo || 0)).toFixed(1);
                 document.getElementById('churnTasaSalud').innerText = `${tasaSalud}% Retencion Activa`;
@@ -1941,7 +2175,11 @@
                 document.getElementById('churnModerados').innerText = `${data.moderados} socios`;
                 document.getElementById('churnBajos').innerText = `${data.bajos} socios`;
 
-                // 4. Guardar socios y renderizar
+                // 4. Indicador CRM de gestion
+                const contactadosCount = data.contactados || 0;
+                document.getElementById('crmIndicadorContactados').innerText = `Gestion CRM: ${contactadosCount} contactados hoy`;
+
+                // 5. Guardar socios y renderizar
                 todosLosSocios = data.socios || [];
                 aplicarFiltrosSocios();
 
@@ -2031,6 +2269,71 @@
             }
         }
 
+        // Enviar WhatsApp en 1 Clic Directo (Propuesta 3)
+        async function enviarWhatsAppDirecto(idSocio) {
+            const socio = todosLosSocios.find(s => s.id_socio === idSocio);
+            if (!socio) return;
+
+            // Abrir conversacion en WhatsApp
+            window.open(socio.wa_url, '_blank');
+
+            // Actualizar estado en el CRM del Backend
+            try {
+                await fetch(`/api/socios/${idSocio}/gestion`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        estado: 'Contactado',
+                        canal: 'WhatsApp',
+                        notas: 'Enviada rutina express 1-clic'
+                    })
+                });
+
+                // Actualizar estado local
+                socio.estado_gestion = 'Contactado';
+                socio.fecha_gestion = 'Hoy';
+
+                // Re-renderizar para reflejar el badge
+                aplicarFiltrosSocios();
+
+                // Notificacion toast elegante
+                mostrarToast(`Mensaje enviado a ${socio.nombre}. Marcado como Contactado en el CRM.`);
+
+                // Actualizar contador
+                const contactados = todosLosSocios.filter(s => s.estado_gestion === 'Contactado' || s.estado_gestion === 'Reactivado').length;
+                document.getElementById('crmIndicadorContactados').innerText = `Gestion CRM: ${contactados} contactados hoy`;
+
+            } catch (err) {
+                console.error("Error al registrar gestion en CRM:", err);
+            }
+        }
+
+        // Cambiar estado manual en el CRM (ej. a Reactivado)
+        async function cambiarEstadoGestionManual(idSocio, nuevoEstado) {
+            const socio = todosLosSocios.find(s => s.id_socio === idSocio);
+            if (!socio) return;
+
+            try {
+                await fetch(`/api/socios/${idSocio}/gestion`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        estado: nuevoEstado,
+                        canal: 'Recepcion',
+                        notas: 'Actualizacion manual desde panel'
+                    })
+                });
+
+                socio.estado_gestion = nuevoEstado;
+                socio.fecha_gestion = 'Hoy';
+                aplicarFiltrosSocios();
+                mostrarToast(`Estatus de ${socio.nombre} actualizado a '${nuevoEstado}'.`);
+
+            } catch (err) {
+                console.error("Error actualizando estatus manual:", err);
+            }
+        }
+
         // Renderizar vista en Tarjetas
         function renderSociosCards(socios) {
             const container = document.getElementById('vistaContenedorTarjetas');
@@ -2040,23 +2343,35 @@
                 let badgeColor = '';
                 let borderColor = '';
                 let avatarBg = '';
-                let actionBtnClass = '';
 
                 if (s.nivel === 'Critico') {
                     badgeColor = 'bg-rose-50 text-rose-700 border-rose-200';
                     borderColor = 'border-rose-200 hover:border-rose-300';
                     avatarBg = 'bg-rose-100 text-rose-800';
-                    actionBtnClass = 'bg-rose-600 hover:bg-rose-700 text-white shadow-rose-600/20';
                 } else if (s.nivel === 'Moderado') {
                     badgeColor = 'bg-amber-50 text-amber-700 border-amber-200';
                     borderColor = 'border-amber-200 hover:border-amber-300';
                     avatarBg = 'bg-amber-100 text-amber-800';
-                    actionBtnClass = 'bg-amber-600 hover:bg-amber-700 text-white shadow-amber-600/20';
                 } else {
                     badgeColor = 'bg-emerald-50 text-emerald-700 border-emerald-200';
                     borderColor = 'border-emerald-200 hover:border-emerald-300';
                     avatarBg = 'bg-emerald-100 text-emerald-800';
-                    actionBtnClass = 'bg-navy-900 hover:bg-brand-600 text-white shadow-navy-900/20';
+                }
+
+                // Badge de estado CRM
+                let crmBadge = '';
+                if (s.estado_gestion === 'Contactado') {
+                    crmBadge = `<span class="px-2 py-0.5 rounded-md text-[10px] font-black bg-emerald-100 text-emerald-800 border border-emerald-200 flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> Contactado
+                    </span>`;
+                } else if (s.estado_gestion === 'Reactivado') {
+                    crmBadge = `<span class="px-2 py-0.5 rounded-md text-[10px] font-black bg-blue-100 text-blue-800 border border-blue-200 flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span> Reactivado
+                    </span>`;
+                } else {
+                    crmBadge = `<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-slate-100 text-slate-500 border border-slate-200 flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span> Pendiente
+                    </span>`;
                 }
 
                 const card = document.createElement('div');
@@ -2064,14 +2379,14 @@
                 card.innerHTML = `
                     <div>
                         <!-- Encabezado de Socio -->
-                        <div class="flex items-start justify-between gap-3 mb-4">
+                        <div class="flex items-start justify-between gap-3 mb-3">
                             <div class="flex items-center gap-3">
                                 <div class="w-11 h-11 rounded-full ${avatarBg} font-extrabold text-sm flex items-center justify-center shrink-0">
                                     ${s.iniciales || 'FP'}
                                 </div>
                                 <div>
                                     <h4 class="font-bold text-navy-900 text-sm leading-tight">${s.nombre}</h4>
-                                    <div class="text-[11px] text-slate-400 font-mono mt-0.5">${s.id_socio}</div>
+                                    <div class="text-[11px] text-slate-400 font-mono mt-0.5">${s.id_socio} • ${s.telefono_fmt || ''}</div>
                                 </div>
                             </div>
                             <span class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold border ${badgeColor} uppercase tracking-wider shrink-0">
@@ -2079,10 +2394,13 @@
                             </span>
                         </div>
 
-                        <!-- Sede y Plan -->
-                        <div class="flex items-center gap-2 mb-4 text-[11px]">
-                            <span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 font-semibold">${s.sucursal}</span>
-                            <span class="px-2 py-0.5 rounded-md bg-brand-50 text-brand-700 font-semibold">${s.plan}</span>
+                        <!-- Sede, Plan y Estado CRM -->
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-4 text-[11px]">
+                            <div class="flex items-center gap-1.5">
+                                <span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 font-semibold">${s.sucursal}</span>
+                                <span class="px-2 py-0.5 rounded-md bg-brand-50 text-brand-700 font-semibold">${s.plan}</span>
+                            </div>
+                            ${crmBadge}
                         </div>
 
                         <!-- Metricas Clave del Socio -->
@@ -2114,11 +2432,16 @@
                         </div>
                     </div>
 
-                    <!-- Boton de Contacto / Rescate -->
-                    <button onclick="abrirModalContacto('${s.id_socio}')" class="w-full py-2.5 px-4 rounded-xl font-bold text-xs shadow-sm transition flex items-center justify-center gap-2 ${actionBtnClass}">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
-                        <span>Contactar y Recuperar</span>
-                    </button>
+                    <!-- Botonera de Accion: WhatsApp Directo (1 Clic) y Ficha Personalizada -->
+                    <div class="flex items-center gap-2 pt-2 border-t border-slate-100">
+                        <button onclick="enviarWhatsAppDirecto('${s.id_socio}')" class="flex-1 py-2.5 px-3 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-black text-xs rounded-xl shadow-md shadow-emerald-600/20 transition flex items-center justify-center gap-2 cursor-pointer" title="Abrir chat en WhatsApp con mensaje precargado">
+                            <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                            <span>WhatsApp 1-Clic</span>
+                        </button>
+                        <button onclick="abrirModalContacto('${s.id_socio}')" class="py-2.5 px-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition" title="Ver ficha y cambiar plantilla de mensaje">
+                            Ficha
+                        </button>
+                    </div>
                 `;
                 container.appendChild(card);
             });
@@ -2134,6 +2457,15 @@
                     ? 'bg-rose-100 text-rose-800' 
                     : (s.nivel === 'Moderado' ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-800');
 
+                let crmStatusPill = '';
+                if (s.estado_gestion === 'Contactado') {
+                    crmStatusPill = `<span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-black text-[10px]">Contactado</span>`;
+                } else if (s.estado_gestion === 'Reactivado') {
+                    crmStatusPill = `<span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-black text-[10px]">Reactivado</span>`;
+                } else {
+                    crmStatusPill = `<span class="px-2 py-0.5 rounded bg-slate-100 text-slate-500 font-bold text-[10px]">Pendiente</span>`;
+                }
+
                 const tr = document.createElement('tr');
                 tr.className = 'hover:bg-slate-50 transition';
                 tr.innerHTML = `
@@ -2144,7 +2476,7 @@
                             </div>
                             <div>
                                 <div class="font-bold text-navy-900">${s.nombre}</div>
-                                <div class="text-[10px] text-slate-400 font-mono">${s.id_socio}</div>
+                                <div class="text-[10px] text-slate-400 font-mono">${s.id_socio} • ${s.telefono_fmt || ''}</div>
                             </div>
                         </div>
                     </td>
@@ -2152,19 +2484,113 @@
                     <td class="p-3.5"><span class="px-2 py-0.5 rounded bg-brand-50 text-brand-700 font-semibold text-[11px]">${s.plan}</span></td>
                     <td class="p-3.5 font-bold text-navy-900">$${s.cuota.toFixed(2)}</td>
                     <td class="p-3.5"><strong class="${s.dias_sin_asistir >= 8 ? 'text-rose-600 font-bold' : 'text-slate-700'}">${s.dias_sin_asistir} dias</strong></td>
-                    <td class="p-3.5"><span class="px-2.5 py-1 rounded-md text-[10px] font-extrabold uppercase ${badgeClass}">${s.nivel} (${(s.probabilidad*100).toFixed(0)}%)</span></td>
+                    <td class="p-3.5">
+                        <div class="flex flex-col gap-1 items-start">
+                            <span class="px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase ${badgeClass}">${s.nivel}</span>
+                            ${crmStatusPill}
+                        </div>
+                    </td>
                     <td class="p-3.5 text-center">
-                        <button onclick="abrirModalContacto('${s.id_socio}')" class="px-3.5 py-1.5 bg-brand-50 hover:bg-brand-100 text-brand-700 font-bold text-xs rounded-lg border border-brand-200 transition flex items-center gap-1.5 mx-auto">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
-                            <span>Contactar</span>
-                        </button>
+                        <div class="flex items-center justify-center gap-1.5">
+                            <button onclick="enviarWhatsAppDirecto('${s.id_socio}')" class="px-2.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-lg shadow-sm transition flex items-center gap-1">
+                                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                                <span>WhatsApp</span>
+                            </button>
+                            <button onclick="abrirModalContacto('${s.id_socio}')" class="px-2.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-lg transition">
+                                Ficha
+                            </button>
+                        </div>
                     </td>
                 `;
                 tbody.appendChild(tr);
             });
         }
 
-        // Abrir Modal de Contacto y Rescate
+        // -------------------------------------------------------------
+        // COLA DE RESCATE RAPIDA (TOP 5 CASOS CRITICOS)
+        // -------------------------------------------------------------
+        function iniciarColaRescateRapida() {
+            // Filtrar socios criticos pendientes primero, o los mas ausentes
+            const criticos = todosLosSocios.filter(s => s.nivel === 'Critico');
+            if (criticos.length === 0) {
+                mostrarToast("No hay socios en riesgo critico pendientes.");
+                return;
+            }
+
+            colaRescateSocios = criticos.slice(0, 5);
+            indiceColaRescate = 0;
+
+            document.getElementById('colaPantallaFinal').classList.add('hidden');
+            document.getElementById('colaContenidoPaso').classList.remove('hidden');
+
+            renderPasoColaRescate();
+            document.getElementById('modalColaRescate').classList.remove('hidden');
+        }
+
+        function renderPasoColaRescate() {
+            if (indiceColaRescate >= colaRescateSocios.length) {
+                // Fin de la cola
+                document.getElementById('colaContenidoPaso').classList.add('hidden');
+                document.getElementById('colaPantallaFinal').classList.remove('hidden');
+                return;
+            }
+
+            const socio = colaRescateSocios[indiceColaRescate];
+            document.getElementById('colaProgresoBadge').innerText = `${indiceColaRescate + 1} de ${colaRescateSocios.length}`;
+            document.getElementById('colaSocioAvatar').innerText = socio.iniciales || 'FP';
+            document.getElementById('colaSocioNombre').innerText = socio.nombre;
+            document.getElementById('colaSocioId').innerText = socio.id_socio;
+            document.getElementById('colaSocioSede').innerText = socio.sucursal;
+            document.getElementById('colaSocioPlan').innerText = socio.plan;
+            document.getElementById('colaSocioDias').innerText = `${socio.dias_sin_asistir} dias ausente`;
+            document.getElementById('colaMensajeTexto').value = socio.mensaje_wa;
+        }
+
+        async function enviarSocioColaActual() {
+            const socio = colaRescateSocios[indiceColaRescate];
+            if (!socio) return;
+
+            const mensajeEditado = document.getElementById('colaMensajeTexto').value;
+            const waUrl = `https://wa.me/${socio.telefono}?text=${encodeURIComponent(mensajeEditado)}`;
+            window.open(waUrl, '_blank');
+
+            // Registrar en backend
+            try {
+                await fetch(`/api/socios/${socio.id_socio}/gestion`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        estado: 'Contactado',
+                        canal: 'WhatsApp',
+                        notas: 'Enviado mediante Cola de Rescate Rapida'
+                    })
+                });
+
+                socio.estado_gestion = 'Contactado';
+                socio.fecha_gestion = 'Hoy';
+                mostrarToast(`WhatsApp enviado a ${socio.nombre}.`);
+
+            } catch (e) {
+                console.error("Error en cola:", e);
+            }
+
+            // Siguiente paso
+            indiceColaRescate++;
+            renderPasoColaRescate();
+            aplicarFiltrosSocios();
+        }
+
+        function saltarSocioCola() {
+            indiceColaRescate++;
+            renderPasoColaRescate();
+        }
+
+        function cerrarColaRescate() {
+            document.getElementById('modalColaRescate').classList.add('hidden');
+            aplicarFiltrosSocios();
+        }
+
+        // Abrir Modal de Contacto y Rescate Individual
         function abrirModalContacto(idSocio) {
             const socio = todosLosSocios.find(s => s.id_socio === idSocio);
             if (!socio) return;
@@ -2178,6 +2604,7 @@
             document.getElementById('modalSocioCuota').innerText = `$${socio.cuota.toFixed(2)} MXN`;
             document.getElementById('modalSocioDias').innerText = `${socio.dias_sin_asistir} dias`;
             document.getElementById('modalSocioProb').innerText = `${(socio.probabilidad * 100).toFixed(0)}%`;
+            document.getElementById('modalSocioTelefono').value = socio.telefono_fmt || '312 190 0195';
 
             seleccionarPlantilla(1);
             document.getElementById('modalContactarSocio').classList.remove('hidden');
@@ -2213,16 +2640,18 @@
             const plan = socioSeleccionado.plan;
 
             if (num === 1) {
-                txt.value = `Hola ${nombre}, te saludamos de FitPulse (${sucursal}). Notamos que hace ${dias} dias no registras entrada. Tu membresia ${plan} sigue activa y queremos apoyarte con una rutina express de 35 minutos para retomar sin lesionarte. ¿Te esperamos hoy o manana?`;
+                txt.value = `Hola ${nombre}, te saludamos de FitPulse (${sucursal}). Notamos que hace ${dias} dias no registras entrada. Tu membresia ${plan} sigue activa y queremos apoyarte con una rutina express de 35 minutos para retomar sin lesionarte. Te esperamos hoy o manana!`;
             } else if (num === 2) {
-                txt.value = `Hola ${nombre}, en FitPulse (${sucursal}) valoramos mucho tu esfuerzo. Para motivarte a continuar, te regalamos una sesion 1 a 1 de valoracion y plan nutricional de cortesia si nos visitas esta semana. ¿A que hora te gustaria agendar?`;
+                txt.value = `Hola ${nombre}, en FitPulse (${sucursal}) valoramos mucho tu esfuerzo. Para motivarte a continuar, te regalamos una sesion 1 a 1 de valoracion y plan nutricional de cortesia si nos visitas esta semana. A que hora te gustaria agendar?`;
             } else if (num === 3) {
-                txt.value = `Hola ${nombre}, te escribe el equipo de FitPulse (${sucursal}). Queremos asegurarnos de brindarte la mejor experiencia: ¿hubo algun inconveniente con los horarios, clases o instalaciones? Cuentanos con confianza para adaptarnos a tus necesidades.`;
+                txt.value = `Hola ${nombre}, te escribe el equipo de FitPulse (${sucursal}). Queremos asegurarnos de brindarte la mejor experiencia: hubo algun inconveniente con los horarios, clases o instalaciones? Cuentanos con confianza para adaptarnos a tus necesidades.`;
             }
         }
 
-        // Enviar WhatsApp oficial con numero y texto personalizado
-        function enviarMensajeWhatsApp() {
+        // Enviar WhatsApp oficial con numero y texto personalizado desde Modal
+        async function enviarMensajeWhatsApp() {
+            if (!socioSeleccionado) return;
+
             const mensaje = document.getElementById('modalMensajeTexto').value;
             let tel = document.getElementById('modalSocioTelefono').value.replace(/[^0-9]/g, '');
             if (!tel) {
@@ -2232,6 +2661,28 @@
             }
             const url = `https://wa.me/${tel}?text=${encodeURIComponent(mensaje)}`;
             window.open(url, '_blank');
+
+            // Registrar en backend
+            try {
+                await fetch(`/api/socios/${socioSeleccionado.id_socio}/gestion`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        estado: 'Contactado',
+                        canal: 'WhatsApp',
+                        notas: 'Enviado desde modal personalizado'
+                    })
+                });
+
+                socioSeleccionado.estado_gestion = 'Contactado';
+                socioSeleccionado.fecha_gestion = 'Hoy';
+                mostrarToast(`WhatsApp enviado a ${socioSeleccionado.nombre}. Marcado en CRM.`);
+                aplicarFiltrosSocios();
+
+            } catch (err) {
+                console.error("Error registrando estado:", err);
+            }
+
             cerrarModalContacto();
         }
 
@@ -2313,6 +2764,33 @@
             cont.innerHTML = html;
         }
 
+        // Sistema de Notificaciones Toast Elegante
+        function mostrarToast(mensaje, duracion = 3500) {
+            let container = document.getElementById('toastContainer');
+            if (!container) {
+                container = document.createElement('div');
+                container.id = 'toastContainer';
+                container.className = 'fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none max-w-sm';
+                document.body.appendChild(container);
+            }
+
+            const toast = document.createElement('div');
+            toast.className = 'bg-navy-950 text-white text-xs font-semibold px-4 py-3 rounded-2xl shadow-2xl border border-slate-700 flex items-center gap-3 animate-pop pointer-events-auto transition-all duration-300';
+            toast.innerHTML = `
+                <div class="w-6 h-6 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                </div>
+                <div class="flex-1 leading-snug">${mensaje}</div>
+            `;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(10px)';
+                setTimeout(() => toast.remove(), 300);
+            }, duracion);
+        }
+
         // Carga inicial y sondeo en tiempo real de entradas
         window.addEventListener('DOMContentLoaded', () => {
             const sucursalInicial = document.getElementById('selectorSucursal').value;
@@ -2323,6 +2801,8 @@
             setInterval(cargarHistorialCheckins, 3000);
         });
     </script>
+
+    <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none max-w-sm"></div>
 
 </body>
 </html>

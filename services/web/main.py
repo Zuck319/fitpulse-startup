@@ -20,6 +20,7 @@ from fastapi.templating import Jinja2Templates
 import pandas as pd
 import numpy as np
 import qrcode
+import urllib.parse
 
 # Rutas del proyecto
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -51,6 +52,11 @@ SESSION_STATE = {
     "sucursal_activa": "Todas las sucursales (Consolidado)",
     "custom_data_loaded": False,
     "custom_data_name": None
+}
+
+# CRM de Retencion en memoria para registrar estados de contacto con socios
+GESTION_SOCIOS_CRM = {
+    "SOC-0042": {"estado": "Contactado", "canal": "WhatsApp", "notas": "Enviada rutina express de reactivacion", "fecha": "2026-11-19 18:30"}
 }
 
 # --------------------------------------------------------------------------
@@ -389,7 +395,11 @@ async def api_analytics(sucursal: Optional[str] = "Todas las sucursales (Consoli
 
 @app.get("/api/churn-radar")
 async def api_churn_radar(sucursal: Optional[str] = "Todas las sucursales (Consolidado)"):
-    """Devuelve el listado de socios categorizados por riesgo de abandono."""
+    """
+    Devuelve el listado de socios categorizados por riesgo de abandono,
+    metricas financieras ejecutivas (MRR, fuga potencial, ROI de FitPulse)
+    y estado de gestion CRM de retencion por WhatsApp.
+    """
     df = obtener_dataframe_limpio()
     if sucursal and sucursal != "Todas las sucursales (Consolidado)" and "sucursal" in df.columns:
         df = df[df["sucursal"] == sucursal].copy()
@@ -419,13 +429,23 @@ async def api_churn_radar(sucursal: Optional[str] = "Todas las sucursales (Conso
         "Alejandro Ruiz", "Mariana Gomez", "Carlos Mendoza", "Fernanda Ortiz", "Jorge Morales",
         "Sofia Hernandez", "Daniel Torres", "Valeria Ramos", "Ricardo Vazquez", "Camila Castro",
         "Diego Navarro", "Elena Delgado", "Mateo Silva", "Renata Paredes", "Sebastian Cruz",
-        "Lucia Alvarez", "Rodrigo Ibarra", "Paulina Rios", "Gabriel Medina", "Andrea Soto"
+        "Lucia Alvarez", "Rodrigo Ibarra", "Paulina Rios", "Gabriel Medina", "Andrea Soto",
+        "Mauricio Bravo", "Diana Castillo", "Esteban Romero", "Jimena Lara", "Emilio Vargas",
+        "Claudia Vega", "Hector Sandoval", "Lorena Benitez", "Javier Rangel", "Natalia Meza"
     ]
     
     socios = []
     for idx, row in resumen.iterrows():
         dias = int(row["dias_sin_asistir"])
+        id_socio = str(row["id_socio"])
         nombre_simulado = nombres_muestra[idx % len(nombres_muestra)]
+        plan = str(row["plan_membresia"])
+        cuota = float(row["monto_mensualidad"])
+        sucursal_socio = str(row["sucursal"])
+        
+        # Telefono con lada real de Colima / Mexico (+52 312 ...)
+        tel_num = f"52312{1900195 if idx < 3 else (1000000 + (idx * 3719) % 9000000)}"
+        tel_fmt = f"+52 312 {tel_num[5:8]} {tel_num[8:12]}"
         
         if dias >= 8:
             nivel = "Critico"
@@ -436,26 +456,50 @@ async def api_churn_radar(sucursal: Optional[str] = "Todas las sucursales (Conso
             nivel = "Moderado"
             prob = 0.52
             color = "yellow"
-            accion_sugerida = "Mensaje motivacional de rutina"
+            accion_sugerida = "Mensaje motivacional de rutina express"
         else:
             nivel = "Bajo"
             prob = 0.12
             color = "green"
             accion_sugerida = "Monitoreo regular y felicitacion"
             
+        # Mensaje predeterminado de WhatsApp para rescate en 1 clic
+        mensaje_wa = (
+            f"Hola {nombre_simulado}, te saludamos de FitPulse ({sucursal_socio}). "
+            f"Notamos que llevas {dias} dias sin entrenar. Tu membresia {plan} sigue activa "
+            f"y queremos apoyarte con una rutina express de 35 minutos para retomar con energia. "
+            f"Te esperamos hoy o manana!"
+        )
+        wa_url = f"https://wa.me/{tel_num}?text={urllib.parse.quote(mensaje_wa)}"
+        
+        # Estado del CRM de retencion
+        crm_info = GESTION_SOCIOS_CRM.get(id_socio, {})
+        estado_gestion = crm_info.get("estado", "Pendiente")
+        fecha_gestion = crm_info.get("fecha", "-")
+        canal_gestion = crm_info.get("canal", "-")
+        notas_gestion = crm_info.get("notas", "")
+            
         socios.append({
-            "id_socio": row["id_socio"],
+            "id_socio": id_socio,
             "nombre": nombre_simulado,
             "iniciales": "".join([p[0] for p in nombre_simulado.split()][:2]),
-            "sucursal": str(row["sucursal"]),
-            "plan": str(row["plan_membresia"]),
-            "cuota": float(row["monto_mensualidad"]),
+            "telefono": tel_num,
+            "telefono_fmt": tel_fmt,
+            "sucursal": sucursal_socio,
+            "plan": plan,
+            "cuota": cuota,
             "dias_sin_asistir": dias,
             "duracion_promedio": round(float(row["duracion_minutos"]), 1),
             "nivel": nivel,
             "probabilidad": prob,
             "color": color,
-            "accion_sugerida": accion_sugerida
+            "accion_sugerida": accion_sugerida,
+            "mensaje_wa": mensaje_wa,
+            "wa_url": wa_url,
+            "estado_gestion": estado_gestion,
+            "fecha_gestion": fecha_gestion,
+            "canal_gestion": canal_gestion,
+            "notas_gestion": notas_gestion
         })
         
     socios.sort(key=lambda x: (x["probabilidad"], x["dias_sin_asistir"]), reverse=True)
@@ -463,19 +507,109 @@ async def api_churn_radar(sucursal: Optional[str] = "Todas las sucursales (Conso
     criticos_lista = [s for s in socios if s["nivel"] == "Critico"]
     moderados_lista = [s for s in socios if s["nivel"] == "Moderado"]
     bajos_lista = [s for s in socios if s["nivel"] == "Bajo"]
+    contactados_lista = [s for s in socios if s["estado_gestion"] in ["Contactado", "Reactivado"]]
     
+    # Metricas Financieras para el Dueno
+    mrr_total = sum(s["cuota"] for s in socios)
     dinero_critico = sum(s["cuota"] for s in criticos_lista)
     dinero_moderado = sum(s["cuota"] for s in moderados_lista)
+    
+    pct_mrr_critico = round((dinero_critico / mrr_total * 100), 1) if mrr_total > 0 else 0.0
+    
+    # Estimacion de rescate conservador (45% de efectividad con recordatorio oportuno)
+    socios_rescatables_est = int(round(len(criticos_lista) * 0.45))
+    dinero_rescatable_est = round(dinero_critico * 0.45, 2)
+    
+    # ROI del software comparado con el Plan Pro ($899 MXN)
+    costo_plan_pro = 899.0
+    multiplo_roi_pro = round((dinero_rescatable_est / costo_plan_pro), 1) if costo_plan_pro > 0 else 0.0
+    ganancia_neta_roi = round(dinero_rescatable_est - costo_plan_pro, 2)
+    
+    # Desglose de dinero en riesgo por plan de membresia
+    desglose_planes = {}
+    for s in criticos_lista:
+        desglose_planes[s["plan"]] = round(desglose_planes.get(s["plan"], 0.0) + s["cuota"], 2)
+        
+    # Desglose de dinero en riesgo por sucursal
+    desglose_sucursales = {}
+    for s in criticos_lista:
+        desglose_sucursales[s["sucursal"]] = round(desglose_sucursales.get(s["sucursal"], 0.0) + s["cuota"], 2)
     
     return {
         "total": len(socios),
         "criticos": len(criticos_lista),
         "moderados": len(moderados_lista),
         "bajos": len(bajos_lista),
+        "contactados": len(contactados_lista),
+        "pendientes_criticos": len([s for s in criticos_lista if s["estado_gestion"] == "Pendiente"]),
+        "financiero": {
+            "mrr_total": round(mrr_total, 2),
+            "dinero_critico": round(dinero_critico, 2),
+            "dinero_moderado": round(dinero_moderado, 2),
+            "pct_mrr_critico": pct_mrr_critico,
+            "socios_rescatables_est": socios_rescatables_est,
+            "dinero_rescatable_est": dinero_rescatable_est,
+            "costo_plan_pro": costo_plan_pro,
+            "multiplo_roi_pro": multiplo_roi_pro,
+            "ganancia_neta_roi": ganancia_neta_roi,
+            "desglose_planes": desglose_planes,
+            "desglose_sucursales": desglose_sucursales
+        },
         "dinero_critico": round(dinero_critico, 2),
         "dinero_moderado": round(dinero_moderado, 2),
         "tasa_riesgo": round((len(criticos_lista) + len(moderados_lista)) / len(socios) * 100, 1) if len(socios) > 0 else 0,
         "socios": socios
+    }
+
+
+@app.post("/api/socios/{id_socio}/gestion")
+async def api_actualizar_gestion_socio(id_socio: str, datos: dict):
+    """
+    Actualiza el estado de contacto/gestion de retencion de un socio en el CRM.
+    Permite registrar 'Contactado', 'Reactivado', 'No_Contesta', 'Deserto'.
+    """
+    estado = datos.get("estado", "Contactado")
+    canal = datos.get("canal", "WhatsApp")
+    notas = datos.get("notas", "Mensaje enviado via FitPulse")
+    ahora_str = datetime.now().strftime("%Y-%m-%d %H:%M")
+    
+    GESTION_SOCIOS_CRM[id_socio] = {
+        "estado": estado,
+        "canal": canal,
+        "notas": notas,
+        "fecha": ahora_str
+    }
+    
+    return {
+        "status": "ok",
+        "id_socio": id_socio,
+        "estado": estado,
+        "fecha": ahora_str,
+        "mensaje": f"Estado de gestion para {id_socio} actualizado a '{estado}'"
+    }
+
+
+@app.post("/api/socios/gestion-lote")
+async def api_gestion_lote(datos: dict):
+    """Marca en lote una lista de socios como contactados en el CRM."""
+    ids = datos.get("ids", [])
+    estado = datos.get("estado", "Contactado")
+    canal = datos.get("canal", "WhatsApp")
+    ahora_str = datetime.now().strftime("%Y-%m-%d %H:%M")
+    
+    for id_s in ids:
+        GESTION_SOCIOS_CRM[str(id_s)] = {
+            "estado": estado,
+            "canal": canal,
+            "notas": "Gestion masiva de reactivacion",
+            "fecha": ahora_str
+        }
+        
+    return {
+        "status": "ok",
+        "procesados": len(ids),
+        "estado": estado,
+        "fecha": ahora_str
     }
 
 
