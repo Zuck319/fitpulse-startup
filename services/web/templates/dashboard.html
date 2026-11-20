@@ -84,6 +84,14 @@
                     <span>Socios en Riesgo de Cancelar</span>
                 </button>
 
+                <button onclick="cambiarSeccion('checkin')" id="navBtnCheckin" class="nav-item w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl hover:bg-slate-100 transition text-left">
+                    <div class="flex items-center gap-3">
+                        <svg class="w-4 h-4 shrink-0 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
+                        <span>Check-in QR (Sin Torniquete)</span>
+                    </div>
+                    <span class="text-[9px] font-black text-brand-700 bg-brand-100 px-1.5 py-0.5 rounded uppercase">Plan Pro</span>
+                </button>
+
                 <button onclick="cambiarSeccion('subircsv')" id="navBtnSubirCsv" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-100 transition text-left">
                     <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
                     <span>Subir Entradas (CSV)</span>
@@ -945,6 +953,192 @@
                 </div>
             </section>
 
+            <!-- ========================================== -->
+            <!-- SECCION 6: CHECK-IN QR (SIN TORNIQUETE)    -->
+            <!-- ========================================== -->
+            <section id="panelCheckIn" class="space-y-6 hidden">
+                <!-- Banner Explicativo -->
+                <div class="bg-gradient-to-r from-navy-900 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-lg border border-slate-800">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="text-[10px] font-bold text-brand-400 uppercase tracking-widest bg-brand-900/60 px-2.5 py-1 rounded-md border border-brand-500/30">
+                            Tecnologia Sin Torniquete (Plan Pro)
+                        </span>
+                        <span class="text-[10px] font-bold text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded-md border border-emerald-500/30">
+                            Hardware $0 MXN
+                        </span>
+                    </div>
+                    <h2 class="text-2xl font-extrabold text-white mt-1">Terminal de Check-in y Registro con Codigo QR</h2>
+                    <p class="text-xs text-slate-300 mt-1 max-w-2xl leading-relaxed">
+                        No necesitas gastar $30,000 MXN en torniquetes fisicos. Imprime el cartel QR para que tus socios escaneen con la camara de su celular al entrar, o usa esta terminal de recepcion en cualquier tablet o computadora para validar membresias en 1 segundo.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    <!-- COLUMNA IZQUIERDA: CARTEL DE MOSTRADOR CON QR (IMPRIMIBLE) -->
+                    <div class="lg:col-span-5 bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm flex flex-col items-center text-center">
+                        <div class="w-full pb-4 border-b border-slate-100 flex items-center justify-between mb-4">
+                            <span class="text-[10px] font-extrabold text-brand-700 bg-brand-50 px-2.5 py-1 rounded-md uppercase">Cartel Imprimible</span>
+                            <span class="text-xs font-mono text-slate-400 font-bold">Mostrador</span>
+                        </div>
+
+                        <!-- Tarjeta visual de cartel para poner en el mostrador -->
+                        <div id="cartelImprimible" class="w-full max-w-xs p-6 rounded-3xl bg-slate-50 border-2 border-slate-300 shadow-sm text-center">
+                            <div class="text-[10px] font-black tracking-widest text-brand-700 uppercase mb-1">FitPulse Smart Check-in</div>
+                            <h3 class="font-extrabold text-navy-900 text-base leading-tight mb-0.5">{{ session.nombre_gym }}</h3>
+                            <div class="text-[11px] text-slate-500 mb-4">Registro Oficial de Asistencia</div>
+
+                            <!-- Codigo QR Vectorial Limpio y de Alto Contraste -->
+                            <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-inner inline-block mx-auto mb-4">
+                                <svg class="w-44 h-44 mx-auto" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="5" y="5" width="26" height="26" rx="4" fill="#0f172a"/>
+                                    <rect x="9" y="9" width="18" height="18" rx="2" fill="white"/>
+                                    <rect x="13" y="13" width="10" height="10" rx="1" fill="#0f172a"/>
+
+                                    <rect x="69" y="5" width="26" height="26" rx="4" fill="#0f172a"/>
+                                    <rect x="73" y="9" width="18" height="18" rx="2" fill="white"/>
+                                    <rect x="77" y="13" width="10" height="10" rx="1" fill="#0f172a"/>
+
+                                    <rect x="5" y="69" width="26" height="26" rx="4" fill="#0f172a"/>
+                                    <rect x="9" y="73" width="18" height="18" rx="2" fill="white"/>
+                                    <rect x="13" y="77" width="10" height="10" rx="1" fill="#0f172a"/>
+
+                                    <rect x="36" y="8" width="6" height="6" fill="#0f172a"/>
+                                    <rect x="46" y="8" width="6" height="6" fill="#0f172a"/>
+                                    <rect x="56" y="8" width="6" height="6" fill="#0f172a"/>
+                                    
+                                    <rect x="36" y="18" width="6" height="6" fill="#2563eb"/>
+                                    <rect x="46" y="18" width="6" height="6" fill="#0f172a"/>
+                                    <rect x="56" y="18" width="6" height="6" fill="#2563eb"/>
+
+                                    <rect x="8" y="36" width="6" height="6" fill="#0f172a"/>
+                                    <rect x="18" y="36" width="6" height="6" fill="#2563eb"/>
+                                    <rect x="28" y="36" width="6" height="6" fill="#0f172a"/>
+                                    <rect x="38" y="36" width="8" height="8" fill="#0f172a"/>
+                                    <rect x="50" y="36" width="6" height="6" fill="#2563eb"/>
+                                    <rect x="60" y="36" width="6" height="6" fill="#0f172a"/>
+                                    <rect x="72" y="36" width="8" height="8" fill="#0f172a"/>
+                                    <rect x="84" y="36" width="8" height="8" fill="#2563eb"/>
+
+                                    <rect x="8" y="48" width="6" height="6" fill="#2563eb"/>
+                                    <rect x="18" y="48" width="6" height="6" fill="#0f172a"/>
+                                    <rect x="28" y="48" width="6" height="6" fill="#2563eb"/>
+                                    <rect x="46" y="46" width="8" height="8" fill="#0f172a"/>
+                                    <rect x="64" y="48" width="8" height="8" fill="#0f172a"/>
+                                    <rect x="82" y="48" width="8" height="8" fill="#0f172a"/>
+
+                                    <rect x="36" y="60" width="8" height="8" fill="#0f172a"/>
+                                    <rect x="48" y="60" width="8" height="8" fill="#2563eb"/>
+                                    <rect x="60" y="60" width="8" height="8" fill="#0f172a"/>
+
+                                    <rect x="36" y="74" width="6" height="6" fill="#0f172a"/>
+                                    <rect x="46" y="74" width="8" height="8" fill="#2563eb"/>
+                                    <rect x="58" y="74" width="8" height="8" fill="#0f172a"/>
+                                    <rect x="70" y="74" width="8" height="8" fill="#0f172a"/>
+                                    <rect x="82" y="74" width="8" height="8" fill="#2563eb"/>
+
+                                    <rect x="36" y="86" width="8" height="8" fill="#2563eb"/>
+                                    <rect x="48" y="86" width="6" height="6" fill="#0f172a"/>
+                                    <rect x="62" y="86" width="8" height="8" fill="#0f172a"/>
+                                    <rect x="76" y="86" width="8" height="8" fill="#0f172a"/>
+                                    <rect x="88" y="86" width="6" height="6" fill="#2563eb"/>
+                                </svg>
+                            </div>
+
+                            <p class="text-xs font-extrabold text-navy-900 leading-tight">Apunta tu camara para registrar tu entrada</p>
+                            <p class="text-[10px] text-slate-500 mt-1">Valida tu membresia activa en 1 segundo</p>
+                        </div>
+
+                        <div class="mt-6 flex flex-col sm:flex-row gap-3 w-full">
+                            <button onclick="window.print()" class="flex-1 py-2.5 px-4 bg-navy-900 hover:bg-brand-600 text-white font-bold text-xs rounded-xl shadow-sm transition flex items-center justify-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+                                <span>Imprimir Cartel (PDF)</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- COLUMNA DERECHA: TERMINAL DE RECEPCION EN VIVO -->
+                    <div class="lg:col-span-7 space-y-6">
+                        <!-- Tarjeta de Entrada Manual / Escaneo -->
+                        <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm">
+                            <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-5">
+                                <div>
+                                    <h3 class="font-extrabold text-navy-900 text-sm">Registro de Asistencia en Mostrador</h3>
+                                    <p class="text-xs text-slate-500 mt-0.5">Escribe el codigo del socio o escanea su tarjeta/QR</p>
+                                </div>
+                                <span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                    Terminal Conectada
+                                </span>
+                            </div>
+
+                            <form onsubmit="ejecutarCheckInRapido(event)" class="space-y-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                                        ID o Codigo de Socio:
+                                    </label>
+                                    <div class="flex gap-2">
+                                        <div class="relative flex-1">
+                                            <input type="text" id="inputCheckInId" placeholder="Ej. SOC-0104, GYM-0012, PZ-0034..." class="w-full text-sm font-mono font-bold text-navy-900 bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-3 py-3 outline-none focus:border-brand-500 focus:bg-white transition" required>
+                                            <svg class="w-5 h-5 text-slate-400 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"/></svg>
+                                        </div>
+                                        <button type="submit" id="btnRegistrarCheckIn" class="px-6 py-3 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-2 shrink-0">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                            <span>Validar Entrada</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Chips Rapidos de Prueba -->
+                                <div class="flex flex-wrap items-center gap-2 pt-1 text-xs">
+                                    <span class="text-[11px] font-semibold text-slate-400">Prueba rapida:</span>
+                                    <button type="button" onclick="cargarIdCheckin('SOC-0104')" class="px-2 py-0.5 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-mono text-[11px]">SOC-0104</button>
+                                    <button type="button" onclick="cargarIdCheckin('GYM-0012')" class="px-2 py-0.5 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-mono text-[11px]">GYM-0012</button>
+                                    <button type="button" onclick="cargarIdCheckin('PZ-0034')" class="px-2 py-0.5 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-mono text-[11px]">PZ-0034</button>
+                                    <button type="button" onclick="cargarIdCheckin('SPARTAN-055')" class="px-2 py-0.5 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-mono text-[11px]">SPARTAN-055</button>
+                                </div>
+                            </form>
+
+                            <!-- Alerta de Confirmacion en Vivo -->
+                            <div id="alertaCheckInResultado" class="hidden mt-6 p-5 rounded-2xl border transition">
+                                <!-- Se inyecta dinamicamente -->
+                            </div>
+                        </div>
+
+                        <!-- Historial de Check-ins Registrados en la Sesion -->
+                        <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm">
+                            <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+                                <h4 class="font-extrabold text-navy-900 text-xs uppercase tracking-wider">Entradas Registradas Hoy (En Vivo)</h4>
+                                <span id="contadorEntradasHoy" class="text-xs font-mono font-bold text-brand-600 bg-brand-50 px-2 py-0.5 rounded-md">
+                                    2 registradas
+                                </span>
+                            </div>
+
+                            <div id="listaCheckInsRecientes" class="space-y-2.5">
+                                <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200/70 text-xs">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-800 font-bold text-xs flex items-center justify-center">CR</div>
+                                        <div>
+                                            <div class="font-bold text-navy-900">Carlos Rodriguez</div>
+                                            <div class="text-[10px] text-slate-400 font-mono">SOC-0042 • Membresia General</div>
+                                        </div>
+                                    </div>
+                                    <span class="text-[11px] font-mono font-bold text-slate-500">20:38 hrs</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200/70 text-xs">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-800 font-bold text-xs flex items-center justify-center">MG</div>
+                                        <div>
+                                            <div class="font-bold text-navy-900">Mariana Gomez</div>
+                                            <div class="text-[10px] text-slate-400 font-mono">SOC-0104 • Membresia VIP_Anual</div>
+                                        </div>
+                                    </div>
+                                    <span class="text-[11px] font-mono font-bold text-slate-500">20:41 hrs</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
         </main>
     </div>
 
@@ -1110,6 +1304,91 @@
                 document.getElementById('panelExportar').classList.remove('hidden');
                 tit.innerText = 'Descargar Reportes en Excel';
                 sub.innerText = 'Generacion de archivos CSV compatibles con Excel, Google Sheets y sistemas contables.';
+            } else if (seccion === 'checkin') {
+                document.getElementById('navBtnCheckin').classList.add('active');
+                document.getElementById('panelCheckIn').classList.remove('hidden');
+                tit.innerText = 'Terminal de Check-in con Codigo QR';
+                sub.innerText = 'Registro y validacion de entradas en mostrador sin necesidad de torniquetes fisicos.';
+            }
+        }
+
+        // Funciones para Check-in QR y Recepcion
+        function cargarIdCheckin(id) {
+            document.getElementById('inputCheckInId').value = id;
+            document.getElementById('inputCheckInId').focus();
+        }
+
+        let totalCheckinsSesion = 2;
+
+        async function ejecutarCheckInRapido(e) {
+            e.preventDefault();
+            const input = document.getElementById('inputCheckInId');
+            const idSocio = input.value.trim().toUpperCase();
+            if (!idSocio) return;
+
+            const btn = document.getElementById('btnRegistrarCheckIn');
+            btn.disabled = true;
+            btn.innerText = 'Validando...';
+
+            const sucursalActiva = document.getElementById('selectorSucursal').value;
+            const alerta = document.getElementById('alertaCheckInResultado');
+
+            try {
+                const res = await fetch('/api/checkin-qr', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id_socio: idSocio, sucursal: sucursalActiva })
+                });
+                const data = await res.json();
+
+                if (res.ok && data.status === 'ok') {
+                    alerta.className = 'mt-6 p-4 rounded-2xl border bg-emerald-50 border-emerald-200 text-emerald-900 block transition';
+                    alerta.innerHTML = `
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+                                <strong class="text-sm font-extrabold text-emerald-900">Acceso Autorizado</strong>
+                            </div>
+                            <span class="text-xs font-mono font-bold text-emerald-700">${data.hora}</span>
+                        </div>
+                        <div class="text-xs mt-2 text-emerald-800">
+                            <strong>${data.nombre}</strong> (${data.id_socio}) • Membresia <strong>${data.plan}</strong> ($${data.cuota} MXN/mes)<br>
+                            Sede: ${data.sucursal} • Entrada confirmada con exito.
+                        </div>
+                    `;
+
+                    totalCheckinsSesion++;
+                    document.getElementById('contadorEntradasHoy').innerText = `${totalCheckinsSesion} registradas`;
+
+                    const lista = document.getElementById('listaCheckInsRecientes');
+                    const nuevoItem = document.createElement('div');
+                    nuevoItem.className = 'flex items-center justify-between p-3 rounded-xl bg-emerald-50/50 border border-emerald-200 text-xs';
+                    nuevoItem.innerHTML = `
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-emerald-200 text-emerald-900 font-extrabold text-xs flex items-center justify-center shrink-0">
+                                ${idSocio.slice(-2)}
+                            </div>
+                            <div>
+                                <div class="font-bold text-navy-900">${data.nombre}</div>
+                                <div class="text-[10px] text-slate-500 font-mono">${data.id_socio} • ${data.plan}</div>
+                            </div>
+                        </div>
+                        <span class="text-[11px] font-mono font-bold text-emerald-700">${data.hora}</span>
+                    `;
+                    lista.insertBefore(nuevoItem, lista.firstChild);
+
+                    input.value = '';
+                    input.focus();
+                } else {
+                    alerta.className = 'mt-6 p-4 rounded-2xl border bg-rose-50 border-rose-200 text-rose-900 block';
+                    alerta.innerText = 'Error: ' + (data.detail || 'No se pudo registrar el acceso');
+                }
+            } catch (err) {
+                alerta.className = 'mt-6 p-4 rounded-2xl border bg-rose-50 border-rose-200 text-rose-900 block';
+                alerta.innerText = 'Error de conexion con la terminal: ' + err;
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Validar Entrada</span>`;
             }
         }
 

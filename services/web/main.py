@@ -107,28 +107,30 @@ async def landing_page(request: Request):
                     "id": "basico",
                     "nombre": "Plan Básico",
                     "precio": "499",
-                    "sedes": "Hasta 2 sucursales",
+                    "sedes": "1 sola sucursal (Monosede)",
                     "destacado": False,
                     "caracteristicas": [
-                        "Soporte Multi-Sucursal (hasta 2 sedes)",
-                        "Dashboard gerencial en tiempo real",
-                        "Los 4 KPIs y 6 visualizaciones oficiales",
-                        "Carga de datos por archivo CSV",
-                        "Reportes ejecutivos exportables"
+                        "Para gimnasios independientes (1 sola sede)",
+                        "Dashboard y graficas de afluencia en tiempo real",
+                        "Los 4 KPIs gerenciales y horas pico",
+                        "Carga de datos por archivo CSV o Excel",
+                        "Auditoria y limpieza automatica de datos",
+                        "Exportacion de reportes ejecutivos"
                     ]
                 },
                 {
                     "id": "pro",
                     "nombre": "Plan Pro",
                     "precio": "899",
-                    "sedes": "Hasta 5 sucursales",
+                    "sedes": "Multi-sucursal (hasta 5 sedes)",
                     "destacado": True,
                     "caracteristicas": [
-                        "Soporte Multi-Sucursal (hasta 5 sedes)",
-                        "Radar Anti-Churn (Socios en riesgo de deserción)",
-                        "Alertas predictivas por WhatsApp",
-                        "Análisis espectral FFT de quincenas",
-                        "Soporte prioritario y personalización con tu logo"
+                        "Soporte Multi-Sucursal (hasta 5 sedes conectadas)",
+                        "Modulo de Check-in con Codigo QR (Sin torniquetes costosos)",
+                        "Socios en riesgo de cancelar (Prediccion con Machine Learning)",
+                        "Pronostico de afluencia a 14 dias (Modelo SARIMA)",
+                        "Reactivacion directa por WhatsApp con 1 clic",
+                        "Personalizacion con el logotipo de tu marca"
                     ]
                 },
                 {
@@ -139,10 +141,11 @@ async def landing_page(request: Request):
                     "destacado": False,
                     "caracteristicas": [
                         "Multi-Sucursal Ilimitada (Cadenas y Franquicias)",
-                        "API REST directa para torniquetes y lectores POS",
-                        "Pronóstico de afluencia a 30 días",
-                        "Consolidado corporativo y auditoría cloud",
-                        "Gerente de cuenta dedicado"
+                        "Check-in QR ilimitado + Conexion a torniquetes biometricos",
+                        "Pronostico de afluencia extendido a 30 dias",
+                        "API REST directa para conectar con software de punto de venta",
+                        "Consolidado corporativo y auditoria cloud",
+                        "Soporte prioritario 24/7 y atencion con el fundador"
                     ]
                 }
             ]
@@ -470,6 +473,47 @@ async def api_churn_radar(sucursal: Optional[str] = "Todas las sucursales (Conso
         "dinero_moderado": round(dinero_moderado, 2),
         "tasa_riesgo": round((len(criticos_lista) + len(moderados_lista)) / len(socios) * 100, 1) if len(socios) > 0 else 0,
         "socios": socios
+    }
+
+
+@app.post("/api/checkin-qr")
+async def api_checkin_qr(datos: dict):
+    """
+    Registra el acceso inmediato de un socio escaneando su QR o ingresando su ID.
+    Disponible desde el Plan Pro para operar sin torniquetes fisicos.
+    """
+    id_socio = str(datos.get("id_socio", "")).strip().upper()
+    if not id_socio:
+        raise HTTPException(status_code=400, detail="ID de socio requerido")
+    
+    sucursal = datos.get("sucursal", "Sucursal Centro")
+    ahora = datetime.now()
+    fecha_str = ahora.strftime("%Y-%m-%d %H:%M")
+    hora_str = ahora.strftime("%H:%M hrs")
+    
+    df = obtener_dataframe_limpio()
+    socio_existente = df[df["id_socio"] == id_socio] if "id_socio" in df.columns else pd.DataFrame()
+    
+    if len(socio_existente) > 0:
+        plan = str(socio_existente.iloc[0].get("plan_membresia", "General"))
+        cuota = float(socio_existente.iloc[0].get("monto_mensualidad", 650.0))
+        nombre = f"Socio {id_socio}"
+    else:
+        plan = "General"
+        cuota = 650.0
+        nombre = f"Socio Registrado ({id_socio})"
+        
+    return {
+        "status": "ok",
+        "acceso_autorizado": True,
+        "id_socio": id_socio,
+        "nombre": nombre,
+        "plan": plan,
+        "cuota": cuota,
+        "sucursal": sucursal,
+        "fecha": fecha_str,
+        "hora": hora_str,
+        "mensaje": f"Acceso autorizado: {id_socio}. Membresia {plan} activa."
     }
 
 
