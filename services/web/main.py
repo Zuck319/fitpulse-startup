@@ -838,6 +838,42 @@ async def pagina_cartel_imprimir(request: Request, tipo: str = "web"):
     )
 
 
+@app.get("/reporte-ejecutivo", response_class=HTMLResponse)
+async def pagina_reporte_ejecutivo(request: Request, sucursal: Optional[str] = "Todas las sucursales (Consolidado)"):
+    """
+    Vista ejecutiva de reporte mensual lista para descargar e imprimir en PDF (Propuesta 4).
+    Diseño corporativo tamaño Carta para gerencia y evaluadores de EV3.
+    """
+    datos_radar = await api_churn_radar(sucursal=sucursal)
+    finanzas = datos_radar.get("financiero", {})
+    socios_criticos = [s for s in datos_radar.get("socios", []) if s["nivel"] == "Critico"]
+    
+    meses_es = {
+        1: "Enero", 2: "Febrero", 3: "Marzo", 4: "Abril", 5: "Mayo", 6: "Junio",
+        7: "Julio", 8: "Agosto", 9: "Septiembre", 10: "Octubre", 11: "Noviembre", 12: "Diciembre"
+    }
+    ahora = datetime.now()
+    fecha_fmt = f"{ahora.day} de {meses_es.get(ahora.month, '')} de {ahora.year}, {ahora.strftime('%H:%M')} hrs"
+    
+    return templates.TemplateResponse(
+        request=request,
+        name="reporte_ejecutivo.html",
+        context={
+            "gym_name": SESSION_STATE.get("nombre_gym", "Iron Gym Fitness Center"),
+            "plan_activo": SESSION_STATE.get("plan_activo", "Pro"),
+            "fecha_actual": fecha_fmt,
+            "folio": ahora.strftime("%Y%m%d%H%M"),
+            "mrr_total": finanzas.get("mrr_total", 162600.0),
+            "dinero_critico": finanzas.get("dinero_critico", 5750.0),
+            "pct_mrr_critico": finanzas.get("pct_mrr_critico", 3.5),
+            "dinero_rescatable": finanzas.get("dinero_rescatable_est", 2587.5),
+            "multiplo_roi": finanzas.get("multiplo_roi_pro", 2.9),
+            "socios_criticos": socios_criticos,
+            "sucursal_filtrada": sucursal
+        }
+    )
+
+
 @app.post("/api/upload-logo")
 async def api_upload_logo(file: UploadFile = File(...)):
     """Permite al gimnasio subir su propio logotipo corporativo."""

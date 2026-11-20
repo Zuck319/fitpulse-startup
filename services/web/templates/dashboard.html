@@ -245,6 +245,14 @@
                     <span>Auditoria y Calidad de Datos</span>
                 </button>
 
+                <a href="/reporte-ejecutivo" target="_blank" class="nav-item w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl hover:bg-indigo-50 hover:text-indigo-900 transition text-left text-slate-700">
+                    <div class="flex items-center gap-3">
+                        <svg class="w-4 h-4 shrink-0 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                        <span>Reporte Ejecutivo (PDF)</span>
+                    </div>
+                    <span class="text-[9px] font-black text-indigo-700 bg-indigo-100/70 border border-indigo-200 px-1.5 py-0.5 rounded uppercase">Imprimir</span>
+                </a>
+
                 <button onclick="cambiarSeccion('exportar')" id="navBtnExportar" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-100 transition text-left">
                     <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                     <span>Descargar Reportes en Excel</span>
@@ -612,29 +620,35 @@
             <!-- ========================================== -->
             <section id="panelChurn" class="space-y-6 hidden">
                 
-                <!-- MODULO FINANCIERO: IMPACTO EN INGRESOS Y RETENCION (PROPUESTA 2) -->
-                <div class="bg-gradient-to-r from-navy-900 via-slate-900 to-navy-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-800 relative overflow-hidden">
-                    <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                <!-- MODULO FINANCIERO: IMPACTO EN INGRESOS Y RETENCION (PROPUESTA 2 Y 4) -->
+                <div class="bg-gradient-to-br from-slate-950 via-navy-950 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-800 relative">
 
                     <!-- Encabezado Financiero -->
-                    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 pb-6 border-b border-white/10 relative z-10">
+                    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 pb-6 border-b border-white/15 relative z-10">
                         <div>
                             <div class="flex items-center gap-2">
-                                <span class="text-[10px] font-black text-brand-400 uppercase tracking-widest bg-brand-900/80 px-2.5 py-1 rounded-md border border-brand-500/40 shadow-xs">
+                                <span class="text-[10px] font-black text-brand-300 uppercase tracking-widest bg-brand-950 px-2.5 py-1 rounded-md border border-brand-500/50 shadow-sm">
                                     Modulo Financiero y Retencion Activa
                                 </span>
-                                <span class="text-[10px] font-bold text-slate-400 bg-white/10 px-2 py-0.5 rounded-md">
+                                <span class="text-[10px] font-bold text-slate-200 bg-white/15 px-2.5 py-1 rounded-md">
                                     Finanzas en Tiempo Real
                                 </span>
                             </div>
                             <h2 class="text-xl sm:text-2xl font-black mt-2.5 tracking-tight text-white">Analitica de Ingresos Recurrentes y Retorno de Inversion</h2>
-                            <p class="text-xs text-slate-300 mt-1 max-w-2xl leading-relaxed">
+                            <p class="text-xs text-slate-200 mt-1 max-w-2xl leading-relaxed font-medium">
                                 FitPulse detecta la desercion silenciosa antes de la fecha de cobro. Reactivar oportunamente a tus socios con alertas de WhatsApp evita la fuga de mensualidades y maximiza el valor de vida del cliente (LTV).
                             </p>
                         </div>
 
-                        <!-- Boton de Accion: Cola de Rescate Rapido -->
+                        <!-- Botonera de Accion: Reporte Ejecutivo PDF y Cola de Rescate -->
                         <div class="shrink-0 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
+                            <!-- Boton Propuesta 4: Descargar Reporte Ejecutivo PDF -->
+                            <a href="/reporte-ejecutivo" target="_blank" class="px-4 py-3 bg-white/10 hover:bg-white/20 active:scale-95 text-white font-black text-xs rounded-xl border border-white/25 shadow-md transition flex items-center justify-center gap-2 cursor-pointer" title="Abrir reporte ejecutivo para descargar o imprimir en PDF">
+                                <svg class="w-4 h-4 text-brand-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                <span>Reporte Ejecutivo (PDF)</span>
+                            </a>
+
+                            <!-- Boton Propuesta 3: Cola de Rescate Rapido -->
                             <button type="button" onclick="iniciarColaRescateRapida()" class="px-5 py-3 bg-brand-500 hover:bg-brand-600 active:scale-95 text-navy-950 font-black text-xs rounded-xl shadow-lg shadow-brand-500/25 transition flex items-center justify-center gap-2 cursor-pointer">
                                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
                                 <span>Cola de Rescate Rapida (Top 5)</span>
@@ -645,63 +659,63 @@
                     <!-- 4 Tarjetas de Metricas Financieras Clave -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6 relative z-10">
                         <!-- KPI 1: MRR Total -->
-                        <div class="bg-white/10 backdrop-blur-md p-4 sm:p-5 rounded-2xl border border-white/10">
-                            <div class="flex items-center justify-between text-slate-300 text-[11px] font-semibold uppercase">
+                        <div class="bg-slate-900/90 p-4 sm:p-5 rounded-2xl border border-slate-700/80 shadow-md">
+                            <div class="flex items-center justify-between text-white text-[11px] font-black uppercase tracking-wider">
                                 <span>MRR en Cartera</span>
-                                <span class="text-[10px] text-brand-300 bg-brand-950/60 px-2 py-0.5 rounded font-mono font-bold">Activo</span>
+                                <span class="text-[10px] text-emerald-300 bg-emerald-950/90 border border-emerald-500/50 px-2 py-0.5 rounded font-mono font-bold">Activo</span>
                             </div>
                             <div id="churnMrrTotal" class="text-2xl sm:text-3xl font-black text-white mt-1.5">$0.00</div>
-                            <div class="text-[11px] text-slate-400 mt-1">Facturacion mensual recurrente estimada</div>
+                            <div class="text-[11px] text-slate-200 font-medium mt-1">Facturacion mensual recurrente estimada</div>
                         </div>
 
                         <!-- KPI 2: Dinero en Riesgo Critico -->
-                        <div class="bg-rose-950/40 backdrop-blur-md p-4 sm:p-5 rounded-2xl border border-rose-500/30">
-                            <div class="flex items-center justify-between text-rose-300 text-[11px] font-semibold uppercase">
+                        <div class="bg-rose-950/80 p-4 sm:p-5 rounded-2xl border border-rose-500/60 shadow-md">
+                            <div class="flex items-center justify-between text-white text-[11px] font-black uppercase tracking-wider">
                                 <span>Fuga en Riesgo Critico</span>
-                                <span id="churnPctMrr" class="text-[10px] text-rose-300 bg-rose-900/60 px-2 py-0.5 rounded font-mono font-bold">0% MRR</span>
+                                <span id="churnPctMrr" class="text-[10px] text-rose-200 bg-rose-900/90 border border-rose-400/60 px-2 py-0.5 rounded font-mono font-bold">0% MRR</span>
                             </div>
                             <div id="churnDineroEnRiesgo" class="text-2xl sm:text-3xl font-black text-rose-400 mt-1.5">$0.00</div>
-                            <div class="text-[11px] text-rose-300/80 mt-1">Ausentes por mas de 8 dias consecutivos</div>
+                            <div class="text-[11px] text-rose-100 font-medium mt-1">Ausentes por mas de 8 dias consecutivos</div>
                         </div>
 
                         <!-- KPI 3: Dinero Rescatable Estimado -->
-                        <div class="bg-brand-950/40 backdrop-blur-md p-4 sm:p-5 rounded-2xl border border-brand-500/30">
-                            <div class="flex items-center justify-between text-brand-300 text-[11px] font-semibold uppercase">
+                        <div class="bg-emerald-950/80 p-4 sm:p-5 rounded-2xl border border-brand-500/60 shadow-md">
+                            <div class="flex items-center justify-between text-white text-[11px] font-black uppercase tracking-wider">
                                 <span>Rescate Proyectado</span>
-                                <span class="text-[10px] text-brand-300 bg-brand-900/60 px-2 py-0.5 rounded font-mono font-bold">45% Tasa</span>
+                                <span class="text-[10px] text-emerald-200 bg-brand-900/90 border border-brand-400/60 px-2 py-0.5 rounded font-mono font-bold">45% Tasa</span>
                             </div>
                             <div id="churnDineroRescatable" class="text-2xl sm:text-3xl font-black text-brand-400 mt-1.5">$0.00</div>
-                            <div class="text-[11px] text-brand-300/80 mt-1">Dinero salvable con intervencion temprana</div>
+                            <div class="text-[11px] text-emerald-100 font-medium mt-1">Dinero salvable con intervencion temprana</div>
                         </div>
 
                         <!-- KPI 4: Multiplicador ROI FitPulse -->
-                        <div class="bg-emerald-950/40 backdrop-blur-md p-4 sm:p-5 rounded-2xl border border-emerald-500/30">
-                            <div class="flex items-center justify-between text-emerald-300 text-[11px] font-semibold uppercase">
+                        <div class="bg-slate-900/90 p-4 sm:p-5 rounded-2xl border border-emerald-500/60 shadow-md">
+                            <div class="flex items-center justify-between text-white text-[11px] font-black uppercase tracking-wider">
                                 <span>Retorno de Inversion (ROI)</span>
-                                <span class="text-[10px] text-emerald-300 bg-emerald-900/60 px-2 py-0.5 rounded font-mono font-bold">Plan Pro</span>
+                                <span class="text-[10px] text-emerald-200 bg-emerald-950/90 border border-emerald-500/50 px-2 py-0.5 rounded font-mono font-bold">Plan Pro</span>
                             </div>
                             <div id="churnMultiploRoi" class="text-2xl sm:text-3xl font-black text-emerald-400 mt-1.5">0.0x</div>
-                            <div class="text-[11px] text-emerald-300/80 mt-1">El software se paga por si mismo</div>
+                            <div class="text-[11px] text-slate-200 font-medium mt-1">El software se paga por si mismo</div>
                         </div>
                     </div>
 
                     <!-- Simulador Interactivo de Retencion Financiera en Vivo -->
-                    <div class="mt-6 pt-6 border-t border-white/10 relative z-10 bg-white/5 p-4 sm:p-5 rounded-2xl">
+                    <div class="mt-6 pt-6 border-t border-white/15 relative z-10 bg-slate-900/80 p-4 sm:p-5 rounded-2xl border border-slate-700/60">
                         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-3">
                             <div>
                                 <h4 class="text-xs font-black text-white uppercase tracking-wider">Simulador de Retencion Financiera en Tiempo Real</h4>
-                                <p class="text-[11px] text-slate-300 mt-0.5">Ajusta el porcentaje de socios ausentes que tu equipo planea contactar y reactivar este mes:</p>
+                                <p class="text-[11px] text-slate-200 mt-0.5 font-medium">Ajusta el porcentaje de socios ausentes que tu equipo planea contactar y reactivar este mes:</p>
                             </div>
-                            <div class="text-right">
-                                <span class="text-[11px] text-slate-400">Efectividad esperada:</span>
-                                <span id="simValPctLabel" class="text-base font-black text-brand-400 ml-1.5">45%</span>
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs font-bold text-white">Efectividad esperada:</span>
+                                <span id="simValPctLabel" class="text-sm font-black text-brand-300 bg-brand-950 px-3 py-1 rounded-lg border border-brand-500/50 shadow-sm">45%</span>
                             </div>
                         </div>
 
                         <!-- Slider -->
                         <div class="mb-4">
-                            <input type="range" id="sliderEfectividad" min="10" max="90" value="45" step="5" oninput="actualizarSimuladorFinanciero(this.value)" class="w-full accent-brand-500 cursor-pointer">
-                            <div class="flex justify-between text-[10px] text-slate-400 font-mono mt-1">
+                            <input type="range" id="sliderEfectividad" min="10" max="90" value="45" step="5" oninput="actualizarSimuladorFinanciero(this.value)" class="w-full accent-brand-500 cursor-pointer h-2 bg-slate-700 rounded-lg">
+                            <div class="flex justify-between text-[11px] text-slate-200 font-bold font-mono mt-1.5">
                                 <span>10% (Minimo)</span>
                                 <span>30% (Conservador)</span>
                                 <span>50% (Meta Estandar)</span>
@@ -711,18 +725,18 @@
                         </div>
 
                         <!-- Resultados del Simulador -->
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center bg-black/30 p-3 rounded-xl border border-white/5">
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center bg-black/60 p-4 rounded-xl border border-white/10 shadow-inner">
                             <div>
-                                <div class="text-[10px] text-slate-400 uppercase font-semibold">Socios Recuperados</div>
-                                <div id="simSociosFmt" class="text-base font-black text-white mt-0.5">0 socios</div>
+                                <div class="text-[11px] text-slate-200 uppercase font-black tracking-wide">Socios Recuperados</div>
+                                <div id="simSociosFmt" class="text-base font-black text-white mt-1">0 socios</div>
                             </div>
                             <div>
-                                <div class="text-[10px] text-slate-400 uppercase font-semibold">Ingresos Mensuales Salvados</div>
-                                <div id="simDineroFmt" class="text-base font-black text-brand-400 mt-0.5">$0.00 MXN</div>
+                                <div class="text-[11px] text-slate-200 uppercase font-black tracking-wide">Ingresos Mensuales Salvados</div>
+                                <div id="simDineroFmt" class="text-base font-black text-brand-400 mt-1">$0.00 MXN</div>
                             </div>
                             <div>
-                                <div class="text-[10px] text-slate-400 uppercase font-semibold">Beneficio Neto tras Licencia FitPulse ($899)</div>
-                                <div id="simNetoFmt" class="text-base font-black text-emerald-400 mt-0.5">+$0.00 MXN</div>
+                                <div class="text-[11px] text-slate-200 uppercase font-black tracking-wide">Beneficio Neto tras Licencia FitPulse ($899)</div>
+                                <div id="simNetoFmt" class="text-base font-black text-emerald-400 mt-1">+$0.00 MXN</div>
                             </div>
                         </div>
                     </div>
@@ -1131,6 +1145,26 @@
                     <p class="text-xs text-slate-300 mt-1 max-w-2xl leading-relaxed">
                         Descarga los datos procesados en formato CSV compatible con Microsoft Excel, Google Sheets, PowerBI o cualquier software de administracion contable.
                     </p>
+                </div>
+
+                <!-- Tarjeta Destacada: Reporte Ejecutivo Mensual PDF (Propuesta 4) -->
+                <div class="bg-gradient-to-br from-indigo-900 via-brand-700 to-navy-900 text-white p-6 sm:p-8 rounded-3xl shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border border-indigo-500/30">
+                    <div class="space-y-2 max-w-2xl">
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] font-black uppercase tracking-widest bg-white/20 text-white px-2.5 py-1 rounded-md border border-white/20">Documento Oficial</span>
+                            <span class="text-xs font-bold text-indigo-200">Formato Carta Listo para Imprimir / PDF</span>
+                        </div>
+                        <h3 class="text-xl font-black text-white">Reporte Ejecutivo Mensual de Retencion y Finanzas</h3>
+                        <p class="text-xs text-indigo-100 leading-relaxed">
+                            Resumen de alta direccion con KPIs financieros (MRR, capital en riesgo, ROI FitPulse Pro), listado prioritario de socios en riesgo con gestion CRM, calibracion estadistica SARIMA y plan de accion gerencial en 3 pasos.
+                        </p>
+                    </div>
+                    <div class="shrink-0 w-full md:w-auto">
+                        <a href="/reporte-ejecutivo" target="_blank" class="w-full md:w-auto px-6 py-3.5 bg-white text-navy-900 hover:bg-slate-100 font-black text-xs rounded-2xl shadow-lg transition flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                            <span>Abrir Reporte Ejecutivo (PDF)</span>
+                        </a>
+                    </div>
                 </div>
 
                 <!-- 3 Tarjetas de Descarga Profesional -->
