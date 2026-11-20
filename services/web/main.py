@@ -17,6 +17,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import pandas as pd
 import numpy as np
+import qrcode
 
 # Rutas del proyecto
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -515,6 +516,46 @@ async def api_checkin_qr(datos: dict):
         "hora": hora_str,
         "mensaje": f"Acceso autorizado: {id_socio}. Membresia {plan} activa."
     }
+
+
+@app.get("/api/qr-poster.png")
+async def api_qr_poster(request: Request, tipo: str = "web"):
+    """
+    Genera un archivo PNG de codigo QR 100% valido conforme a norma ISO/IEC 18004.
+    Escaneable por la camara de cualquier iPhone, Android, Google Lens o app de WhatsApp.
+    """
+    if tipo == "whatsapp":
+        # Enlace universal garantizado de WhatsApp
+        url_destino = "https://wa.me/523121900195?text=Hola%20Iron%20Gym,%20estoy%20en%20el%20mostrador%20y%20quiero%20registrar%20mi%20asistencia%20de%20hoy"
+    else:
+        # Enlace directo al portal web movil del gimnasio
+        url_destino = "http://192.168.101.21:8000/checkin-socio"
+
+    qr = qrcode.QRCode(
+        version=None,
+        error_correction=qrcode.constants.ERROR_CORRECT_M,
+        box_size=12,
+        border=4,
+    )
+    qr.add_data(url_destino)
+    qr.make(fit=True)
+    img = qr.make_image(fill_color="black", back_color="white")
+
+    buf = io.BytesIO()
+    img.save(buf, format="PNG")
+    return Response(content=buf.getvalue(), media_type="image/png")
+
+
+@app.get("/checkin-socio", response_class=HTMLResponse)
+async def pagina_checkin_socio_movil(request: Request):
+    """
+    Pantalla movil que se abre en el celular del socio cuando escanea el codigo QR del mostrador.
+    """
+    return templates.TemplateResponse(
+        request=request,
+        name="checkin_socio.html",
+        context={"gym_name": SESSION_STATE.get("nombre_gym", "FitPulse Gym")}
+    )
 
 
 @app.post("/api/upload-logo")

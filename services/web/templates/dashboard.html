@@ -982,70 +982,33 @@
                         </div>
 
                         <!-- Tarjeta visual de cartel para poner en el mostrador -->
-                        <div id="cartelImprimible" class="w-full max-w-xs p-6 rounded-3xl bg-slate-50 border-2 border-slate-300 shadow-sm text-center">
+                        <div id="cartelImprimible" class="w-full max-w-sm p-6 rounded-3xl bg-slate-50 border-2 border-slate-300 shadow-sm text-center">
                             <div class="text-[10px] font-black tracking-widest text-brand-700 uppercase mb-1">FitPulse Smart Check-in</div>
                             <h3 class="font-extrabold text-navy-900 text-base leading-tight mb-0.5">{{ session.nombre_gym }}</h3>
                             <div class="text-[11px] text-slate-500 mb-4">Registro Oficial de Asistencia</div>
 
-                            <!-- Codigo QR Vectorial Limpio y de Alto Contraste -->
-                            <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-inner inline-block mx-auto mb-4">
-                                <svg class="w-44 h-44 mx-auto" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="5" y="5" width="26" height="26" rx="4" fill="#0f172a"/>
-                                    <rect x="9" y="9" width="18" height="18" rx="2" fill="white"/>
-                                    <rect x="13" y="13" width="10" height="10" rx="1" fill="#0f172a"/>
-
-                                    <rect x="69" y="5" width="26" height="26" rx="4" fill="#0f172a"/>
-                                    <rect x="73" y="9" width="18" height="18" rx="2" fill="white"/>
-                                    <rect x="77" y="13" width="10" height="10" rx="1" fill="#0f172a"/>
-
-                                    <rect x="5" y="69" width="26" height="26" rx="4" fill="#0f172a"/>
-                                    <rect x="9" y="73" width="18" height="18" rx="2" fill="white"/>
-                                    <rect x="13" y="77" width="10" height="10" rx="1" fill="#0f172a"/>
-
-                                    <rect x="36" y="8" width="6" height="6" fill="#0f172a"/>
-                                    <rect x="46" y="8" width="6" height="6" fill="#0f172a"/>
-                                    <rect x="56" y="8" width="6" height="6" fill="#0f172a"/>
-                                    
-                                    <rect x="36" y="18" width="6" height="6" fill="#2563eb"/>
-                                    <rect x="46" y="18" width="6" height="6" fill="#0f172a"/>
-                                    <rect x="56" y="18" width="6" height="6" fill="#2563eb"/>
-
-                                    <rect x="8" y="36" width="6" height="6" fill="#0f172a"/>
-                                    <rect x="18" y="36" width="6" height="6" fill="#2563eb"/>
-                                    <rect x="28" y="36" width="6" height="6" fill="#0f172a"/>
-                                    <rect x="38" y="36" width="8" height="8" fill="#0f172a"/>
-                                    <rect x="50" y="36" width="6" height="6" fill="#2563eb"/>
-                                    <rect x="60" y="36" width="6" height="6" fill="#0f172a"/>
-                                    <rect x="72" y="36" width="8" height="8" fill="#0f172a"/>
-                                    <rect x="84" y="36" width="8" height="8" fill="#2563eb"/>
-
-                                    <rect x="8" y="48" width="6" height="6" fill="#2563eb"/>
-                                    <rect x="18" y="48" width="6" height="6" fill="#0f172a"/>
-                                    <rect x="28" y="48" width="6" height="6" fill="#2563eb"/>
-                                    <rect x="46" y="46" width="8" height="8" fill="#0f172a"/>
-                                    <rect x="64" y="48" width="8" height="8" fill="#0f172a"/>
-                                    <rect x="82" y="48" width="8" height="8" fill="#0f172a"/>
-
-                                    <rect x="36" y="60" width="8" height="8" fill="#0f172a"/>
-                                    <rect x="48" y="60" width="8" height="8" fill="#2563eb"/>
-                                    <rect x="60" y="60" width="8" height="8" fill="#0f172a"/>
-
-                                    <rect x="36" y="74" width="6" height="6" fill="#0f172a"/>
-                                    <rect x="46" y="74" width="8" height="8" fill="#2563eb"/>
-                                    <rect x="58" y="74" width="8" height="8" fill="#0f172a"/>
-                                    <rect x="70" y="74" width="8" height="8" fill="#0f172a"/>
-                                    <rect x="82" y="74" width="8" height="8" fill="#2563eb"/>
-
-                                    <rect x="36" y="86" width="8" height="8" fill="#2563eb"/>
-                                    <rect x="48" y="86" width="6" height="6" fill="#0f172a"/>
-                                    <rect x="62" y="86" width="8" height="8" fill="#0f172a"/>
-                                    <rect x="76" y="86" width="8" height="8" fill="#0f172a"/>
-                                    <rect x="88" y="86" width="6" height="6" fill="#2563eb"/>
-                                </svg>
+                            <!-- Codigo QR 100% Real y Escaneable por Camaras -->
+                            <div class="bg-white p-4 rounded-2xl border-2 border-slate-900 shadow-sm inline-block mx-auto mb-3">
+                                <img id="imgQrEscaneable" src="/api/qr-poster.png?tipo=web" alt="Codigo QR de Check-in Escaneable" class="w-56 h-56 mx-auto object-contain" style="image-rendering: pixelated;">
                             </div>
 
-                            <p class="text-xs font-extrabold text-navy-900 leading-tight">Apunta tu camara para registrar tu entrada</p>
-                            <p class="text-[10px] text-slate-500 mt-1">Valida tu membresia activa en 1 segundo</p>
+                            <p class="text-xs font-extrabold text-navy-900 leading-tight">Escanea con la camara de tu celular</p>
+                            <p class="text-[10px] text-slate-500 mt-0.5">Compatible con iPhone, Android y Google Lens</p>
+
+                            <!-- Selector de Destino del QR -->
+                            <div class="mt-4 pt-3 border-t border-slate-200">
+                                <div class="flex items-center justify-center gap-1.5 text-[10px] font-bold mb-2">
+                                    <button type="button" onclick="cambiarTipoQr('web')" id="btnQrWeb" class="px-3 py-1.5 rounded-lg bg-navy-900 text-white transition">
+                                        Portal Web Movil
+                                    </button>
+                                    <button type="button" onclick="cambiarTipoQr('whatsapp')" id="btnQrWa" class="px-3 py-1.5 rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300 transition">
+                                        WhatsApp Oficial
+                                    </button>
+                                </div>
+                                <div id="txtQrDestino" class="text-[11px] text-brand-700 font-mono font-bold bg-brand-50 p-2 rounded-xl border border-brand-200">
+                                    Abre: http://192.168.101.21:8000/checkin-socio
+                                </div>
+                            </div>
                         </div>
 
                         <div class="mt-6 flex flex-col sm:flex-row gap-3 w-full">
@@ -1313,6 +1276,26 @@
         }
 
         // Funciones para Check-in QR y Recepcion
+        function cambiarTipoQr(tipo) {
+            const img = document.getElementById('imgQrEscaneable');
+            const btnWeb = document.getElementById('btnQrWeb');
+            const btnWa = document.getElementById('btnQrWa');
+            const txtDestino = document.getElementById('txtQrDestino');
+            const timestamp = Date.now();
+
+            if (tipo === 'whatsapp') {
+                img.src = '/api/qr-poster.png?tipo=whatsapp&t=' + timestamp;
+                btnWa.className = 'px-3 py-1.5 rounded-lg bg-navy-900 text-white transition';
+                btnWeb.className = 'px-3 py-1.5 rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300 transition';
+                txtDestino.innerText = 'Abre: WhatsApp Oficial (+52 312 190 0195)';
+            } else {
+                img.src = '/api/qr-poster.png?tipo=web&t=' + timestamp;
+                btnWeb.className = 'px-3 py-1.5 rounded-lg bg-navy-900 text-white transition';
+                btnWa.className = 'px-3 py-1.5 rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300 transition';
+                txtDestino.innerText = 'Abre: http://192.168.101.21:8000/checkin-socio';
+            }
+        }
+
         function cargarIdCheckin(id) {
             document.getElementById('inputCheckInId').value = id;
             document.getElementById('inputCheckInId').focus();

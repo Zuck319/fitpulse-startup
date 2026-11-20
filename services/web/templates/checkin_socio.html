@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check-in Movil · {{ gym_name }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-white min-h-screen flex items-center justify-center p-4 font-sans">
+    <div class="max-w-md w-full bg-slate-800 rounded-3xl p-6 sm:p-8 border border-slate-700 shadow-2xl text-center">
+        <div class="w-14 h-14 rounded-2xl bg-blue-600/20 text-blue-400 border border-blue-500/30 flex items-center justify-center mx-auto mb-4 font-black text-xl">
+            FP
+        </div>
+        <span class="text-[10px] font-bold text-blue-400 uppercase tracking-widest bg-blue-900/60 px-2.5 py-1 rounded-md border border-blue-500/30">
+            Punto de Acceso Inteligente
+        </span>
+        <h1 class="text-2xl font-black text-white mt-3">{{ gym_name }}</h1>
+        <p class="text-xs text-slate-300 mt-1">Sede: Sucursal Centro · Registro de Visita</p>
+
+        <div id="pantallaRegistro" class="mt-8 space-y-4">
+            <div class="text-left">
+                <label class="block text-xs font-bold text-slate-300 uppercase mb-2">Ingresa tu Codigo de Socio o Nombre:</label>
+                <input type="text" id="inputSocioMovil" placeholder="Ej. SOC-0104, GYM-0012 o tu nombre" class="w-full text-base font-bold text-slate-900 bg-white p-3.5 rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <button onclick="confirmarEntradaMovil()" id="btnConfirmar" class="w-full py-4 bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-extrabold text-sm rounded-xl shadow-lg transition">
+                Confirmar mi Entrada Hoy
+            </button>
+        </div>
+
+        <div id="pantallaExito" class="hidden mt-8 p-6 bg-emerald-950/60 border border-emerald-500/40 rounded-2xl">
+            <div class="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto mb-3 font-bold text-xl">
+                OK
+            </div>
+            <h3 class="text-lg font-black text-emerald-300">¡Acceso Registrado!</h3>
+            <p id="detalleExito" class="text-xs text-emerald-200 mt-1 leading-relaxed">
+                Membresia Activa. Que tengas un excelente entrenamiento hoy.
+            </p>
+            <div class="mt-4 pt-4 border-t border-emerald-800/60 text-[10px] text-emerald-400 font-mono" id="horaExito">
+                --:-- hrs
+            </div>
+        </div>
+
+        <p class="text-[11px] text-slate-500 mt-8 pt-4 border-t border-slate-700/60">
+            Powered by <strong>FitPulse Analytics</strong> · Sistema de Check-in en la Nube
+        </p>
+    </div>
+
+    <script>
+        async function confirmarEntradaMovil() {
+            const socio = document.getElementById('inputSocioMovil').value.trim();
+            if (!socio) {
+                alert('Por favor ingresa tu codigo o nombre de socio.');
+                return;
+            }
+
+            const btn = document.getElementById('btnConfirmar');
+            btn.disabled = true;
+            btn.innerText = 'Registrando...';
+
+            try {
+                const res = await fetch('/api/checkin-qr', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id_socio: socio, sucursal: 'Sucursal Centro' })
+                });
+                const data = await res.json();
+
+                document.getElementById('pantallaRegistro').classList.add('hidden');
+                document.getElementById('pantallaExito').classList.remove('hidden');
+                document.getElementById('detalleExito').innerHTML = '<strong>' + (data.nombre || socio) + '</strong><br>Membresia <strong>' + (data.plan || 'General') + '</strong> activa.<br>¡Bienvenido al gimnasio!';
+                document.getElementById('horaExito').innerText = 'Entrada registrada a las ' + (data.hora || new Date().toLocaleTimeString());
+            } catch(e) {
+                alert('Error de conexion: ' + e);
+                btn.disabled = false;
+                btn.innerText = 'Confirmar mi Entrada Hoy';
+            }
+        }
+    </script>
+</body>
+</html>
