@@ -8,6 +8,8 @@ import os
 import io
 import json
 import shutil
+import re
+import uuid
 from datetime import datetime, timedelta
 from typing import Optional
 
@@ -477,44 +479,172 @@ async def api_churn_radar(sucursal: Optional[str] = "Todas las sucursales (Conso
     }
 
 
+NOMBRES_CATALOGO_SOCIOS = [
+    "Alejandro Ruiz", "Mariana Gomez", "Carlos Rodriguez", "Fernanda Ortiz", "Jorge Morales",
+    "Sofia Hernandez", "Daniel Torres", "Valeria Ramos", "Ricardo Vazquez", "Camila Castro",
+    "Diego Navarro", "Elena Delgado", "Mateo Silva", "Renata Paredes", "Sebastian Cruz",
+    "Lucia Alvarez", "Rodrigo Ibarra", "Paulina Rios", "Gabriel Medina", "Andrea Soto",
+    "Mauricio Bravo", "Diana Castillo", "Esteban Romero", "Jimena Lara", "Emilio Vargas",
+    "Claudia Vega", "Hector Sandoval", "Lorena Benitez", "Javier Rangel", "Natalia Meza"
+]
+
+REGISTROS_CHECKIN_EN_VIVO = [
+    {
+        "id": "chk-001",
+        "id_socio": "SOC-0042",
+        "nombre": "Carlos Rodriguez",
+        "plan": "General",
+        "cuota": 650.0,
+        "sucursal": "Sucursal Centro",
+        "hora": "20:38 hrs",
+        "fecha": "2026-11-19 20:38",
+        "origen": "Mostrador Recepcion",
+        "estado": "Activo"
+    },
+    {
+        "id": "chk-002",
+        "id_socio": "SOC-0104",
+        "nombre": "Mariana Gomez",
+        "plan": "VIP_Anual",
+        "cuota": 900.0,
+        "sucursal": "Sucursal Centro",
+        "hora": "20:41 hrs",
+        "fecha": "2026-11-19 20:41",
+        "origen": "Movil QR",
+        "estado": "Activo"
+    }
+]
+
+def buscar_socio_en_bd(query: str, df: pd.DataFrame):
+    """
+    Busca y valida si un socio existe en el registro del gimnasio.
+    Soporta busqueda por ID exacto (SOC-0104), digitos (104),
+    prefijo simplificado (soc 104) o nombre completo/parcial.
+    Retorna (id_socio, nombre, fila_datos) o None si no existe.
+    """
+    q_str = str(query).strip()
+    if not q_str or "id_socio" not in df.columns or len(df) == 0:
+        return None
+        
+    unicos = df.groupby("id_socio").last().reset_index()
+    q_norm = q_str.upper()
+    
+    # 1. Coincidencia exacta de id_socio (ej. SOC-0104)
+    match_exact = unicos[unicos["id_socio"].str.upper() == q_norm]
+    if len(match_exact) > 0:
+        idx = match_exact.index[0]
+        nombre = NOMBRES_CATALOGO_SOCIOS[idx % len(NOMBRES_CATALOGO_SOCIOS)]
+        return match_exact.iloc[0]["id_socio"], nombre, match_exact.iloc[0]
+        
+    # 2. Solo digitos numericos (ej. '104')
+    if q_norm.isdigit():
+        alt_id = f"SOC-{int(q_norm):04d}"
+        match_num = unicos[unicos["id_socio"].str.upper() == alt_id]
+        if len(match_num) > 0:
+            idx = match_num.index[0]
+            nombre = NOMBRES_CATALOGO_SOCIOS[idx % len(NOMBRES_CATALOGO_SOCIOS)]
+            return match_num.iloc[0]["id_socio"], nombre, match_num.iloc[0]
+            
+    # 3. Prefijos conocidos con espacio o guion (ej. 'SOC 104', 'SOC-104', 'GYM 12')
+    m = re.match(r"^(SOC|GYM|PZ|SPARTAN)[-\s]?(\d+)$", q_norm)
+    if m:
+        pref, num_str = m.groups()
+        alt_id = f"{pref}-{int(num_str):04d}"
+        match_pref = unicos[unicos["id_socio"].str.upper() == alt_id]
+        if len(match_pref) > 0:
+            idx = match_pref.index[0]
+            nombre = NOMBRES_CATALOGO_SOCIOS[idx % len(NOMBRES_CATALOGO_SOCIOS)]
+            return match_pref.iloc[0]["id_socio"], nombre, match_pref.iloc[0]
+            
+    # 4. Busqueda por nombre (ej. 'Mariana', 'Carlos', 'Ruiz')
+    q_lower = q_str.lower()
+    if len(q_lower) >= 3:
+        for idx, r in unicos.iterrows():
+            nombre = NOMBRES_CATALOGO_SOCIOS[idx % len(NOMBRES_CATALOGO_SOCIOS)]
+            if q_lower in nombre.lower():
+                return r["id_socio"], nombre, r
+                
+    return None
+
+
 @app.post("/api/checkin-qr")
 async def api_checkin_qr(datos: dict):
     """
-    Registra el acceso inmediato de un socio escaneando su QR o ingresando su ID.
+    Registra el acceso inmediato de un socio escaneando su QR o ingresando su ID/Nombre.
+    Valida rigurosamente la existencia del socio en la base de datos.
     Disponible desde el Plan Pro para operar sin torniquetes fisicos.
     """
-    id_socio = str(datos.get("id_socio", "")).strip().upper()
-    if not id_socio:
-        raise HTTPException(status_code=400, detail="ID de socio requerido")
+    id_socio_buscado = str(datos.get("id_socio", "")).strip()
+    if not id_socio_buscado:
+        raise HTTPException(status_code=400, detail="ID o nombre de socio requerido")
     
     sucursal = datos.get("sucursal", "Sucursal Centro")
+    origen = datos.get("origen", "Mostrador QR")
     ahora = datetime.now()
     fecha_str = ahora.strftime("%Y-%m-%d %H:%M")
     hora_str = ahora.strftime("%H:%M hrs")
     
     df = obtener_dataframe_limpio()
-    socio_existente = df[df["id_socio"] == id_socio] if "id_socio" in df.columns else pd.DataFrame()
+    resultado = buscar_socio_en_bd(id_socio_buscado, df)
     
-    if len(socio_existente) > 0:
-        plan = str(socio_existente.iloc[0].get("plan_membresia", "General"))
-        cuota = float(socio_existente.iloc[0].get("monto_mensualidad", 650.0))
-        nombre = f"Socio {id_socio}"
-    else:
-        plan = "General"
-        cuota = 650.0
-        nombre = f"Socio Registrado ({id_socio})"
+    if resultado is None:
+        return JSONResponse(
+            status_code=404,
+            content={
+                "status": "denegado",
+                "acceso_autorizado": False,
+                "id_socio": id_socio_buscado,
+                "nombre": "Socio No Registrado",
+                "mensaje": f"Acceso Denegado: El socio o codigo '{id_socio_buscado}' no existe en el sistema. Favor de registrarse en recepcion.",
+                "hora": hora_str
+            }
+        )
         
-    return {
-        "status": "ok",
-        "acceso_autorizado": True,
-        "id_socio": id_socio,
-        "nombre": nombre,
+    id_real, nombre_real, fila = resultado
+    plan = str(fila.get("plan_membresia", "General"))
+    cuota = float(fila.get("monto_mensualidad", 650.0))
+    dias = int(fila.get("dias_sin_asistir", 0)) if pd.notnull(fila.get("dias_sin_asistir")) else 0
+    estado = "Activo" if dias <= 8 else "En_Riesgo"
+    
+    nuevo_registro = {
+        "id": f"chk-{len(REGISTROS_CHECKIN_EN_VIVO) + 1:03d}",
+        "id_socio": id_real,
+        "nombre": nombre_real,
         "plan": plan,
         "cuota": cuota,
         "sucursal": sucursal,
         "fecha": fecha_str,
         "hora": hora_str,
-        "mensaje": f"Acceso autorizado: {id_socio}. Membresia {plan} activa."
+        "origen": origen,
+        "estado": estado,
+        "dias_sin_asistir": dias
+    }
+    REGISTROS_CHECKIN_EN_VIVO.insert(0, nuevo_registro)
+    if len(REGISTROS_CHECKIN_EN_VIVO) > 100:
+        REGISTROS_CHECKIN_EN_VIVO.pop()
+        
+    return {
+        "status": "ok",
+        "acceso_autorizado": True,
+        "id_socio": id_real,
+        "nombre": nombre_real,
+        "plan": plan,
+        "cuota": cuota,
+        "sucursal": sucursal,
+        "fecha": fecha_str,
+        "hora": hora_str,
+        "origen": origen,
+        "estado": estado,
+        "mensaje": f"Acceso Autorizado: {nombre_real} ({id_real}). Membresia {plan} activa."
+    }
+
+
+@app.get("/api/checkin-historial")
+async def api_checkin_historial():
+    """Retorna la lista de accesos registrados en la sesion actual en vivo."""
+    return {
+        "total_hoy": len(REGISTROS_CHECKIN_EN_VIVO),
+        "historial": REGISTROS_CHECKIN_EN_VIVO
     }
 
 

@@ -5,43 +5,146 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Check-in Movil · {{ gym_name }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes scanline {
+            0% { transform: translateY(-100%); opacity: 0.2; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(100%); opacity: 0.2; }
+        }
+        .animate-scan {
+            animation: scanline 2.5s ease-in-out infinite alternate;
+        }
+        @keyframes popIn {
+            0% { transform: scale(0.6); opacity: 0; }
+            70% { transform: scale(1.08); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .animate-pop {
+            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
+        }
+        .animate-shake {
+            animation: shake 0.45s ease-in-out;
+        }
+        @keyframes pulseRing {
+            0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.6); }
+            70% { box-shadow: 0 0 0 16px rgba(37, 99, 235, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+        }
+        .animate-pulse-ring {
+            animation: pulseRing 2s infinite;
+        }
+    </style>
 </head>
-<body class="bg-slate-900 text-white min-h-screen flex items-center justify-center p-4 font-sans">
-    <div class="max-w-md w-full bg-slate-800 rounded-3xl p-6 sm:p-8 border border-slate-700 shadow-2xl text-center">
-        <div class="w-14 h-14 rounded-2xl bg-blue-600/20 text-blue-400 border border-blue-500/30 flex items-center justify-center mx-auto mb-4 font-black text-xl">
+<body class="bg-slate-950 text-white min-h-screen flex items-center justify-center p-4 font-sans selection:bg-blue-600 selection:text-white">
+    <div class="max-w-md w-full bg-slate-900/90 backdrop-blur-xl rounded-3xl p-6 sm:p-8 border border-slate-800 shadow-2xl text-center relative overflow-hidden">
+        
+        <!-- Efecto de Lente Superior -->
+        <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-72 h-72 bg-blue-600/15 rounded-full blur-3xl pointer-events-none"></div>
+
+        <!-- Cabecera -->
+        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white flex items-center justify-center mx-auto mb-4 font-black text-2xl shadow-lg shadow-blue-600/30 animate-pulse-ring">
             FP
         </div>
-        <span class="text-[10px] font-bold text-blue-400 uppercase tracking-widest bg-blue-900/60 px-2.5 py-1 rounded-md border border-blue-500/30">
+
+        <span class="text-[10px] font-bold text-blue-400 uppercase tracking-widest bg-blue-950/80 px-3 py-1 rounded-full border border-blue-500/30 inline-block mb-1">
             Punto de Acceso Inteligente
         </span>
-        <h1 class="text-2xl font-black text-white mt-3">{{ gym_name }}</h1>
-        <p class="text-xs text-slate-300 mt-1">Sede: Sucursal Centro · Registro de Visita</p>
 
+        <h1 class="text-2xl font-black text-white mt-1">{{ gym_name }}</h1>
+        <p class="text-xs text-slate-400 mt-1">Sede Matriz · Registro de Entrada Sin Torniquete</p>
+
+        <!-- FORMULARIO DE REGISTRO -->
         <div id="pantallaRegistro" class="mt-8 space-y-4">
             <div class="text-left">
-                <label class="block text-xs font-bold text-slate-300 uppercase mb-2">Ingresa tu Codigo de Socio o Nombre:</label>
-                <input type="text" id="inputSocioMovil" placeholder="Ej. SOC-0104, GYM-0012 o tu nombre" class="w-full text-base font-bold text-slate-900 bg-white p-3.5 rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
+                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
+                    Ingresa tu Codigo de Socio o Nombre:
+                </label>
+                <div class="relative">
+                    <input type="text" id="inputSocioMovil" placeholder="Ej. SOC-0104, 104 o tu nombre" class="w-full text-base font-bold text-slate-900 bg-white p-3.5 pl-11 rounded-2xl outline-none focus:ring-4 focus:ring-blue-500/40 transition shadow-inner">
+                    <svg class="w-5 h-5 text-slate-400 absolute left-3.5 top-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                </div>
+                <p class="text-[11px] text-slate-500 mt-1.5">Ejemplos validos: <span class="font-mono text-slate-300 font-bold">SOC-0104, 104, Mariana Gomez, Carlos Rodriguez</span></p>
             </div>
 
-            <button onclick="confirmarEntradaMovil()" id="btnConfirmar" class="w-full py-4 bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-extrabold text-sm rounded-xl shadow-lg transition">
-                Confirmar mi Entrada Hoy
+            <!-- Boton de Envio con microinteraccion -->
+            <button onclick="confirmarEntradaMovil()" id="btnConfirmar" class="w-full py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 active:scale-[0.98] text-white font-extrabold text-sm rounded-2xl shadow-xl shadow-blue-600/30 transition flex items-center justify-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span id="btnConfirmarTexto">Confirmar mi Entrada Hoy</span>
             </button>
         </div>
 
-        <div id="pantallaExito" class="hidden mt-8 p-6 bg-emerald-950/60 border border-emerald-500/40 rounded-2xl">
-            <div class="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto mb-3 font-bold text-xl">
-                OK
+        <!-- PANTALLA 1: EXITO (ACCESO AUTORIZADO) -->
+        <div id="pantallaExito" class="hidden mt-8 p-6 bg-emerald-950/70 border border-emerald-500/40 rounded-3xl animate-pop text-center">
+            <div class="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center mx-auto mb-3 shadow-lg shadow-emerald-500/20">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
             </div>
-            <h3 class="text-lg font-black text-emerald-300">¡Acceso Registrado!</h3>
-            <p id="detalleExito" class="text-xs text-emerald-200 mt-1 leading-relaxed">
-                Membresia Activa. Que tengas un excelente entrenamiento hoy.
+
+            <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-widest bg-emerald-900/60 px-2.5 py-0.5 rounded-full border border-emerald-500/30">
+                Pase Autorizado
+            </span>
+
+            <h3 id="exitoNombre" class="text-xl font-black text-white mt-2 leading-tight">--</h3>
+            <p id="exitoId" class="text-xs font-mono text-emerald-300 font-bold mt-0.5">--</p>
+
+            <div class="mt-4 p-3 bg-emerald-900/40 rounded-xl border border-emerald-800/60 text-xs text-emerald-100 space-y-1">
+                <div class="flex justify-between">
+                    <span class="text-emerald-400">Membresia:</span>
+                    <strong id="exitoPlan" class="text-white">--</strong>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-emerald-400">Estado:</span>
+                    <strong class="text-emerald-300">Al Corriente (Activo)</strong>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-emerald-400">Hora de Registro:</span>
+                    <span id="horaExito" class="font-mono font-bold text-white">--:--</span>
+                </div>
+            </div>
+
+            <p class="text-xs text-emerald-300 mt-4 font-semibold">
+                ¡Que tengas un excelente entrenamiento hoy!
             </p>
-            <div class="mt-4 pt-4 border-t border-emerald-800/60 text-[10px] text-emerald-400 font-mono" id="horaExito">
-                --:-- hrs
-            </div>
+
+            <button onclick="volverARegistrar()" class="mt-5 w-full py-2.5 bg-emerald-900/60 hover:bg-emerald-800/80 text-emerald-200 text-xs font-bold rounded-xl border border-emerald-700/50 transition">
+                Registrar otro socio
+            </button>
         </div>
 
-        <p class="text-[11px] text-slate-500 mt-8 pt-4 border-t border-slate-700/60">
+        <!-- PANTALLA 2: ERROR / RECHAZO (NO ENCONTRADO) -->
+        <div id="pantallaError" class="hidden mt-8 p-6 bg-rose-950/70 border border-rose-500/40 rounded-3xl animate-shake text-center">
+            <div class="w-16 h-16 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30 flex items-center justify-center mx-auto mb-3 shadow-lg shadow-rose-500/20">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
+            </div>
+
+            <span class="text-[10px] font-bold text-rose-400 uppercase tracking-widest bg-rose-900/60 px-2.5 py-0.5 rounded-full border border-rose-500/30">
+                Acceso No Autorizado
+            </span>
+
+            <h3 class="text-lg font-black text-rose-200 mt-2">Socio No Encontrado</h3>
+            <p id="errorDetalle" class="text-xs text-rose-300 mt-2 leading-relaxed">
+                El identificador no existe en el sistema activo de este gimnasio.
+            </p>
+
+            <div class="mt-4 p-3 bg-rose-900/40 rounded-xl border border-rose-800/60 text-[11px] text-rose-200 text-left space-y-1">
+                <strong>¿Que debes hacer?</strong>
+                <ul class="list-disc list-inside text-rose-300 text-[10px] space-y-0.5 mt-1">
+                    <li>Verifica que hayas escrito bien tu codigo (ej. SOC-0104).</li>
+                    <li>Si tu membresia expiro o eres nuevo, pasa a mostrador de recepcion.</li>
+                </ul>
+            </div>
+
+            <button onclick="reintentar()" class="mt-5 w-full py-3 bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs rounded-xl shadow-lg transition">
+                Intentar de Nuevo
+            </button>
+        </div>
+
+        <!-- Pie de Pagina -->
+        <p class="text-[11px] text-slate-500 mt-8 pt-4 border-t border-slate-800">
             Powered by <strong>FitPulse Analytics</strong> · Sistema de Check-in en la Nube
         </p>
     </div>
@@ -51,31 +154,74 @@
             const socio = document.getElementById('inputSocioMovil').value.trim();
             if (!socio) {
                 alert('Por favor ingresa tu codigo o nombre de socio.');
+                document.getElementById('inputSocioMovil').focus();
                 return;
             }
 
             const btn = document.getElementById('btnConfirmar');
+            const btnTxt = document.getElementById('btnConfirmarTexto');
             btn.disabled = true;
-            btn.innerText = 'Registrando...';
+            btnTxt.innerText = 'Validando membresia en la nube...';
 
             try {
                 const res = await fetch('/api/checkin-qr', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ id_socio: socio, sucursal: 'Sucursal Centro' })
+                    body: JSON.stringify({ 
+                        id_socio: socio, 
+                        sucursal: 'Sucursal Centro',
+                        origen: 'Movil QR'
+                    })
                 });
                 const data = await res.json();
 
-                document.getElementById('pantallaRegistro').classList.add('hidden');
-                document.getElementById('pantallaExito').classList.remove('hidden');
-                document.getElementById('detalleExito').innerHTML = '<strong>' + (data.nombre || socio) + '</strong><br>Membresia <strong>' + (data.plan || 'General') + '</strong> activa.<br>¡Bienvenido al gimnasio!';
-                document.getElementById('horaExito').innerText = 'Entrada registrada a las ' + (data.hora || new Date().toLocaleTimeString());
+                if (res.ok && data.acceso_autorizado) {
+                    // Acceso Autorizado
+                    document.getElementById('pantallaRegistro').classList.add('hidden');
+                    document.getElementById('pantallaError').classList.add('hidden');
+                    document.getElementById('pantallaExito').classList.remove('hidden');
+
+                    document.getElementById('exitoNombre').innerText = data.nombre;
+                    document.getElementById('exitoId').innerText = data.id_socio;
+                    document.getElementById('exitoPlan').innerText = data.plan;
+                    document.getElementById('horaExito').innerText = data.hora;
+                } else {
+                    // Acceso Denegado (No existe en la base de datos)
+                    document.getElementById('pantallaRegistro').classList.add('hidden');
+                    document.getElementById('pantallaExito').classList.add('hidden');
+                    document.getElementById('pantallaError').classList.remove('hidden');
+
+                    document.getElementById('errorDetalle').innerText = data.mensaje || `No existe ningun socio registrado con el identificador "${socio}".`;
+                }
             } catch(e) {
-                alert('Error de conexion: ' + e);
+                alert('Error de comunicacion con el servidor: ' + e);
+            } finally {
                 btn.disabled = false;
-                btn.innerText = 'Confirmar mi Entrada Hoy';
+                btnTxt.innerText = 'Confirmar mi Entrada Hoy';
             }
         }
+
+        function reintentar() {
+            document.getElementById('pantallaError').classList.add('hidden');
+            document.getElementById('pantallaRegistro').classList.remove('hidden');
+            const input = document.getElementById('inputSocioMovil');
+            input.value = '';
+            input.focus();
+        }
+
+        function volverARegistrar() {
+            document.getElementById('pantallaExito').classList.add('hidden');
+            document.getElementById('pantallaRegistro').classList.remove('hidden');
+            const input = document.getElementById('inputSocioMovil');
+            input.value = '';
+            input.focus();
+        }
+
+        document.getElementById('inputSocioMovil').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                confirmarEntradaMovil();
+            }
+        });
     </script>
 </body>
 </html>

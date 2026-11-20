@@ -29,6 +29,111 @@
             font-weight: 700;
             border-right: 3px solid #16a34a;
         }
+
+        /* Animaciones para Check-in y Modulos Interactivos */
+        @keyframes scanLaser {
+            0% { top: 4%; opacity: 0.2; }
+            50% { opacity: 0.85; }
+            100% { top: 92%; opacity: 0.2; }
+        }
+        .laser-scan-line {
+            animation: scanLaser 2.6s ease-in-out infinite alternate;
+        }
+
+        @keyframes slideInDown {
+            0% { transform: translateY(-16px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        .animate-slide-down {
+            animation: slideInDown 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes shakeInput {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-7px); }
+            40%, 80% { transform: translateX(7px); }
+        }
+        .animate-shake {
+            animation: shakeInput 0.4s ease-in-out;
+        }
+
+        @keyframes pulseDot {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.7; }
+        }
+        .animate-pulse-dot {
+            animation: pulseDot 1.6s infinite ease-in-out;
+        }
+
+        /* ==================================================== */
+        /* REGLAS EXCLUSIVAS DE IMPRESION DEL CARTEL (PDF/PAPEL) */
+        /* ==================================================== */
+        @media print {
+            /* Ocultar todos los elementos de la interfaz */
+            aside, header, #sidebar, .no-print, button, form, input,
+            #panelKpis, #panelChurn, #panelSubirCsv, #panelLimpieza, #panelExportar,
+            #modalSocioDetalle, #modalWhatsappPersonalizado, #toastContainer,
+            .lg\:col-span-7, .w-full.pb-4.border-b, nav, .border-b {
+                display: none !important;
+            }
+
+            body, html, main {
+                background: white !important;
+                color: #0f172a !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                width: 100% !important;
+                box-shadow: none !important;
+            }
+
+            #panelCheckIn {
+                display: block !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            #panelCheckIn > div:first-child {
+                display: none !important;
+            }
+
+            #panelCheckIn .grid {
+                display: block !important;
+            }
+
+            #panelCheckIn .lg\:col-span-5 {
+                width: 100% !important;
+                max-width: 100% !important;
+                border: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                background: transparent !important;
+                box-shadow: none !important;
+            }
+
+            #cartelImprimible {
+                display: block !important;
+                position: relative !important;
+                max-width: 480px !important;
+                margin: 30px auto !important;
+                padding: 40px 30px !important;
+                border: 3px solid #0f172a !important;
+                border-radius: 28px !important;
+                background: white !important;
+                box-shadow: none !important;
+                page-break-inside: avoid !important;
+                text-align: center !important;
+            }
+
+            #imgQrEscaneable {
+                width: 250px !important;
+                height: 250px !important;
+                margin: 0 auto !important;
+            }
+
+            .print-only {
+                display: block !important;
+            }
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased font-sans min-h-screen flex flex-col md:flex-row">
@@ -987,21 +1092,35 @@
                             <h3 class="font-extrabold text-navy-900 text-base leading-tight mb-0.5">{{ session.nombre_gym }}</h3>
                             <div class="text-[11px] text-slate-500 mb-4">Registro Oficial de Asistencia</div>
 
-                            <!-- Codigo QR 100% Real y Escaneable por Camaras -->
-                            <div class="bg-white p-4 rounded-2xl border-2 border-slate-900 shadow-sm inline-block mx-auto mb-3">
+                            <!-- Codigo QR 100% Real y Escaneable por Camaras con Linea Laser -->
+                            <div class="relative bg-white p-4 rounded-2xl border-2 border-slate-900 shadow-sm inline-block mx-auto mb-3 overflow-hidden">
+                                <div class="laser-scan-line absolute left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500 to-transparent shadow-[0_0_8px_#22c55e] pointer-events-none no-print"></div>
                                 <img id="imgQrEscaneable" src="/api/qr-poster.png?tipo=web" alt="Codigo QR de Check-in Escaneable" class="w-56 h-56 mx-auto object-contain" style="image-rendering: pixelated;">
                             </div>
 
                             <p class="text-xs font-extrabold text-navy-900 leading-tight">Escanea con la camara de tu celular</p>
                             <p class="text-[10px] text-slate-500 mt-0.5">Compatible con iPhone, Android y Google Lens</p>
 
-                            <!-- Selector de Destino del QR -->
-                            <div class="mt-4 pt-3 border-t border-slate-200">
+                            <!-- Bloque exclusivo para impresion en papel (PDF) -->
+                            <div class="hidden print-only mt-6 pt-4 border-t-2 border-slate-300 text-left text-xs text-slate-800">
+                                <div class="font-bold text-[11px] uppercase tracking-wider mb-2">Instrucciones rapidas de acceso:</div>
+                                <div class="space-y-1 text-[11px] text-slate-600">
+                                    <p>1. Abre la camara de tu celular (iPhone o Android).</p>
+                                    <p>2. Enfoca este codigo QR hasta que aparezca el enlace.</p>
+                                    <p>3. Ingresa tu nombre o codigo de socio y pulsa Confirmar.</p>
+                                </div>
+                                <div class="mt-4 pt-3 border-t border-slate-200 text-[9px] text-slate-500 text-center">
+                                    Punto de Acceso Autorizado · FitPulse Analytics · Tecnologia Sin Torniquete
+                                </div>
+                            </div>
+
+                            <!-- Selector de Destino del QR (oculto al imprimir) -->
+                            <div class="mt-4 pt-3 border-t border-slate-200 no-print">
                                 <div class="flex items-center justify-center gap-1.5 text-[10px] font-bold mb-2">
-                                    <button type="button" onclick="cambiarTipoQr('web')" id="btnQrWeb" class="px-3 py-1.5 rounded-lg bg-navy-900 text-white transition">
+                                    <button type="button" onclick="cambiarTipoQr('web')" id="btnQrWeb" class="px-3 py-1.5 rounded-lg bg-navy-900 text-white transition hover:scale-105 active:scale-95">
                                         Portal Web Movil
                                     </button>
-                                    <button type="button" onclick="cambiarTipoQr('whatsapp')" id="btnQrWa" class="px-3 py-1.5 rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300 transition">
+                                    <button type="button" onclick="cambiarTipoQr('whatsapp')" id="btnQrWa" class="px-3 py-1.5 rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300 transition hover:scale-105 active:scale-95">
                                         WhatsApp Oficial
                                     </button>
                                 </div>
@@ -1011,10 +1130,10 @@
                             </div>
                         </div>
 
-                        <div class="mt-6 flex flex-col sm:flex-row gap-3 w-full">
-                            <button onclick="window.print()" class="flex-1 py-2.5 px-4 bg-navy-900 hover:bg-brand-600 text-white font-bold text-xs rounded-xl shadow-sm transition flex items-center justify-center gap-2">
+                        <div class="mt-6 flex flex-col sm:flex-row gap-3 w-full no-print">
+                            <button onclick="window.print()" class="flex-1 py-2.5 px-4 bg-navy-900 hover:bg-brand-600 active:scale-95 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center justify-center gap-2">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
-                                <span>Imprimir Cartel (PDF)</span>
+                                <span>Imprimir Solo Cartel (PDF)</span>
                             </button>
                         </div>
                     </div>
@@ -1028,35 +1147,37 @@
                                     <h3 class="font-extrabold text-navy-900 text-sm">Registro de Asistencia en Mostrador</h3>
                                     <p class="text-xs text-slate-500 mt-0.5">Escribe el codigo del socio o escanea su tarjeta/QR</p>
                                 </div>
-                                <span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200">
-                                    Terminal Conectada
+                                <span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1.5 shadow-xs">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse-dot"></span>
+                                    <span>Terminal Conectada</span>
                                 </span>
                             </div>
 
                             <form onsubmit="ejecutarCheckInRapido(event)" class="space-y-4">
                                 <div>
                                     <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                                        ID o Codigo de Socio:
+                                        ID o Nombre del Socio:
                                     </label>
                                     <div class="flex gap-2">
                                         <div class="relative flex-1">
-                                            <input type="text" id="inputCheckInId" placeholder="Ej. SOC-0104, GYM-0012, PZ-0034..." class="w-full text-sm font-mono font-bold text-navy-900 bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-3 py-3 outline-none focus:border-brand-500 focus:bg-white transition" required>
+                                            <input type="text" id="inputCheckInId" placeholder="Ej. SOC-0104, 104, Mariana Gomez..." class="w-full text-sm font-bold text-navy-900 bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-3 py-3 outline-none focus:border-brand-500 focus:bg-white transition" required>
                                             <svg class="w-5 h-5 text-slate-400 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"/></svg>
                                         </div>
-                                        <button type="submit" id="btnRegistrarCheckIn" class="px-6 py-3 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-2 shrink-0">
+                                        <button type="submit" id="btnRegistrarCheckIn" class="px-6 py-3 bg-brand-600 hover:bg-brand-700 active:scale-95 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-2 shrink-0">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                                             <span>Validar Entrada</span>
                                         </button>
                                     </div>
                                 </div>
 
-                                <!-- Chips Rapidos de Prueba -->
-                                <div class="flex flex-wrap items-center gap-2 pt-1 text-xs">
-                                    <span class="text-[11px] font-semibold text-slate-400">Prueba rapida:</span>
-                                    <button type="button" onclick="cargarIdCheckin('SOC-0104')" class="px-2 py-0.5 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-mono text-[11px]">SOC-0104</button>
-                                    <button type="button" onclick="cargarIdCheckin('GYM-0012')" class="px-2 py-0.5 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-mono text-[11px]">GYM-0012</button>
-                                    <button type="button" onclick="cargarIdCheckin('PZ-0034')" class="px-2 py-0.5 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-mono text-[11px]">PZ-0034</button>
-                                    <button type="button" onclick="cargarIdCheckin('SPARTAN-055')" class="px-2 py-0.5 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-mono text-[11px]">SPARTAN-055</button>
+                                <!-- Chips Rapidos de Prueba Valida e Invalida -->
+                                <div class="flex flex-wrap items-center gap-1.5 pt-1 text-xs">
+                                    <span class="text-[11px] font-semibold text-slate-400">Pruebas rapidas:</span>
+                                    <button type="button" onclick="cargarIdCheckin('SOC-0104')" class="px-2 py-0.5 rounded-md bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-mono text-[11px] border border-emerald-200 transition" title="Socio valido">SOC-0104 (Valido)</button>
+                                    <button type="button" onclick="cargarIdCheckin('Mariana Gomez')" class="px-2 py-0.5 rounded-md bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-[11px] border border-emerald-200 transition" title="Nombre valido">Mariana Gomez (Valido)</button>
+                                    <button type="button" onclick="cargarIdCheckin('104')" class="px-2 py-0.5 rounded-md bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-mono text-[11px] border border-emerald-200 transition" title="Digitos validos">104 (Valido)</button>
+                                    <button type="button" onclick="cargarIdCheckin('juanito')" class="px-2 py-0.5 rounded-md bg-rose-50 hover:bg-rose-100 text-rose-800 font-mono text-[11px] border border-rose-200 transition" title="Inexistente - Rechazo">juanito (Inexistente)</button>
+                                    <button type="button" onclick="cargarIdCheckin('SOC-9999')" class="px-2 py-0.5 rounded-md bg-rose-50 hover:bg-rose-100 text-rose-800 font-mono text-[11px] border border-rose-200 transition" title="ID no registrado">SOC-9999 (Inexistente)</button>
                                 </div>
                             </form>
 
@@ -1301,17 +1422,78 @@
             document.getElementById('inputCheckInId').focus();
         }
 
-        let totalCheckinsSesion = 2;
+        let idsCheckinsCargados = new Set();
+        let esPrimeraCargaCheckins = true;
+
+        async function cargarHistorialCheckins() {
+            try {
+                const res = await fetch('/api/checkin-historial');
+                if (!res.ok) return;
+                const data = await res.json();
+                
+                const lista = document.getElementById('listaCheckInsRecientes');
+                if (!lista) return;
+
+                const contador = document.getElementById('contadorEntradasHoy');
+                if (contador) {
+                    contador.innerText = `${data.total_hoy} registradas`;
+                }
+
+                const nuevosIds = new Set(data.historial.map(x => x.id));
+                const hayNuevos = data.historial.some(x => !idsCheckinsCargados.has(x.id));
+
+                if (!hayNuevos && !esPrimeraCargaCheckins) {
+                    return;
+                }
+
+                lista.innerHTML = '';
+                data.historial.forEach((item) => {
+                    const esRecienLlegado = !idsCheckinsCargados.has(item.id) && !esPrimeraCargaCheckins;
+                    const itemDiv = document.createElement('div');
+                    
+                    const esMovil = item.origen === 'Movil QR';
+                    const colorBg = esMovil ? 'bg-blue-50/70 border-blue-200' : 'bg-slate-50 border-slate-200/80';
+                    const badgeBg = esMovil ? 'bg-blue-100 text-blue-800' : 'bg-emerald-100 text-emerald-800';
+                    const anim = esRecienLlegado ? 'animate-slide-down border-emerald-400 bg-emerald-50' : '';
+
+                    itemDiv.className = `flex items-center justify-between p-3 rounded-xl border text-xs transition-all duration-300 hover:shadow-xs ${colorBg} ${anim}`;
+                    itemDiv.innerHTML = `
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full ${badgeBg} font-extrabold text-xs flex items-center justify-center shrink-0 shadow-xs">
+                                ${(item.nombre || item.id_socio).slice(0, 2).toUpperCase()}
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-1.5">
+                                    <span class="font-bold text-navy-900">${item.nombre}</span>
+                                    <span class="text-[9px] px-1.5 py-0.5 rounded font-mono font-bold ${esMovil ? 'bg-blue-100 text-blue-700' : 'bg-slate-200 text-slate-700'}">${item.origen || 'Mostrador'}</span>
+                                </div>
+                                <div class="text-[10px] text-slate-400 font-mono">${item.id_socio} • ${item.plan} • $${item.cuota} MXN</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-[11px] font-mono font-bold text-slate-600 block">${item.hora}</span>
+                            <span class="text-[9px] font-bold ${item.estado === 'Activo' ? 'text-emerald-600' : 'text-amber-600'}">${item.estado === 'Activo' ? 'Al Corriente' : 'Inactivo'}</span>
+                        </div>
+                    `;
+                    lista.appendChild(itemDiv);
+                });
+
+                idsCheckinsCargados = nuevosIds;
+                esPrimeraCargaCheckins = false;
+            } catch (err) {
+                console.error('Error al actualizar historial de check-ins:', err);
+            }
+        }
 
         async function ejecutarCheckInRapido(e) {
             e.preventDefault();
             const input = document.getElementById('inputCheckInId');
-            const idSocio = input.value.trim().toUpperCase();
+            const idSocio = input.value.trim();
             if (!idSocio) return;
 
             const btn = document.getElementById('btnRegistrarCheckIn');
             btn.disabled = true;
-            btn.innerText = 'Validando...';
+            btn.innerHTML = `<span>Validando...</span>`;
 
             const sucursalActiva = document.getElementById('selectorSucursal').value;
             const alerta = document.getElementById('alertaCheckInResultado');
@@ -1320,12 +1502,16 @@
                 const res = await fetch('/api/checkin-qr', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ id_socio: idSocio, sucursal: sucursalActiva })
+                    body: JSON.stringify({ 
+                        id_socio: idSocio, 
+                        sucursal: sucursalActiva,
+                        origen: 'Mostrador Recepcion'
+                    })
                 });
                 const data = await res.json();
 
-                if (res.ok && data.status === 'ok') {
-                    alerta.className = 'mt-6 p-4 rounded-2xl border bg-emerald-50 border-emerald-200 text-emerald-900 block transition';
+                if (res.ok && data.acceso_autorizado) {
+                    alerta.className = 'mt-6 p-4 rounded-2xl border bg-emerald-50 border-emerald-200 text-emerald-900 block animate-slide-down';
                     alerta.innerHTML = `
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-2">
@@ -1336,38 +1522,28 @@
                         </div>
                         <div class="text-xs mt-2 text-emerald-800">
                             <strong>${data.nombre}</strong> (${data.id_socio}) • Membresia <strong>${data.plan}</strong> ($${data.cuota} MXN/mes)<br>
-                            Sede: ${data.sucursal} • Entrada confirmada con exito.
+                            Sede: ${data.sucursal} • Estado: ${data.estado} • Entrada confirmada con exito en vivo.
                         </div>
                     `;
 
-                    totalCheckinsSesion++;
-                    document.getElementById('contadorEntradasHoy').innerText = `${totalCheckinsSesion} registradas`;
-
-                    const lista = document.getElementById('listaCheckInsRecientes');
-                    const nuevoItem = document.createElement('div');
-                    nuevoItem.className = 'flex items-center justify-between p-3 rounded-xl bg-emerald-50/50 border border-emerald-200 text-xs';
-                    nuevoItem.innerHTML = `
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-full bg-emerald-200 text-emerald-900 font-extrabold text-xs flex items-center justify-center shrink-0">
-                                ${idSocio.slice(-2)}
-                            </div>
-                            <div>
-                                <div class="font-bold text-navy-900">${data.nombre}</div>
-                                <div class="text-[10px] text-slate-500 font-mono">${data.id_socio} • ${data.plan}</div>
-                            </div>
-                        </div>
-                        <span class="text-[11px] font-mono font-bold text-emerald-700">${data.hora}</span>
-                    `;
-                    lista.insertBefore(nuevoItem, lista.firstChild);
-
+                    await cargarHistorialCheckins();
                     input.value = '';
                     input.focus();
                 } else {
-                    alerta.className = 'mt-6 p-4 rounded-2xl border bg-rose-50 border-rose-200 text-rose-900 block';
-                    alerta.innerText = 'Error: ' + (data.detail || 'No se pudo registrar el acceso');
+                    alerta.className = 'mt-6 p-4 rounded-2xl border bg-rose-50 border-rose-300 text-rose-900 block animate-shake';
+                    alerta.innerHTML = `
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="w-3 h-3 rounded-full bg-rose-500"></span>
+                            <strong class="text-sm font-extrabold text-rose-900">Acceso Denegado</strong>
+                        </div>
+                        <p class="text-xs text-rose-800 leading-relaxed">
+                            ${data.mensaje || `El socio o codigo "${idSocio}" no esta registrado en el sistema. Debe registrarse o renovar su membresia en recepcion.`}
+                        </p>
+                    `;
+                    input.focus();
                 }
             } catch (err) {
-                alerta.className = 'mt-6 p-4 rounded-2xl border bg-rose-50 border-rose-200 text-rose-900 block';
+                alerta.className = 'mt-6 p-4 rounded-2xl border bg-rose-50 border-rose-300 text-rose-900 block animate-shake';
                 alerta.innerText = 'Error de conexion con la terminal: ' + err;
             } finally {
                 btn.disabled = false;
@@ -2089,11 +2265,14 @@
             cont.innerHTML = html;
         }
 
-        // Carga inicial
+        // Carga inicial y sondeo en tiempo real de entradas
         window.addEventListener('DOMContentLoaded', () => {
             const sucursalInicial = document.getElementById('selectorSucursal').value;
             cargarDatosDashboard(sucursalInicial);
             cargarDatosChurn(sucursalInicial);
+            cargarHistorialCheckins();
+            // Monitoreo en vivo de check-ins moviles y de mostrador cada 3 segundos
+            setInterval(cargarHistorialCheckins, 3000);
         });
     </script>
 
