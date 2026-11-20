@@ -1039,13 +1039,25 @@
                 </div>
             </div>
 
+            <!-- Numero de WhatsApp Destino -->
+            <div class="mb-4">
+                <div class="flex justify-between items-center mb-1.5">
+                    <label class="text-xs font-bold text-slate-700">Numero de WhatsApp del Socio:</label>
+                    <span class="text-[10px] text-slate-400">Editable para enviar al cliente real</span>
+                </div>
+                <div class="relative">
+                    <span class="absolute left-3 top-2.5 text-xs font-bold text-slate-400">+52</span>
+                    <input type="tel" id="modalSocioTelefono" placeholder="312 190 0195" value="312 190 0195" class="w-full text-xs font-mono font-bold text-navy-900 pl-11 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-brand-500 focus:bg-white transition">
+                </div>
+            </div>
+
             <!-- Previsualizacion y Edicion del Mensaje -->
             <div class="mb-5">
                 <div class="flex justify-between items-center mb-1.5">
                     <label class="text-xs font-bold text-slate-700">Mensaje a Enviar:</label>
-                    <span class="text-[10px] text-slate-400">Puedes editar este texto antes de enviar</span>
+                    <span class="text-[10px] text-brand-600 font-bold">100% editable - escribe lo que desees</span>
                 </div>
-                <textarea id="modalMensajeTexto" rows="4" class="w-full text-xs text-slate-700 p-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-brand-500 focus:bg-white transition resize-none"></textarea>
+                <textarea id="modalMensajeTexto" rows="4" placeholder="Escribe cualquier mensaje personalizado que desees enviar al socio..." class="w-full text-xs text-slate-700 p-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-brand-500 focus:bg-white transition resize-none"></textarea>
             </div>
 
             <!-- Botones de Accion -->
@@ -1723,10 +1735,16 @@
             }
         }
 
-        // Enviar WhatsApp oficial
+        // Enviar WhatsApp oficial con numero y texto personalizado
         function enviarMensajeWhatsApp() {
             const mensaje = document.getElementById('modalMensajeTexto').value;
-            const url = `https://wa.me/523121900195?text=${encodeURIComponent(mensaje)}`;
+            let tel = document.getElementById('modalSocioTelefono').value.replace(/[^0-9]/g, '');
+            if (!tel) {
+                tel = '523121900195';
+            } else if (!tel.startsWith('52') && tel.length === 10) {
+                tel = '52' + tel;
+            }
+            const url = `https://wa.me/${tel}?text=${encodeURIComponent(mensaje)}`;
             window.open(url, '_blank');
             cerrarModalContacto();
         }
