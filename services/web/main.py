@@ -388,13 +388,26 @@ async def api_churn_radar(sucursal: Optional[str] = "Todas las sucursales (Conso
     if sucursal and sucursal != "Todas las sucursales (Consolidado)" and "sucursal" in df.columns:
         df = df[df["sucursal"] == sucursal].copy()
         
-    resumen = df.groupby("id_socio").agg({
-        "sucursal": "first",
-        "plan_membresia": "first",
-        "monto_mensualidad": "first",
-        "dias_sin_asistir": "max",
-        "duracion_minutos": "mean"
-    }).reset_index()
+    df_temp = df.copy()
+    if "fecha" in df_temp.columns:
+        df_temp["fecha_dt"] = pd.to_datetime(df_temp["fecha"], errors="coerce")
+        max_fecha = df_temp["fecha_dt"].max()
+        resumen = df_temp.groupby("id_socio").agg(
+            sucursal=("sucursal", "first"),
+            plan_membresia=("plan_membresia", "first"),
+            monto_mensualidad=("monto_mensualidad", "first"),
+            ultima_visita=("fecha_dt", "max"),
+            duracion_minutos=("duracion_minutos", "mean")
+        ).reset_index()
+        resumen["dias_sin_asistir"] = (max_fecha - resumen["ultima_visita"]).dt.days.fillna(0).astype(int)
+    else:
+        resumen = df.groupby("id_socio").agg({
+            "sucursal": "first",
+            "plan_membresia": "first",
+            "monto_mensualidad": "first",
+            "dias_sin_asistir": "max",
+            "duracion_minutos": "mean"
+        }).reset_index()
     
     nombres_muestra = [
         "Alejandro Ruiz", "Mariana Gomez", "Carlos Mendoza", "Fernanda Ortiz", "Jorge Morales",
@@ -554,10 +567,17 @@ async def api_upload_csv(file: UploadFile = File(...)):
             df_subido["monto_mensualidad"] = 650.0
         if "duracion_minutos" not in df_subido.columns:
             df_subido["duracion_minutos"] = 60
-        if "dias_sin_asistir" not in df_subido.columns:
-            df_subido["dias_sin_asistir"] = 2
         if "sucursal" not in df_subido.columns:
             df_subido["sucursal"] = "Sucursal Principal"
+
+        # Calculo automatico e inteligente de dias de ausencia si el software del gym no los tiene
+        if "dias_sin_asistir" not in df_subido.columns:
+            df_subido["_dt"] = pd.to_datetime(df_subido["fecha"], errors="coerce")
+            df_subido = df_subido.sort_values(by=["id_socio", "_dt"])
+            # Dias transcurridos entre visitas consecutivas
+            diffs = df_subido.groupby("id_socio")["_dt"].diff().dt.days
+            df_subido["dias_sin_asistir"] = diffs.fillna(1).clip(lower=0).astype(int)
+            df_subido.drop(columns=["_dt"], inplace=True)
             
         # Ejecutar limpieza automatica
         from services.worker.limpieza import limpiar_datos_accesos
