@@ -523,6 +523,26 @@ async def api_upload_csv(file: UploadFile = File(...)):
         contenido = await file.read()
         df_subido = pd.read_csv(io.BytesIO(contenido))
         
+        # Mapeo inteligente de nombres de columnas y alias frecuentes
+        alias_map = {
+            "id_socio": ["id_socio", "socio", "id_cliente", "cliente", "member_id", "id_usuario", "codigo_socio", "socio_id"],
+            "fecha": ["fecha", "date", "fecha_acceso", "fecha_ingreso", "dia", "timestamp"],
+            "sucursal": ["sucursal", "sede", "branch", "ubicacion", "club", "gimnasio", "unidad"],
+            "duracion_minutos": ["duracion_minutos", "duracion", "tiempo_minutos", "minutos", "tiempo_min", "duration"],
+            "plan_membresia": ["plan_membresia", "plan", "tipo_plan", "membresia", "tipo_membresia", "membership"],
+            "monto_mensualidad": ["monto_mensualidad", "monto", "mensualidad", "cuota", "precio", "tarifa", "costo", "pago"],
+            "dias_sin_asistir": ["dias_sin_asistir", "dias_ausente", "dias_inactivo", "ausencia", "dias_falta", "inactividad"]
+        }
+        col_map_actual = {}
+        for col_orig in df_subido.columns:
+            col_norm = str(col_orig).lower().strip().replace(" ", "_")
+            for col_estandar, alias_list in alias_map.items():
+                if col_norm in alias_list or col_norm == col_estandar:
+                    col_map_actual[col_orig] = col_estandar
+                    break
+        if col_map_actual:
+            df_subido.rename(columns=col_map_actual, inplace=True)
+        
         # Validar y autocompletar columnas mínimas si faltan
         if "fecha" not in df_subido.columns:
             df_subido["fecha"] = pd.date_range(end=datetime.now(), periods=len(df_subido), freq="h").strftime("%Y-%m-%d")

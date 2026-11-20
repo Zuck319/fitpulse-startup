@@ -1,0 +1,851 @@
+socio,fecha_ingreso,membresia,sede,duracion,cuota,ausencia
+SPARTAN-055,2026-09-01,General,Spartan Colima Norte,68,650.0,0
+SPARTAN-068,2026-09-01,VIP,Spartan Manzanillo Puerto,46,1100.0,3
+SPARTAN-001,2026-08-12,General,Spartan Villa de Alvarez,30,650.0,2
+SPARTAN-061,2026-08-12,General,Spartan Colima Norte,58,650.0,0
+SPARTAN-084,2026-08-18,General,Spartan Colima Norte,47,650.0,0
+SPARTAN-092,2026-08-18,General,Spartan Manzanillo Puerto,39,650.0,0
+SPARTAN-090,2026-08-07,General,Spartan Villa de Alvarez,52,650.0,5
+SPARTAN-048,2026-08-07,Estudiante,Spartan Villa de Alvarez,75,450.0,1
+SPARTAN-024,2026-08-24,General,Spartan Manzanillo Puerto,44,650.0,1
+SPARTAN-044,2026-08-24,General,Spartan Villa de Alvarez,58,650.0,3
+SPARTAN-031,2026-08-12,VIP,Spartan Manzanillo Puerto,54,1100.0,2
+SPARTAN-035,2026-08-12,Estudiante,Spartan Villa de Alvarez,37,450.0,0
+SPARTAN-022,2026-09-17,Estudiante,Spartan Colima Norte,20,450.0,10
+SPARTAN-026,2026-09-17,General,Spartan Manzanillo Puerto,55,650.0,0
+SPARTAN-050,2026-08-10,General,Spartan Manzanillo Puerto,63,650.0,3
+SPARTAN-022,2026-08-10,Estudiante,Spartan Colima Norte,48,450.0,5
+SPARTAN-051,2026-08-14,General,Spartan Manzanillo Puerto,67,650.0,2
+SPARTAN-083,2026-08-14,General,Spartan Villa de Alvarez,56,650.0,0
+SPARTAN-035,2026-09-10,Estudiante,Spartan Villa de Alvarez,67,450.0,0
+SPARTAN-047,2026-09-10,VIP,Spartan Manzanillo Puerto,67,1100.0,1
+SPARTAN-052,2026-08-05,General,Spartan Villa de Alvarez,57,650.0,2
+SPARTAN-082,2026-08-05,General,Spartan Colima Norte,73,650.0,2
+SPARTAN-061,2026-09-10,General,Spartan Colima Norte,21,650.0,1
+SPARTAN-007,2026-09-10,Estudiante,Spartan Colima Norte,46,450.0,0
+SPARTAN-025,2026-09-23,General,Spartan Manzanillo Puerto,67,650.0,0
+SPARTAN-063,2026-09-23,Estudiante,Spartan Villa de Alvarez,55,450.0,0
+SPARTAN-069,2026-08-29,VIP,Spartan Colima Norte,46,1100.0,1
+SPARTAN-050,2026-08-29,General,Spartan Manzanillo Puerto,40,650.0,1
+SPARTAN-034,2026-08-01,General,Spartan Colima Norte,72,650.0,7
+SPARTAN-018,2026-08-01,General,Spartan Villa de Alvarez,32,650.0,2
+SPARTAN-072,2026-09-16,Estudiante,Spartan Villa de Alvarez,40,450.0,1
+SPARTAN-027,2026-09-16,VIP,Spartan Colima Norte,52,1100.0,1
+SPARTAN-004,2026-08-06,General,Spartan Manzanillo Puerto,63,650.0,3
+SPARTAN-048,2026-08-06,Estudiante,Spartan Villa de Alvarez,43,450.0,2
+SPARTAN-090,2026-08-13,General,Spartan Villa de Alvarez,32,650.0,1
+SPARTAN-050,2026-08-13,General,Spartan Manzanillo Puerto,41,650.0,1
+SPARTAN-036,2026-08-30,Estudiante,Spartan Colima Norte,59,450.0,0
+SPARTAN-012,2026-08-30,VIP,Spartan Villa de Alvarez,71,1100.0,3
+SPARTAN-003,2026-09-10,General,Spartan Manzanillo Puerto,68,650.0,0
+SPARTAN-002,2026-09-10,General,Spartan Manzanillo Puerto,54,650.0,0
+SPARTAN-029,2026-09-19,General,Spartan Villa de Alvarez,61,650.0,1
+SPARTAN-044,2026-09-19,General,Spartan Villa de Alvarez,56,650.0,2
+SPARTAN-033,2026-08-20,General,Spartan Villa de Alvarez,62,650.0,3
+SPARTAN-001,2026-08-20,General,Spartan Villa de Alvarez,58,650.0,0
+SPARTAN-057,2026-09-17,General,Spartan Villa de Alvarez,72,650.0,0
+SPARTAN-021,2026-09-17,General,Spartan Manzanillo Puerto,56,650.0,3
+SPARTAN-047,2026-09-28,VIP,Spartan Manzanillo Puerto,57,1100.0,1
+SPARTAN-018,2026-09-28,General,Spartan Villa de Alvarez,32,650.0,3
+SPARTAN-008,2026-08-09,General,Spartan Colima Norte,69,650.0,1
+SPARTAN-053,2026-08-09,General,Spartan Villa de Alvarez,32,650.0,0
+SPARTAN-057,2026-09-21,General,Spartan Villa de Alvarez,63,650.0,2
+SPARTAN-034,2026-09-21,General,Spartan Colima Norte,60,650.0,0
+SPARTAN-011,2026-08-30,General,Spartan Colima Norte,53,650.0,0
+SPARTAN-072,2026-08-30,Estudiante,Spartan Villa de Alvarez,26,450.0,1
+SPARTAN-083,2026-09-21,General,Spartan Villa de Alvarez,50,650.0,0
+SPARTAN-090,2026-09-21,General,Spartan Villa de Alvarez,56,650.0,3
+SPARTAN-089,2026-09-29,General,Spartan Colima Norte,73,650.0,0
+SPARTAN-090,2026-09-29,General,Spartan Villa de Alvarez,52,650.0,3
+SPARTAN-081,2026-09-04,General,Spartan Colima Norte,73,650.0,0
+SPARTAN-075,2026-09-04,General,Spartan Villa de Alvarez,73,650.0,2
+SPARTAN-090,2026-09-14,General,Spartan Villa de Alvarez,33,650.0,2
+SPARTAN-017,2026-09-14,Estudiante,Spartan Colima Norte,68,450.0,1
+SPARTAN-003,2026-08-09,General,Spartan Manzanillo Puerto,20,650.0,0
+SPARTAN-019,2026-08-09,General,Spartan Villa de Alvarez,35,650.0,2
+SPARTAN-028,2026-09-27,Estudiante,Spartan Manzanillo Puerto,65,450.0,1
+SPARTAN-066,2026-09-27,General,Spartan Manzanillo Puerto,34,650.0,0
+SPARTAN-080,2026-08-20,VIP,Spartan Villa de Alvarez,58,1100.0,0
+SPARTAN-041,2026-08-20,General,Spartan Villa de Alvarez,74,650.0,0
+SPARTAN-089,2026-08-11,General,Spartan Colima Norte,47,650.0,2
+SPARTAN-083,2026-08-11,General,Spartan Villa de Alvarez,60,650.0,2
+SPARTAN-022,2026-08-13,Estudiante,Spartan Colima Norte,37,450.0,1
+SPARTAN-020,2026-08-13,Estudiante,Spartan Villa de Alvarez,51,450.0,0
+SPARTAN-047,2026-09-01,VIP,Spartan Manzanillo Puerto,40,1100.0,1
+SPARTAN-080,2026-09-01,VIP,Spartan Villa de Alvarez,39,1100.0,0
+SPARTAN-029,2026-09-13,General,Spartan Villa de Alvarez,57,650.0,1
+SPARTAN-030,2026-09-13,Estudiante,Spartan Colima Norte,27,450.0,0
+SPARTAN-022,2026-08-24,Estudiante,Spartan Colima Norte,65,450.0,2
+SPARTAN-019,2026-08-24,General,Spartan Villa de Alvarez,47,650.0,1
+SPARTAN-002,2026-08-01,General,Spartan Manzanillo Puerto,42,650.0,3
+SPARTAN-079,2026-08-01,Estudiante,Spartan Villa de Alvarez,77,450.0,2
+SPARTAN-047,2026-09-11,VIP,Spartan Manzanillo Puerto,21,1100.0,0
+SPARTAN-085,2026-09-11,General,Spartan Villa de Alvarez,70,650.0,2
+SPARTAN-090,2026-09-25,General,Spartan Villa de Alvarez,62,650.0,0
+SPARTAN-083,2026-09-25,General,Spartan Villa de Alvarez,70,650.0,2
+SPARTAN-074,2026-08-10,VIP,Spartan Manzanillo Puerto,54,1100.0,0
+SPARTAN-070,2026-08-10,Estudiante,Spartan Colima Norte,36,450.0,10
+SPARTAN-090,2026-09-17,General,Spartan Villa de Alvarez,56,650.0,1
+SPARTAN-025,2026-09-17,General,Spartan Manzanillo Puerto,104,650.0,3
+SPARTAN-038,2026-08-09,VIP,Spartan Colima Norte,75,1100.0,1
+SPARTAN-046,2026-08-09,General,Spartan Colima Norte,47,650.0,0
+SPARTAN-045,2026-09-06,Estudiante,Spartan Villa de Alvarez,29,450.0,2
+SPARTAN-054,2026-09-06,General,Spartan Villa de Alvarez,68,650.0,5
+SPARTAN-074,2026-08-20,VIP,Spartan Manzanillo Puerto,69,1100.0,0
+SPARTAN-032,2026-08-20,General,Spartan Manzanillo Puerto,51,650.0,2
+SPARTAN-094,2026-09-05,General,Spartan Colima Norte,57,650.0,0
+SPARTAN-002,2026-09-05,General,Spartan Manzanillo Puerto,79,650.0,2
+SPARTAN-046,2026-08-29,General,Spartan Colima Norte,49,650.0,2
+SPARTAN-094,2026-08-29,General,Spartan Colima Norte,37,650.0,7
+SPARTAN-048,2026-08-08,Estudiante,Spartan Villa de Alvarez,65,450.0,2
+SPARTAN-084,2026-08-08,General,Spartan Colima Norte,78,650.0,3
+SPARTAN-059,2026-08-11,General,Spartan Villa de Alvarez,40,650.0,0
+SPARTAN-060,2026-08-11,General,Spartan Colima Norte,57,650.0,0
+SPARTAN-092,2026-09-22,General,Spartan Manzanillo Puerto,48,650.0,1
+SPARTAN-032,2026-09-22,General,Spartan Manzanillo Puerto,53,650.0,0
+SPARTAN-087,2026-09-26,General,Spartan Manzanillo Puerto,66,650.0,2
+SPARTAN-088,2026-09-26,General,Spartan Colima Norte,29,650.0,2
+SPARTAN-047,2026-09-09,VIP,Spartan Manzanillo Puerto,57,1100.0,10
+SPARTAN-069,2026-09-09,VIP,Spartan Colima Norte,25,1100.0,1
+SPARTAN-005,2026-09-08,Estudiante,Spartan Villa de Alvarez,52,450.0,2
+SPARTAN-041,2026-09-08,General,Spartan Villa de Alvarez,31,650.0,0
+SPARTAN-048,2026-09-16,Estudiante,Spartan Villa de Alvarez,70,450.0,1
+SPARTAN-070,2026-09-16,Estudiante,Spartan Colima Norte,54,450.0,1
+SPARTAN-025,2026-08-10,General,Spartan Manzanillo Puerto,66,650.0,1
+SPARTAN-013,2026-08-10,General,Spartan Manzanillo Puerto,44,650.0,2
+SPARTAN-027,2026-09-22,VIP,Spartan Colima Norte,59,1100.0,7
+SPARTAN-081,2026-09-22,General,Spartan Colima Norte,40,650.0,2
+SPARTAN-086,2026-08-19,General,Spartan Manzanillo Puerto,50,650.0,0
+SPARTAN-029,2026-08-19,General,Spartan Villa de Alvarez,44,650.0,2
+SPARTAN-008,2026-09-25,General,Spartan Colima Norte,44,650.0,0
+SPARTAN-040,2026-09-25,General,Spartan Villa de Alvarez,66,650.0,2
+SPARTAN-042,2026-08-08,General,Spartan Villa de Alvarez,62,650.0,0
+SPARTAN-021,2026-08-08,General,Spartan Manzanillo Puerto,20,650.0,2
+SPARTAN-071,2026-09-09,General,Spartan Colima Norte,41,650.0,2
+SPARTAN-011,2026-09-09,General,Spartan Colima Norte,39,650.0,2
+SPARTAN-087,2026-08-16,General,Spartan Manzanillo Puerto,23,650.0,7
+SPARTAN-083,2026-08-16,General,Spartan Villa de Alvarez,48,650.0,1
+SPARTAN-094,2026-09-14,General,Spartan Colima Norte,35,650.0,2
+SPARTAN-077,2026-09-14,VIP,Spartan Manzanillo Puerto,68,1100.0,0
+SPARTAN-063,2026-08-01,Estudiante,Spartan Villa de Alvarez,48,450.0,1
+SPARTAN-062,2026-08-01,General,Spartan Manzanillo Puerto,40,650.0,1
+SPARTAN-089,2026-09-22,General,Spartan Colima Norte,44,650.0,0
+SPARTAN-005,2026-09-22,Estudiante,Spartan Villa de Alvarez,50,450.0,1
+SPARTAN-086,2026-09-12,General,Spartan Manzanillo Puerto,32,650.0,0
+SPARTAN-037,2026-09-12,VIP,Spartan Colima Norte,37,1100.0,3
+SPARTAN-018,2026-08-13,General,Spartan Villa de Alvarez,69,650.0,0
+SPARTAN-067,2026-08-13,VIP,Spartan Colima Norte,44,1100.0,1
+SPARTAN-066,2026-08-18,General,Spartan Manzanillo Puerto,61,650.0,5
+SPARTAN-050,2026-08-18,General,Spartan Manzanillo Puerto,39,650.0,7
+SPARTAN-092,2026-09-26,General,Spartan Manzanillo Puerto,32,650.0,2
+SPARTAN-073,2026-09-26,General,Spartan Colima Norte,66,650.0,0
+SPARTAN-015,2026-08-12,General,Spartan Villa de Alvarez,51,650.0,2
+SPARTAN-029,2026-08-12,General,Spartan Villa de Alvarez,75,650.0,3
+SPARTAN-009,2026-09-21,General,Spartan Villa de Alvarez,70,650.0,0
+SPARTAN-048,2026-09-21,Estudiante,Spartan Villa de Alvarez,65,450.0,1
+SPARTAN-022,2026-08-16,Estudiante,Spartan Colima Norte,82,450.0,7
+SPARTAN-058,2026-08-16,General,Spartan Villa de Alvarez,41,650.0,1
+SPARTAN-035,2026-09-03,Estudiante,Spartan Villa de Alvarez,32,450.0,0
+SPARTAN-018,2026-09-03,General,Spartan Villa de Alvarez,54,650.0,2
+SPARTAN-046,2026-08-30,General,Spartan Colima Norte,51,650.0,0
+SPARTAN-084,2026-08-30,General,Spartan Colima Norte,22,650.0,7
+SPARTAN-085,2026-08-25,General,Spartan Villa de Alvarez,40,650.0,0
+SPARTAN-049,2026-08-25,Estudiante,Spartan Villa de Alvarez,49,450.0,1
+SPARTAN-090,2026-09-06,General,Spartan Villa de Alvarez,60,650.0,0
+SPARTAN-094,2026-09-06,General,Spartan Colima Norte,44,650.0,3
+SPARTAN-016,2026-08-20,General,Spartan Manzanillo Puerto,60,650.0,2
+SPARTAN-052,2026-08-20,General,Spartan Villa de Alvarez,44,650.0,0
+SPARTAN-024,2026-09-20,General,Spartan Manzanillo Puerto,36,650.0,1
+SPARTAN-068,2026-09-20,VIP,Spartan Manzanillo Puerto,67,1100.0,1
+SPARTAN-042,2026-09-05,General,Spartan Villa de Alvarez,46,650.0,2
+SPARTAN-013,2026-09-05,General,Spartan Manzanillo Puerto,85,650.0,7
+SPARTAN-018,2026-08-31,General,Spartan Villa de Alvarez,53,650.0,10
+SPARTAN-063,2026-08-31,Estudiante,Spartan Villa de Alvarez,58,450.0,0
+SPARTAN-043,2026-08-11,General,Spartan Colima Norte,67,650.0,3
+SPARTAN-058,2026-08-11,General,Spartan Villa de Alvarez,53,650.0,1
+SPARTAN-035,2026-09-21,Estudiante,Spartan Villa de Alvarez,53,450.0,0
+SPARTAN-013,2026-09-21,General,Spartan Manzanillo Puerto,42,650.0,1
+SPARTAN-054,2026-09-09,General,Spartan Villa de Alvarez,50,650.0,7
+SPARTAN-024,2026-09-09,General,Spartan Manzanillo Puerto,45,650.0,0
+SPARTAN-083,2026-08-21,General,Spartan Villa de Alvarez,55,650.0,2
+SPARTAN-090,2026-08-21,General,Spartan Villa de Alvarez,83,650.0,0
+SPARTAN-019,2026-08-28,General,Spartan Villa de Alvarez,60,650.0,7
+SPARTAN-057,2026-08-28,General,Spartan Villa de Alvarez,51,650.0,1
+SPARTAN-024,2026-08-09,General,Spartan Manzanillo Puerto,49,650.0,0
+SPARTAN-090,2026-08-09,General,Spartan Villa de Alvarez,41,650.0,1
+SPARTAN-070,2026-08-23,Estudiante,Spartan Colima Norte,46,450.0,0
+SPARTAN-078,2026-08-23,General,Spartan Manzanillo Puerto,38,650.0,3
+SPARTAN-023,2026-09-28,General,Spartan Villa de Alvarez,69,650.0,0
+SPARTAN-033,2026-09-28,General,Spartan Villa de Alvarez,72,650.0,1
+SPARTAN-058,2026-08-27,General,Spartan Villa de Alvarez,61,650.0,2
+SPARTAN-026,2026-08-27,General,Spartan Manzanillo Puerto,60,650.0,0
+SPARTAN-058,2026-09-21,General,Spartan Villa de Alvarez,46,650.0,10
+SPARTAN-007,2026-09-21,Estudiante,Spartan Colima Norte,65,450.0,2
+SPARTAN-020,2026-08-24,Estudiante,Spartan Villa de Alvarez,40,450.0,0
+SPARTAN-056,2026-08-24,General,Spartan Colima Norte,74,650.0,0
+SPARTAN-083,2026-09-16,General,Spartan Villa de Alvarez,47,650.0,0
+SPARTAN-051,2026-09-16,General,Spartan Manzanillo Puerto,73,650.0,1
+SPARTAN-059,2026-09-17,General,Spartan Villa de Alvarez,44,650.0,10
+SPARTAN-072,2026-09-17,Estudiante,Spartan Villa de Alvarez,36,450.0,2
+SPARTAN-061,2026-09-24,General,Spartan Colima Norte,41,650.0,1
+SPARTAN-086,2026-09-24,General,Spartan Manzanillo Puerto,70,650.0,0
+SPARTAN-012,2026-09-07,VIP,Spartan Villa de Alvarez,45,1100.0,7
+SPARTAN-001,2026-09-07,General,Spartan Villa de Alvarez,58,650.0,0
+SPARTAN-026,2026-08-23,General,Spartan Manzanillo Puerto,63,650.0,2
+SPARTAN-036,2026-08-23,Estudiante,Spartan Colima Norte,35,450.0,1
+SPARTAN-054,2026-08-10,General,Spartan Villa de Alvarez,44,650.0,0
+SPARTAN-061,2026-08-10,General,Spartan Colima Norte,38,650.0,1
+SPARTAN-011,2026-09-15,General,Spartan Colima Norte,45,650.0,1
+SPARTAN-078,2026-09-15,General,Spartan Manzanillo Puerto,57,650.0,2
+SPARTAN-066,2026-08-03,General,Spartan Manzanillo Puerto,67,650.0,5
+SPARTAN-093,2026-08-03,General,Spartan Manzanillo Puerto,59,650.0,0
+SPARTAN-066,2026-08-19,General,Spartan Manzanillo Puerto,77,650.0,0
+SPARTAN-010,2026-08-19,General,Spartan Colima Norte,66,650.0,0
+SPARTAN-035,2026-09-28,Estudiante,Spartan Villa de Alvarez,44,450.0,2
+SPARTAN-015,2026-09-28,General,Spartan Villa de Alvarez,52,650.0,1
+SPARTAN-011,2026-09-17,General,Spartan Colima Norte,60,650.0,1
+SPARTAN-008,2026-09-17,General,Spartan Colima Norte,46,650.0,1
+SPARTAN-090,2026-08-29,General,Spartan Villa de Alvarez,62,650.0,1
+SPARTAN-009,2026-08-29,General,Spartan Villa de Alvarez,46,650.0,5
+SPARTAN-040,2026-08-12,General,Spartan Villa de Alvarez,51,650.0,10
+SPARTAN-013,2026-08-12,General,Spartan Manzanillo Puerto,28,650.0,1
+SPARTAN-013,2026-09-29,General,Spartan Manzanillo Puerto,75,650.0,2
+SPARTAN-010,2026-09-29,General,Spartan Colima Norte,63,650.0,0
+SPARTAN-007,2026-08-11,Estudiante,Spartan Colima Norte,71,450.0,0
+SPARTAN-032,2026-08-11,General,Spartan Manzanillo Puerto,51,650.0,3
+SPARTAN-021,2026-09-19,General,Spartan Manzanillo Puerto,61,650.0,1
+SPARTAN-087,2026-09-19,General,Spartan Manzanillo Puerto,64,650.0,7
+SPARTAN-018,2026-08-31,General,Spartan Villa de Alvarez,53,650.0,0
+SPARTAN-053,2026-08-31,General,Spartan Villa de Alvarez,54,650.0,3
+SPARTAN-059,2026-09-05,General,Spartan Villa de Alvarez,56,650.0,0
+SPARTAN-043,2026-09-05,General,Spartan Colima Norte,85,650.0,0
+SPARTAN-014,2026-08-29,Estudiante,Spartan Manzanillo Puerto,55,450.0,1
+SPARTAN-055,2026-08-29,General,Spartan Colima Norte,76,650.0,0
+SPARTAN-087,2026-08-04,General,Spartan Manzanillo Puerto,54,650.0,1
+SPARTAN-065,2026-08-04,General,Spartan Colima Norte,88,650.0,1
+SPARTAN-089,2026-08-20,General,Spartan Colima Norte,44,650.0,2
+SPARTAN-092,2026-08-20,General,Spartan Manzanillo Puerto,46,650.0,0
+SPARTAN-090,2026-08-21,General,Spartan Villa de Alvarez,61,650.0,5
+SPARTAN-020,2026-08-21,Estudiante,Spartan Villa de Alvarez,67,450.0,15
+SPARTAN-006,2026-09-17,General,Spartan Colima Norte,43,650.0,0
+SPARTAN-006,2026-09-17,General,Spartan Colima Norte,38,650.0,2
+SPARTAN-059,2026-08-15,General,Spartan Villa de Alvarez,63,650.0,7
+SPARTAN-070,2026-08-15,Estudiante,Spartan Colima Norte,68,450.0,2
+SPARTAN-046,2026-09-28,General,Spartan Colima Norte,68,650.0,0
+SPARTAN-072,2026-09-28,Estudiante,Spartan Villa de Alvarez,31,450.0,10
+SPARTAN-034,2026-08-06,General,Spartan Colima Norte,71,650.0,0
+SPARTAN-083,2026-08-06,General,Spartan Villa de Alvarez,69,650.0,2
+SPARTAN-090,2026-09-27,General,Spartan Villa de Alvarez,55,650.0,1
+SPARTAN-011,2026-09-27,General,Spartan Colima Norte,46,650.0,1
+SPARTAN-025,2026-08-06,General,Spartan Manzanillo Puerto,71,650.0,3
+SPARTAN-038,2026-08-06,VIP,Spartan Colima Norte,35,1100.0,1
+SPARTAN-047,2026-09-26,VIP,Spartan Manzanillo Puerto,46,1100.0,1
+SPARTAN-071,2026-09-26,General,Spartan Colima Norte,40,650.0,0
+SPARTAN-042,2026-09-21,General,Spartan Villa de Alvarez,46,650.0,0
+SPARTAN-047,2026-09-21,VIP,Spartan Manzanillo Puerto,60,1100.0,0
+SPARTAN-071,2026-08-07,General,Spartan Colima Norte,79,650.0,0
+SPARTAN-070,2026-08-07,Estudiante,Spartan Colima Norte,47,450.0,3
+SPARTAN-073,2026-08-25,General,Spartan Colima Norte,43,650.0,0
+SPARTAN-054,2026-08-25,General,Spartan Villa de Alvarez,51,650.0,0
+SPARTAN-059,2026-09-09,General,Spartan Villa de Alvarez,88,650.0,0
+SPARTAN-004,2026-09-09,General,Spartan Manzanillo Puerto,35,650.0,7
+SPARTAN-046,2026-09-29,General,Spartan Colima Norte,46,650.0,3
+SPARTAN-012,2026-09-29,VIP,Spartan Villa de Alvarez,85,1100.0,0
+SPARTAN-066,2026-09-07,General,Spartan Manzanillo Puerto,58,650.0,0
+SPARTAN-069,2026-09-07,VIP,Spartan Colima Norte,40,1100.0,1
+SPARTAN-093,2026-09-16,General,Spartan Manzanillo Puerto,43,650.0,2
+SPARTAN-060,2026-09-16,General,Spartan Colima Norte,50,650.0,3
+SPARTAN-081,2026-08-08,General,Spartan Colima Norte,65,650.0,0
+SPARTAN-051,2026-08-08,General,Spartan Manzanillo Puerto,49,650.0,0
+SPARTAN-024,2026-09-07,General,Spartan Manzanillo Puerto,58,650.0,0
+SPARTAN-093,2026-09-07,General,Spartan Manzanillo Puerto,43,650.0,1
+SPARTAN-058,2026-08-05,General,Spartan Villa de Alvarez,64,650.0,1
+SPARTAN-045,2026-08-05,Estudiante,Spartan Villa de Alvarez,39,450.0,3
+SPARTAN-033,2026-09-22,General,Spartan Villa de Alvarez,58,650.0,1
+SPARTAN-079,2026-09-22,Estudiante,Spartan Villa de Alvarez,47,450.0,1
+SPARTAN-081,2026-08-24,General,Spartan Colima Norte,59,650.0,0
+SPARTAN-015,2026-08-24,General,Spartan Villa de Alvarez,42,650.0,2
+SPARTAN-028,2026-09-05,Estudiante,Spartan Manzanillo Puerto,44,450.0,2
+SPARTAN-092,2026-09-05,General,Spartan Manzanillo Puerto,46,650.0,1
+SPARTAN-004,2026-08-16,General,Spartan Manzanillo Puerto,96,650.0,0
+SPARTAN-076,2026-08-16,Estudiante,Spartan Colima Norte,60,450.0,2
+SPARTAN-006,2026-09-04,General,Spartan Colima Norte,66,650.0,0
+SPARTAN-048,2026-09-04,Estudiante,Spartan Villa de Alvarez,45,450.0,0
+SPARTAN-056,2026-08-04,General,Spartan Colima Norte,63,650.0,0
+SPARTAN-044,2026-08-04,General,Spartan Villa de Alvarez,28,650.0,1
+SPARTAN-023,2026-08-19,General,Spartan Villa de Alvarez,44,650.0,1
+SPARTAN-008,2026-08-19,General,Spartan Colima Norte,73,650.0,0
+SPARTAN-003,2026-09-27,General,Spartan Manzanillo Puerto,20,650.0,3
+SPARTAN-003,2026-09-27,General,Spartan Manzanillo Puerto,58,650.0,0
+SPARTAN-003,2026-08-14,General,Spartan Manzanillo Puerto,58,650.0,2
+SPARTAN-005,2026-08-14,Estudiante,Spartan Villa de Alvarez,81,450.0,0
+SPARTAN-092,2026-09-16,General,Spartan Manzanillo Puerto,62,650.0,0
+SPARTAN-076,2026-09-16,Estudiante,Spartan Colima Norte,46,450.0,0
+SPARTAN-048,2026-08-04,Estudiante,Spartan Villa de Alvarez,93,450.0,1
+SPARTAN-084,2026-08-04,General,Spartan Colima Norte,44,650.0,3
+SPARTAN-063,2026-09-16,Estudiante,Spartan Villa de Alvarez,64,450.0,7
+SPARTAN-028,2026-09-16,Estudiante,Spartan Manzanillo Puerto,47,450.0,0
+SPARTAN-040,2026-09-07,General,Spartan Villa de Alvarez,76,650.0,7
+SPARTAN-066,2026-09-07,General,Spartan Manzanillo Puerto,29,650.0,15
+SPARTAN-073,2026-09-24,General,Spartan Colima Norte,68,650.0,5
+SPARTAN-065,2026-09-24,General,Spartan Colima Norte,72,650.0,2
+SPARTAN-015,2026-08-30,General,Spartan Villa de Alvarez,47,650.0,3
+SPARTAN-017,2026-08-30,Estudiante,Spartan Colima Norte,46,450.0,7
+SPARTAN-068,2026-08-23,VIP,Spartan Manzanillo Puerto,36,1100.0,0
+SPARTAN-077,2026-08-23,VIP,Spartan Manzanillo Puerto,60,1100.0,2
+SPARTAN-050,2026-08-22,General,Spartan Manzanillo Puerto,79,650.0,2
+SPARTAN-062,2026-08-22,General,Spartan Manzanillo Puerto,51,650.0,1
+SPARTAN-016,2026-09-28,General,Spartan Manzanillo Puerto,64,650.0,7
+SPARTAN-062,2026-09-28,General,Spartan Manzanillo Puerto,46,650.0,1
+SPARTAN-030,2026-08-22,Estudiante,Spartan Colima Norte,88,450.0,1
+SPARTAN-042,2026-08-22,General,Spartan Villa de Alvarez,67,650.0,15
+SPARTAN-019,2026-08-18,General,Spartan Villa de Alvarez,54,650.0,0
+SPARTAN-042,2026-08-18,General,Spartan Villa de Alvarez,71,650.0,1
+SPARTAN-024,2026-08-24,General,Spartan Manzanillo Puerto,20,650.0,0
+SPARTAN-051,2026-08-24,General,Spartan Manzanillo Puerto,46,650.0,3
+SPARTAN-001,2026-09-13,General,Spartan Villa de Alvarez,39,650.0,3
+SPARTAN-071,2026-09-13,General,Spartan Colima Norte,63,650.0,0
+SPARTAN-034,2026-08-31,General,Spartan Colima Norte,40,650.0,3
+SPARTAN-008,2026-08-31,General,Spartan Colima Norte,60,650.0,1
+SPARTAN-018,2026-09-06,General,Spartan Villa de Alvarez,71,650.0,0
+SPARTAN-023,2026-09-06,General,Spartan Villa de Alvarez,50,650.0,0
+SPARTAN-069,2026-08-08,VIP,Spartan Colima Norte,60,1100.0,0
+SPARTAN-024,2026-08-08,General,Spartan Manzanillo Puerto,52,650.0,0
+SPARTAN-091,2026-08-21,General,Spartan Manzanillo Puerto,34,650.0,0
+SPARTAN-018,2026-08-21,General,Spartan Villa de Alvarez,31,650.0,0
+SPARTAN-018,2026-08-28,General,Spartan Villa de Alvarez,65,650.0,2
+SPARTAN-027,2026-08-28,VIP,Spartan Colima Norte,25,1100.0,0
+SPARTAN-018,2026-08-12,General,Spartan Villa de Alvarez,49,650.0,1
+SPARTAN-002,2026-08-12,General,Spartan Manzanillo Puerto,30,650.0,0
+SPARTAN-024,2026-08-06,General,Spartan Manzanillo Puerto,49,650.0,1
+SPARTAN-027,2026-08-06,VIP,Spartan Colima Norte,65,1100.0,3
+SPARTAN-063,2026-09-19,Estudiante,Spartan Villa de Alvarez,48,450.0,1
+SPARTAN-003,2026-09-19,General,Spartan Manzanillo Puerto,57,650.0,0
+SPARTAN-011,2026-08-23,General,Spartan Colima Norte,70,650.0,0
+SPARTAN-017,2026-08-23,Estudiante,Spartan Colima Norte,75,450.0,0
+SPARTAN-042,2026-08-26,General,Spartan Villa de Alvarez,37,650.0,2
+SPARTAN-021,2026-08-26,General,Spartan Manzanillo Puerto,79,650.0,1
+SPARTAN-027,2026-08-19,VIP,Spartan Colima Norte,62,1100.0,0
+SPARTAN-083,2026-08-19,General,Spartan Villa de Alvarez,83,650.0,1
+SPARTAN-038,2026-08-14,VIP,Spartan Colima Norte,46,1100.0,7
+SPARTAN-065,2026-08-14,General,Spartan Colima Norte,51,650.0,1
+SPARTAN-025,2026-09-08,General,Spartan Manzanillo Puerto,47,650.0,2
+SPARTAN-079,2026-09-08,Estudiante,Spartan Villa de Alvarez,58,450.0,2
+SPARTAN-017,2026-08-04,Estudiante,Spartan Colima Norte,42,450.0,0
+SPARTAN-037,2026-08-04,VIP,Spartan Colima Norte,67,1100.0,0
+SPARTAN-005,2026-09-26,Estudiante,Spartan Villa de Alvarez,52,450.0,3
+SPARTAN-023,2026-09-26,General,Spartan Villa de Alvarez,64,650.0,2
+SPARTAN-034,2026-08-15,General,Spartan Colima Norte,45,650.0,0
+SPARTAN-085,2026-08-15,General,Spartan Villa de Alvarez,31,650.0,1
+SPARTAN-011,2026-09-19,General,Spartan Colima Norte,53,650.0,1
+SPARTAN-019,2026-09-19,General,Spartan Villa de Alvarez,62,650.0,2
+SPARTAN-025,2026-08-24,General,Spartan Manzanillo Puerto,85,650.0,7
+SPARTAN-004,2026-08-24,General,Spartan Manzanillo Puerto,28,650.0,0
+SPARTAN-003,2026-09-22,General,Spartan Manzanillo Puerto,49,650.0,15
+SPARTAN-015,2026-09-22,General,Spartan Villa de Alvarez,52,650.0,2
+SPARTAN-076,2026-08-14,Estudiante,Spartan Colima Norte,69,450.0,0
+SPARTAN-051,2026-08-14,General,Spartan Manzanillo Puerto,59,650.0,15
+SPARTAN-011,2026-09-17,General,Spartan Colima Norte,75,650.0,3
+SPARTAN-025,2026-09-17,General,Spartan Manzanillo Puerto,59,650.0,2
+SPARTAN-025,2026-09-19,General,Spartan Manzanillo Puerto,82,650.0,1
+SPARTAN-064,2026-09-19,General,Spartan Villa de Alvarez,48,650.0,3
+SPARTAN-071,2026-08-25,General,Spartan Colima Norte,75,650.0,1
+SPARTAN-004,2026-08-25,General,Spartan Manzanillo Puerto,52,650.0,2
+SPARTAN-082,2026-08-21,General,Spartan Colima Norte,67,650.0,2
+SPARTAN-086,2026-08-21,General,Spartan Manzanillo Puerto,28,650.0,5
+SPARTAN-014,2026-08-01,Estudiante,Spartan Manzanillo Puerto,68,450.0,1
+SPARTAN-088,2026-08-01,General,Spartan Colima Norte,48,650.0,1
+SPARTAN-088,2026-09-22,General,Spartan Colima Norte,43,650.0,0
+SPARTAN-081,2026-09-22,General,Spartan Colima Norte,58,650.0,3
+SPARTAN-043,2026-09-17,General,Spartan Colima Norte,49,650.0,0
+SPARTAN-054,2026-09-17,General,Spartan Villa de Alvarez,22,650.0,0
+SPARTAN-052,2026-09-20,General,Spartan Villa de Alvarez,39,650.0,7
+SPARTAN-057,2026-09-20,General,Spartan Villa de Alvarez,55,650.0,1
+SPARTAN-084,2026-08-30,General,Spartan Colima Norte,48,650.0,0
+SPARTAN-004,2026-08-30,General,Spartan Manzanillo Puerto,57,650.0,10
+SPARTAN-070,2026-09-23,Estudiante,Spartan Colima Norte,37,450.0,1
+SPARTAN-012,2026-09-23,VIP,Spartan Villa de Alvarez,50,1100.0,0
+SPARTAN-054,2026-08-12,General,Spartan Villa de Alvarez,90,650.0,2
+SPARTAN-008,2026-08-12,General,Spartan Colima Norte,40,650.0,5
+SPARTAN-081,2026-09-10,General,Spartan Colima Norte,59,650.0,2
+SPARTAN-009,2026-09-10,General,Spartan Villa de Alvarez,50,650.0,3
+SPARTAN-048,2026-08-28,Estudiante,Spartan Villa de Alvarez,37,450.0,0
+SPARTAN-016,2026-08-28,General,Spartan Manzanillo Puerto,31,650.0,1
+SPARTAN-044,2026-09-15,General,Spartan Villa de Alvarez,58,650.0,0
+SPARTAN-011,2026-09-15,General,Spartan Colima Norte,57,650.0,5
+SPARTAN-012,2026-09-03,VIP,Spartan Villa de Alvarez,61,1100.0,0
+SPARTAN-049,2026-09-03,Estudiante,Spartan Villa de Alvarez,46,450.0,0
+SPARTAN-044,2026-08-25,General,Spartan Villa de Alvarez,49,650.0,7
+SPARTAN-015,2026-08-25,General,Spartan Villa de Alvarez,36,650.0,2
+SPARTAN-092,2026-09-06,General,Spartan Manzanillo Puerto,66,650.0,1
+SPARTAN-077,2026-09-06,VIP,Spartan Manzanillo Puerto,37,1100.0,7
+SPARTAN-046,2026-09-08,General,Spartan Colima Norte,66,650.0,3
+SPARTAN-018,2026-09-08,General,Spartan Villa de Alvarez,79,650.0,0
+SPARTAN-019,2026-08-10,General,Spartan Villa de Alvarez,66,650.0,0
+SPARTAN-040,2026-08-10,General,Spartan Villa de Alvarez,36,650.0,1
+SPARTAN-055,2026-09-22,General,Spartan Colima Norte,69,650.0,0
+SPARTAN-037,2026-09-22,VIP,Spartan Colima Norte,53,1100.0,1
+SPARTAN-040,2026-08-04,General,Spartan Villa de Alvarez,20,650.0,0
+SPARTAN-086,2026-08-04,General,Spartan Manzanillo Puerto,44,650.0,1
+SPARTAN-052,2026-09-13,General,Spartan Villa de Alvarez,67,650.0,3
+SPARTAN-067,2026-09-13,VIP,Spartan Colima Norte,64,1100.0,0
+SPARTAN-031,2026-08-02,VIP,Spartan Manzanillo Puerto,82,1100.0,3
+SPARTAN-017,2026-08-02,Estudiante,Spartan Colima Norte,74,450.0,0
+SPARTAN-012,2026-08-16,VIP,Spartan Villa de Alvarez,32,1100.0,1
+SPARTAN-032,2026-08-16,General,Spartan Manzanillo Puerto,58,650.0,0
+SPARTAN-015,2026-08-05,General,Spartan Villa de Alvarez,43,650.0,3
+SPARTAN-061,2026-08-05,General,Spartan Colima Norte,35,650.0,2
+SPARTAN-018,2026-08-05,General,Spartan Villa de Alvarez,62,650.0,2
+SPARTAN-092,2026-08-05,General,Spartan Manzanillo Puerto,37,650.0,2
+SPARTAN-019,2026-09-06,General,Spartan Villa de Alvarez,118,650.0,1
+SPARTAN-024,2026-09-06,General,Spartan Manzanillo Puerto,55,650.0,15
+SPARTAN-049,2026-08-19,Estudiante,Spartan Villa de Alvarez,43,450.0,15
+SPARTAN-004,2026-08-19,General,Spartan Manzanillo Puerto,50,650.0,2
+SPARTAN-083,2026-09-21,General,Spartan Villa de Alvarez,51,650.0,1
+SPARTAN-061,2026-09-21,General,Spartan Colima Norte,27,650.0,5
+SPARTAN-030,2026-08-15,Estudiante,Spartan Colima Norte,52,450.0,0
+SPARTAN-089,2026-08-15,General,Spartan Colima Norte,33,650.0,3
+SPARTAN-087,2026-08-29,General,Spartan Manzanillo Puerto,46,650.0,2
+SPARTAN-035,2026-08-29,Estudiante,Spartan Villa de Alvarez,45,450.0,2
+SPARTAN-079,2026-08-18,Estudiante,Spartan Villa de Alvarez,63,450.0,0
+SPARTAN-090,2026-08-18,General,Spartan Villa de Alvarez,82,650.0,10
+SPARTAN-015,2026-08-24,General,Spartan Villa de Alvarez,73,650.0,1
+SPARTAN-013,2026-08-24,General,Spartan Manzanillo Puerto,82,650.0,0
+SPARTAN-073,2026-09-16,General,Spartan Colima Norte,52,650.0,0
+SPARTAN-025,2026-09-16,General,Spartan Manzanillo Puerto,100,650.0,0
+SPARTAN-033,2026-09-22,General,Spartan Villa de Alvarez,58,650.0,2
+SPARTAN-035,2026-09-22,Estudiante,Spartan Villa de Alvarez,50,450.0,0
+SPARTAN-048,2026-08-17,Estudiante,Spartan Villa de Alvarez,55,450.0,0
+SPARTAN-065,2026-08-17,General,Spartan Colima Norte,50,650.0,0
+SPARTAN-081,2026-08-07,General,Spartan Colima Norte,64,650.0,1
+SPARTAN-092,2026-08-07,General,Spartan Manzanillo Puerto,54,650.0,3
+SPARTAN-001,2026-08-08,General,Spartan Villa de Alvarez,78,650.0,3
+SPARTAN-085,2026-08-08,General,Spartan Villa de Alvarez,54,650.0,2
+SPARTAN-072,2026-08-21,Estudiante,Spartan Villa de Alvarez,55,450.0,0
+SPARTAN-082,2026-08-21,General,Spartan Colima Norte,49,650.0,1
+SPARTAN-064,2026-08-11,General,Spartan Villa de Alvarez,52,650.0,2
+SPARTAN-018,2026-08-11,General,Spartan Villa de Alvarez,67,650.0,0
+SPARTAN-084,2026-09-12,General,Spartan Colima Norte,69,650.0,0
+SPARTAN-011,2026-09-12,General,Spartan Colima Norte,46,650.0,3
+SPARTAN-021,2026-09-02,General,Spartan Manzanillo Puerto,34,650.0,1
+SPARTAN-025,2026-09-02,General,Spartan Manzanillo Puerto,52,650.0,10
+SPARTAN-043,2026-09-25,General,Spartan Colima Norte,58,650.0,1
+SPARTAN-052,2026-09-25,General,Spartan Villa de Alvarez,46,650.0,0
+SPARTAN-046,2026-09-28,General,Spartan Colima Norte,40,650.0,1
+SPARTAN-090,2026-09-28,General,Spartan Villa de Alvarez,61,650.0,2
+SPARTAN-076,2026-09-13,Estudiante,Spartan Colima Norte,54,450.0,2
+SPARTAN-088,2026-09-13,General,Spartan Colima Norte,55,650.0,10
+SPARTAN-037,2026-09-20,VIP,Spartan Colima Norte,20,1100.0,0
+SPARTAN-038,2026-09-20,VIP,Spartan Colima Norte,61,1100.0,0
+SPARTAN-023,2026-09-09,General,Spartan Villa de Alvarez,50,650.0,3
+SPARTAN-067,2026-09-09,VIP,Spartan Colima Norte,70,1100.0,0
+SPARTAN-041,2026-09-15,General,Spartan Villa de Alvarez,57,650.0,2
+SPARTAN-024,2026-09-15,General,Spartan Manzanillo Puerto,55,650.0,1
+SPARTAN-009,2026-09-27,General,Spartan Villa de Alvarez,69,650.0,2
+SPARTAN-033,2026-09-27,General,Spartan Villa de Alvarez,51,650.0,1
+SPARTAN-028,2026-08-24,Estudiante,Spartan Manzanillo Puerto,65,450.0,0
+SPARTAN-041,2026-08-24,General,Spartan Villa de Alvarez,57,650.0,1
+SPARTAN-006,2026-08-23,General,Spartan Colima Norte,61,650.0,1
+SPARTAN-009,2026-08-23,General,Spartan Villa de Alvarez,50,650.0,0
+SPARTAN-011,2026-08-22,General,Spartan Colima Norte,55,650.0,0
+SPARTAN-081,2026-08-22,General,Spartan Colima Norte,46,650.0,0
+SPARTAN-067,2026-08-27,VIP,Spartan Colima Norte,40,1100.0,0
+SPARTAN-079,2026-08-27,Estudiante,Spartan Villa de Alvarez,55,450.0,1
+SPARTAN-089,2026-08-13,General,Spartan Colima Norte,78,650.0,2
+SPARTAN-037,2026-08-13,VIP,Spartan Colima Norte,54,1100.0,1
+SPARTAN-052,2026-08-03,General,Spartan Villa de Alvarez,65,650.0,0
+SPARTAN-067,2026-08-03,VIP,Spartan Colima Norte,44,1100.0,0
+SPARTAN-047,2026-09-10,VIP,Spartan Manzanillo Puerto,51,1100.0,2
+SPARTAN-035,2026-09-10,Estudiante,Spartan Villa de Alvarez,78,450.0,0
+SPARTAN-026,2026-09-24,General,Spartan Manzanillo Puerto,34,650.0,1
+SPARTAN-062,2026-09-24,General,Spartan Manzanillo Puerto,69,650.0,0
+SPARTAN-022,2026-08-18,Estudiante,Spartan Colima Norte,78,450.0,1
+SPARTAN-030,2026-08-18,Estudiante,Spartan Colima Norte,67,450.0,2
+SPARTAN-062,2026-08-02,General,Spartan Manzanillo Puerto,46,650.0,1
+SPARTAN-034,2026-08-02,General,Spartan Colima Norte,56,650.0,0
+SPARTAN-079,2026-09-27,Estudiante,Spartan Villa de Alvarez,63,450.0,0
+SPARTAN-051,2026-09-27,General,Spartan Manzanillo Puerto,64,650.0,0
+SPARTAN-001,2026-08-26,General,Spartan Villa de Alvarez,43,650.0,3
+SPARTAN-028,2026-08-26,Estudiante,Spartan Manzanillo Puerto,69,450.0,5
+SPARTAN-005,2026-08-03,Estudiante,Spartan Villa de Alvarez,20,450.0,1
+SPARTAN-007,2026-08-03,Estudiante,Spartan Colima Norte,71,450.0,0
+SPARTAN-074,2026-08-17,VIP,Spartan Manzanillo Puerto,52,1100.0,0
+SPARTAN-049,2026-08-17,Estudiante,Spartan Villa de Alvarez,61,450.0,1
+SPARTAN-079,2026-09-20,Estudiante,Spartan Villa de Alvarez,45,450.0,3
+SPARTAN-044,2026-09-20,General,Spartan Villa de Alvarez,71,650.0,1
+SPARTAN-093,2026-08-03,General,Spartan Manzanillo Puerto,67,650.0,15
+SPARTAN-065,2026-08-03,General,Spartan Colima Norte,63,650.0,0
+SPARTAN-010,2026-08-25,General,Spartan Colima Norte,64,650.0,0
+SPARTAN-072,2026-08-25,Estudiante,Spartan Villa de Alvarez,57,450.0,1
+SPARTAN-017,2026-08-16,Estudiante,Spartan Colima Norte,63,450.0,2
+SPARTAN-079,2026-08-16,Estudiante,Spartan Villa de Alvarez,75,450.0,1
+SPARTAN-010,2026-09-27,General,Spartan Colima Norte,75,650.0,0
+SPARTAN-021,2026-09-27,General,Spartan Manzanillo Puerto,67,650.0,0
+SPARTAN-052,2026-08-30,General,Spartan Villa de Alvarez,50,650.0,3
+SPARTAN-053,2026-08-30,General,Spartan Villa de Alvarez,72,650.0,2
+SPARTAN-004,2026-08-07,General,Spartan Manzanillo Puerto,48,650.0,1
+SPARTAN-022,2026-08-07,Estudiante,Spartan Colima Norte,65,450.0,0
+SPARTAN-051,2026-08-29,General,Spartan Manzanillo Puerto,43,650.0,0
+SPARTAN-050,2026-08-29,General,Spartan Manzanillo Puerto,45,650.0,1
+SPARTAN-079,2026-09-12,Estudiante,Spartan Villa de Alvarez,44,450.0,2
+SPARTAN-078,2026-09-12,General,Spartan Manzanillo Puerto,42,650.0,7
+SPARTAN-042,2026-08-23,General,Spartan Villa de Alvarez,67,650.0,2
+SPARTAN-029,2026-08-23,General,Spartan Villa de Alvarez,80,650.0,0
+SPARTAN-094,2026-09-27,General,Spartan Colima Norte,42,650.0,0
+SPARTAN-090,2026-09-27,General,Spartan Villa de Alvarez,62,650.0,1
+SPARTAN-055,2026-09-22,General,Spartan Colima Norte,74,650.0,3
+SPARTAN-091,2026-09-22,General,Spartan Manzanillo Puerto,30,650.0,1
+SPARTAN-007,2026-09-18,Estudiante,Spartan Colima Norte,73,450.0,2
+SPARTAN-068,2026-09-18,VIP,Spartan Manzanillo Puerto,58,1100.0,3
+SPARTAN-013,2026-08-21,General,Spartan Manzanillo Puerto,57,650.0,10
+SPARTAN-076,2026-08-21,Estudiante,Spartan Colima Norte,44,450.0,1
+SPARTAN-074,2026-08-26,VIP,Spartan Manzanillo Puerto,34,1100.0,15
+SPARTAN-081,2026-08-26,General,Spartan Colima Norte,46,650.0,1
+SPARTAN-062,2026-09-03,General,Spartan Manzanillo Puerto,55,650.0,2
+SPARTAN-056,2026-09-03,General,Spartan Colima Norte,60,650.0,0
+SPARTAN-012,2026-09-16,VIP,Spartan Villa de Alvarez,52,1100.0,2
+SPARTAN-018,2026-09-16,General,Spartan Villa de Alvarez,41,650.0,1
+SPARTAN-068,2026-09-24,VIP,Spartan Manzanillo Puerto,88,1100.0,0
+SPARTAN-014,2026-09-24,Estudiante,Spartan Manzanillo Puerto,53,450.0,1
+SPARTAN-082,2026-08-08,General,Spartan Colima Norte,36,650.0,2
+SPARTAN-057,2026-08-08,General,Spartan Villa de Alvarez,53,650.0,10
+SPARTAN-093,2026-09-29,General,Spartan Manzanillo Puerto,38,650.0,2
+SPARTAN-042,2026-09-29,General,Spartan Villa de Alvarez,63,650.0,1
+SPARTAN-064,2026-08-09,General,Spartan Villa de Alvarez,92,650.0,5
+SPARTAN-024,2026-08-09,General,Spartan Manzanillo Puerto,47,650.0,1
+SPARTAN-069,2026-08-17,VIP,Spartan Colima Norte,36,1100.0,3
+SPARTAN-092,2026-08-17,General,Spartan Manzanillo Puerto,66,650.0,1
+SPARTAN-069,2026-08-30,VIP,Spartan Colima Norte,59,1100.0,3
+SPARTAN-068,2026-08-30,VIP,Spartan Manzanillo Puerto,50,1100.0,0
+SPARTAN-053,2026-08-01,General,Spartan Villa de Alvarez,50,650.0,3
+SPARTAN-031,2026-08-01,VIP,Spartan Manzanillo Puerto,62,1100.0,10
+SPARTAN-072,2026-09-14,Estudiante,Spartan Villa de Alvarez,63,450.0,0
+SPARTAN-007,2026-09-14,Estudiante,Spartan Colima Norte,42,450.0,3
+SPARTAN-083,2026-09-10,General,Spartan Villa de Alvarez,56,650.0,2
+SPARTAN-003,2026-09-10,General,Spartan Manzanillo Puerto,57,650.0,2
+SPARTAN-001,2026-09-09,General,Spartan Villa de Alvarez,47,650.0,0
+SPARTAN-091,2026-09-09,General,Spartan Manzanillo Puerto,49,650.0,0
+SPARTAN-007,2026-08-17,Estudiante,Spartan Colima Norte,50,450.0,0
+SPARTAN-063,2026-08-17,Estudiante,Spartan Villa de Alvarez,48,450.0,2
+SPARTAN-011,2026-09-08,General,Spartan Colima Norte,40,650.0,1
+SPARTAN-064,2026-09-08,General,Spartan Villa de Alvarez,49,650.0,0
+SPARTAN-076,2026-09-15,Estudiante,Spartan Colima Norte,49,450.0,1
+SPARTAN-079,2026-09-15,Estudiante,Spartan Villa de Alvarez,45,450.0,0
+SPARTAN-059,2026-09-09,General,Spartan Villa de Alvarez,61,650.0,15
+SPARTAN-069,2026-09-09,VIP,Spartan Colima Norte,58,1100.0,3
+SPARTAN-039,2026-09-09,General,Spartan Colima Norte,54,650.0,2
+SPARTAN-047,2026-09-09,VIP,Spartan Manzanillo Puerto,49,1100.0,0
+SPARTAN-060,2026-09-22,General,Spartan Colima Norte,38,650.0,1
+SPARTAN-067,2026-09-22,VIP,Spartan Colima Norte,59,1100.0,15
+SPARTAN-024,2026-09-05,General,Spartan Manzanillo Puerto,21,650.0,0
+SPARTAN-089,2026-09-05,General,Spartan Colima Norte,20,650.0,0
+SPARTAN-072,2026-08-26,Estudiante,Spartan Villa de Alvarez,81,450.0,0
+SPARTAN-017,2026-08-26,Estudiante,Spartan Colima Norte,67,450.0,0
+SPARTAN-043,2026-09-01,General,Spartan Colima Norte,37,650.0,0
+SPARTAN-003,2026-09-01,General,Spartan Manzanillo Puerto,61,650.0,2
+SPARTAN-081,2026-08-12,General,Spartan Colima Norte,37,650.0,7
+SPARTAN-044,2026-08-12,General,Spartan Villa de Alvarez,45,650.0,2
+SPARTAN-084,2026-08-09,General,Spartan Colima Norte,40,650.0,2
+SPARTAN-076,2026-08-09,Estudiante,Spartan Colima Norte,20,450.0,0
+SPARTAN-085,2026-08-12,General,Spartan Villa de Alvarez,53,650.0,0
+SPARTAN-032,2026-08-12,General,Spartan Manzanillo Puerto,38,650.0,2
+SPARTAN-023,2026-08-13,General,Spartan Villa de Alvarez,53,650.0,0
+SPARTAN-052,2026-08-13,General,Spartan Villa de Alvarez,61,650.0,1
+SPARTAN-036,2026-08-16,Estudiante,Spartan Colima Norte,38,450.0,0
+SPARTAN-037,2026-08-16,VIP,Spartan Colima Norte,72,1100.0,0
+SPARTAN-035,2026-09-19,Estudiante,Spartan Villa de Alvarez,69,450.0,2
+SPARTAN-047,2026-09-19,VIP,Spartan Manzanillo Puerto,72,1100.0,0
+SPARTAN-056,2026-09-29,General,Spartan Colima Norte,26,650.0,2
+SPARTAN-062,2026-09-29,General,Spartan Manzanillo Puerto,64,650.0,0
+SPARTAN-041,2026-09-20,General,Spartan Villa de Alvarez,61,650.0,5
+SPARTAN-052,2026-09-20,General,Spartan Villa de Alvarez,66,650.0,1
+SPARTAN-050,2026-09-17,General,Spartan Manzanillo Puerto,66,650.0,3
+SPARTAN-062,2026-09-17,General,Spartan Manzanillo Puerto,54,650.0,0
+SPARTAN-067,2026-08-23,VIP,Spartan Colima Norte,36,1100.0,1
+SPARTAN-066,2026-08-23,General,Spartan Manzanillo Puerto,64,650.0,15
+SPARTAN-053,2026-09-07,General,Spartan Villa de Alvarez,53,650.0,1
+SPARTAN-071,2026-09-07,General,Spartan Colima Norte,54,650.0,3
+SPARTAN-078,2026-09-29,General,Spartan Manzanillo Puerto,75,650.0,0
+SPARTAN-052,2026-09-29,General,Spartan Villa de Alvarez,46,650.0,1
+SPARTAN-014,2026-08-03,Estudiante,Spartan Manzanillo Puerto,56,450.0,5
+SPARTAN-061,2026-08-03,General,Spartan Colima Norte,63,650.0,3
+SPARTAN-011,2026-09-08,General,Spartan Colima Norte,45,650.0,2
+SPARTAN-045,2026-09-08,Estudiante,Spartan Villa de Alvarez,61,450.0,5
+SPARTAN-013,2026-09-12,General,Spartan Manzanillo Puerto,44,650.0,0
+SPARTAN-073,2026-09-12,General,Spartan Colima Norte,58,650.0,3
+SPARTAN-024,2026-09-28,General,Spartan Manzanillo Puerto,58,650.0,2
+SPARTAN-020,2026-09-28,Estudiante,Spartan Villa de Alvarez,52,450.0,10
+SPARTAN-005,2026-08-02,Estudiante,Spartan Villa de Alvarez,24,450.0,0
+SPARTAN-036,2026-08-02,Estudiante,Spartan Colima Norte,35,450.0,2
+SPARTAN-080,2026-09-04,VIP,Spartan Villa de Alvarez,70,1100.0,7
+SPARTAN-067,2026-09-04,VIP,Spartan Colima Norte,68,1100.0,7
+SPARTAN-088,2026-09-07,General,Spartan Colima Norte,46,650.0,2
+SPARTAN-080,2026-09-07,VIP,Spartan Villa de Alvarez,87,1100.0,5
+SPARTAN-056,2026-09-27,General,Spartan Colima Norte,57,650.0,15
+SPARTAN-046,2026-09-27,General,Spartan Colima Norte,43,650.0,15
+SPARTAN-007,2026-09-05,Estudiante,Spartan Colima Norte,47,450.0,2
+SPARTAN-036,2026-09-05,Estudiante,Spartan Colima Norte,48,450.0,3
+SPARTAN-009,2026-09-12,General,Spartan Villa de Alvarez,48,650.0,0
+SPARTAN-021,2026-09-12,General,Spartan Manzanillo Puerto,79,650.0,5
+SPARTAN-088,2026-09-21,General,Spartan Colima Norte,35,650.0,15
+SPARTAN-094,2026-09-21,General,Spartan Colima Norte,56,650.0,2
+SPARTAN-080,2026-09-07,VIP,Spartan Villa de Alvarez,68,1100.0,0
+SPARTAN-031,2026-09-07,VIP,Spartan Manzanillo Puerto,79,1100.0,1
+SPARTAN-043,2026-09-14,General,Spartan Colima Norte,54,650.0,3
+SPARTAN-021,2026-09-14,General,Spartan Manzanillo Puerto,71,650.0,2
+SPARTAN-004,2026-09-20,General,Spartan Manzanillo Puerto,77,650.0,0
+SPARTAN-055,2026-09-20,General,Spartan Colima Norte,51,650.0,2
+SPARTAN-071,2026-09-14,General,Spartan Colima Norte,43,650.0,0
+SPARTAN-058,2026-09-14,General,Spartan Villa de Alvarez,62,650.0,0
+SPARTAN-033,2026-09-19,General,Spartan Villa de Alvarez,74,650.0,1
+SPARTAN-003,2026-09-19,General,Spartan Manzanillo Puerto,56,650.0,7
+SPARTAN-075,2026-09-01,General,Spartan Villa de Alvarez,66,650.0,2
+SPARTAN-039,2026-09-01,General,Spartan Colima Norte,79,650.0,5
+SPARTAN-046,2026-08-16,General,Spartan Colima Norte,69,650.0,2
+SPARTAN-011,2026-08-16,General,Spartan Colima Norte,77,650.0,15
+SPARTAN-062,2026-08-22,General,Spartan Manzanillo Puerto,33,650.0,0
+SPARTAN-077,2026-08-22,VIP,Spartan Manzanillo Puerto,59,1100.0,0
+SPARTAN-066,2026-08-04,General,Spartan Manzanillo Puerto,57,650.0,2
+SPARTAN-066,2026-08-04,General,Spartan Manzanillo Puerto,46,650.0,3
+SPARTAN-025,2026-09-25,General,Spartan Manzanillo Puerto,49,650.0,0
+SPARTAN-007,2026-09-25,Estudiante,Spartan Colima Norte,83,450.0,1
+SPARTAN-031,2026-08-10,VIP,Spartan Manzanillo Puerto,67,1100.0,0
+SPARTAN-035,2026-08-10,Estudiante,Spartan Villa de Alvarez,25,450.0,3
+SPARTAN-090,2026-08-30,General,Spartan Villa de Alvarez,51,650.0,1
+SPARTAN-086,2026-08-30,General,Spartan Manzanillo Puerto,73,650.0,2
+SPARTAN-040,2026-08-31,General,Spartan Villa de Alvarez,28,650.0,1
+SPARTAN-088,2026-08-31,General,Spartan Colima Norte,52,650.0,3
+SPARTAN-008,2026-09-05,General,Spartan Colima Norte,82,650.0,2
+SPARTAN-060,2026-09-05,General,Spartan Colima Norte,75,650.0,1
+SPARTAN-002,2026-09-10,General,Spartan Manzanillo Puerto,40,650.0,10
+SPARTAN-003,2026-09-10,General,Spartan Manzanillo Puerto,63,650.0,1
+SPARTAN-077,2026-09-24,VIP,Spartan Manzanillo Puerto,81,1100.0,10
+SPARTAN-021,2026-09-24,General,Spartan Manzanillo Puerto,51,650.0,1
+SPARTAN-084,2026-08-25,General,Spartan Colima Norte,52,650.0,1
+SPARTAN-024,2026-08-25,General,Spartan Manzanillo Puerto,52,650.0,0
+SPARTAN-068,2026-08-31,VIP,Spartan Manzanillo Puerto,70,1100.0,3
+SPARTAN-078,2026-08-31,General,Spartan Manzanillo Puerto,56,650.0,1
+SPARTAN-089,2026-09-09,General,Spartan Colima Norte,30,650.0,0
+SPARTAN-026,2026-09-09,General,Spartan Manzanillo Puerto,63,650.0,1
+SPARTAN-021,2026-08-23,General,Spartan Manzanillo Puerto,76,650.0,5
+SPARTAN-079,2026-08-23,Estudiante,Spartan Villa de Alvarez,57,450.0,0
+SPARTAN-033,2026-09-23,General,Spartan Villa de Alvarez,49,650.0,0
+SPARTAN-041,2026-09-23,General,Spartan Villa de Alvarez,59,650.0,3
+SPARTAN-003,2026-08-18,General,Spartan Manzanillo Puerto,55,650.0,0
+SPARTAN-074,2026-08-18,VIP,Spartan Manzanillo Puerto,46,1100.0,1
+SPARTAN-091,2026-09-23,General,Spartan Manzanillo Puerto,64,650.0,10
+SPARTAN-043,2026-09-23,General,Spartan Colima Norte,47,650.0,1
+SPARTAN-018,2026-09-25,General,Spartan Villa de Alvarez,87,650.0,1
+SPARTAN-094,2026-09-25,General,Spartan Colima Norte,69,650.0,0
+SPARTAN-002,2026-08-05,General,Spartan Manzanillo Puerto,57,650.0,15
+SPARTAN-027,2026-08-05,VIP,Spartan Colima Norte,52,1100.0,0
+SPARTAN-063,2026-08-18,Estudiante,Spartan Villa de Alvarez,33,450.0,10
+SPARTAN-071,2026-08-18,General,Spartan Colima Norte,40,650.0,2
+SPARTAN-078,2026-08-19,General,Spartan Manzanillo Puerto,64,650.0,15
+SPARTAN-048,2026-08-19,Estudiante,Spartan Villa de Alvarez,36,450.0,0
+SPARTAN-079,2026-08-20,Estudiante,Spartan Villa de Alvarez,65,450.0,10
+SPARTAN-081,2026-08-20,General,Spartan Colima Norte,55,650.0,5
+SPARTAN-063,2026-08-19,Estudiante,Spartan Villa de Alvarez,38,450.0,1
+SPARTAN-022,2026-08-19,Estudiante,Spartan Colima Norte,40,450.0,1
+SPARTAN-050,2026-08-08,General,Spartan Manzanillo Puerto,54,650.0,1
+SPARTAN-090,2026-08-08,General,Spartan Villa de Alvarez,68,650.0,2
+SPARTAN-084,2026-08-04,General,Spartan Colima Norte,55,650.0,0
+SPARTAN-055,2026-08-04,General,Spartan Colima Norte,77,650.0,1
+SPARTAN-094,2026-09-04,General,Spartan Colima Norte,48,650.0,0
+SPARTAN-029,2026-09-04,General,Spartan Villa de Alvarez,61,650.0,5
+SPARTAN-018,2026-09-29,General,Spartan Villa de Alvarez,58,650.0,1
+SPARTAN-073,2026-09-29,General,Spartan Colima Norte,54,650.0,1
+SPARTAN-010,2026-08-13,General,Spartan Colima Norte,67,650.0,0
+SPARTAN-014,2026-08-13,Estudiante,Spartan Manzanillo Puerto,88,450.0,2
+SPARTAN-021,2026-08-31,General,Spartan Manzanillo Puerto,62,650.0,1
+SPARTAN-039,2026-08-31,General,Spartan Colima Norte,53,650.0,3
+SPARTAN-031,2026-09-27,VIP,Spartan Manzanillo Puerto,37,1100.0,7
+SPARTAN-074,2026-09-27,VIP,Spartan Manzanillo Puerto,52,1100.0,0
+SPARTAN-036,2026-09-25,Estudiante,Spartan Colima Norte,50,450.0,2
+SPARTAN-084,2026-09-25,General,Spartan Colima Norte,70,650.0,2
+SPARTAN-091,2026-08-21,General,Spartan Manzanillo Puerto,52,650.0,15
+SPARTAN-078,2026-08-21,General,Spartan Manzanillo Puerto,63,650.0,1
+SPARTAN-038,2026-08-06,VIP,Spartan Colima Norte,56,1100.0,1
+SPARTAN-059,2026-08-06,General,Spartan Villa de Alvarez,45,650.0,1
+SPARTAN-020,2026-09-23,Estudiante,Spartan Villa de Alvarez,44,450.0,3
+SPARTAN-009,2026-09-23,General,Spartan Villa de Alvarez,40,650.0,3
+SPARTAN-037,2026-08-10,VIP,Spartan Colima Norte,66,1100.0,1
+SPARTAN-042,2026-08-10,General,Spartan Villa de Alvarez,54,650.0,1
+SPARTAN-015,2026-09-29,General,Spartan Villa de Alvarez,85,650.0,0
+SPARTAN-092,2026-09-29,General,Spartan Manzanillo Puerto,56,650.0,0
+SPARTAN-012,2026-09-04,VIP,Spartan Villa de Alvarez,60,1100.0,2
+SPARTAN-082,2026-09-04,General,Spartan Colima Norte,70,650.0,1
+SPARTAN-059,2026-09-24,General,Spartan Villa de Alvarez,48,650.0,5
+SPARTAN-044,2026-09-24,General,Spartan Villa de Alvarez,60,650.0,1
+SPARTAN-087,2026-08-06,General,Spartan Manzanillo Puerto,29,650.0,5
+SPARTAN-087,2026-08-06,General,Spartan Manzanillo Puerto,52,650.0,3
+SPARTAN-011,2026-09-29,General,Spartan Colima Norte,58,650.0,3
+SPARTAN-067,2026-09-29,VIP,Spartan Colima Norte,69,1100.0,0
+SPARTAN-011,2026-09-23,General,Spartan Colima Norte,48,650.0,1
+SPARTAN-058,2026-09-23,General,Spartan Villa de Alvarez,55,650.0,7
+SPARTAN-059,2026-09-26,General,Spartan Villa de Alvarez,32,650.0,0
+SPARTAN-023,2026-09-26,General,Spartan Villa de Alvarez,56,650.0,0
+SPARTAN-051,2026-08-26,General,Spartan Manzanillo Puerto,50,650.0,1
+SPARTAN-048,2026-08-26,Estudiante,Spartan Villa de Alvarez,59,450.0,5
+SPARTAN-018,2026-08-15,General,Spartan Villa de Alvarez,65,650.0,0
+SPARTAN-070,2026-08-15,Estudiante,Spartan Colima Norte,72,450.0,0
+SPARTAN-088,2026-08-29,General,Spartan Colima Norte,75,650.0,2
+SPARTAN-034,2026-08-29,General,Spartan Colima Norte,39,650.0,0
+SPARTAN-001,2026-08-11,General,Spartan Villa de Alvarez,47,650.0,0
+SPARTAN-068,2026-08-11,VIP,Spartan Manzanillo Puerto,47,1100.0,1
+SPARTAN-014,2026-08-12,Estudiante,Spartan Manzanillo Puerto,42,450.0,1
+SPARTAN-001,2026-08-12,General,Spartan Villa de Alvarez,27,650.0,2
+SPARTAN-084,2026-09-03,General,Spartan Colima Norte,67,650.0,0
+SPARTAN-017,2026-09-03,Estudiante,Spartan Colima Norte,53,450.0,2
+SPARTAN-079,2026-08-10,Estudiante,Spartan Villa de Alvarez,61,450.0,0
+SPARTAN-051,2026-08-10,General,Spartan Manzanillo Puerto,36,650.0,0
+SPARTAN-093,2026-09-13,General,Spartan Manzanillo Puerto,49,650.0,15
+SPARTAN-010,2026-09-13,General,Spartan Colima Norte,39,650.0,2
+SPARTAN-004,2026-08-21,General,Spartan Manzanillo Puerto,60,650.0,0
+SPARTAN-002,2026-08-21,General,Spartan Manzanillo Puerto,35,650.0,3
+SPARTAN-094,2026-08-19,General,Spartan Colima Norte,59,650.0,3
+SPARTAN-016,2026-08-19,General,Spartan Manzanillo Puerto,67,650.0,1
+SPARTAN-088,2026-08-31,General,Spartan Colima Norte,94,650.0,1
+SPARTAN-088,2026-08-31,General,Spartan Colima Norte,62,650.0,2
+SPARTAN-028,2026-08-04,Estudiante,Spartan Manzanillo Puerto,56,450.0,1
+SPARTAN-064,2026-08-04,General,Spartan Villa de Alvarez,70,650.0,0
+SPARTAN-019,2026-09-16,General,Spartan Villa de Alvarez,54,650.0,2
+SPARTAN-035,2026-09-16,Estudiante,Spartan Villa de Alvarez,59,450.0,0
+SPARTAN-081,2026-08-30,General,Spartan Colima Norte,49,650.0,2
+SPARTAN-039,2026-08-30,General,Spartan Colima Norte,69,650.0,3
+SPARTAN-085,2026-09-17,General,Spartan Villa de Alvarez,63,650.0,0
+SPARTAN-042,2026-09-17,General,Spartan Villa de Alvarez,28,650.0,3
+SPARTAN-084,2026-09-18,General,Spartan Colima Norte,45,650.0,10
+SPARTAN-029,2026-09-18,General,Spartan Villa de Alvarez,76,650.0,3
+SPARTAN-069,2026-08-28,VIP,Spartan Colima Norte,64,1100.0,0
+SPARTAN-041,2026-08-28,General,Spartan Villa de Alvarez,60,650.0,15
+SPARTAN-040,2026-08-18,General,Spartan Villa de Alvarez,78,650.0,0
+SPARTAN-054,2026-08-18,General,Spartan Villa de Alvarez,68,650.0,2
+SPARTAN-062,2026-08-08,General,Spartan Manzanillo Puerto,47,650.0,5
+SPARTAN-027,2026-08-08,VIP,Spartan Colima Norte,63,1100.0,1
+SPARTAN-080,2026-08-26,VIP,Spartan Villa de Alvarez,60,1100.0,0
+SPARTAN-066,2026-08-26,General,Spartan Manzanillo Puerto,48,650.0,0
+SPARTAN-073,2026-09-16,General,Spartan Colima Norte,68,650.0,3
+SPARTAN-044,2026-09-16,General,Spartan Villa de Alvarez,30,650.0,5
+SPARTAN-086,2026-08-31,General,Spartan Manzanillo Puerto,49,650.0,3
+SPARTAN-082,2026-08-31,General,Spartan Colima Norte,51,650.0,7
+SPARTAN-080,2026-09-08,VIP,Spartan Villa de Alvarez,34,1100.0,0
+SPARTAN-077,2026-09-08,VIP,Spartan Manzanillo Puerto,48,1100.0,1
+SPARTAN-008,2026-09-27,General,Spartan Colima Norte,62,650.0,0
+SPARTAN-017,2026-09-27,Estudiante,Spartan Colima Norte,26,450.0,3
+SPARTAN-001,2026-08-22,General,Spartan Villa de Alvarez,20,650.0,1
+SPARTAN-075,2026-08-22,General,Spartan Villa de Alvarez,54,650.0,0
+SPARTAN-054,2026-08-30,General,Spartan Villa de Alvarez,64,650.0,1
+SPARTAN-094,2026-08-30,General,Spartan Colima Norte,70,650.0,0
+SPARTAN-009,2026-08-07,General,Spartan Villa de Alvarez,46,650.0,1
+SPARTAN-032,2026-08-07,General,Spartan Manzanillo Puerto,53,650.0,3
+SPARTAN-011,2026-09-24,General,Spartan Colima Norte,72,650.0,2
+SPARTAN-004,2026-09-24,General,Spartan Manzanillo Puerto,61,650.0,1
+SPARTAN-013,2026-09-17,General,Spartan Manzanillo Puerto,52,650.0,0
+SPARTAN-066,2026-09-17,General,Spartan Manzanillo Puerto,29,650.0,7
+SPARTAN-084,2026-09-17,General,Spartan Colima Norte,60,650.0,2
+SPARTAN-010,2026-09-17,General,Spartan Colima Norte,84,650.0,1
+SPARTAN-059,2026-08-07,General,Spartan Villa de Alvarez,33,650.0,0
+SPARTAN-070,2026-08-07,Estudiante,Spartan Colima Norte,41,450.0,0
+SPARTAN-011,2026-08-12,General,Spartan Colima Norte,44,650.0,2
+SPARTAN-022,2026-08-12,Estudiante,Spartan Colima Norte,67,450.0,1
+SPARTAN-001,2026-09-03,General,Spartan Villa de Alvarez,60,650.0,1
+SPARTAN-023,2026-09-03,General,Spartan Villa de Alvarez,66,650.0,5
+SPARTAN-083,2026-09-23,General,Spartan Villa de Alvarez,43,650.0,0
+SPARTAN-087,2026-09-23,General,Spartan Manzanillo Puerto,55,650.0,0
+SPARTAN-089,2026-09-14,General,Spartan Colima Norte,27,650.0,2
+SPARTAN-092,2026-09-14,General,Spartan Manzanillo Puerto,86,650.0,2
+SPARTAN-086,2026-09-04,General,Spartan Manzanillo Puerto,63,650.0,7
+SPARTAN-063,2026-09-04,Estudiante,Spartan Villa de Alvarez,42,450.0,0
+SPARTAN-053,2026-09-09,General,Spartan Villa de Alvarez,65,650.0,1
+SPARTAN-057,2026-09-09,General,Spartan Villa de Alvarez,49,650.0,1
+SPARTAN-024,2026-09-02,General,Spartan Manzanillo Puerto,23,650.0,1
+SPARTAN-073,2026-09-02,General,Spartan Colima Norte,48,650.0,1
+SPARTAN-092,2026-08-24,General,Spartan Manzanillo Puerto,63,650.0,0
+SPARTAN-008,2026-08-24,General,Spartan Colima Norte,84,650.0,1
+SPARTAN-056,2026-08-15,General,Spartan Colima Norte,40,650.0,0
+SPARTAN-048,2026-08-15,Estudiante,Spartan Villa de Alvarez,73,450.0,2
+SPARTAN-071,2026-09-18,General,Spartan Colima Norte,41,650.0,0
+SPARTAN-052,2026-09-18,General,Spartan Villa de Alvarez,73,650.0,0
+SPARTAN-032,2026-08-22,General,Spartan Manzanillo Puerto,72,650.0,0
+SPARTAN-063,2026-08-22,Estudiante,Spartan Villa de Alvarez,57,450.0,2
+SPARTAN-037,2026-08-27,VIP,Spartan Colima Norte,20,1100.0,0
+SPARTAN-058,2026-08-27,General,Spartan Villa de Alvarez,38,650.0,2
+SPARTAN-068,2026-08-15,VIP,Spartan Manzanillo Puerto,77,1100.0,0
+SPARTAN-086,2026-08-15,General,Spartan Manzanillo Puerto,47,650.0,1
+SPARTAN-020,2026-09-18,Estudiante,Spartan Villa de Alvarez,59,450.0,5
+SPARTAN-075,2026-09-18,General,Spartan Villa de Alvarez,55,650.0,0
+SPARTAN-071,2026-08-21,General,Spartan Colima Norte,66,650.0,2
+SPARTAN-066,2026-08-21,General,Spartan Manzanillo Puerto,69,650.0,0
+SPARTAN-026,2026-08-02,General,Spartan Manzanillo Puerto,46,650.0,2
+SPARTAN-083,2026-08-02,General,Spartan Villa de Alvarez,40,650.0,2
+SPARTAN-045,2026-08-07,Estudiante,Spartan Villa de Alvarez,62,450.0,10
+SPARTAN-079,2026-08-07,Estudiante,Spartan Villa de Alvarez,58,450.0,0
+SPARTAN-017,2026-08-26,Estudiante,Spartan Colima Norte,62,450.0,1
+SPARTAN-053,2026-08-26,General,Spartan Villa de Alvarez,63,650.0,15
+SPARTAN-026,2026-09-15,General,Spartan Manzanillo Puerto,45,650.0,7
+SPARTAN-067,2026-09-15,VIP,Spartan Colima Norte,45,1100.0,3
+SPARTAN-071,2026-09-02,General,Spartan Colima Norte,51,650.0,7
+SPARTAN-080,2026-09-02,VIP,Spartan Villa de Alvarez,54,1100.0,0
+SPARTAN-056,2026-09-02,General,Spartan Colima Norte,65,650.0,0
+SPARTAN-007,2026-09-02,Estudiante,Spartan Colima Norte,36,450.0,2
+SPARTAN-019,2026-09-28,General,Spartan Villa de Alvarez,63,650.0,7
+SPARTAN-009,2026-09-28,General,Spartan Villa de Alvarez,64,650.0,1
+SPARTAN-045,2026-09-01,Estudiante,Spartan Villa de Alvarez,22,450.0,0
+SPARTAN-055,2026-09-01,General,Spartan Colima Norte,49,650.0,0
+SPARTAN-013,2026-09-11,General,Spartan Manzanillo Puerto,65,650.0,5
+SPARTAN-087,2026-09-11,General,Spartan Manzanillo Puerto,54,650.0,0
+SPARTAN-040,2026-09-12,General,Spartan Villa de Alvarez,43,650.0,7
+SPARTAN-086,2026-09-12,General,Spartan Manzanillo Puerto,40,650.0,7
+SPARTAN-008,2026-08-16,General,Spartan Colima Norte,40,650.0,0
+SPARTAN-058,2026-08-16,General,Spartan Villa de Alvarez,34,650.0,1
+SPARTAN-087,2026-08-24,General,Spartan Manzanillo Puerto,48,650.0,1
+SPARTAN-091,2026-08-24,General,Spartan Manzanillo Puerto,68,650.0,0
+SPARTAN-023,2026-08-23,General,Spartan Villa de Alvarez,55,650.0,1
+SPARTAN-027,2026-08-23,VIP,Spartan Colima Norte,69,1100.0,2
+SPARTAN-010,2026-09-16,General,Spartan Colima Norte,65,650.0,0
+SPARTAN-070,2026-09-16,Estudiante,Spartan Colima Norte,49,450.0,0
+SPARTAN-065,2026-08-31,General,Spartan Colima Norte,35,650.0,0
+SPARTAN-040,2026-08-31,General,Spartan Villa de Alvarez,31,650.0,1
+SPARTAN-022,2026-09-16,Estudiante,Spartan Colima Norte,37,450.0,2
+SPARTAN-064,2026-09-16,General,Spartan Villa de Alvarez,33,650.0,0
+SPARTAN-040,2026-09-09,General,Spartan Villa de Alvarez,59,650.0,0
+SPARTAN-060,2026-09-09,General,Spartan Colima Norte,62,650.0,0
+SPARTAN-037,2026-08-08,VIP,Spartan Colima Norte,66,1100.0,0
+SPARTAN-054,2026-08-08,General,Spartan Villa de Alvarez,84,650.0,10
+SPARTAN-015,2026-08-25,General,Spartan Villa de Alvarez,63,650.0,7
+SPARTAN-013,2026-08-25,General,Spartan Manzanillo Puerto,67,650.0,0
+SPARTAN-047,2026-09-11,VIP,Spartan Manzanillo Puerto,38,1100.0,1
+SPARTAN-032,2026-09-11,General,Spartan Manzanillo Puerto,33,650.0,1
+SPARTAN-054,2026-09-06,General,Spartan Villa de Alvarez,48,650.0,3
+SPARTAN-027,2026-09-06,VIP,Spartan Colima Norte,62,1100.0,0
+SPARTAN-024,2026-09-01,General,Spartan Manzanillo Puerto,56,650.0,3
+SPARTAN-048,2026-09-01,Estudiante,Spartan Villa de Alvarez,45,450.0,3
+SPARTAN-006,2026-08-17,General,Spartan Colima Norte,72,650.0,2
+SPARTAN-023,2026-08-17,General,Spartan Villa de Alvarez,36,650.0,0
+SPARTAN-057,2026-08-24,General,Spartan Villa de Alvarez,77,650.0,0
+SPARTAN-004,2026-08-24,General,Spartan Manzanillo Puerto,49,650.0,0
+SPARTAN-008,2026-08-23,General,Spartan Colima Norte,43,650.0,5
+SPARTAN-031,2026-08-23,VIP,Spartan Manzanillo Puerto,81,1100.0,1
+SPARTAN-064,2026-09-02,General,Spartan Villa de Alvarez,64,650.0,2
+SPARTAN-009,2026-09-02,General,Spartan Villa de Alvarez,64,650.0,1
+SPARTAN-090,2026-08-04,General,Spartan Villa de Alvarez,62,650.0,0
+SPARTAN-043,2026-08-04,General,Spartan Colima Norte,40,650.0,0
+SPARTAN-075,2026-08-13,General,Spartan Villa de Alvarez,77,650.0,2
+SPARTAN-046,2026-08-13,General,Spartan Colima Norte,32,650.0,5
+SPARTAN-030,2026-08-08,Estudiante,Spartan Colima Norte,62,450.0,1
+SPARTAN-024,2026-08-08,General,Spartan Manzanillo Puerto,41,650.0,7
+SPARTAN-049,2026-08-10,Estudiante,Spartan Villa de Alvarez,53,450.0,0
+SPARTAN-019,2026-08-10,General,Spartan Villa de Alvarez,56,650.0,0
+SPARTAN-058,2026-08-24,General,Spartan Villa de Alvarez,66,650.0,0
+SPARTAN-070,2026-08-24,Estudiante,Spartan Colima Norte,81,450.0,0
+SPARTAN-067,2026-09-20,VIP,Spartan Colima Norte,62,1100.0,0
+SPARTAN-079,2026-09-20,Estudiante,Spartan Villa de Alvarez,66,450.0,3
+SPARTAN-036,2026-09-01,Estudiante,Spartan Colima Norte,45,450.0,0
+SPARTAN-045,2026-09-01,Estudiante,Spartan Villa de Alvarez,51,450.0,1
+SPARTAN-038,2026-09-09,VIP,Spartan Colima Norte,75,1100.0,0
+SPARTAN-027,2026-09-09,VIP,Spartan Colima Norte,44,1100.0,0
+SPARTAN-062,2026-09-27,General,Spartan Manzanillo Puerto,71,650.0,0
+SPARTAN-051,2026-09-27,General,Spartan Manzanillo Puerto,56,650.0,0
+SPARTAN-093,2026-09-09,General,Spartan Manzanillo Puerto,52,650.0,0
+SPARTAN-085,2026-09-09,General,Spartan Villa de Alvarez,57,650.0,1
