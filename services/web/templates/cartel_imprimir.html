@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartel de Mostrador · {{ gym_name }} · FitPulse</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+                    colors: {
+                        brand: { 500: '#22c55e', 600: '#16a34a', 700: '#15803d' },
+                        navy: { 900: '#0f172a', 950: '#020617' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @page {
+            size: letter portrait;
+            margin: 0mm;
+        }
+        @media print {
+            body {
+                background: white !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .poster-container {
+                width: 100vw !important;
+                height: 100vh !important;
+                border: 5px solid #0f172a !important;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+                padding: 18mm 16mm !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-navy-900 font-sans min-h-screen flex items-center justify-center p-4 sm:p-8">
+
+    <!-- BOTONES FLOTANTES SUPERIORES (SOLO PANTALLA) -->
+    <div class="fixed top-4 right-4 z-50 flex items-center gap-3 no-print bg-white/90 backdrop-blur-md p-2 rounded-2xl shadow-xl border border-slate-200">
+        <a href="/dashboard" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition">
+            Volver al Dashboard
+        </a>
+        <button onclick="window.print()" class="px-5 py-2.5 bg-navy-900 hover:bg-brand-600 text-white text-xs font-black rounded-xl shadow-lg transition flex items-center gap-2 active:scale-95">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+            <span>Imprimir Cartel (Carta)</span>
+        </button>
+    </div>
+
+    <!-- CARTEL OFICIAL TAMAÑO CARTA -->
+    <div class="poster-container bg-white w-full max-w-[700px] min-h-[920px] rounded-[40px] border-4 border-navy-900 p-8 sm:p-12 shadow-2xl flex flex-col justify-between text-center relative overflow-hidden">
+        
+        <!-- ENCABEZADO -->
+        <div>
+            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-50 border border-brand-200 text-brand-700 text-xs font-black uppercase tracking-widest mb-3">
+                <span class="w-2 h-2 rounded-full bg-brand-500"></span>
+                <span>Punto de Acceso Inteligente</span>
+            </div>
+            
+            <h1 class="text-3xl sm:text-4xl font-black text-navy-900 tracking-tight leading-tight">
+                {{ gym_name }}
+            </h1>
+            <p class="text-xs sm:text-sm font-bold text-slate-500 mt-1 uppercase tracking-wider">
+                Sede Centro · Registro Oficial de Asistencia
+            </p>
+        </div>
+
+        <!-- CODIGO QR GIGANTE Y CENTRADO -->
+        <div class="my-4 flex flex-col items-center">
+            <div class="p-5 bg-white rounded-3xl border-4 border-navy-900 shadow-md inline-block">
+                <img src="/api/qr-poster.png?tipo={{ tipo_qr }}" alt="Codigo QR de Entrada" class="w-72 h-72 sm:w-80 sm:h-80 object-contain mx-auto" style="image-rendering: pixelated;">
+            </div>
+
+            <h2 class="text-base sm:text-lg font-black text-navy-900 mt-4 leading-tight">
+                Escanea con la camara de tu celular
+            </h2>
+            <p class="text-xs font-semibold text-slate-500 mt-0.5">
+                Compatible con camara de iPhone, Android y Google Lens
+            </p>
+        </div>
+
+        <!-- 3 PASOS DE ACCESO EN GRANDE -->
+        <div class="bg-slate-50 border-2 border-slate-200 rounded-3xl p-5 text-left">
+            <div class="text-[11px] font-black uppercase tracking-wider text-slate-400 mb-3 text-center sm:text-left">
+                Instrucciones Rapidas de Acceso:
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div class="flex items-start gap-2.5">
+                    <span class="w-6 h-6 rounded-full bg-navy-900 text-white font-black text-xs flex items-center justify-center shrink-0">1</span>
+                    <p class="text-xs font-bold text-slate-700 leading-tight">Abre la camara de tu celular (iPhone o Android).</p>
+                </div>
+                <div class="flex items-start gap-2.5">
+                    <span class="w-6 h-6 rounded-full bg-navy-900 text-white font-black text-xs flex items-center justify-center shrink-0">2</span>
+                    <p class="text-xs font-bold text-slate-700 leading-tight">Apunta al codigo QR para abrir el enlace.</p>
+                </div>
+                <div class="flex items-start gap-2.5">
+                    <span class="w-6 h-6 rounded-full bg-brand-600 text-white font-black text-xs flex items-center justify-center shrink-0">3</span>
+                    <p class="text-xs font-bold text-slate-700 leading-tight">Escribe tu nombre o codigo y confirma tu entrada.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- PIE DEL CARTEL -->
+        <div class="pt-4 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between text-[10px] font-bold text-slate-400">
+            <span>Tecnologia Oficial FitPulse Analytics · Hardware $0 MXN</span>
+            <span class="font-mono">Norma Internacional ISO/IEC 18004</span>
+        </div>
+
+    </div>
+
+</body>
+</html>

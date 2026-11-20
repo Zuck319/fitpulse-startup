@@ -664,8 +664,8 @@ async def api_qr_poster(request: Request, tipo: str = "web"):
     qr = qrcode.QRCode(
         version=None,
         error_correction=qrcode.constants.ERROR_CORRECT_M,
-        box_size=12,
-        border=4,
+        box_size=16,
+        border=3,
     )
     qr.add_data(url_destino)
     qr.make(fit=True)
@@ -685,6 +685,22 @@ async def pagina_checkin_socio_movil(request: Request):
         request=request,
         name="checkin_socio.html",
         context={"gym_name": SESSION_STATE.get("nombre_gym", "FitPulse Gym")}
+    )
+
+
+@app.get("/cartel-imprimir", response_class=HTMLResponse)
+async def pagina_cartel_imprimir(request: Request, tipo: str = "web"):
+    """
+    Vista dedicada de impresion en formato hoja Carta / A4.
+    Centrada, con QR gigante y sin barras de navegacion ni encabezados de navegador.
+    """
+    return templates.TemplateResponse(
+        request=request,
+        name="cartel_imprimir.html",
+        context={
+            "gym_name": SESSION_STATE.get("nombre_gym", "Titan Fitness Center"),
+            "tipo_qr": tipo
+        }
     )
 
 

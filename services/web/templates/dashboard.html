@@ -68,26 +68,51 @@
         /* ==================================================== */
         /* REGLAS EXCLUSIVAS DE IMPRESION DEL CARTEL (PDF/PAPEL) */
         /* ==================================================== */
+        @page {
+            size: letter portrait;
+            margin: 0mm !important;
+        }
+
         @media print {
-            /* Ocultar todos los elementos de la interfaz */
+            @page {
+                size: letter portrait;
+                margin: 0mm !important;
+            }
+
+            /* Ocultar absolutamente todos los controles y barras del software */
             aside, header, #sidebar, .no-print, button, form, input,
             #panelKpis, #panelChurn, #panelSubirCsv, #panelLimpieza, #panelExportar,
-            #modalSocioDetalle, #modalWhatsappPersonalizado, #toastContainer,
-            .lg\:col-span-7, .w-full.pb-4.border-b, nav, .border-b {
+            #modalSocioDetalle, #modalWhatsappPersonalizado, #toastContainer, #modalSubirLogo,
+            .lg\:col-span-7, .w-full.pb-4.border-b, nav, .border-b, footer {
                 display: none !important;
             }
 
-            body, html, main {
+            body, html {
+                width: 100vw !important;
+                height: 100vh !important;
                 background: white !important;
                 color: #0f172a !important;
                 padding: 0 !important;
                 margin: 0 !important;
-                width: 100% !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            main {
+                display: block !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                width: 100vw !important;
+                height: 100vh !important;
                 box-shadow: none !important;
             }
 
             #panelCheckIn {
-                display: block !important;
+                display: flex !important;
+                justify-content: center !important;
+                align-items: center !important;
+                width: 100vw !important;
+                height: 100vh !important;
                 padding: 0 !important;
                 margin: 0 !important;
             }
@@ -97,27 +122,40 @@
             }
 
             #panelCheckIn .grid {
-                display: block !important;
+                display: flex !important;
+                justify-content: center !important;
+                align-items: center !important;
+                width: 100% !important;
+                height: 100% !important;
+                margin: 0 !important;
             }
 
             #panelCheckIn .lg\:col-span-5 {
+                display: flex !important;
+                justify-content: center !important;
+                align-items: center !important;
                 width: 100% !important;
-                max-width: 100% !important;
+                height: 100% !important;
                 border: none !important;
-                padding: 0 !important;
+                padding: 12mm 16mm !important;
                 margin: 0 !important;
                 background: transparent !important;
                 box-shadow: none !important;
             }
 
             #cartelImprimible {
-                display: block !important;
-                position: relative !important;
-                max-width: 480px !important;
-                margin: 30px auto !important;
-                padding: 40px 30px !important;
-                border: 3px solid #0f172a !important;
-                border-radius: 28px !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                box-sizing: border-box !important;
+                width: 100% !important;
+                max-width: 680px !important;
+                height: 94vh !important;
+                margin: auto !important;
+                padding: 36px 32px !important;
+                border: 5px solid #0f172a !important;
+                border-radius: 36px !important;
                 background: white !important;
                 box-shadow: none !important;
                 page-break-inside: avoid !important;
@@ -125,8 +163,8 @@
             }
 
             #imgQrEscaneable {
-                width: 250px !important;
-                height: 250px !important;
+                width: 320px !important;
+                height: 320px !important;
                 margin: 0 auto !important;
             }
 
@@ -1102,14 +1140,14 @@
                             <p class="text-[10px] text-slate-500 mt-0.5">Compatible con iPhone, Android y Google Lens</p>
 
                             <!-- Bloque exclusivo para impresion en papel (PDF) -->
-                            <div class="hidden print-only mt-6 pt-4 border-t-2 border-slate-300 text-left text-xs text-slate-800">
-                                <div class="font-bold text-[11px] uppercase tracking-wider mb-2">Instrucciones rapidas de acceso:</div>
-                                <div class="space-y-1 text-[11px] text-slate-600">
-                                    <p>1. Abre la camara de tu celular (iPhone o Android).</p>
-                                    <p>2. Enfoca este codigo QR hasta que aparezca el enlace.</p>
-                                    <p>3. Ingresa tu nombre o codigo de socio y pulsa Confirmar.</p>
+                            <div class="hidden print-only w-full mt-4 pt-4 border-t-2 border-slate-300 text-left text-sm text-slate-800">
+                                <div class="font-black text-xs uppercase tracking-wider mb-2 text-center text-slate-900">3 Pasos para Registrar tu Entrada:</div>
+                                <div class="space-y-1.5 text-xs text-slate-700">
+                                    <p><strong class="text-navy-900">1.</strong> Abre la camara de tu celular (iPhone o Android).</p>
+                                    <p><strong class="text-navy-900">2.</strong> Apunta a este codigo QR para abrir el enlace.</p>
+                                    <p><strong class="text-navy-900">3.</strong> Escribe tu nombre o codigo de socio y confirma tu asistencia.</p>
                                 </div>
-                                <div class="mt-4 pt-3 border-t border-slate-200 text-[9px] text-slate-500 text-center">
+                                <div class="mt-4 pt-3 border-t border-slate-200 text-[10px] text-slate-400 text-center font-bold">
                                     Punto de Acceso Autorizado · FitPulse Analytics · Tecnologia Sin Torniquete
                                 </div>
                             </div>
@@ -1130,11 +1168,17 @@
                             </div>
                         </div>
 
-                        <div class="mt-6 flex flex-col sm:flex-row gap-3 w-full no-print">
-                            <button onclick="window.print()" class="flex-1 py-2.5 px-4 bg-navy-900 hover:bg-brand-600 active:scale-95 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center justify-center gap-2">
+                        <!-- Botones de Impresion para Mostrador -->
+                        <div class="mt-6 flex flex-col sm:flex-row gap-2.5 w-full no-print">
+                            <button onclick="window.print()" class="flex-1 py-3 px-4 bg-navy-900 hover:bg-brand-600 active:scale-95 text-white font-extrabold text-xs rounded-xl shadow-md transition flex items-center justify-center gap-2">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
-                                <span>Imprimir Solo Cartel (PDF)</span>
+                                <span>Imprimir Cartel (Carta)</span>
                             </button>
+
+                            <a href="/cartel-imprimir?tipo=web" id="btnAbrirCartelNuevaPestana" target="_blank" class="py-3 px-4 bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-700 font-extrabold text-xs rounded-xl transition flex items-center justify-center gap-1.5 border border-slate-300 shadow-xs" title="Abrir en pestaña completa lista para imprimir o laminar">
+                                <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                                <span>Pantalla Completa</span>
+                            </a>
                         </div>
                     </div>
 
@@ -1404,16 +1448,20 @@
             const txtDestino = document.getElementById('txtQrDestino');
             const timestamp = Date.now();
 
+            const linkCompleto = document.getElementById('btnAbrirCartelNuevaPestana');
+
             if (tipo === 'whatsapp') {
                 img.src = '/api/qr-poster.png?tipo=whatsapp&t=' + timestamp;
                 btnWa.className = 'px-3 py-1.5 rounded-lg bg-navy-900 text-white transition';
                 btnWeb.className = 'px-3 py-1.5 rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300 transition';
                 txtDestino.innerText = 'Abre: WhatsApp Oficial (+52 312 190 0195)';
+                if (linkCompleto) linkCompleto.href = '/cartel-imprimir?tipo=whatsapp';
             } else {
                 img.src = '/api/qr-poster.png?tipo=web&t=' + timestamp;
                 btnWeb.className = 'px-3 py-1.5 rounded-lg bg-navy-900 text-white transition';
                 btnWa.className = 'px-3 py-1.5 rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300 transition';
                 txtDestino.innerText = 'Abre: http://192.168.101.21:8000/checkin-socio';
+                if (linkCompleto) linkCompleto.href = '/cartel-imprimir?tipo=web';
             }
         }
 
