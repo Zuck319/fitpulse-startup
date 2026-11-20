@@ -1,0 +1,1131 @@
+=== PAGINA 1 ===
+Proyecto Integrador DATA STARTUP
+Cómputo en la Nube (IAD-2408) × Analítica de Datos (IAD-2403) · Ingeniería en
+Inteligencia Artificial ·  Oct 13, 2026  ·  @JOEL
+1. Misión: lanzar una startup de datos en 8 semanas
+Del 12 de octubre al 4 de diciembre de 2026, cada equipo construye y lanza una startup de
+datos real: una plataforma en la nube que toma los datos de un negocio, los limpia, los
+visualiza, pronostica su demanda y los protege. La primera prueba de fuego llega el lunes
+19 de octubre, con el dashboard empresarial. El cierre es un Demo Day frente a un jurado,
+con producto funcionando, costos calculados y un modelo para cobrar.
+DATA STARTUP en una mirada
+Ficha
+Materias Cómputo en la Nube (IAD-2408), unidades 2, 3 y 4 ·
+Analítica de Datos (IAD-2403, Mtro. Román),
+unidades 2 y 3
+Equipos Máximo 2 integrantes
+Duración 8 semanas, del 12 de octubre al 4 de diciembre de
+2026
+Entregables 6: Propuesta (E0), Dashboard empresarial (E1),
+Cimientos en la nube (E2), Inteligencia en
+producción (E3), Blindaje (E4), Demo Day (E5)
+Producto final Plataforma en la nube con URL pública, repositorio
+en GitHub, documento técnico y pitch de 7 minutos
+Presupuesto de nube $0 MXN: todo se construye en capas gratuitas o
+créditos para estudiantes
+Proyecto Integrador
+Page 1 of 25
+=== PAGINA 2 ===
+Por qué existe este proyecto
+En México hay millones de tienditas, fondas, farmacias y negocios en línea que deciden a
+ojo: cuánto comprar, cuándo, a qué precio. Pierden dinero en merma, en producto agotado
+y en clientes que no regresan. Casi ninguno puede pagar una consultoría de datos. Ahí hay
+un mercado.
+Ustedes ya saben programar, manejar bases de datos y empiezan a dominar la nube y la
+analítica. Con eso pueden construir una herramienta que un negocio real usaría y pagaría.
+No queremos otra práctica que se entrega y se olvida. Queremos que terminen el
+semestre con algo que puedan mostrar en una entrevista, ofrecer a un cliente o seguir
+creciendo como empresa.
+Lo que se llevan al terminar
+Un producto real en su portafolio: URL pública, código en GitHub y arquitectura
+documentada.
+Experiencia de ingeniero, no de alumno: van a desplegar, escalar, asegurar y cuidar
+costos como se hace en la industria.
+Un modelo de negocio validado: con cliente, precio y costo por cliente calculado.
+Las dos materias aprendidas haciéndolas: cada tema del temario aparece en una
+pieza del producto. Si una pieza no funciona, el producto no funciona.
+2. El reto: un motor, mil negocios
+Todos los equipos construyen el mismo motor y cada uno lo pone a trabajar en un negocio
+distinto. El motor es la parte técnica que se evalúa igual para todos. El negocio es donde
+compiten con creatividad.
+El motor: cinco capacidades obligatorias
+1. Ingesta. El negocio registra sus datos (ventas, pedidos, citas, inventario) por una API o
+subiendo un CSV. Los datos entran a una cola de mensajes y se procesan sin bloquear
+al usuario.
+2. Almacén. Los datos viven en un data lake con zona raw (tal como llegan) y zona clean
+(ya depurados), más una base de datos para consultas.
+Ficha
+Una entrega, dos calificaciones Cada entregable se evalúa en ambas materias,
+cada una con sus propios criterios
+Proyecto Integrador
+Page 2 of 25
+=== PAGINA 3 ===
+3. Tablero. Un dashboard empresarial que el dueño del negocio entiende en 30 segundos,
+con al menos seis visualizaciones.
+4. Pronóstico. Un servicio que responde preguntas de negocio con modelos: cuánto voy a
+vender la próxima semana, qué producto se va a agotar, qué cliente está por irse.
+5. Blindaje. Acceso por roles, datos cifrados, red protegida y una auditoría de seguridad
+documentada.
+El negocio: su vertical
+Cada equipo elige un giro y un cliente concreto: la tiendita de la esquina, una fonda, una
+farmacia, una tienda en línea, un taller. Pueden tomar una idea del Banco de ideas
+(pestaña de este documento) o proponer la suya. La vertical define qué datos usan, qué
+pregunta responde el modelo y cómo van a cobrar.
+El mejor escenario: trabajar con un negocio real que les preste sus datos. Ese equipo
+gana puntos extra en el Demo Day. Si no lo consiguen, usan datos públicos o el
+generador sintético del Kit de arranque.
+Reglas del juego
+Equipos de máximo 2. Uno toma el rol de Cloud Lead y otro el de Data Lead, pero los
+dos responden por todo: en cada revisión le preguntamos al Cloud Lead sobre el
+modelo y al Data Lead sobre la infraestructura.
+Máximo 2 equipos por idea del banco. Si dos equipos eligen la misma, cada uno debe
+tener un cliente o enfoque distinto. La idea se aparta registrándola en E0; gana quien la
+registre primero.
+Todo vive en GitHub. Un repositorio por equipo, con commits de ambos integrantes. Si
+en el historial solo aparece un nombre, solo esa persona tiene evidencia de trabajo.
+Presupuesto de nube: $0. Configuren una alerta de presupuesto desde el día uno.
+Apagar lo que no se usa también se califica: en la industria a eso se le llama FinOps.
+La IA generativa está permitida y se declara. Pueden usar asistentes de código. Cada
+entregable incluye una sección breve de qué herramienta usaron y para qué. Lo que no
+puedan explicar en la defensa no cuenta.
+Datos personales con respeto. Si usan datos reales de clientes, se anonimizan antes
+de subirlos (sin nombres, teléfonos ni direcciones). Así lo exige la Ley Federal de
+Protección de Datos Personales en Posesión de los Particulares, y así trabaja un
+profesional.
+Entregas puntuales. Cada entregable se sube al repositorio con una etiqueta ( e0 , e1 ,
+... e5 ) antes de las 23:59 del día de entrega. Lo que llegue después se evalúa sobre 70.
+Proyecto Integrador
+Page 3 of 25
+=== PAGINA 4 ===
+3. Arquitectura: del ticket de venta al pronóstico
+Todos los equipos parten de esta arquitectura y la adaptan a su negocio. Tiene dos rutas:
+la de escritura (arriba) lleva los datos del negocio a la nube sin que el usuario espere, y la
+de lectura (abajo) convierte esos datos en pronósticos que el dueño consulta desde su
+celular.
+La cola es la pieza que hace escalable el sistema: si llegan mil registros de golpe, la ingesta
+responde de inmediato y el worker los procesa a su ritmo. El servicio de modelos es donde
+se cobra el valor del producto; todo lo demás existe para alimentarlo y protegerlo.
+arquitectura de referencia · ruta de escritura arriba, ruta de lectura abajo
+Proyecto Integrador
+Page 4 of 25
+=== PAGINA 5 ===
+La misma arquitectura en cada proveedor
+Si la base de datos administrada no entra en la capa gratuita de su proveedor, en E2 es
+válido correr PostgreSQL en un contenedor dentro de la misma máquina virtual. Lo
+importante es que puedan explicar qué ganan y qué pierden con esa decisión.
+Componente AWS Azure Google Cloud Entregable
+Tablero
+empresarial
+Streamlit leyendo
+de S3, después
+App Runner o ECS
+Streamlit leyendo
+de Blob, después
+Container Apps
+Streamlit
+leyendo de
+Cloud Storage,
+después Cloud
+Run
+E1 → E3
+Ingesta API EC2, después App
+Runner o ECS
+Máquina virtual,
+después Container
+Apps
+Compute
+Engine, después
+Cloud Run
+E2 → E3
+Cola de
+mensajes
+SQS / SNS Service Bus Pub/Sub E2
+Worker
+serverless
+Lambda Azure Functions Cloud Run
+functions
+E3
+Data lake S3 Blob Storage (Data
+Lake Gen2)
+Cloud Storage E1, E2
+Base de datos RDS para
+PostgreSQL
+Azure Database for
+PostgreSQL
+Cloud SQL E2
+Servicio de
+modelos
+App Runner o ECS Container Apps o
+App Service
+Cloud Run E3
+Identidad y
+acceso
+IAM Entra ID + RBAC Cloud IAM E2, E4
+Llaves y
+secretos
+KMS + Secrets
+Manager
+Key Vault Cloud KMS +
+Secret Manager
+E4
+Red y
+cortafuegos
+VPC + Security
+Groups
+VNet + NSG VPC + reglas de
+firewall
+E4
+Auditoría CloudTrail Activity Log Cloud Audit
+Logs
+E4
+Costos Pricing Calculator
++ Budgets
+Pricing Calculator
++ Cost
+Management
+Pricing
+Calculator +
+Budgets
+E0, E5
+Proyecto Integrador
+Page 5 of 25
+=== PAGINA 6 ===
+4. Integración y cronograma: dos materias, una sola ruta
+Cada entregable aplica los temas que ambas materias están viendo esa misma semana.
+Entre los seis cubren todas las prácticas oficiales de las unidades restantes de los dos
+programas.
+Qué tema se aplica en qué entregable
+Las cuatro fases del proyecto de asignatura que piden ambos programas quedan así:
+Fundamentación y Planeación en E0, Ejecución de E1 a E4 y Evaluación en E5.
+Entregable Cómputo en la Nube Analítica de Datos Prácticas oficiales
+que cubre
+E0 · Propuesta 1.1.4 Calculadora de
+servicios, 1.2
+Proveedores
+1.1 Datos: conjuntos y
+tipos
+—
+E1 · Dashboard
+empresarial
+2.4 Almacenamiento y
+gestión de datos en
+nube
+2.1 a 2.8: las ocho
+visualizaciones, incluido
+el análisis espectral; se
+apoya en 1.2
+Preprocesamiento
+Analítica: limpieza
+de datos y panel
+de control con 3 o
+más tipos de
+gráficos
+E2 · Cimientos
+en la nube
+2.1 a 2.5: integración de
+servicios,
+microservicios,
+middleware de
+mensajes,
+almacenamiento, IAM
+3.1 Series de tiempo, 3.2
+Predictores lineales
+Nube: prácticas 2
+y 4 · Analítica:
+regresión por
+mínimos
+cuadrados
+E3 · Inteligencia
+en producción
+3.1 a 3.6: cómputo para
+entrenar, despliegue,
+contenedores,
+orquestación,
+autoescalado,
+serverless, IaC
+3.1 ARIMA, 3.5 Naive
+Bayes, SVM, KNN y
+árboles
+Nube: práctica 3 ·
+Analítica: modelo
+ARIMA
+E4 · Blindaje 4.1 a 4.4: principios,
+protección de
+infraestructura, cifrado,
+gestión de riesgos
+3.3 Máquinas de estados
+finitos, 3.4 Modelos
+recurrentes, validación
+Nube: prácticas 5,
+6, 7 y 8
+E5 · Demo Day Integración completa y
+costos (1.1.4)
+Integración completa e
+interpretación para el
+negocio
+Proyecto de
+asignatura de
+ambas materias
+Proyecto Integrador
+Page 6 of 25
+=== PAGINA 7 ===
+Cronograma
+Desde E2, Nube y Analítica corren en paralelo: cada integrante lidera su parte y el equipo
+integra todo en la fecha de entrega. Las entregas caen el primer día hábil de la semana;
+cuando el lunes es inhábil, se recorren al martes.
+cronograma del proyecto · 12 de octubre al 4 de diciembre de 2026
+Semana Fechas Qué pasa
+1 12 al 16 de octubre Lanzamiento, formación de equipos y
+elección de idea. Entrega de E0 el viernes 16.
+Construcción del dashboard
+2 19 al 23 de octubre Lunes 19: entrega del dashboard
+empresarial (E1). Arranca E2: arquitectura,
+data lake, cola e IAM
+3 26 al 30 de octubre E2: ingesta, worker y base de datos; serie de
+tiempo y regresión
+4 3 al 6 de noviembre (lunes 2
+inhábil)
+Martes 3: entrega de E2 con demo en vivo.
+Arranca E3
+5 9 al 13 de noviembre E3: contenedores, Kubernetes, serverless,
+ARIMA y clasificador
+Proyecto Integrador
+Page 7 of 25
+=== PAGINA 8 ===
+5. Entregables: seis misiones, un producto
+Cada entregable agrega una capa al mismo producto. Nada se tira: el dashboard de E1 es la
+cara del producto hasta el Demo Day, y cada etapa le conecta algo nuevo por detrás. Para
+cada misión explicamos qué van a construir, por qué importa, la teoría que necesitan
+dominar y cómo saben que está terminada.
+E0 · Propuesta: encuentra el problema que vale dinero
+Entrega:  Oct 16, 2026  · Formato: documento de 3 a 5 páginas en el repositorio ( docs/E0-
+propuesta.md ).
+Por qué: un modelo sin una pregunta de negocio detrás es un ejercicio de clase. Aquí
+definen para quién trabajan y qué decisión le van a ayudar a tomar. Todo lo técnico
+que sigue se justifica con esta página.
+Qué entregan:
+Semana Fechas Qué pasa
+6 17 al 20 de noviembre (lunes 16
+inhábil)
+Martes 17: entrega de E3. Arranca E4:
+seguridad y validación de modelos
+7 23 al 27 de noviembre E4: red, cifrado, auditoría, backtesting, LSTM
+y Markov
+8 30 de noviembre al 4 de
+diciembre
+Lunes 30: entrega de E4 y sorteo del orden.
+Miércoles 2: Demo Day. Viernes 4:
+documento final
+ruta de entregables · E0 a E5
+Proyecto Integrador
+Page 8 of 25
+=== PAGINA 9 ===
+✓  Terminado cuando: cualquier persona lee la propuesta y entiende en un minuto quién
+es el cliente, qué le duele y qué número le van a dar.
+E1 · Dashboard empresarial: los datos cuentan su historia
+Entrega:  Oct 19, 2026  · Cubre: Analítica unidad 2 (temas 2.1 a 2.8) y Nube tema 2.4
+(almacenamiento en nube).
+Por qué: el dashboard es lo primero que el dueño ve y lo que decide si confía en
+ustedes. Cuando un negocio ve por primera vez sus propias ventas convertidas en
+decisiones, el producto se vende solo. Por eso es la primera entrega técnica: a partir
+de aquí, todo lo que construyan alimenta este tablero.
+Qué construyen en analítica:
+Lean Canvas con sus 9 bloques: problema, segmento de clientes, propuesta de valor,
+solución, canales, fuentes de ingreso, estructura de costos, métricas clave y ventaja
+injusta.
+Una entrevista de al menos 15 minutos con un dueño o encargado del giro elegido: sus
+5 preguntas, las respuestas y lo que aprendieron.
+La cadena de preguntas: pregunta de negocio → pregunta analítica → variable a
+predecir. Ejemplo: ¿cuánto refresco pido el lunes? → ¿cuántas unidades se venderán
+por día la próxima semana? → unidades_vendidas  diarias por producto.
+Inventario de datos: fuente, columnas, periodo y volumen. Mínimo 12 meses de datos
+diarios o 5,000 registros.
+Cuenta de nube con alerta de presupuesto activa (captura) y repositorio en GitHub
+con ambos integrantes.
+Datos limpios. Apliquen lo de la unidad 1 a su conjunto de datos: duplicados, valores
+faltantes, tipos de dato, valores atípicos y errores lógicos. Reporten cuántos registros
+corrigieron de cada tipo.
+Encabezado de indicadores (KPI): ventas del periodo, ticket promedio, producto
+estrella y variación contra la semana anterior.
+Seis visualizaciones como mínimo. Son obligatorias: líneas (tendencia de ventas),
+histograma (distribución del ticket), mapa de calor (ventas por día y hora, o
+correlaciones), dispersión (relación entre dos variables) y análisis espectral. La sexta la
+eligen entre barras, circular o burbujas.
+Análisis espectral con FFT sobre las ventas diarias: identifiquen los ciclos dominantes
+(semanal, quincenal, mensual) y expliquen qué significan para el negocio. En México el
+pico de quincena suele aparecer; demuéstrenlo con sus datos.
+Proyecto Integrador
+Page 9 of 25
+=== PAGINA 10 ===
+Qué construyen en la nube:
+Herramienta recomendada: Streamlit, porque es Python puro y en E3 se convierte en un
+contenedor dentro de su nube. Looker Studio o Power BI son válidos si leen de su
+almacenamiento en la nube.
+Teoría que necesitan dominar:
+✓  Terminado cuando: el dueño del negocio abre el tablero y en 30 segundos sabe cuál es
+su mejor día, su producto estrella y si la quincena le cambia las ventas.
+E2 · Cimientos en la nube: los datos viajan solos
+Entrega:  Nov 3, 2026  (el lunes 2 es inhábil) · Cubre: Nube unidad 2 (temas 2.1 a 2.5) y
+Analítica unidad 3 (temas 3.1 y 3.2).
+Cada gráfica responde una pregunta escrita en su título. No Ventas por día, sino Los
+sábados venden 40% más que los martes.
+Tres recomendaciones de negocio que salen del tablero, escritas para el dueño y no
+para un ingeniero.
+Almacenamiento de objetos con dos zonas: raw/  (datos tal como llegaron) y clean/
+(datos depurados).
+El dashboard lee sus datos de clean/  en la nube, no de un archivo en su
+computadora.
+Acceso seguro desde el día uno: un usuario por integrante, nada se opera con la
+cuenta raíz y la alerta de presupuesto está activa.
+Analítica (unidad 2) Nube (tema 2.4)
+Elegir la gráfica por la pregunta: tendencia,
+distribución, relación, composición o
+comparación
+Almacenamiento de objetos, bloques y
+archivos: cuándo usar cada uno
+Histograma: forma de la distribución, sesgo,
+número de bins (regla de Sturges)
+Buckets, prefijos y convenciones de
+nombres para un data lake
+Mapa de calor: matrices de correlación
+(Pearson) y tablas cruzadas
+Data lake vs. data warehouse
+Transformada de Fourier: pasar de tiempo a
+frecuencia, periodograma, periodo =
+1/frecuencia
+Credenciales de acceso programático: por
+qué nunca se suben al repositorio
+Proyecto Integrador
+Page 10 of 25
+=== PAGINA 11 ===
+Por qué: en E1 ustedes cargaron los datos a mano. Un negocio real genera ventas
+todos los días y nadie va a limpiar un CSV cada mañana. Aquí construyen la tubería
+que lleva los datos del negocio al tablero sin que nadie toque nada. El 80% del trabajo
+real con datos es moverlos, guardarlos y limpiarlos bien; si estos cimientos fallan,
+ningún modelo sirve.
+Qué construyen en la nube:
+Qué construyen en analítica:
+Teoría que necesitan dominar:
+Diagrama de arquitectura de su sistema, adaptado de la arquitectura de referencia
+(sección 3).
+Base de datos administrada (PostgreSQL recomendado; NoSQL si lo justifican) junto
+al data lake que ya tienen desde E1.
+Microservicio de ingesta (FastAPI recomendado) corriendo en una máquina virtual.
+Recibe registros por POST  o un CSV, lo guarda en raw/  y publica un mensaje en la cola.
+Middleware de mensajes: una cola administrada (SQS, Service Bus o Pub/Sub) o
+RabbitMQ. Un worker consume cada mensaje, ejecuta la limpieza y escribe en clean/
+y en la base de datos.
+Identidad y acceso: el worker usa un rol de servicio con permiso mínimo (lee raw/ ,
+escribe clean/  y nada más). MFA activo en la cuenta raíz.
+Limpieza automatizada: el código de limpieza de E1 se convierte en un módulo con
+pruebas que corre dentro del worker.
+Serie de tiempo: descomposición en tendencia, estacionalidad y residuo; prueba de
+estacionariedad (Dickey-Fuller aumentada); gráficas ACF y PACF interpretadas.
+Regresión lineal por mínimos cuadrados implementada a mano con NumPy (ecuación
+normal) y comparada contra scikit-learn. Reporten MSE, RMSE, MAE y R² y analicen los
+residuos.
+Tablero v2: agrega la línea de tendencia de la regresión y la descomposición de la serie.
+Nube (unidad 2) Analítica (unidad 3)
+Monolito vs. microservicios: despliegue y
+escalado independiente, a cambio de más
+complejidad operativa
+Componentes de una serie: tendencia,
+estacionalidad, ciclo y ruido
+Comunicación síncrona (REST) vs. asíncrona
+(colas, pub/sub): desacoplamiento,
+reintentos, cola de mensajes fallidos
+Estacionariedad y por qué la necesitan los
+modelos autorregresivos
+Proyecto Integrador
+Page 11 of 25
+=== PAGINA 12 ===
+✓  Terminado cuando: suben un CSV por la API y, en menos de 5 minutos, los datos
+aparecen limpios en el tablero sin que nadie toque nada a mano. Ese flujo lo demuestran
+en vivo en la revisión.
+E3 · Inteligencia en producción: el modelo vive en la nube
+Entrega:  Nov 17, 2026  (el lunes 16 es inhábil) · Cubre: Nube unidad 3 (temas 3.1 a 3.6) y
+Analítica unidad 3 (temas 3.1 y 3.5).
+Por qué: un modelo en un notebook no le sirve a nadie. El valor aparece cuando
+cualquier persona lo consulta desde su celular, a cualquier hora, y el sistema aguanta
+aunque lleguen cien usuarios a la vez. La distancia entre el notebook y la producción
+es la que separa a un estudiante de un ingeniero.
+Qué construyen en la nube:
+Nube (unidad 2) Analítica (unidad 3)
+SQL vs. NoSQL; transacciones; índices Mínimos cuadrados: β  = (X ᵀ X)⁻¹X ᵀ y y los
+supuestos de la regresión
+IAM: identidad, autenticación, autorización,
+roles, políticas y mínimo privilegio
+Autocorrelación: cómo leer ACF y PACF
+Contenedores: un Dockerfile  por servicio (ingesta, modelos y tablero) y un docker-
+compose.yml  que levanta todo en local con un solo comando.
+De máquina virtual a contenedor: la ingesta, el servicio de modelos y el tablero migran
+a un servicio administrado de contenedores (Cloud Run, Azure Container Apps o App
+Runner/ECS).
+Orquestación: manifiestos de Kubernetes (Deployment, Service,
+HorizontalPodAutoscaler) funcionando en un clúster. Uno local con minikube o kind es
+válido para no gastar.
+Serverless: el worker de limpieza se convierte en una función (Lambda, Azure
+Functions o Cloud Functions) que se dispara con cada mensaje o con cada archivo
+nuevo en raw/ .
+Autoescalado con prueba de carga: definan instancias mínimas y máximas y lancen
+una prueba con Locust o k6 de 50 usuarios simultáneos. Reporten latencia p95, errores
+e instancias levantadas.
+Infraestructura como código: Terraform crea al menos el bucket, la cola y los roles de
+IAM. La prueba de fuego es destruirla y recrearla con terraform destroy  y
+terraform apply .
+Proyecto Integrador
+Page 12 of 25
+=== PAGINA 13 ===
+Qué construyen en analítica:
+Teoría que necesitan dominar:
+✓  Terminado cuando: el tablero, desde una URL pública, muestra un pronóstico que
+calcula el API en la nube; la prueba de carga está documentada y Terraform recrea la
+infraestructura base.
+E4 · Blindaje: confianza a prueba de ataques
+Entrega:  Nov 30, 2026  · Cubre: Nube unidad 4 (temas 4.1 a 4.4) y Analítica unidad 3 (temas
+3.3 y 3.4, más validación de modelos).
+Por qué: ningún dueño les va a dar sus ventas si no puede confiar en ustedes. Una
+fuga de datos destruye una startup en un día. Además, un modelo que no se valida
+contra la realidad es una promesa sin respaldo. Esta etapa convierte el prototipo en
+algo que se puede vender.
+Cómputo para entrenar: justifiquen en media página CPU vs. GPU para su caso. Cada
+modelo entrenado se guarda versionado en models/ .
+ARIMA o SARIMA para pronosticar de 7 a 30 días, con intervalo de confianza.
+Justifiquen p, d y q con ACF, PACF y AIC.
+Clasificador para su vertical: por ejemplo, si un cliente se va, si un producto se agota o
+si un día será de venta alta. Comparen al menos dos modelos entre Naive Bayes, SVM,
+KNN y árbol de decisión, con matriz de confusión, precisión, recall y F1.
+API de modelos: endpoints /pronostico  y /clasificar . El tablero v3 los consume y
+muestra el pronóstico con su banda de confianza.
+Nube (unidad 3) Analítica (unidad 3)
+Imagen vs. contenedor; capas de Docker; por
+qué un contenedor arranca en segundos y
+una VM en minutos
+ARIMA(p,d,q): AR = memoria de valores
+pasados, I = diferenciación, MA = memoria
+de errores pasados
+Kubernetes: pod, deployment, service,
+réplicas y escalado horizontal
+SARIMA: cómo se agrega la estacionalidad
+Serverless: pago por ejecución, arranque en
+frío, límites de tiempo y memoria
+Clasificación: sesgo-varianza, sobreajuste y
+validación cruzada
+Infraestructura como código: declarativo vs.
+imperativo, estado de Terraform,
+idempotencia
+Métricas por clase: cuándo importa más el
+recall que la precisión
+Proyecto Integrador
+Page 13 of 25
+=== PAGINA 14 ===
+Qué construyen en la nube:
+Qué construyen en analítica:
+Teoría que necesitan dominar:
+Responsabilidad compartida: una tabla que diga qué protege el proveedor y qué
+protegen ustedes en cada componente de su arquitectura.
+Red y cortafuegos: red privada con subredes; solo el puerto 443 abierto a internet; la
+base de datos sin IP pública; SSH cerrado o restringido a una IP.
+Cifrado: en reposo (bucket y base de datos con llaves administradas por KMS) y en
+tránsito (todo por HTTPS). Los secretos viven en el gestor de secretos del proveedor;
+ninguna contraseña en el código ni en el repositorio.
+Protección del API: autenticación por llave o token y límite de peticiones por cliente.
+Auditoría de seguridad: escaneo de imágenes con Trivy, revisión de políticas de IAM,
+bitácora de auditoría activa (CloudTrail, Activity Log o Cloud Audit Logs) y búsqueda
+de secretos en el historial de Git. Mínimo 5 hallazgos documentados con su corrección
+y evidencia de antes y después.
+Matriz de riesgos de probabilidad por impacto, con al menos 8 riesgos y su mitigación.
+Incluyan riesgos propios de la IA: envenenamiento de datos por la ingesta, fuga de
+datos de entrenamiento, deriva del modelo y abuso del endpoint.
+Validación honesta del pronóstico: backtesting con ventanas móviles (walk-forward).
+Su modelo debe superar a un modelo ingenuo estacional ("el próximo lunes vendo lo
+mismo que el lunes pasado"). Si no lo supera, lo reportan y explican por qué.
+Modelo recurrente: una red LSTM o GRU sencilla comparada contra ARIMA con las
+mismas métricas.
+Máquina de estados finitos / cadena de Markov: modelen el ciclo de vida del cliente
+(nuevo, frecuente, en riesgo, perdido) o del inventario (suficiente, bajo, agotado).
+Estimen la matriz de transición con sus datos y predigan la distribución de estados a n
+pasos.
+Validación de datos en la ingesta: reglas que rechazan registros imposibles antes de
+que lleguen al modelo. Aquí la analítica y la seguridad son la misma defensa contra el
+envenenamiento de datos.
+Nube (unidad 4) Analítica (unidad 3)
+Tríada CIA: confidencialidad, integridad y
+disponibilidad; defensa en profundidad
+Validación temporal: por qué no se puede
+revolver el orden de una serie de tiempo
+Proyecto Integrador
+Page 14 of 25
+=== PAGINA 15 ===
+✓  Terminado cuando: el reporte de auditoría muestra 5 hallazgos corregidos con
+evidencia y el pronóstico supera al modelo ingenuo en el backtesting, o el equipo explica
+con datos por qué no.
+E5 · Demo Day: presenten su startup
+Presentación:  Dec 2, 2026  · Documento final:  Dec 4, 2026  · Cubre: la integración
+completa de ambas materias.
+Por qué: saber construir no basta; hay que saber explicar por qué lo que
+construyeron vale. Un ingeniero que convence a un cliente, a un jefe o a un
+inversionista multiplica el valor de su trabajo. El Demo Day es su primera ronda frente
+a un jurado.
+Qué entregan:
+Nube (unidad 4) Analítica (unidad 3)
+Cifrado simétrico vs. asimétrico, TLS, gestión
+y rotación de llaves
+Redes recurrentes: memoria,
+desvanecimiento del gradiente y qué
+resuelve la LSTM
+Estándares: ISO/IEC 27001, CIS Benchmarks
+y la ley mexicana de datos personales
+Cadenas de Markov: estados, matriz de
+transición y propiedad de Markov
+Gestión de riesgos: identificar, evaluar,
+mitigar y monitorear
+Deriva de datos y de modelo: cuándo hay
+que reentrenar
+Pitch de 7 minutos más 5 de preguntas cruzadas. Orden sugerido: problema y cliente,
+demo en vivo, arquitectura, modelo y su precisión, seguridad, costos y precio, siguiente
+paso.
+Demo en vivo del flujo completo: se cargan datos nuevos y el dashboard empresarial
+actualiza el pronóstico.
+Análisis de costos con la calculadora oficial del proveedor (tema 1.1.4): costo mensual
+para 1, 10 y 100 negocios clientes, costo por cliente, precio propuesto y margen.
+Documento técnico final en el repositorio: arquitectura, decisiones con su
+justificación, resultados de los modelos, seguridad, costos y lecciones aprendidas.
+Video de 2 minutos para su portafolio y LinkedIn.
+Apagado responsable: evidencia de terraform destroy  después de la evaluación,
+salvo que el equipo decida seguir operando su startup con su propia cuenta.
+Opcional, con puntos extra: carta o video del negocio aliado diciendo si usaría la
+herramienta y cuánto pagaría por ella.
+Proyecto Integrador
+Page 15 of 25
+=== PAGINA 16 ===
+Reconocimientos del Demo Day: Mejor Startup, Mejor Arquitectura Cloud, Mejor Modelo
+Predictivo, Mejor Dashboard y Premio del Cliente (si asisten dueños de negocios como
+invitados).
+✓  Terminado cuando: un desconocido entiende en 7 minutos qué problema resuelven, ve
+el producto funcionar y sabe cuánto cuesta operarlo y cuánto cobrarían.
+6. Evaluación: cómo se gana cada punto
+El proyecto vale el 50% de cada unidad involucrada en ambas materias; el otro 50%
+corresponde a las actividades y exámenes propios de cada materia. Cada materia califica
+con sus propios criterios sobre el mismo entregable.
+Cuánto pesa cada entregable
+Escala de desempeño
+Usamos la escala de niveles del TecNM: Excelente 95–100 · Notable 85–94 · Bueno 75–84 ·
+Suficiente 70–74 · Insuficiente menos de 70 (no alcanza la competencia). Las rúbricas
+describen los extremos; los niveles intermedios se asignan por grado de cumplimiento.
+Defensa individual: en cada revisión cada integrante responde dos preguntas, una
+sobre su parte y otra sobre la de su compañero. La calificación individual es la del
+equipo multiplicada por un factor: 1.0 si explica con dominio, 0.8 si explica
+parcialmente y 0.5 si no puede explicar lo que se entregó.
+Unidad E0 E1 E2 E3 E4 E5 Total del proyecto
+Nube · Unidad 2 10% 10% 30% 50%
+Nube · Unidad 3 50% 50%
+Nube · Unidad 4 25% 25% 50%
+Analítica · Unidad 2 10% 40% 50%
+Analítica · Unidad 3 15% 15% 10% 10% 50%
+Proyecto Integrador
+Page 16 of 25
+=== PAGINA 17 ===
+Rúbrica E0 · Propuesta (una calificación para ambas materias)
+Rúbrica E1 · Dashboard empresarial
+Criterio Puntos Excelente Insuficiente
+Problema y
+cliente validados
+30 Problema concreto con
+evidencia de la entrevista;
+Lean Canvas coherente en
+sus 9 bloques
+Problema genérico ("las
+tienditas necesitan datos"),
+sin entrevista
+Cadena de
+preguntas
+25 De la decisión del negocio a
+una variable medible, con
+unidad y horizonte
+No hay variable a predecir o
+no se relaciona con la
+decisión
+Inventario de
+datos
+25 Fuente identificada,
+columnas descritas, 12
+meses o 5,000 registros
+como mínimo
+Datos sin fuente,
+insuficientes o inventados
+sin método
+Arranque técnico 20 Cuenta con alerta de
+presupuesto, repositorio con
+ambos integrantes y
+estructura inicial
+Falta la cuenta, la alerta o el
+repositorio
+Materia Criterio Puntos Excelente Insuficiente
+Analítica Datos limpios 20 Detecta y corrige los 5
+tipos de error con
+reporte de cuántos
+registros cambiaron
+Datos sin limpiar o
+limpieza manual sin
+registro
+Analítica Indicadores (KPI) 10 Cuatro indicadores
+correctos y legibles de
+un vistazo
+Sin indicadores o
+con cálculos
+erróneos
+Analítica Visualizaciones 30 Seis gráficas bien
+elegidas para su
+pregunta, cada una con
+un hallazgo en el título
+Menos de cinco
+gráficas o gráficas
+mal elegidas
+Analítica Análisis espectral 20 Ciclos dominantes
+identificados,
+convertidos a días y
+explicados para el
+negocio
+FFT sin
+interpretación o mal
+calculada
+Proyecto Integrador
+Page 17 of 25
+=== PAGINA 18 ===
+Rúbrica E2 · Cimientos en la nube
+Materia Criterio Puntos Excelente Insuficiente
+Analítica Recomendaciones
+de negocio
+20 Tres recomendaciones
+accionables,
+respaldadas por las
+gráficas
+Conclusiones
+genéricas o sin
+relación con los
+datos
+Nube Almacenamiento en
+la nube
+40 Zonas raw/  y clean/
+con convención de
+nombres documentada
+Archivos sueltos sin
+estructura, o datos
+solo en local
+Nube Dashboard
+conectado
+35 El tablero lee de
+clean/  en la nube con
+credenciales fuera del
+código
+El tablero lee un
+archivo local
+Nube Acceso seguro 25 Usuarios individuales,
+sin uso de la cuenta
+raíz y alerta de
+presupuesto activa
+Se opera con la
+cuenta raíz o sin
+alerta
+Materia Criterio Puntos Excelente Insuficiente
+Nube Diagrama de
+arquitectura
+15 Componentes, flujos y
+límites de red claros;
+cada pieza se justifica
+Diagrama genérico
+que no corresponde a
+lo implementado
+Nube Base de datos 15 Esquema documentado
+y justificación de SQL o
+NoSQL
+Sin base de datos o
+sin esquema
+Nube Microservicio de
+ingesta
+20 API en VM con
+validación de entrada,
+manejo de errores y
+documentación
+OpenAPI
+La carga solo funciona
+a mano o desde la
+consola
+Nube Cola y worker 25 Procesamiento
+asíncrono, reintentos y
+cola de mensajes
+fallidos
+Procesamiento
+síncrono o sin cola
+Proyecto Integrador
+Page 18 of 25
+=== PAGINA 19 ===
+Rúbrica E3 · Inteligencia en producción
+Materia Criterio Puntos Excelente Insuficiente
+Nube Identidad y
+acceso
+15 Rol de servicio de
+mínimo privilegio
+demostrado y MFA
+activo
+El worker usa
+permisos de
+administrador
+Nube Flujo de punta a
+punta
+10 Demostración en vivo:
+CSV a tablero en menos
+de 5 minutos sin
+intervención manual
+El flujo no se puede
+demostrar
+Analítica Limpieza
+automatizada
+20 Módulo con pruebas
+que corre en el worker
+Limpieza que sigue
+siendo manual
+Analítica Serie de tiempo 30 Descomposición, ADF,
+ACF y PACF
+interpretados
+Gráficas sin
+interpretación
+Analítica Regresión por
+mínimos
+cuadrados
+40 Implementación propia
+que coincide con scikit-
+learn; métricas y
+residuos analizados
+Solo se llama a una
+librería
+Analítica Tablero v2 10 Tendencia y
+descomposición
+integradas al dashboard
+El tablero no cambió
+desde E1
+Materia Criterio Puntos Excelente Insuficiente
+Nube Contenedores 15 Imágenes ligeras, multi-
+stage, sin secretos; todo
+levanta con un comando
+Sin Dockerfile o
+imágenes que no
+construyen
+Nube Despliegue
+administrado
+20 Servicios en
+contenedores con URL
+pública y salud
+monitoreada
+Solo funciona en
+local
+Nube Orquestación 15 Deployment, Service y
+HPA funcionando y
+explicados
+Sin manifiestos o
+manifiestos que no
+aplican
+Proyecto Integrador
+Page 19 of 25
+=== PAGINA 20 ===
+Rúbrica E4 · Blindaje
+Materia Criterio Puntos Excelente Insuficiente
+Nube Serverless 15 Función disparada por
+eventos, con manejo de
+errores
+El worker sigue
+corriendo en la VM
+Nube Autoescalado y
+carga
+20 Prueba de 50 usuarios
+con p95, errores e
+instancias reportados y
+analizados
+Sin prueba de carga
+Nube Infraestructura
+como código
+15 Terraform recrea
+bucket, cola y roles;
+demostrado con
+destroy y apply
+Todo creado a mano
+en la consola
+Analítica ARIMA 45 Parámetros justificados;
+pronóstico con intervalo
+y métricas
+Parámetros al azar o
+sin evaluación
+Analítica Clasificador 35 Dos o más modelos
+comparados con matriz
+de confusión y F1
+Un solo modelo y
+solo exactitud
+Analítica Modelos servidos 20 El tablero consume el
+API y muestra la banda
+de confianza
+El pronóstico es una
+imagen estática
+Materia Criterio Puntos Excelente Insuficiente
+Nube Red y
+cortafuegos
+20 Solo 443 expuesto; base
+de datos privada; reglas
+documentadas
+Puertos abiertos a todo
+internet
+Nube Cifrado y
+secretos
+25 Cifrado en reposo con
+KMS, TLS en todo y
+secretos en el gestor
+Contraseñas en el
+código o en el
+repositorio
+Nube Protección
+del API
+10 Autenticación y límite de
+peticiones probados
+API abierto sin control
+Nube Auditoría 30 5 o más hallazgos con
+evidencia de antes y
+después
+Lista de buenas
+prácticas sin revisar el
+sistema propio
+Proyecto Integrador
+Page 20 of 25
+=== PAGINA 21 ===
+Rúbrica E5 · Demo Day (una calificación para ambas materias)
+Materia Criterio Puntos Excelente Insuficiente
+Nube Matriz de
+riesgos
+15 8 riesgos o más, incluidos
+los de IA, con mitigación
+concreta
+Riesgos genéricos sin
+mitigación
+Analítica Backtesting 35 Walk-forward contra el
+modelo ingenuo, con
+conclusión honesta
+Evaluación con datos
+revueltos o sin
+comparación
+Analítica Modelo
+recurrente
+25 LSTM o GRU comparada
+contra ARIMA con las
+mismas métricas
+Red sin comparación
+Analítica Cadena de
+Markov
+25 Matriz estimada de datos
+reales y predicción a n
+pasos interpretada
+Matriz inventada
+Analítica Validación de
+datos
+15 Reglas en la ingesta que
+rechazan registros
+imposibles, con prueba
+Sin validación
+Criterio Puntos Excelente Insuficiente
+Pitch 20 Historia clara, en tiempo,
+con el problema del cliente
+al centro
+Lectura de diapositivas o
+fuera de tiempo
+Demo en vivo 25 Flujo completo funcionando
+frente al jurado
+Video pregrabado en lugar de
+demo, o falla sin plan B
+Costos y negocio 20 Costo por cliente calculado,
+precio y margen defendibles
+Sin números o números sin
+fuente
+Documento
+técnico
+20 Otro ingeniero podría
+operar el sistema leyendo
+solo el documento
+Documento incompleto o
+desactualizado
+Preguntas
+cruzadas
+15 Ambos responden con
+dominio sobre cualquier
+parte
+Uno solo responde todo
+Bono: negocio
+aliado
++5 Datos de un negocio real
+con su autorización
+Proyecto Integrador
+Page 21 of 25
+=== PAGINA 22 ===
+La calificación de E5 no supera 100 aunque se sumen los bonos.
+7. Kit de arranque: todo listo para despegar
+Todo lo que necesitan para tener el dashboard empresarial listo el lunes 19 de octubre sin
+perder tiempo configurando. Si aún no tienen datos de un negocio, el generador sintético
+de esta sección les da un conjunto realista hoy mismo.
+Stack recomendado
+El equipo elige un solo proveedor en E0 y lo mantiene todo el proyecto. Antes de crear
+cualquier recurso, revisen qué incluye la capa gratuita vigente de su proveedor: las
+condiciones cambian y ese análisis también es parte del trabajo.
+Criterio Puntos Excelente Insuficiente
+Bono: validación
+del cliente
++5 Carta o video del dueño
+diciendo si pagaría y cuánto
+Capa Recomendado Alternativas válidas
+Lenguaje Python 3.11+ —
+API FastAPI Flask
+Datos y modelos pandas, NumPy, statsmodels,
+scikit-learn
+PyTorch o Keras para la
+LSTM
+Tablero Streamlit Dash, Looker Studio, Power
+BI
+Contenedores Docker + docker-compose Podman
+Orquestación minikube o kind (local) Clúster administrado si hay
+créditos
+Infraestructura como
+código
+Terraform CloudFormation, Bicep,
+Pulumi
+Prueba de carga Locust k6
+Seguridad Trivy, gitleaks Checkov
+Nube AWS (Free Tier o AWS Academy),
+Azure for Students, GCP
+Oracle Cloud Free Tier
+Proyecto Integrador
+Page 22 of 25
+=== PAGINA 23 ===
+Estructura del repositorio
+data-startup-<equipo>/
+├ ── README.md            # qué es, cómo se levanta, URL pública
+├ ── docs/                # E0..E4, diagramas, reportes de auditoría
+├ ── data/sample/         # muestra pequeña y anonimizada (nunca datos 
+completos)
+├ ── notebooks/           # exploración y entrenamiento
+├ ── services/
+│   ├ ── ingesta/         # API FastAPI + Dockerfile
+│   ├ ── worker/          # limpieza (después función serverless)
+│   ├ ── modelos/         # API /pronostico y /clasificar
+│   └── tablero/         # Streamlit
+├ ── infra/terraform/     # infraestructura como código
+├ ── k8s/                 # manifiestos de Kubernetes
+├ ── tests/               # pruebas y scripts de Locust
+└── docker-compose.yml
+¿De dónde saco datos?
+1. Un negocio real (la mejor opción y la que da puntos extra): pidan el historial de ventas
+de su punto de venta, sus notas en Excel o su cuaderno. Digitalizar un cuaderno de
+ventas también es preprocesamiento.
+2. Datos abiertos: datos.gob.mx, INEGI (DENUE para ubicar negocios, ENIGH para gasto
+de los hogares), Kaggle (ventas de retail, comercio electrónico, restaurantes).
+3. El generador sintético de abajo, para quien aún no tiene datos o quiere practicar
+mientras consigue los reales.
+Generador de datos sintéticos
+Simula 21 meses de ventas diarias de una tiendita con 12 productos: tendencia de
+crecimiento, ciclo semanal, efecto quincena, temporada de calor y fiestas de diciembre.
+Trae errores sembrados a propósito (faltantes, negativos, atípicos, nombres mal escritos y
+duplicados), y la columna total  no se recalcula, así que también hay inconsistencias
+lógicas que encontrar. Lo probamos: genera 7,686 registros y la FFT de las ventas limpias
+detecta los ciclos de 7 y 15 días. Adáptenlo a su giro cambiando productos, precios y
+factores.
+"""Generador de ventas sinteticas para una tiendita de abarrotes.
+Uso: python generar_ventas.py  ->  ventas_tiendita.csv
+"""
+import numpy as np
+import pandas as pd
+Proyecto Integrador
+Page 23 of 25
+=== PAGINA 24 ===
+rng = np.random.default_rng(42)
+dias = pd.date_range("2025-01-01", "2026-09-30", freq="D")
+productos = {  # producto: (precio MXN, venta base diaria)
+    "Refresco 600ml": (20, 35), "Coca 2L": (42, 18), "Tortillas kg": (24, 
+25),
+    "Leche 1L": (29, 15), "Pan blanco": (52, 6), "Huevo 18pz": (65, 5),
+    "Sabritas 45g": (19, 22), "Galletas": (17, 14), "Cerveza 355ml": (22, 
+30),
+    "Agua 1.5L": (16, 20), "Jabon polvo 1kg": (45, 3), "Papel higienico 4pz": 
+(38, 4),
+}
+semana = np.array([0.85, 0.80, 0.85, 0.90, 1.10, 1.35, 1.20])  # lun..dom
+filas = []
+for dia in dias:
+    t = (dia - dias[0]).days
+    tendencia = 1 + 0.0004 * t
+    quincena = 1.25 if dia.day in (15, 16, 30, 31, 1) else 1.0
+    calor = 1.30 if dia.month in (4, 5, 6) else 1.0
+    fiestas = 1.40 if (dia.month == 12 and dia.day >= 15) else 1.0
+    for prod, (precio, base) in productos.items():
+        efecto_calor = calor if prod in ("Refresco 600ml", "Cerveza 355ml", 
+"Agua 1.5L") else 1.0
+        lam = base * tendencia * semana[dia.weekday()] * quincena * 
+efecto_calor * fiestas
+        unidades = rng.poisson(lam)
+        filas.append([dia.date(), prod, unidades, precio, unidades * precio])
+df = pd.DataFrame(filas, columns=["fecha", "producto", "unidades", 
+"precio_unitario", "total"])
+# Errores sembrados para practicar preprocesamiento
+n = len(df)
+df.loc[rng.choice(n, 40, replace=False), "unidades"] = np.nan   # faltantes
+df.loc[rng.choice(n, 15, replace=False), "unidades"] *= -1      # errores 
+logicos
+df.loc[rng.choice(n, 10, replace=False), "unidades"] = 999      # atipicos
+idx = rng.choice(n, 25, replace=False)
+df.loc[idx, "producto"] = df.loc[idx, "producto"].str.lower()   # errores de 
+formato
+df = pd.concat([df, df.sample(30, random_state=1)])             # duplicados
+df = df.sample(frac=1, random_state=2).reset_index(drop=True)
+df.to_csv("ventas_tiendita.csv", index=False)
+print(f"{len(df):,} registros de {dias[0].date()} a {dias[-1].date()}")
+Proyecto Integrador
+Page 24 of 25
+=== PAGINA 25 ===
+Cómo gana dinero su startup
+Un producto técnico excelente sin modelo de ingresos es un pasatiempo. Elijan uno de
+estos modelos y deféndanlo con números en E5:
+La cuenta que deben poder hacer de memoria en el Demo Day:
+\text{Margen por cliente} = \text{Precio mensual} - \frac{\text{Costo de nube 
+mensual}}{\text{Número de clientes}}
+Si su costo por cliente baja conforme crecen, su arquitectura es escalable de verdad y no
+solo en el diagrama.
+Formato del Demo Day
+Fecha: miércoles 2 de diciembre; el orden de presentación se sortea el 30 de
+noviembre.
+Tiempo: 7 minutos de pitch y demo, 5 de preguntas. Al minuto 7 se corta.
+Jurado: ambos docentes y, cuando sea posible, invitados del sector productivo y
+egresados.
+Plan B obligatorio: si la demo en vivo falla, muestran un video grabado del flujo
+completo, pero el criterio de demo en vivo baja a la mitad.
+Después del Demo Day: el documento final se entrega el viernes 4 de diciembre. Los
+equipos que quieran seguir con su startup después del semestre tienen nuestro apoyo
+para buscar convocatorias de emprendimiento e incubación.
+Modelo Cómo funciona Cuándo conviene
+Suscripción mensual
+(SaaS)
+Cuota fija por negocio Clientes que usan la
+herramienta cada semana
+Freemium Tablero gratis, pronósticos y
+alertas de pago
+Mercados grandes y con poca
+confianza inicial
+Pago por reporte Cobro por análisis o
+diagnóstico puntual
+Negocios que deciden pocas
+veces al año
+Implementación +
+mantenimiento
+Pago inicial por instalar más
+cuota de soporte
+Clientes medianos que
+quieren algo a la medida
+Comisión por ahorro Porcentaje de la merma o del
+costo que evitan
+Cuando el ahorro se puede
+medir con claridad
+Proyecto Integrador
+Page 25 of 25

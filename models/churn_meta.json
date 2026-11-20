@@ -1,0 +1,42 @@
+{
+  "random_forest": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1_score": 1.0,
+    "roc_auc": 1.0,
+    "matriz_confusion": [
+      [
+        41,
+        0
+      ],
+      [
+        0,
+        9
+      ]
+    ]
+  },
+  "regresion_logistica": {
+    "precision": 0.8889,
+    "recall": 0.8889,
+    "f1_score": 0.8889,
+    "roc_auc": 0.9864,
+    "matriz_confusion": [
+      [
+        40,
+        1
+      ],
+      [
+        1,
+        8
+      ]
+    ]
+  },
+  "importancia_variables": {
+    "dias_sin_asistir": 0.8045,
+    "duracion_promedio": 0.0802,
+    "total_accesos": 0.0421,
+    "cuota_mensual": 0.005,
+    "antiguedad_dias": 0.0178,
+    "frecuencia_semanal": 0.0505
+  }
+}

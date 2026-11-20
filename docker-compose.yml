@@ -1,0 +1,88 @@
+version: "3.8"
+
+services:
+  # 1. TABLERO WEB Y REST API (FRONTEND + DASHBOARD EMPRESARIAL)
+  tablero:
+    build:
+      context: .
+      dockerfile: services/web/Dockerfile
+    container_name: fitpulse-tablero
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+      - PYTHONUNBUFFERED=1
+      - FITPULSE_ENV=production
+      - MODELOS_SERVICE_URL=http://modelos:8001
+    depends_on:
+      modelos:
+        condition: service_healthy
+    networks:
+      - fitpulse-net
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "1.00"
+          memory: 512M
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/').getcode() == 200 or exit(1)"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+  # 2. MICROSERVICIO DE MODELOS E INTELIGENCIA PREDICTIVA (SARIMA + CHURN)
+  modelos:
+    build:
+      context: .
+      dockerfile: services/modelos/Dockerfile
+    container_name: fitpulse-modelos
+    ports:
+      - "8001:8001"
+    environment:
+      - PORT=8001
+      - PYTHONUNBUFFERED=1
+    networks:
+      - fitpulse-net
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "1.00"
+          memory: 512M
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8001/health').getcode() == 200 or exit(1)"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+  # 3. WORKER DE INGESTA, LIMPIEZA Y EVENTOS SERVERLESS
+  worker:
+    build:
+      context: .
+      dockerfile: services/worker/Dockerfile
+    container_name: fitpulse-worker
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./data:/app/data
+    networks:
+      - fitpulse-net
+    restart: "no"
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 256M
+
+networks:
+  fitpulse-net:
+    driver: bridge

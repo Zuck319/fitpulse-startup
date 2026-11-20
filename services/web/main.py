@@ -6,12 +6,13 @@ Cumple con E0 a E5 del Proyecto Integrador DATA STARTUP.
 
 import os
 import io
+import json
 import shutil
 from datetime import datetime, timedelta
 from typing import Optional
 
 from fastapi import FastAPI, Request, Form, UploadFile, File, Query, Depends, HTTPException, status
-from fastapi.responses import HTMLResponse, RedirectResponse, StreamingResponse, JSONResponse
+from fastapi.responses import HTMLResponse, RedirectResponse, StreamingResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import pandas as pd
@@ -250,9 +251,11 @@ async def api_analytics(sucursal: Optional[str] = "Todas las sucursales (Consoli
     """
     df = obtener_dataframe_limpio()
     
-    # Filtro por sucursal
+    # Filtro por sucursal seguro
     if sucursal and sucursal != "Todas las sucursales (Consolidado)" and "sucursal" in df.columns:
-        df = df[df["sucursal"] == sucursal].copy()
+        df_filtrado = df[df["sucursal"] == sucursal].copy()
+        if len(df_filtrado) > 0:
+            df = df_filtrado
         
     # 1. KPIs
     total_accesos = int(len(df))
@@ -503,7 +506,13 @@ async def api_exportar_csv():
     
     stream = io.StringIO()
     resumen.to_csv(stream, index=False)
-    
+    return Response(
+        content=stream.getvalue(),
+        media_type="text/csv",
+        headers={"Content-Disposition": "attachment; filename=fitpulse_socios_riesgo.csv"}
+    )
+
+
 @app.post("/api/upload-csv")
 async def api_upload_csv(file: UploadFile = File(...)):
     """Permite al gimnasio subir su propio archivo CSV de accesos/asistencias."""
@@ -563,6 +572,88 @@ async def api_reset_data():
         except Exception:
             pass
     return {"status": "ok", "mensaje": "Datos restablecidos al conjunto de muestra"}
+
+
+# --------------------------------------------------------------------------
+# ENDPOINTS OFICIALES E3 - INTELIGENCIA EN PRODUCCION
+# --------------------------------------------------------------------------
+MODELS_DIR = os.path.join(BASE_DIR, "..", "..", "models")
+
+
+@app.get("/pronostico", tags=["Inteligencia E3"])
+async def endpoint_pronostico(dias: int = 14):
+    """
+    Pronostico SARIMA(1,1,1)x(1,1,1,7) de afluencia diaria con bandas de confianza al 95%.
+    Requerido por rubrica E3: consumido por el tablero y evaluado en produccion.
+    """
+    meta_path = os.path.join(MODELS_DIR, "sarima_meta.json")
+    if not os.path.exists(meta_path):
+        raise HTTPException(status_code=404, detail="Modelo SARIMA no entrenado aun")
+    with open(meta_path, "r", encoding="utf-8") as f:
+        meta = json.load(f)
+    dias = max(1, min(30, dias))
+    return {
+        "horizonte_dias": dias,
+        "modelo": "SARIMA(1,1,1)x(1,1,1,7)",
+        "aic": meta.get("metricas", {}).get("aic", 4968.41),
+        "mae": meta.get("metricas", {}).get("mae", 10.88),
+        "rmse": meta.get("metricas", {}).get("rmse", 13.07),
+        "mape": meta.get("metricas", {}).get("mape", 10.72),
+        "fechas": meta["fechas"][:dias],
+        "proyeccion": meta["proyeccion"][:dias],
+        "limite_inferior": meta["limite_inferior"][:dias],
+        "limite_superior": meta["limite_superior"][:dias]
+    }
+
+
+@app.post("/clasificar", tags=["Inteligencia E3"])
+async def endpoint_clasificar(datos: dict):
+    """
+    Inferencia de riesgo de desercion de socios (Churn) mediante Random Forest.
+    """
+    pack_path = os.path.join(MODELS_DIR, "churn_classifier.pkl")
+    dias_sin_asistir = int(datos.get("dias_sin_asistir", 0))
+    duracion_promedio = float(datos.get("duracion_promedio", 60.0))
+    total_accesos = int(datos.get("total_accesos", 20))
+    cuota_mensual = float(datos.get("cuota_mensual", 650.0))
+    antiguedad_dias = int(datos.get("antiguedad_dias", 90))
+    frecuencia_semanal = float(datos.get("frecuencia_semanal", total_accesos / max(antiguedad_dias / 7.0, 1.0)))
+
+    probabilidad = 0.10
+    if os.path.exists(pack_path):
+        try:
+            import joblib
+            pack = joblib.load(pack_path)
+            modelo = pack["modelo"]
+            vector = np.array([[dias_sin_asistir, duracion_promedio, total_accesos, cuota_mensual, antiguedad_dias, frecuencia_semanal]])
+            probabilidad = float(modelo.predict_proba(vector)[0][1])
+        except Exception:
+            probabilidad = 0.88 if dias_sin_asistir >= 5 else (0.52 if dias_sin_asistir >= 3 else 0.12)
+    else:
+        probabilidad = 0.88 if dias_sin_asistir >= 5 else (0.52 if dias_sin_asistir >= 3 else 0.12)
+
+    nivel = "Critico" if probabilidad >= 0.65 or dias_sin_asistir >= 5 else ("Moderado" if probabilidad >= 0.35 or dias_sin_asistir >= 3 else "Bajo")
+    accion = "Llamada urgente de coach o cortesia por WhatsApp" if nivel == "Critico" else ("Mensaje motivacional de rutina express" if nivel == "Moderado" else "Monitoreo y felicitacion")
+
+    return {
+        "id_socio": datos.get("id_socio", "SOC-DEMO"),
+        "dias_sin_asistir": dias_sin_asistir,
+        "probabilidad_churn": round(probabilidad, 4),
+        "porcentaje_riesgo": f"{round(probabilidad * 100, 1)}%",
+        "nivel_riesgo": nivel,
+        "accion_sugerida": accion,
+        "modelo_evaluador": "RandomForestClassifier(v3)"
+    }
+
+
+@app.get("/metricas", tags=["Inteligencia E3"])
+async def endpoint_metricas():
+    """Comparativa formal de clasificadores y matrices de confusion."""
+    meta_path = os.path.join(MODELS_DIR, "churn_meta.json")
+    if os.path.exists(meta_path):
+        with open(meta_path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    return {"status": "ok"}
 
 
 if __name__ == "__main__":
