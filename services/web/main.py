@@ -33,6 +33,12 @@ from services.web.database import (
     obtener_pago_por_id
 )
 
+from services.web.mercadopago_service import (
+    crear_preferencia_mercadopago,
+    obtener_config_mercadopago,
+    guardar_config_mercadopago
+)
+
 # Rutas del proyecto
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_PATH = os.path.join(BASE_DIR, "..", "..", "data", "sample", "accesos_gimnasio_clean.csv")
@@ -393,6 +399,102 @@ async def api_historial_pagos(request: Request):
     usuario = obtener_usuario_actual(request)
     pagos = obtener_pagos_usuario(usuario["id"])
     return {"status": "ok", "pagos": pagos}
+
+
+@app.get("/mercadopago/iniciar")
+async def mercadopago_iniciar(request: Request, plan: Optional[str] = "pro"):
+    """Inicia el flujo de cobro con Mercado Pago Checkout Pro."""
+    usuario = obtener_usuario_actual(request)
+    host_url = str(request.base_url).rstrip("/")
+    res = crear_preferencia_mercadopago(usuario, plan or "pro", host_url)
+    return RedirectResponse(url=res["checkout_url"], status_code=status.HTTP_303_SEE_OTHER)
+
+
+@app.get("/mercadopago/demo-checkout", response_class=HTMLResponse)
+async def mercadopago_demo_page(request: Request, plan: Optional[str] = "pro"):
+    """Interfaz guiada de Mercado Pago con opciones de tarjeta, SPEI y OXXO."""
+    usuario = obtener_usuario_actual(request)
+    config_mp = obtener_config_mercadopago()
+    
+    precios = {
+        "basico": {"nombre": "FitPulse Analytics · Plan Basico Monosede", "precio": 499.00},
+        "pro": {"nombre": "FitPulse Analytics · Plan Pro Multisede", "precio": 899.00},
+        "premium": {"nombre": "FitPulse Analytics · Plan Premium Franquicias", "precio": 1499.00}
+    }
+    plan_clean = (plan or "pro").lower()
+    info_plan = precios.get(plan_clean, precios["pro"])
+
+    return templates.TemplateResponse(
+        request=request,
+        name="mercadopago_checkout.html",
+        context={
+            "usuario": usuario,
+            "plan": plan_clean,
+            "info_plan": info_plan,
+            "config_mp": config_mp
+        }
+    )
+
+
+@app.post("/mercadopago/procesar-demo")
+async def mercadopago_procesar_demo(
+    request: Request,
+    plan: str = Form("pro"),
+    monto: float = Form(899.00)
+):
+    """Simula la aprobacion inmediata de pago por Mercado Pago."""
+    usuario = obtener_usuario_actual(request)
+    pago = registrar_pago(
+        usuario_id=usuario["id"],
+        plan=plan.lower(),
+        monto_total=float(monto),
+        metodo_pago="Mercado Pago Checkout Pro",
+        marca_tarjeta="Mercado Pago",
+        ultimos_4="SPEI/OXXO",
+        titular=usuario.get("nombre_dueno", "Dylan Espinosa")
+    )
+    SESSION_STATE["plan_activo"] = plan.title()
+    return RedirectResponse(
+        url=f"/comprobante-pago/{pago['id_transaccion']}",
+        status_code=status.HTTP_303_SEE_OTHER
+    )
+
+
+@app.get("/mercadopago/retorno")
+async def mercadopago_retorno(
+    request: Request,
+    status: Optional[str] = "approved",
+    plan: Optional[str] = "pro",
+    payment_id: Optional[str] = None
+):
+    """Punto de retorno tras completar el pago en la pasarela de Mercado Pago."""
+    usuario = obtener_usuario_actual(request)
+    if status == "approved":
+        precios = {"basico": 499.00, "pro": 899.00, "premium": 1499.00}
+        monto = precios.get((plan or "pro").lower(), 899.00)
+        pago = registrar_pago(
+            usuario_id=usuario["id"],
+            plan=(plan or "pro").lower(),
+            monto_total=monto,
+            metodo_pago="Mercado Pago Oficial",
+            marca_tarjeta="Mercado Pago",
+            ultimos_4=str(payment_id)[-4:] if payment_id else "9901",
+            titular=usuario.get("nombre_dueno", "Dylan Espinosa")
+        )
+        SESSION_STATE["plan_activo"] = (plan or "pro").title()
+        return RedirectResponse(url=f"/comprobante-pago/{pago['id_transaccion']}", status_code=status.HTTP_303_SEE_OTHER)
+    
+    return RedirectResponse(url="/checkout?error=pago_no_completado", status_code=status.HTTP_303_SEE_OTHER)
+
+
+@app.post("/mercadopago/guardar-credenciales")
+async def mercadopago_guardar_credenciales(
+    access_token: str = Form(...),
+    public_key: str = Form("")
+):
+    """Guarda las credenciales de Mercado Pago en archivo seguro."""
+    guardar_config_mercadopago(access_token, public_key)
+    return RedirectResponse(url="/mercadopago/demo-checkout?config_guardada=1", status_code=status.HTTP_303_SEE_OTHER)
 
 
 @app.get("/dashboard", response_class=HTMLResponse)

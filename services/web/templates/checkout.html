@@ -70,10 +70,34 @@
             <div class="lg:col-span-7 bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50 animate-pop">
                 
                 <!-- Selector de Metodo de Pago -->
-                <div class="flex items-center justify-between pb-4 mb-6 border-b border-slate-100">
+                <div class="flex items-center justify-between pb-4 mb-5 border-b border-slate-100">
                     <h2 class="text-base font-black text-navy-900">Metodo de Pago</h2>
                     <div class="flex items-center gap-2">
                         <span class="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-0.5 rounded">PCI-DSS Level 1</span>
+                    </div>
+                </div>
+
+                <!-- Boton Mercado Pago Oficial Directo -->
+                <div class="mb-6">
+                    <a href="/mercadopago/iniciar?plan={{ plan_seleccionado or 'pro' }}" id="btnPagarMercadoPago" class="w-full p-4 rounded-2xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white font-black text-sm flex items-center justify-between shadow-lg shadow-sky-500/25 transition group">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-xl bg-white text-blue-600 font-black text-xs flex items-center justify-center shadow-xs">
+                                MP
+                            </div>
+                            <div class="text-left">
+                                <div class="text-sm font-black leading-none">Pagar con Mercado Pago</div>
+                                <div class="text-[10px] text-sky-100 mt-1">Tarjeta, Transferencia SPEI o Efectivo en OXXO</div>
+                            </div>
+                        </div>
+                        <span class="text-xs font-black bg-white/20 px-3 py-1.5 rounded-xl group-hover:translate-x-1 transition">
+                            Ir a Mercado Pago &rarr;
+                        </span>
+                    </a>
+
+                    <div class="flex items-center my-6">
+                        <div class="flex-grow border-t border-slate-200"></div>
+                        <span class="flex-shrink mx-4 text-xs font-bold text-slate-400 uppercase">O paga con tarjeta directa</span>
+                        <div class="flex-grow border-t border-slate-200"></div>
                     </div>
                 </div>
 
@@ -298,6 +322,11 @@
             document.getElementById('costoIva').innerText = '$' + iva.toFixed(2) + ' MXN';
             document.getElementById('costoTotal').innerText = '$' + info.total.toFixed(2);
             document.getElementById('btnTextoPagar').innerText = 'Pagar $' + info.total.toFixed(2) + ' MXN y Activar Suscripcion';
+            
+            const btnMP = document.getElementById('btnPagarMercadoPago');
+            if (btnMP) {
+                btnMP.href = '/mercadopago/iniciar?plan=' + plan;
+            }
         }
 
         // Formateador y Preview de Tarjeta

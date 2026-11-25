@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mercado Pago · Checkout Oficial FitPulse Analytics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+                    colors: {
+                        mp: { 500: '#009ee3', 600: '#0081bb', 700: '#006491' },
+                        navy: { 900: '#0f172a' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-100 text-slate-800 antialiased font-sans min-h-screen py-8 px-4 flex flex-col justify-between">
+
+    <!-- HEADER MERCADO PAGO -->
+    <header class="max-w-xl mx-auto w-full mb-6">
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+                <!-- Logo estilizado Mercado Pago -->
+                <div class="w-8 h-8 rounded-xl bg-mp-500 text-white font-black text-xs flex items-center justify-center shadow-xs">
+                    MP
+                </div>
+                <div>
+                    <span class="font-extrabold text-navy-900 text-sm tracking-tight leading-none block">Mercado Pago</span>
+                    <span class="text-[9px] font-bold text-mp-600 uppercase tracking-wider block">Checkout Pro Oficial</span>
+                </div>
+            </div>
+            <a href="/checkout" class="text-xs font-bold text-slate-400 hover:text-slate-600 transition">
+                Cancelar
+            </a>
+        </div>
+    </header>
+
+    <!-- VENTANA PRINCIPAL DE PAGO -->
+    <main class="max-w-xl mx-auto w-full bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
+        
+        <!-- Franja de Resumen del Cobro -->
+        <div class="bg-gradient-to-r from-mp-500 to-sky-600 p-6 text-white">
+            <div class="flex justify-between items-start">
+                <div>
+                    <span class="text-[10px] uppercase font-black tracking-widest bg-white/20 px-2 py-0.5 rounded text-white inline-block mb-1">
+                        FitPulse Analytics SaaS
+                    </span>
+                    <h1 class="text-xl font-black">{{ info_plan.nombre }}</h1>
+                    <p class="text-xs text-white/80 mt-0.5">Suscripcion mensual para {{ usuario.nombre_gym }}</p>
+                </div>
+                <div class="text-right">
+                    <span class="text-2xl font-black">${{ "%.2f"|format(info_plan.precio) }}</span>
+                    <span class="text-[10px] font-bold block text-white/80">MXN</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-6 sm:p-8 space-y-6">
+
+            <!-- Opciones de Pago Mercado Pago -->
+            <div>
+                <label class="block text-xs font-extrabold text-slate-700 uppercase tracking-wider mb-3">
+                    ¿Como quieres pagar?
+                </label>
+
+                <div class="space-y-2.5">
+                    
+                    <!-- Opcion 1: Tarjeta -->
+                    <label class="flex items-center justify-between p-3.5 rounded-2xl border-2 border-mp-500 bg-sky-50/50 cursor-pointer transition">
+                        <div class="flex items-center gap-3">
+                            <input type="radio" name="metodo_mp" value="tarjeta" checked class="text-mp-500 focus:ring-mp-500">
+                            <div>
+                                <strong class="text-xs font-black text-navy-900 block">Nueva Tarjeta de Debito o Credito</strong>
+                                <span class="text-[11px] text-slate-500">Visa, Mastercard, Carnet o AMEX (Hasta 12 meses)</span>
+                            </div>
+                        </div>
+                        <div class="flex gap-1">
+                            <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-white border border-slate-200">VISA</span>
+                            <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-white border border-slate-200">MC</span>
+                        </div>
+                    </label>
+
+                    <!-- Opcion 2: Transferencia SPEI -->
+                    <label class="flex items-center justify-between p-3.5 rounded-2xl border border-slate-200 hover:border-slate-300 cursor-pointer transition">
+                        <div class="flex items-center gap-3">
+                            <input type="radio" name="metodo_mp" value="spei" class="text-mp-500 focus:ring-mp-500">
+                            <div>
+                                <strong class="text-xs font-black text-navy-900 block">Transferencia SPEI (Sin Comision)</strong>
+                                <span class="text-[11px] text-slate-500">Acreditacion inmediata vía banca movil de cualquier banco</span>
+                            </div>
+                        </div>
+                        <span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">Inmediato</span>
+                    </label>
+
+                    <!-- Opcion 3: Efectivo OXXO -->
+                    <label class="flex items-center justify-between p-3.5 rounded-2xl border border-slate-200 hover:border-slate-300 cursor-pointer transition">
+                        <div class="flex items-center gap-3">
+                            <input type="radio" name="metodo_mp" value="oxxo" class="text-mp-500 focus:ring-mp-500">
+                            <div>
+                                <strong class="text-xs font-black text-navy-900 block">Efectivo en OXXO / 7-Eleven</strong>
+                                <span class="text-[11px] text-slate-500">Genera tu codigo de barras o referencia de 14 digitos</span>
+                            </div>
+                        </div>
+                        <span class="text-[10px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded">OXXO Pay</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Boton de Pago Inmediato con Retorno -->
+            <form action="/mercadopago/procesar-demo" method="POST" class="pt-2">
+                <input type="hidden" name="plan" value="{{ plan }}">
+                <input type="hidden" name="monto" value="{{ info_plan.precio }}">
+                
+                <button type="submit" class="w-full py-4 px-4 bg-mp-500 hover:bg-mp-600 active:scale-[0.98] text-white font-black text-sm rounded-2xl shadow-xl shadow-mp-500/30 transition flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span>Pagar con Mercado Pago (${{ "%.2f"|format(info_plan.precio) }} MXN)</span>
+                </button>
+            </form>
+
+            <!-- SECCION DE CONFIGURACION: VINCULA TU CUENTA REAL DE MERCADO PAGO -->
+            <div class="mt-6 pt-6 border-t border-slate-200">
+                <button type="button" onclick="toggleConfigMP()" class="w-full flex items-center justify-between text-xs font-bold text-slate-600 hover:text-navy-900 transition">
+                    <div class="flex items-center gap-2">
+                        <svg class="w-4 h-4 text-mp-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        <span>Conectar mis Llaves Reales de Mercado Pago</span>
+                    </div>
+                    <span id="chevronConfig" class="text-slate-400">▼</span>
+                </button>
+
+                <div id="panelConfigMP" class="hidden mt-4 p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs space-y-3">
+                    <p class="text-slate-500 leading-relaxed">
+                        Obten tu <strong>Access Token</strong> (Prueba o Produccion) en <a href="https://www.mercadopago.com.mx/developers" target="_blank" class="text-mp-600 underline font-bold">mercadopago.com.mx/developers</a> y pegalo aqui para que los pagos entren directo a tu cuenta:
+                    </p>
+
+                    <form action="/mercadopago/guardar-credenciales" method="POST" class="space-y-3">
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Access Token (TEST-... o APP_USR-...)</label>
+                            <input type="text" name="access_token" value="{{ config_mp.access_token }}" placeholder="TEST-xxxxxxxxxxxxxxxx-xxxxxx..." class="w-full px-3 py-2 rounded-xl border border-slate-300 font-mono text-xs outline-none focus:ring-1 focus:ring-mp-500">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Public Key (Opcional)</label>
+                            <input type="text" name="public_key" value="{{ config_mp.public_key }}" placeholder="TEST-xxxxxxxx-xxxx..." class="w-full px-3 py-2 rounded-xl border border-slate-300 font-mono text-xs outline-none focus:ring-1 focus:ring-mp-500">
+                        </div>
+                        <button type="submit" class="w-full py-2 bg-navy-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs transition">
+                            Guardar Credenciales de Mercado Pago
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer class="py-6 text-center text-xs text-slate-400">
+        FitPulse Analytics · Pasarela Integrada con Mercado Pago Mexico
+    </footer>
+
+    <script>
+        function toggleConfigMP() {
+            const p = document.getElementById('panelConfigMP');
+            const c = document.getElementById('chevronConfig');
+            if (p.classList.contains('hidden')) {
+                p.classList.remove('hidden');
+                c.innerText = '▲';
+            } else {
+                p.classList.add('hidden');
+                c.innerText = '▼';
+            }
+        }
+    </script>
+</body>
+</html>
