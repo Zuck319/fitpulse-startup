@@ -22,6 +22,17 @@ import numpy as np
 import qrcode
 import urllib.parse
 
+from services.web.database import (
+    registrar_usuario,
+    autenticar_usuario,
+    crear_sesion,
+    obtener_usuario_por_sesion,
+    cerrar_sesion,
+    registrar_pago,
+    obtener_pagos_usuario,
+    obtener_pago_por_id
+)
+
 # Rutas del proyecto
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_PATH = os.path.join(BASE_DIR, "..", "..", "data", "sample", "accesos_gimnasio_clean.csv")
@@ -58,6 +69,25 @@ SESSION_STATE = {
 GESTION_SOCIOS_CRM = {
     "SOC-0042": {"estado": "Contactado", "canal": "WhatsApp", "notas": "Enviada rutina express de reactivacion", "fecha": "2026-11-19 18:30"}
 }
+
+
+def obtener_usuario_actual(request: Request) -> dict:
+    """Obtiene el usuario autenticado desde la cookie de sesion o retorna la cuenta por defecto."""
+    token = request.cookies.get("fitpulse_session")
+    if token:
+        user = obtener_usuario_por_sesion(token)
+        if user:
+            return user
+    return {
+        "id": 1,
+        "email": SESSION_STATE.get("email", "espinosadylan616@gmail.com"),
+        "nombre_dueno": SESSION_STATE.get("nombre_usuario", "Dylan Espinosa"),
+        "nombre_gym": SESSION_STATE.get("nombre_gym", "Titan Fitness Center"),
+        "plan_activo": SESSION_STATE.get("plan_activo", "Pro"),
+        "estado_pago": "Activo",
+        "num_sucursales": 2
+    }
+
 
 # --------------------------------------------------------------------------
 # CARGA Y CACHE DE DATOS
@@ -163,13 +193,14 @@ async def landing_page(request: Request):
 
 
 @app.get("/registro", response_class=HTMLResponse)
-async def registro_page(request: Request, plan: Optional[str] = "pro"):
-    """Página de registro con selección de plan."""
+async def registro_page(request: Request, plan: Optional[str] = "pro", error: Optional[str] = None):
+    """Pagina de registro con seleccion de plan."""
     return templates.TemplateResponse(
         request=request,
         name="registro.html",
         context={
-            "plan_seleccionado": plan.lower(),
+            "plan_seleccionado": plan.lower() if plan else "pro",
+            "error": error,
             "contacto": {
                 "telefono": "+52 312 190 0195",
                 "correo": "espinosadylan616@gmail.com"
@@ -187,24 +218,48 @@ async def procesar_registro(
     num_sucursales: int = Form(1),
     plan_elegido: str = Form("pro")
 ):
-    """Procesa el registro del usuario y lo redirige al checkout o dashboard."""
-    SESSION_STATE["nombre_gym"] = nombre_gym
-    SESSION_STATE["nombre_usuario"] = nombre_dueno
-    SESSION_STATE["email"] = email
-    SESSION_STATE["plan_activo"] = plan_elegido.title()
-    SESSION_STATE["usuario_autenticado"] = True
+    """Procesa el registro del usuario en SQLite y redirige a la pasarela de pago."""
+    usuario = registrar_usuario(
+        email=email,
+        password=password,
+        nombre_dueno=nombre_dueno,
+        nombre_gym=nombre_gym,
+        num_sucursales=num_sucursales,
+        plan=plan_elegido
+    )
     
-    # Redirigir directamente al panel de control activo
-    return RedirectResponse(url="/dashboard?registro_exitoso=1", status_code=status.HTTP_303_SEE_OTHER)
+    if not usuario:
+        # El correo ya existe; verificar credenciales
+        usuario = autenticar_usuario(email, password)
+        if not usuario:
+            return RedirectResponse(
+                url="/login?error=El+correo+ya+esta+registrado.+Inicia+sesion+con+tu+contraseña.",
+                status_code=status.HTTP_303_SEE_OTHER
+            )
+
+    token = crear_sesion(usuario["id"])
+    SESSION_STATE["nombre_gym"] = usuario["nombre_gym"]
+    SESSION_STATE["nombre_usuario"] = usuario["nombre_dueno"]
+    SESSION_STATE["email"] = usuario["email"]
+    SESSION_STATE["plan_activo"] = usuario["plan_activo"]
+    SESSION_STATE["usuario_autenticado"] = True
+
+    response = RedirectResponse(
+        url=f"/checkout?plan={plan_elegido.lower()}&nuevo_registro=1",
+        status_code=status.HTTP_303_SEE_OTHER
+    )
+    response.set_cookie(key="fitpulse_session", value=token, httponly=True, max_age=86400 * 30, path="/")
+    return response
 
 
 @app.get("/login", response_class=HTMLResponse)
-async def login_page(request: Request):
-    """Página de inicio de sesión."""
+async def login_page(request: Request, error: Optional[str] = None):
+    """Pagina de inicio de sesion."""
     return templates.TemplateResponse(
         request=request,
         name="login.html",
         context={
+            "error": error,
             "contacto": {
                 "telefono": "+52 312 190 0195",
                 "correo": "espinosadylan616@gmail.com"
@@ -215,24 +270,148 @@ async def login_page(request: Request):
 
 @app.post("/login")
 async def procesar_login(
+    request: Request,
     email: str = Form(...),
     password: str = Form(...)
 ):
-    """Autentica al usuario."""
-    SESSION_STATE["usuario_autenticado"] = True
-    SESSION_STATE["email"] = email
-    return RedirectResponse(url="/dashboard", status_code=status.HTTP_303_SEE_OTHER)
+    """Autentica al usuario contra la base de datos SQLite."""
+    usuario = autenticar_usuario(email, password)
+    if usuario:
+        token = crear_sesion(usuario["id"])
+        SESSION_STATE["usuario_autenticado"] = True
+        SESSION_STATE["email"] = usuario["email"]
+        SESSION_STATE["nombre_usuario"] = usuario["nombre_dueno"]
+        SESSION_STATE["nombre_gym"] = usuario["nombre_gym"]
+        SESSION_STATE["plan_activo"] = usuario["plan_activo"]
+        
+        response = RedirectResponse(url="/dashboard", status_code=status.HTTP_303_SEE_OTHER)
+        response.set_cookie(key="fitpulse_session", value=token, httponly=True, max_age=86400 * 30, path="/")
+        return response
+    
+    return templates.TemplateResponse(
+        request=request,
+        name="login.html",
+        context={
+            "error": "Correo o contraseña incorrectos. Verifica tus datos o ingresa con la cuenta demo.",
+            "contacto": {
+                "telefono": "+52 312 190 0195",
+                "correo": "espinosadylan616@gmail.com"
+            }
+        },
+        status_code=status.HTTP_401_UNAUTHORIZED
+    )
 
 
 @app.get("/logout")
-async def logout():
+async def logout(request: Request):
+    token = request.cookies.get("fitpulse_session")
+    if token:
+        cerrar_sesion(token)
     SESSION_STATE["usuario_autenticado"] = False
-    return RedirectResponse(url="/login", status_code=status.HTTP_303_SEE_OTHER)
+    response = RedirectResponse(url="/login", status_code=status.HTTP_303_SEE_OTHER)
+    response.delete_cookie(key="fitpulse_session", path="/")
+    return response
+
+
+@app.get("/checkout", response_class=HTMLResponse)
+async def checkout_page(request: Request, plan: Optional[str] = "pro"):
+    """Pasarela de pago para planes de suscripcion."""
+    usuario = obtener_usuario_actual(request)
+    return templates.TemplateResponse(
+        request=request,
+        name="checkout.html",
+        context={
+            "usuario": usuario,
+            "plan_seleccionado": plan.lower() if plan else "pro"
+        }
+    )
+
+
+@app.post("/procesar-pago")
+async def procesar_pago(
+    request: Request,
+    plan_elegido: str = Form(...),
+    numero_tarjeta: str = Form(...),
+    titular_tarjeta: str = Form(...),
+    expiracion: str = Form(...),
+    cvc: str = Form(...)
+):
+    """Procesa el pago de suscripcion y activa el plan en la base de datos."""
+    usuario = obtener_usuario_actual(request)
+    
+    plan_clean = plan_elegido.lower()
+    precios_plan = {
+        "basico": 499.00,
+        "pro": 899.00,
+        "premium": 1499.00
+    }
+    monto_total = precios_plan.get(plan_clean, 899.00)
+
+    num_limpio = re.sub(r"\D", "", numero_tarjeta)
+    ultimos_4 = num_limpio[-4:] if len(num_limpio) >= 4 else "4242"
+    
+    marca = "Visa"
+    if num_limpio.startswith("5"):
+        marca = "Mastercard"
+    elif num_limpio.startswith("3"):
+        marca = "American Express"
+
+    pago = registrar_pago(
+        usuario_id=usuario["id"],
+        plan=plan_clean,
+        monto_total=monto_total,
+        metodo_pago="Tarjeta de Credito / Debito",
+        marca_tarjeta=marca,
+        ultimos_4=ultimos_4,
+        titular=titular_tarjeta.strip()
+    )
+
+    SESSION_STATE["plan_activo"] = plan_clean.title()
+    return RedirectResponse(
+        url=f"/comprobante-pago/{pago['id_transaccion']}",
+        status_code=status.HTTP_303_SEE_OTHER
+    )
+
+
+@app.get("/comprobante-pago/{id_transaccion}", response_class=HTMLResponse)
+async def comprobante_pago_page(request: Request, id_transaccion: str):
+    """Visualiza el recibo fiscal y comprobante oficial de pago."""
+    pago = obtener_pago_por_id(id_transaccion)
+    if not pago:
+        return RedirectResponse(url="/dashboard", status_code=status.HTTP_303_SEE_OTHER)
+        
+    return templates.TemplateResponse(
+        request=request,
+        name="comprobante_pago.html",
+        context={"pago": pago}
+    )
+
+
+@app.get("/api/historial-pagos")
+async def api_historial_pagos(request: Request):
+    """Retorna el historial de pagos del usuario autenticado."""
+    usuario = obtener_usuario_actual(request)
+    pagos = obtener_pagos_usuario(usuario["id"])
+    return {"status": "ok", "pagos": pagos}
 
 
 @app.get("/dashboard", response_class=HTMLResponse)
 async def dashboard_page(request: Request):
     """Panel de control principal completo (No Streamlit, Web nativa)."""
+    usuario = obtener_usuario_actual(request)
+    session_data = {
+        "usuario_autenticado": True,
+        "nombre_usuario": usuario.get("nombre_dueno", "Dylan Espinosa"),
+        "nombre_gym": usuario.get("nombre_gym", "Titan Fitness Center"),
+        "plan_activo": usuario.get("plan_activo", "Pro"),
+        "email": usuario.get("email", "espinosadylan616@gmail.com"),
+        "estado_pago": usuario.get("estado_pago", "Activo"),
+        "logo_url": SESSION_STATE.get("logo_url"),
+        "sucursal_activa": SESSION_STATE.get("sucursal_activa", "Todas las sucursales (Consolidado)"),
+        "custom_data_loaded": SESSION_STATE.get("custom_data_loaded", False),
+        "custom_data_name": SESSION_STATE.get("custom_data_name")
+    }
+    
     df = obtener_dataframe_limpio()
     
     sucursales = ["Todas las sucursales (Consolidado)"]
@@ -243,7 +422,7 @@ async def dashboard_page(request: Request):
         request=request,
         name="dashboard.html",
         context={
-            "session": SESSION_STATE,
+            "session": session_data,
             "sucursales": sucursales,
             "contacto": {
                 "telefono": "+52 312 190 0195",

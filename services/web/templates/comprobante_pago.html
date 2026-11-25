@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprobante de Pago · FitPulse Analytics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace']
+                    },
+                    colors: {
+                        brand: { 50: '#f0fdf4', 100: '#dcfce7', 600: '#16a34a', 700: '#15803d' },
+                        navy: { 900: '#0f172a' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @media print {
+            body { background: white !important; padding: 0 !important; }
+            .no-print { display: none !important; }
+            .print-shadow { box-shadow: none !important; border: 1px solid #e2e8f0 !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 antialiased font-sans min-h-screen py-10 px-4 flex flex-col justify-between">
+
+    <!-- BARRA SUPERIOR DE ACCIONES (NO PRINT) -->
+    <div class="max-w-2xl mx-auto w-full mb-6 flex justify-between items-center no-print">
+        <a href="/dashboard" class="inline-flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-navy-900 transition bg-white px-3.5 py-2 rounded-xl border border-slate-200 shadow-xs">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+            <span>Regresar al Dashboard</span>
+        </a>
+        <button onclick="window.print()" class="inline-flex items-center gap-2 text-xs font-black text-white bg-navy-900 hover:bg-brand-600 transition px-4 py-2 rounded-xl shadow-md">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+            <span>Imprimir / Guardar PDF</span>
+        </button>
+    </div>
+
+    <!-- DOCUMENTO DEL RECIBO FISCAL -->
+    <main class="max-w-2xl mx-auto w-full bg-white rounded-3xl border border-slate-200 shadow-xl p-8 sm:p-10 print-shadow relative">
+        
+        <!-- Sello de Aprobacion -->
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-6 mb-6 border-b border-slate-200 gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-2xl bg-brand-600 text-white font-black text-lg flex items-center justify-center shadow-md shadow-brand-600/30">
+                    FP
+                </div>
+                <div>
+                    <h1 class="text-xl font-black text-navy-900 tracking-tight leading-none">FitPulse Analytics</h1>
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mt-1">Comprobante de Suscripcion Digital</span>
+                </div>
+            </div>
+            <div class="text-left sm:text-right">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-emerald-100 text-emerald-800 border border-emerald-200 uppercase tracking-wider">
+                    <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+                    <span>Pago Aprobado</span>
+                </span>
+                <div class="text-[11px] font-mono text-slate-400 mt-1.5">ID: {{ pago.id_transaccion }}</div>
+            </div>
+        </div>
+
+        <!-- Ficha de Datos Generales -->
+        <div class="grid grid-cols-2 gap-4 text-xs mb-6 p-4 rounded-2xl bg-slate-50 border border-slate-200/80">
+            <div>
+                <span class="text-[10px] uppercase font-bold text-slate-400 block mb-0.5">Cliente / Gimnasio:</span>
+                <strong class="text-navy-900 text-sm block">{{ pago.nombre_gym }}</strong>
+                <span class="text-slate-500">Titular: {{ pago.nombre_dueno or pago.titular }}</span><br>
+                <span class="text-slate-500">Correo: {{ pago.email }}</span>
+            </div>
+            <div class="text-right">
+                <span class="text-[10px] uppercase font-bold text-slate-400 block mb-0.5">Detalles de Emision:</span>
+                <span class="text-slate-700 block"><strong>Fecha:</strong> {{ pago.fecha }}</span>
+                <span class="text-slate-700 block"><strong>Folio Fiscal:</strong> {{ pago.folio_fiscal }}</span>
+                <span class="text-slate-700 block"><strong>Metodo:</strong> {{ pago.metodo_pago }} ({{ pago.marca_tarjeta }} •••• {{ pago.ultimos_4 }})</span>
+            </div>
+        </div>
+
+        <!-- Tabla de Conceptos -->
+        <table class="w-full text-xs text-left mb-6">
+            <thead>
+                <tr class="border-b border-slate-200 text-slate-400 uppercase text-[10px] font-bold">
+                    <th class="py-2.5">Concepto</th>
+                    <th class="py-2.5 text-center">Periodo</th>
+                    <th class="py-2.5 text-right">Importe</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+                <tr>
+                    <td class="py-3">
+                        <strong class="text-navy-900 block text-xs">Suscripcion Mensual · Plan {{ pago.plan }}</strong>
+                        <span class="text-[11px] text-slate-500">Acceso multiusuario, torniquete QR, prediccion SARIMA y radar de cancelaciones.</span>
+                    </td>
+                    <td class="py-3 text-center text-slate-600 font-mono text-[11px]">30 dias</td>
+                    <td class="py-3 text-right font-mono font-bold text-navy-900">${{ "%.2f"|format(pago.monto_subtotal) }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Desglose Final -->
+        <div class="flex justify-end mb-8">
+            <div class="w-64 space-y-2 text-xs">
+                <div class="flex justify-between text-slate-600">
+                    <span>Subtotal:</span>
+                    <span class="font-mono font-bold">${{ "%.2f"|format(pago.monto_subtotal) }} MXN</span>
+                </div>
+                <div class="flex justify-between text-slate-600">
+                    <span>I.V.A. Trasladado (16%):</span>
+                    <span class="font-mono font-bold">${{ "%.2f"|format(pago.monto_iva) }} MXN</span>
+                </div>
+                <div class="flex justify-between pt-2 border-t border-slate-200 text-sm font-black text-navy-900">
+                    <span>Total Pagado:</span>
+                    <span class="font-mono text-brand-700 text-base">${{ "%.2f"|format(pago.monto_total) }} MXN</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pie Institucional -->
+        <div class="pt-6 border-t border-slate-200 text-[10px] text-slate-400 flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div>
+                FitPulse Cloud Services · RFC: FPA261012-9A4 · Cómputo en la Nube TecNM
+            </div>
+            <div class="font-mono">
+                CADENA ORIGINAL: |FP|{{ pago.id_transaccion }}|{{ pago.fecha }}|{{ pago.monto_total }}|
+            </div>
+        </div>
+    </main>
+
+    <footer class="py-6 text-center text-xs text-slate-400 no-print">
+        FitPulse Analytics · Comprobante Generado Automaticamente
+    </footer>
+
+</body>
+</html>

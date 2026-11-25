@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pasarela de Pago Segura · FitPulse Analytics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+                    colors: {
+                        brand: { 50: '#f0fdf4', 100: '#dcfce7', 500: '#22c55e', 600: '#16a34a', 700: '#15803d' },
+                        navy: { 900: '#0f172a', 950: '#020617' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes popIn {
+            0% { transform: scale(0.97); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .animate-pop {
+            animation: popIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased font-sans min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white">
+
+    <!-- NAVBAR SIMPLE -->
+    <header class="bg-white border-b border-slate-200 py-4 sticky top-0 z-30 shadow-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <a href="/" class="flex items-center gap-3 transition hover:opacity-90">
+                <div class="w-9 h-9 rounded-xl bg-brand-600 flex items-center justify-center text-white font-black text-sm shadow-md shadow-brand-600/30">
+                    FP
+                </div>
+                <div>
+                    <span class="text-xl font-black text-navy-900 tracking-tight leading-none block">FitPulse</span>
+                    <span class="text-[9px] font-bold text-brand-600 uppercase tracking-widest block mt-0.5">Checkout Seguro SSL</span>
+                </div>
+            </a>
+            <div class="flex items-center gap-2 text-xs font-semibold text-slate-600">
+                <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                <span>Cifrado de 256 bits</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENEDOR PRINCIPAL DE CHECKOUT -->
+    <main class="py-10 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto w-full relative">
+        <div class="absolute top-10 left-1/2 -translate-x-1/2 w-96 h-96 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="mb-8 text-center sm:text-left">
+            <div class="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full text-[11px] font-black text-emerald-700 uppercase tracking-wider mb-2">
+                <span>Pasarela de Pago Oficial</span>
+                <span>•</span>
+                <span>Activacion en Tiempo Real</span>
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-black text-navy-900 tracking-tight">Finalizar Suscripcion de tu Gimnasio</h1>
+            <p class="text-slate-500 text-xs sm:text-sm mt-1">Configura tu plan comercial y obtén acceso total a modelos predictivos y CRM.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start relative z-10">
+
+            <!-- COLUMNA IZQUIERDA: FORMULARIO DE PAGO (7 COLS) -->
+            <div class="lg:col-span-7 bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50 animate-pop">
+                
+                <!-- Selector de Metodo de Pago -->
+                <div class="flex items-center justify-between pb-4 mb-6 border-b border-slate-100">
+                    <h2 class="text-base font-black text-navy-900">Metodo de Pago</h2>
+                    <div class="flex items-center gap-2">
+                        <span class="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-0.5 rounded">PCI-DSS Level 1</span>
+                    </div>
+                </div>
+
+                <!-- Boton Magico Sandbox para Evaluacion / Demo -->
+                <div class="mb-6 p-4 rounded-2xl bg-amber-50 border border-amber-200/80 flex items-center justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-xl bg-amber-200/70 text-amber-800 flex items-center justify-center font-black text-xs shrink-0">
+                            TEST
+                        </div>
+                        <div>
+                            <div class="text-xs font-black text-amber-950">Modo Sandbox de Demostracion</div>
+                            <div class="text-[11px] text-amber-800">Usa tarjetas de prueba autorizadas sin cargo real a cuenta bancaria.</div>
+                        </div>
+                    </div>
+                    <button type="button" onclick="llenarTarjetaPrueba()" class="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 active:scale-95 text-white font-extrabold text-[11px] rounded-xl transition shadow-xs shrink-0">
+                        Autocompletar Prueba
+                    </button>
+                </div>
+
+                <!-- Tarjeta Visual Interactiva -->
+                <div class="mb-6 p-5 sm:p-6 rounded-2xl bg-gradient-to-tr from-navy-950 via-slate-900 to-indigo-950 text-white shadow-xl relative overflow-hidden border border-slate-700/60">
+                    <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-brand-500/10 rounded-full blur-2xl"></div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="text-[10px] tracking-widest font-mono text-slate-400 uppercase">FitPulse Business Card</div>
+                        <div id="cardBrandIcon" class="text-sm font-black text-slate-200 tracking-wider">VISA</div>
+                    </div>
+                    <div id="previewCardNumber" class="font-mono text-lg sm:text-xl font-bold tracking-widest text-slate-100 mb-6">
+                        •••• •••• •••• ••••
+                    </div>
+                    <div class="flex justify-between items-end text-xs">
+                        <div>
+                            <div class="text-[9px] uppercase tracking-wider text-slate-400">Titular de la Cuenta</div>
+                            <div id="previewCardHolder" class="font-bold text-slate-200 uppercase truncate max-w-[180px]">
+                                {{ usuario.nombre_dueno if usuario else 'Carlos Mendoza' }}
+                            </div>
+                        </div>
+                        <div>
+                            <div class="text-[9px] uppercase tracking-wider text-slate-400 text-right">Vence</div>
+                            <div id="previewCardExpiry" class="font-mono font-bold text-slate-200">MM/AA</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulario de Tarjeta -->
+                <form action="/procesar-pago" method="POST" id="formPago" class="space-y-4">
+                    <input type="hidden" name="plan_elegido" id="inputPlanElegidoCheckout" value="{{ plan_seleccionado or 'pro' }}">
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                            Numero de Tarjeta (Debito o Credito)
+                        </label>
+                        <div class="relative">
+                            <input type="text" id="inputCardNumber" name="numero_tarjeta" required maxlength="19" placeholder="4242 4242 4242 4242" class="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 font-mono text-sm font-semibold outline-none transition">
+                            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                            Nombre del Titular (Como aparece en el plastico)
+                        </label>
+                        <input type="text" id="inputCardHolder" name="titular_tarjeta" required placeholder="Nombre Apellido" value="{{ usuario.nombre_dueno if usuario else 'Carlos Mendoza' }}" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm font-semibold outline-none transition uppercase">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                                Fecha de Expiracion
+                            </label>
+                            <input type="text" id="inputCardExpiry" name="expiracion" required maxlength="5" placeholder="MM/AA" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 font-mono text-sm font-semibold outline-none transition text-center">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                                Codigo de Seguridad (CVC)
+                            </label>
+                            <div class="relative">
+                                <input type="password" id="inputCardCvc" name="cvc" required maxlength="4" placeholder="123" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 font-mono text-sm font-semibold outline-none transition text-center">
+                                <span class="absolute right-3 top-3.5 text-[10px] text-slate-400 font-bold">3 digitos</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-4">
+                        <button type="submit" id="btnSubmitPago" class="w-full py-4 px-4 bg-brand-600 hover:bg-brand-500 active:scale-[0.98] text-white font-black text-sm rounded-2xl shadow-xl shadow-brand-600/30 transition flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                            <span id="btnTextoPagar">Pagar $899.00 MXN y Activar Suscripcion</span>
+                        </button>
+                    </div>
+
+                    <p class="text-[11px] text-slate-400 text-center leading-relaxed">
+                        Al presionar el boton, aceptas los terminos de suscripcion recurrente mensual. Puedes cancelar en cualquier momento desde tu panel de control con 1 solo clic.
+                    </p>
+                </form>
+            </div>
+
+            <!-- COLUMNA DERECHA: RESUMEN DE LA ORDEN (5 COLS) -->
+            <div class="lg:col-span-5 space-y-6">
+                
+                <!-- Resumen de Costos -->
+                <div class="bg-white p-6 sm:p-7 rounded-3xl border border-slate-200 shadow-lg">
+                    <div class="flex justify-between items-center pb-4 mb-4 border-b border-slate-100">
+                        <h2 class="text-sm font-black text-navy-900 uppercase tracking-wider">Resumen de la Orden</h2>
+                        <span id="labelFrecuencia" class="text-[10px] font-extrabold text-brand-700 bg-brand-50 px-2 py-0.5 rounded border border-brand-200">Facturacion Mensual</span>
+                    </div>
+
+                    <!-- Selector Rapido de Plan si quiere cambiar -->
+                    <div class="mb-5">
+                        <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Cambiar Plan:</label>
+                        <div class="grid grid-cols-3 gap-2">
+                            <button type="button" onclick="cambiarPlanCheckout('basico', 499)" id="btnSelectBasico" class="py-2 px-1 text-center rounded-xl border text-xs font-bold transition border-slate-200 text-slate-600 hover:border-brand-500">
+                                Basico<br><span class="text-[10px] text-slate-400">$499</span>
+                            </button>
+                            <button type="button" onclick="cambiarPlanCheckout('pro', 899)" id="btnSelectPro" class="py-2 px-1 text-center rounded-xl border-2 text-xs font-black transition border-brand-600 bg-brand-50 text-brand-700 shadow-xs">
+                                Pro<br><span class="text-[10px] text-brand-600 font-bold">$899</span>
+                            </button>
+                            <button type="button" onclick="cambiarPlanCheckout('premium', 1499)" id="btnSelectPremium" class="py-2 px-1 text-center rounded-xl border text-xs font-bold transition border-slate-200 text-slate-600 hover:border-brand-500">
+                                Premium<br><span class="text-[10px] text-slate-400">$1,499</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Ficha del Plan Seleccionado -->
+                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 mb-5">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 id="resumenNombrePlan" class="font-black text-navy-900 text-base">Plan Pro Multisede</h3>
+                                <div id="resumenDetallePlan" class="text-xs text-slate-500 mt-0.5">Hasta 5 sucursales · Check-in QR · SARIMA + Churn</div>
+                            </div>
+                            <span id="resumenPrecioBase" class="text-base font-black text-navy-900">$899.00</span>
+                        </div>
+                    </div>
+
+                    <!-- Desglose de Precios -->
+                    <div class="space-y-2.5 text-xs text-slate-600 pb-5 mb-5 border-b border-slate-100">
+                        <div class="flex justify-between">
+                            <span>Subtotal (Neto):</span>
+                            <span id="costoSubtotal" class="font-bold text-slate-800">$775.00 MXN</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>I.V.A. Trasladado (16%):</span>
+                            <span id="costoIva" class="font-bold text-slate-800">$124.00 MXN</span>
+                        </div>
+                        <div class="flex justify-between text-emerald-600 font-semibold">
+                            <span>Descuento Apertura Startup:</span>
+                            <span>$0.00 MXN</span>
+                        </div>
+                    </div>
+
+                    <!-- Total Consolidado -->
+                    <div class="flex justify-between items-baseline mb-6">
+                        <div>
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Total a Pagar</span>
+                            <span class="text-[10px] text-slate-500">Moneda Nacional (MXN)</span>
+                        </div>
+                        <div class="text-right">
+                            <span id="costoTotal" class="text-2xl font-black text-navy-900">$899.00</span>
+                            <span class="text-xs font-bold text-slate-500 ml-1">MXN</span>
+                        </div>
+                    </div>
+
+                    <!-- Garantia de Devolucion -->
+                    <div class="p-3.5 rounded-xl bg-slate-100/70 border border-slate-200 text-slate-600 flex items-start gap-2.5">
+                        <svg class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <p class="text-[11px] leading-relaxed">
+                            <strong>Garantia FinOps $0:</strong> Factura fiscal digital emitida en automatico (CFDI 4.0) y cancelacion inmediata sin penalizaciones.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Respaldo Institucional -->
+                <div class="p-4 rounded-2xl bg-white border border-slate-200 text-xs text-slate-500 flex items-center justify-between shadow-xs">
+                    <div class="flex items-center gap-2">
+                        <div class="w-6 h-6 rounded-lg bg-navy-900 text-white font-black text-[9px] flex items-center justify-center">FP</div>
+                        <span class="font-bold text-navy-900">FitPulse Cloud Services</span>
+                    </div>
+                    <span>TecNM Colima · SaaS FinOps</span>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="py-6 text-center text-xs text-slate-400 border-t border-slate-200">
+        FitPulse Analytics · Pasarela de Pagos Segura · Dylan Espinosa (25460308)
+    </footer>
+
+    <!-- SCRIPT DE INTERACTIVIDAD DE TARJETA Y SELECTOR -->
+    <script>
+        const precios = {
+            basico: { nombre: 'Plan Basico Monosede', desc: '1 sola sucursal · Afluencia y torniquetes', total: 499 },
+            pro: { nombre: 'Plan Pro Multisede', desc: 'Hasta 5 sucursales · Check-in QR · SARIMA + Churn', total: 899 },
+            premium: { nombre: 'Plan Premium Franquicias', desc: 'Sedes ilimitadas · Auditoria y API Dedicada', total: 1499 }
+        };
+
+        let planActual = "{{ plan_seleccionado or 'pro' }}";
+
+        function cambiarPlanCheckout(plan, total) {
+            planActual = plan;
+            document.getElementById('inputPlanElegidoCheckout').value = plan;
+
+            // Actualizar botones
+            ['basico', 'pro', 'premium'].forEach(p => {
+                const btn = document.getElementById('btnSelect' + p.charAt(0).toUpperCase() + p.slice(1));
+                if (p === plan) {
+                    btn.className = "py-2 px-1 text-center rounded-xl border-2 text-xs font-black transition border-brand-600 bg-brand-50 text-brand-700 shadow-xs";
+                } else {
+                    btn.className = "py-2 px-1 text-center rounded-xl border text-xs font-bold transition border-slate-200 text-slate-600 hover:border-brand-500";
+                }
+            });
+
+            // Actualizar desglose de costos
+            const info = precios[plan];
+            const subtotal = Math.round((info.total / 1.16) * 100) / 100;
+            const iva = Math.round((info.total - subtotal) * 100) / 100;
+
+            document.getElementById('resumenNombrePlan').innerText = info.nombre;
+            document.getElementById('resumenDetallePlan').innerText = info.desc;
+            document.getElementById('resumenPrecioBase').innerText = '$' + info.total.toFixed(2);
+            document.getElementById('costoSubtotal').innerText = '$' + subtotal.toFixed(2) + ' MXN';
+            document.getElementById('costoIva').innerText = '$' + iva.toFixed(2) + ' MXN';
+            document.getElementById('costoTotal').innerText = '$' + info.total.toFixed(2);
+            document.getElementById('btnTextoPagar').innerText = 'Pagar $' + info.total.toFixed(2) + ' MXN y Activar Suscripcion';
+        }
+
+        // Formateador y Preview de Tarjeta
+        const inputNum = document.getElementById('inputCardNumber');
+        const inputHolder = document.getElementById('inputCardHolder');
+        const inputExp = document.getElementById('inputCardExpiry');
+
+        inputNum.addEventListener('input', function(e) {
+            let val = e.target.value.replace(/\D/g, '').substring(0, 16);
+            let formatted = val.match(/.{1,4}/g)?.join(' ') || val;
+            e.target.value = formatted;
+            document.getElementById('previewCardNumber').innerText = formatted || '•••• •••• •••• ••••';
+
+            // Detectar marca
+            const brandIcon = document.getElementById('cardBrandIcon');
+            if (val.startsWith('4')) {
+                brandIcon.innerText = 'VISA';
+            } else if (val.startsWith('5')) {
+                brandIcon.innerText = 'MASTERCARD';
+            } else if (val.startsWith('3')) {
+                brandIcon.innerText = 'AMEX';
+            } else {
+                brandIcon.innerText = 'CARD';
+            }
+        });
+
+        inputHolder.addEventListener('input', function(e) {
+            document.getElementById('previewCardHolder').innerText = e.target.value || 'TITULAR DE LA CUENTA';
+        });
+
+        inputExp.addEventListener('input', function(e) {
+            let val = e.target.value.replace(/\D/g, '').substring(0, 4);
+            if (val.length >= 2) {
+                val = val.substring(0, 2) + '/' + val.substring(2);
+            }
+            e.target.value = val;
+            document.getElementById('previewCardExpiry').innerText = val || 'MM/AA';
+        });
+
+        // Funcion Sandbox de Autocompletar
+        function llenarTarjetaPrueba() {
+            inputNum.value = '4242 4242 4242 4242';
+            inputNum.dispatchEvent(new Event('input'));
+            
+            inputHolder.value = '{{ usuario.nombre_dueno if usuario else "CARLOS MENDOZA" }}'.toUpperCase();
+            inputHolder.dispatchEvent(new Event('input'));
+            
+            inputExp.value = '12/28';
+            inputExp.dispatchEvent(new Event('input'));
+            
+            document.getElementById('inputCardCvc').value = '789';
+        }
+
+        // Iniciar con plan correcto si se pasa por url
+        if (planActual && precios[planActual]) {
+            cambiarPlanCheckout(planActual, precios[planActual].total);
+        }
+    </script>
+</body>
+</html>
