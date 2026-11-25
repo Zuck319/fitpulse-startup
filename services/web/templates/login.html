@@ -65,7 +65,7 @@
             <form action="/login" method="POST" class="space-y-4">
                 <div>
                     <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Correo Electronico</label>
-                    <input type="email" name="email" required value="gerencia@titanfit.com" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-600 focus:border-brand-600 outline-none text-sm transition">
+                    <input type="email" name="email" required placeholder="ejemplo@tugym.com" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-600 focus:border-brand-600 outline-none text-sm transition">
                 </div>
 
                 <div>
@@ -73,7 +73,7 @@
                         <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Contraseña</label>
                         <a href="#" class="text-xs text-brand-600 hover:underline">¿Olvidaste tu contraseña?</a>
                     </div>
-                    <input type="password" name="password" required value="fitpulse123" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-600 focus:border-brand-600 outline-none text-sm transition">
+                    <input type="password" name="password" required placeholder="Tu contraseña" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-600 focus:border-brand-600 outline-none text-sm transition">
                 </div>
 
                 <button type="submit" class="w-full py-3.5 px-4 bg-brand-600 hover:bg-brand-700 text-white font-bold text-sm rounded-xl shadow-md shadow-brand-600/25 transition">
@@ -81,10 +81,8 @@
                 </button>
             </form>
 
-            <div class="mt-6 pt-6 border-t border-slate-200 text-center">
-                <a href="/dashboard" class="inline-block w-full py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs rounded-xl transition">
-                    Acceder directamente a Demo (Sin escribir contraseña)
-                </a>
+            <div class="mt-6 pt-6 border-t border-slate-200 text-center text-xs text-slate-500">
+                ¿Aun no tienes cuenta? <a href="/registro" class="text-brand-600 font-extrabold hover:underline">Comenzar Prueba Gratuita de 7 Dias</a>
             </div>
         </div>
     </main>

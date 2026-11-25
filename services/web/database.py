@@ -128,8 +128,16 @@ def init_db():
     conn.close()
 
 
-def registrar_usuario(email: str, password: str, nombre_dueno: str, nombre_gym: str, num_sucursales: int, plan: str) -> Optional[Dict[str, Any]]:
-    """Registra un nuevo usuario en la base de datos."""
+def registrar_usuario(
+    email: str,
+    password: str,
+    nombre_dueno: str,
+    nombre_gym: str,
+    num_sucursales: int,
+    plan: str,
+    estado_pago: str = "Prueba Gratuita (7 dias)"
+) -> Optional[Dict[str, Any]]:
+    """Registra un nuevo usuario en la base de datos con periodo de prueba o estado activo."""
     conn = get_connection()
     cursor = conn.cursor()
     fecha_ahora = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -138,8 +146,8 @@ def registrar_usuario(email: str, password: str, nombre_dueno: str, nombre_gym: 
     try:
         cursor.execute("""
         INSERT INTO usuarios (email, password_hash, nombre_dueno, nombre_gym, num_sucursales, plan_activo, estado_pago, fecha_registro, ultimo_acceso)
-        VALUES (?, ?, ?, ?, ?, ?, 'Pendiente', ?, ?)
-        """, (email.strip().lower(), p_hash, nombre_dueno.strip(), nombre_gym.strip(), num_sucursales, plan.title(), fecha_ahora, fecha_ahora))
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """, (email.strip().lower(), p_hash, nombre_dueno.strip(), nombre_gym.strip(), num_sucursales, plan.title(), estado_pago, fecha_ahora, fecha_ahora))
         conn.commit()
         user_id = cursor.lastrowid
         cursor.execute("SELECT * FROM usuarios WHERE id = ?", (user_id,))

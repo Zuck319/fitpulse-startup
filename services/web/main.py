@@ -249,12 +249,10 @@ async def procesar_registro(
     SESSION_STATE["nombre_usuario"] = usuario["nombre_dueno"]
     SESSION_STATE["email"] = usuario["email"]
     SESSION_STATE["plan_activo"] = usuario["plan_activo"]
-    from services.web.mercadopago_service import obtener_planes_suscripcion
-    planes_mp = obtener_planes_suscripcion()
-    url_destino_mp = planes_mp.get(plan_elegido.lower(), planes_mp["pro"])
+    SESSION_STATE["usuario_autenticado"] = True
 
     response = RedirectResponse(
-        url=url_destino_mp,
+        url="/dashboard?trial_activo=1",
         status_code=status.HTTP_303_SEE_OTHER
     )
     response.set_cookie(key="fitpulse_session", value=token, httponly=True, max_age=86400 * 30, path="/")

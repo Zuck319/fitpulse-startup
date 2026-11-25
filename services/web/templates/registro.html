@@ -64,11 +64,11 @@
         <div class="bg-white p-7 sm:p-10 rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/60 relative z-10 animate-pop">
             
             <div class="text-center mb-7">
-                <span class="text-[10px] font-extrabold text-brand-700 bg-brand-50 px-3 py-1 rounded-full border border-brand-200 uppercase tracking-wider inline-block mb-2">
-                    Activacion Inmediata de Gimnasio
+                <span class="text-[10px] font-extrabold text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-300 uppercase tracking-wider inline-block mb-2">
+                    Prueba Gratuita de 7 Dias · $0 MXN
                 </span>
                 <h1 class="text-2xl sm:text-3xl font-black text-navy-900 tracking-tight">Crea la Cuenta de tu Gimnasio</h1>
-                <p class="text-slate-500 text-xs sm:text-sm mt-1">Configura tu acceso a la analitica en 2 minutos sin costo inicial.</p>
+                <p class="text-slate-500 text-xs sm:text-sm mt-1">Prueba la plataforma 7 dias sin costo. Si te gusta, activas tu suscripcion despues.</p>
             </div>
 
             <form action="/registro" method="POST" class="space-y-5" id="formRegistro">
@@ -76,7 +76,7 @@
                     <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                         Nombre del Gimnasio o Estudio
                     </label>
-                    <input type="text" name="nombre_gym" id="inputNombreGym" required placeholder="Ej. Titan Fitness Center, Iron Gym..." value="Titan Fitness Center" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm font-semibold transition">
+                    <input type="text" name="nombre_gym" id="inputNombreGym" required placeholder="Ej. Iron Gym, Muscle Studio, CrossFit 312..." class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm font-semibold transition">
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -84,13 +84,13 @@
                         <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                             Nombre del Administrador
                         </label>
-                        <input type="text" name="nombre_dueno" required placeholder="Tu nombre" value="Carlos Mendoza" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm font-semibold transition">
+                        <input type="text" name="nombre_dueno" required placeholder="Tu nombre y apellido" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm font-semibold transition">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                             Numero de Sucursales
                         </label>
-                        <input type="number" name="num_sucursales" id="inputNumSucursales" min="1" max="50" value="2" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm font-semibold transition">
+                        <input type="number" name="num_sucursales" id="inputNumSucursales" min="1" max="50" value="1" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm font-semibold transition">
                     </div>
                 </div>
 
@@ -98,14 +98,14 @@
                     <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                         Correo Electronico Corporativo
                     </label>
-                    <input type="email" name="email" required placeholder="contacto@tugym.com" value="gerencia@titanfit.com" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm font-semibold transition">
+                    <input type="email" name="email" required placeholder="contacto@tugym.com" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm font-semibold transition">
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                         Contraseña de Acceso
                     </label>
-                    <input type="password" name="password" required value="fitpulse123" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm font-semibold transition">
+                    <input type="password" name="password" required placeholder="Crea una contraseña segura" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm font-semibold transition">
                 </div>
 
                 <!-- SELECTOR INTERACTIVO Y DINAMICO DE PLANES -->
@@ -171,19 +171,19 @@
                     </div>
                 </div>
 
-                <!-- Aviso de Pasarela de Pago Oficial -->
-                <div class="p-4 rounded-2xl bg-sky-50 border border-sky-200 text-xs text-slate-700 flex items-start gap-3">
-                    <div class="w-8 h-8 rounded-xl bg-sky-100 text-sky-700 font-bold flex items-center justify-center shrink-0 mt-0.5">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+                <!-- Aviso de Prueba Gratuita -->
+                <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-xs text-slate-700 flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-800 font-bold flex items-center justify-center shrink-0 mt-0.5">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     </div>
                     <div>
-                        <strong class="text-navy-900 block text-xs">Paso Final · Pasarela Oficial de Mercado Pago:</strong>
-                        Al dar clic seras redirigido a la pantalla segura de Mercado Pago / Mercado Libre para registrar tu tarjeta y activar la suscripcion mensual automatica.
+                        <strong class="text-navy-900 block text-xs">Prueba Gratuita de 7 Dias Incluida:</strong>
+                        Tu cuenta tendra acceso completo al plan seleccionado por 7 dias sin costo. Prueba la analitica y si te convence, podras activar tu suscripcion mensual en Mercado Pago en cualquier momento.
                     </div>
                 </div>
 
-                <button type="submit" class="w-full py-4 px-4 bg-sky-600 hover:bg-sky-500 active:scale-[0.98] text-white font-extrabold text-sm rounded-2xl shadow-xl shadow-sky-600/30 transition flex items-center justify-center gap-2">
-                    <span>Continuar al Pago en Mercado Pago</span>
+                <button type="submit" class="w-full py-4 px-4 bg-emerald-600 hover:bg-emerald-500 active:scale-[0.98] text-white font-extrabold text-sm rounded-2xl shadow-xl shadow-emerald-600/30 transition flex items-center justify-center gap-2">
+                    <span>Comenzar mi Prueba Gratuita de 7 Dias</span>
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                 </button>
             </form>
