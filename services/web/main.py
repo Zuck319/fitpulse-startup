@@ -249,10 +249,12 @@ async def procesar_registro(
     SESSION_STATE["nombre_usuario"] = usuario["nombre_dueno"]
     SESSION_STATE["email"] = usuario["email"]
     SESSION_STATE["plan_activo"] = usuario["plan_activo"]
-    SESSION_STATE["usuario_autenticado"] = True
+    from services.web.mercadopago_service import obtener_planes_suscripcion
+    planes_mp = obtener_planes_suscripcion()
+    url_destino_mp = planes_mp.get(plan_elegido.lower(), planes_mp["pro"])
 
     response = RedirectResponse(
-        url=f"/checkout?plan={plan_elegido.lower()}&nuevo_registro=1",
+        url=url_destino_mp,
         status_code=status.HTTP_303_SEE_OTHER
     )
     response.set_cookie(key="fitpulse_session", value=token, httponly=True, max_age=86400 * 30, path="/")
@@ -320,18 +322,14 @@ async def logout(request: Request):
     return response
 
 
-@app.get("/checkout", response_class=HTMLResponse)
+@app.get("/checkout")
 async def checkout_page(request: Request, plan: Optional[str] = "pro"):
-    """Pasarela de pago para planes de suscripcion."""
-    usuario = obtener_usuario_actual(request)
-    return templates.TemplateResponse(
-        request=request,
-        name="checkout.html",
-        context={
-            "usuario": usuario,
-            "plan_seleccionado": plan.lower() if plan else "pro"
-        }
-    )
+    """Redirige inmediatamente a la pasarela oficial de suscripciones de Mercado Pago / Mercado Libre."""
+    from services.web.mercadopago_service import obtener_planes_suscripcion
+    planes = obtener_planes_suscripcion()
+    plan_clean = (plan or "pro").lower()
+    url_mp = planes.get(plan_clean, planes["pro"])
+    return RedirectResponse(url=url_mp, status_code=status.HTTP_303_SEE_OTHER)
 
 
 @app.post("/procesar-pago")
