@@ -1235,6 +1235,52 @@
             <!-- SECCION 6: CHECK-IN QR (SIN TORNIQUETE)    -->
             <!-- ========================================== -->
             <section id="panelCheckIn" class="space-y-6 hidden">
+                {% if session.plan_activo|lower == 'basico' %}
+                <!-- BANNER DE RESTRICCION PLAN BASICO -->
+                <div class="bg-gradient-to-br from-slate-900 via-navy-900 to-slate-900 text-white rounded-3xl p-8 sm:p-12 shadow-2xl border border-slate-800 text-center relative overflow-hidden">
+                    <div class="w-20 h-20 rounded-3xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center mx-auto mb-6 shadow-xl">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                    </div>
+
+                    <span class="text-[11px] font-bold text-amber-400 uppercase tracking-widest bg-amber-950/80 px-4 py-1.5 rounded-full border border-amber-500/30 inline-block mb-3">
+                        Funcion Exclusiva de Plan Pro y Premium
+                    </span>
+
+                    <h2 class="text-2xl sm:text-3xl font-black text-white max-w-xl mx-auto leading-tight">
+                        Terminal de Check-in QR no disponible en Plan Basico
+                    </h2>
+
+                    <p class="text-sm text-slate-300 mt-3 max-w-xl mx-auto leading-relaxed">
+                        Tu gimnasio se encuentra activo en el <strong class="text-white">Plan Basico ($499 MXN/mes)</strong>. El modulo de validacion de entradas por codigo QR sin torniquetes, cartel de mostrador escaneable y registro movil para socios esta incluido a partir del <strong class="text-brand-400">Plan Pro ($899 MXN/mes)</strong>.
+                    </p>
+
+                    <!-- Beneficios del Check-in QR -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto mt-8 text-left">
+                        <div class="p-4 rounded-2xl bg-slate-800/60 border border-slate-700/60">
+                            <div class="text-xs font-bold text-emerald-400 uppercase">$0 en Torniquetes</div>
+                            <div class="text-xs text-slate-300 mt-1">Ahorra hasta $30,000 MXN en hardware fisico.</div>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-slate-800/60 border border-slate-700/60">
+                            <div class="text-xs font-bold text-blue-400 uppercase">Cartel Imprimible</div>
+                            <div class="text-xs text-slate-300 mt-1">Los socios escanean con la camara de su propio celular.</div>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-slate-800/60 border border-slate-700/60">
+                            <div class="text-xs font-bold text-purple-400 uppercase">Recepcion en Vivo</div>
+                            <div class="text-xs text-slate-300 mt-1">Control de entradas y membresias al segundo en mostrador.</div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <a href="/checkout?plan=pro" class="w-full sm:w-auto px-8 py-4 bg-brand-600 hover:bg-brand-500 active:scale-95 text-white font-extrabold text-sm rounded-2xl shadow-xl shadow-brand-600/30 transition flex items-center justify-center gap-2">
+                            <span>Actualizar a Plan Pro ($899 MXN/mes)</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        </a>
+                        <button onclick="cambiarSeccion('analitica')" class="w-full sm:w-auto px-6 py-4 bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-300 font-bold text-sm rounded-2xl transition">
+                            Volver al Dashboard
+                        </button>
+                    </div>
+                </div>
+                {% else %}
                 <!-- Banner Explicativo -->
                 <div class="bg-gradient-to-r from-navy-900 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-lg border border-slate-800">
                     <div class="flex items-center gap-2 mb-2">
@@ -1400,6 +1446,7 @@
                         </div>
                     </div>
                 </div>
+                {% endif %}
             </section>
 
         </main>

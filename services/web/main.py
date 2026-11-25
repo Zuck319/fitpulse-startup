@@ -160,7 +160,8 @@ async def landing_page(request: Request):
                         "Los 4 KPIs gerenciales y horas pico",
                         "Carga de datos por archivo CSV o Excel",
                         "Auditoria y limpieza automatica de datos",
-                        "Exportacion de reportes ejecutivos"
+                        "Exportacion de reportes ejecutivos",
+                        "Check-in con Codigo QR: No incluido (requiere Plan Pro)"
                     ]
                 },
                 {
@@ -1073,8 +1074,13 @@ async def api_qr_poster(request: Request, tipo: str = "web"):
         # Enlace universal garantizado de WhatsApp
         url_destino = "https://wa.me/523121900195?text=Hola%20Iron%20Gym,%20estoy%20en%20el%20mostrador%20y%20quiero%20registrar%20mi%20asistencia%20de%20hoy"
     else:
-        # Enlace directo al portal web movil del gimnasio
-        url_destino = "http://192.168.101.21:8000/checkin-socio"
+        # Detectar dinamicamente la URL publica (Render/Vercel) o local del servidor
+        proto = request.headers.get("x-forwarded-proto", request.url.scheme)
+        host = request.headers.get("x-forwarded-host", request.url.netloc)
+        if "127.0.0.1" in host or "localhost" in host:
+            url_destino = "http://192.168.101.21:8000/checkin-socio"
+        else:
+            url_destino = f"{proto}://{host}/checkin-socio"
 
     qr = qrcode.QRCode(
         version=None,
@@ -1096,10 +1102,17 @@ async def pagina_checkin_socio_movil(request: Request):
     """
     Pantalla movil que se abre en el celular del socio cuando escanea el codigo QR del mostrador.
     """
+    usuario = obtener_usuario_actual(request)
+    plan_activo = usuario.get("plan_activo", SESSION_STATE.get("plan_activo", "Pro"))
+
     return templates.TemplateResponse(
         request=request,
         name="checkin_socio.html",
-        context={"gym_name": SESSION_STATE.get("nombre_gym", "FitPulse Gym")}
+        context={
+            "gym_name": usuario.get("nombre_gym", SESSION_STATE.get("nombre_gym", "FitPulse Gym")),
+            "plan_activo": plan_activo,
+            "es_plan_basico": plan_activo.lower() == "basico"
+        }
     )
 
 
@@ -1109,12 +1122,17 @@ async def pagina_cartel_imprimir(request: Request, tipo: str = "web"):
     Vista dedicada de impresion en formato hoja Carta / A4.
     Centrada, con QR gigante y sin barras de navegacion ni encabezados de navegador.
     """
+    usuario = obtener_usuario_actual(request)
+    plan_activo = usuario.get("plan_activo", SESSION_STATE.get("plan_activo", "Pro"))
+
     return templates.TemplateResponse(
         request=request,
         name="cartel_imprimir.html",
         context={
-            "gym_name": SESSION_STATE.get("nombre_gym", "Titan Fitness Center"),
-            "tipo_qr": tipo
+            "gym_name": usuario.get("nombre_gym", SESSION_STATE.get("nombre_gym", "Titan Fitness Center")),
+            "tipo_qr": tipo,
+            "plan_activo": plan_activo,
+            "es_plan_basico": plan_activo.lower() == "basico"
         }
     )
 

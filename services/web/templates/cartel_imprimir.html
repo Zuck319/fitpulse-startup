@@ -59,6 +59,29 @@
         </button>
     </div>
 
+    {% if es_plan_basico %}
+    <!-- PANTALLA RESTRICCION PLAN BASICO -->
+    <div class="bg-white w-full max-w-lg rounded-3xl border-2 border-amber-400 p-8 shadow-2xl text-center space-y-4">
+        <div class="w-16 h-16 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center mx-auto">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+        </div>
+        <span class="text-[10px] font-bold text-amber-800 uppercase tracking-widest bg-amber-100 px-3 py-1 rounded-full inline-block">
+            Funcion de Plan Pro
+        </span>
+        <h1 class="text-2xl font-black text-navy-900">Cartel de Mostrador No Disponible</h1>
+        <p class="text-xs text-slate-600 leading-relaxed">
+            Tu establecimiento cuenta con el <strong class="text-navy-900">Plan Basico ($499 MXN)</strong>. La generacion de carteles de mostrador y auto-checkin por codigo QR esta disponible a partir del <strong class="text-brand-700">Plan Pro ($899 MXN)</strong>.
+        </p>
+        <div class="pt-2 flex flex-col gap-2">
+            <a href="/checkout?plan=pro" class="w-full py-3 bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-xs rounded-xl transition shadow-md">
+                Actualizar a Plan Pro ($899 MXN)
+            </a>
+            <a href="/dashboard" class="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition">
+                Volver al Dashboard
+            </a>
+        </div>
+    </div>
+    {% else %}
     <!-- CARTEL OFICIAL TAMAÑO CARTA -->
     <div class="poster-container bg-white w-full max-w-[700px] min-h-[920px] rounded-[40px] border-4 border-navy-900 p-8 sm:p-12 shadow-2xl flex flex-col justify-between text-center relative overflow-hidden">
         
@@ -119,6 +142,7 @@
         </div>
 
     </div>
+    {% endif %}
 
 </body>
 </html>

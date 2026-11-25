@@ -58,6 +58,24 @@
         <h1 class="text-2xl font-black text-white mt-1">{{ gym_name }}</h1>
         <p class="text-xs text-slate-400 mt-1">Sede Matriz · Registro de Entrada Sin Torniquete</p>
 
+        {% if es_plan_basico %}
+        <!-- PANTALLA RESTRICCION PLAN BASICO -->
+        <div class="mt-8 p-6 bg-slate-800/80 border border-amber-500/40 rounded-3xl text-center space-y-4">
+            <div class="w-16 h-16 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center mx-auto">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+            </div>
+            <span class="text-[10px] font-bold text-amber-400 uppercase tracking-widest bg-amber-950/80 px-3 py-1 rounded-full border border-amber-500/30 inline-block">
+                Servicio No Disponible
+            </span>
+            <h2 class="text-xl font-black text-white">Check-in QR Inactivo</h2>
+            <p class="text-xs text-slate-300 leading-relaxed">
+                Este establecimiento cuenta actualmente con el <strong class="text-white">Plan Basico</strong> de FitPulse Analytics. La funcionalidad de auto-registro por codigo QR requiere <strong class="text-blue-400">Plan Pro</strong>.
+            </p>
+            <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-700/60 text-xs text-slate-400">
+                Por favor, pasa directamente con el personal en recepcion para validar tu entrada manualmente.
+            </div>
+        </div>
+        {% else %}
         <!-- FORMULARIO DE REGISTRO -->
         <div id="pantallaRegistro" class="mt-8 space-y-4">
             <div class="text-left">
@@ -142,6 +160,7 @@
                 Intentar de Nuevo
             </button>
         </div>
+        {% endif %}
 
         <!-- Pie de Pagina -->
         <p class="text-[11px] text-slate-500 mt-8 pt-4 border-t border-slate-800">

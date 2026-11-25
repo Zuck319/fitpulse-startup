@@ -28,6 +28,8 @@ COPY models ./models
 COPY tests ./tests
 COPY README.md .
 
+RUN chown -R appuser:appuser /app
+
 ENV PATH=/home/appuser/.local/bin:$PATH \
     PYTHONUNBUFFERED=1 \
     PORT=8000
