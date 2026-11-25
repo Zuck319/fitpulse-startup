@@ -464,28 +464,51 @@ async def mercadopago_procesar_demo(
 @app.get("/mercadopago/retorno")
 async def mercadopago_retorno(
     request: Request,
-    status: Optional[str] = "approved",
+    collection_status: Optional[str] = None,
     plan: Optional[str] = "pro",
-    payment_id: Optional[str] = None
+    payment_id: Optional[str] = None,
+    preapproval_id: Optional[str] = None,
+    status: Optional[str] = None
 ):
-    """Punto de retorno tras completar el pago en la pasarela de Mercado Pago."""
+    """Punto de retorno tras suscribirse o completar el pago en Mercado Pago."""
     usuario = obtener_usuario_actual(request)
-    if status == "approved":
+    estado = (status or collection_status or "").lower()
+
+    if estado != "failure":
         precios = {"basico": 499.00, "pro": 899.00, "premium": 1499.00}
-        monto = precios.get((plan or "pro").lower(), 899.00)
+        plan_clean = (plan or "pro").lower()
+        monto = precios.get(plan_clean, 899.00)
+        ref_id = preapproval_id or payment_id or "SUB-MP-ONLINE"
+        ultimos = str(ref_id)[-4:] if len(str(ref_id)) >= 4 else "9901"
+
         pago = registrar_pago(
             usuario_id=usuario["id"],
-            plan=(plan or "pro").lower(),
+            plan=plan_clean,
             monto_total=monto,
-            metodo_pago="Mercado Pago Oficial",
+            metodo_pago="Mercado Pago Suscripcion Recurrente",
             marca_tarjeta="Mercado Pago",
-            ultimos_4=str(payment_id)[-4:] if payment_id else "9901",
+            ultimos_4=ultimos,
             titular=usuario.get("nombre_dueno", "Dylan Espinosa")
         )
-        SESSION_STATE["plan_activo"] = (plan or "pro").title()
-        return RedirectResponse(url=f"/comprobante-pago/{pago['id_transaccion']}", status_code=status.HTTP_303_SEE_OTHER)
-    
-    return RedirectResponse(url="/checkout?error=pago_no_completado", status_code=status.HTTP_303_SEE_OTHER)
+        SESSION_STATE["plan_activo"] = plan_clean.title()
+        return RedirectResponse(url=f"/comprobante-pago/{pago['id_transaccion']}", status_code=303)
+
+    return RedirectResponse(url="/checkout?error=suscripcion_cancelada", status_code=303)
+
+
+@app.post("/mercadopago/webhook")
+async def mercadopago_webhook(request: Request):
+    """
+    Webhook oficial para recibir eventos de cobro recurrente de Mercado Pago.
+    Cuando cada mes se debita automaticamente la tarjeta, Mercado Pago notifica aqui.
+    """
+    try:
+        data = await request.json()
+        tipo_evento = data.get("type", data.get("action", "unknown"))
+        id_recurso = data.get("data", {}).get("id", "")
+        return {"status": "recibido", "tipo": tipo_evento, "id": id_recurso}
+    except Exception:
+        return {"status": "ok"}
 
 
 @app.post("/mercadopago/guardar-credenciales")

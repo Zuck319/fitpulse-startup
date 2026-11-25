@@ -1,0 +1,22 @@
+{
+  "access_token": "APP_USR-6739202781633624-112510-d61b06821492ae1be856d2e61e7a178e-1544652421",
+  "public_key": "APP_USR-5f68bb0f-2694-4c42-9a67-3ada6d1e750b",
+  "collector_id": "1544652421",
+  "planes_suscripcion": {
+    "basico": {
+      "id": "a991bb23fda344d5afad2ea69a8959a0",
+      "monto": 499.00,
+      "init_point": "https://www.mercadopago.com.mx/subscriptions/checkout?preapproval_plan_id=a991bb23fda344d5afad2ea69a8959a0"
+    },
+    "pro": {
+      "id": "53a0eea277504b608898b98467cd1fdb",
+      "monto": 899.00,
+      "init_point": "https://www.mercadopago.com.mx/subscriptions/checkout?preapproval_plan_id=53a0eea277504b608898b98467cd1fdb"
+    },
+    "premium": {
+      "id": "9c6f55ead7e146d684902c51bdcd73cd",
+      "monto": 1499.00,
+      "init_point": "https://www.mercadopago.com.mx/subscriptions/checkout?preapproval_plan_id=9c6f55ead7e146d684902c51bdcd73cd"
+    }
+  }
+}
