@@ -98,8 +98,38 @@ def obtener_usuario_actual(request: Request) -> dict:
 # --------------------------------------------------------------------------
 # CARGA Y CACHE DE DATOS
 # --------------------------------------------------------------------------
-def obtener_dataframe_limpio() -> pd.DataFrame:
-    # Si el usuario subió su propio CSV, usarlo con prioridad
+def obtener_dataframe_limpio(user_id: Optional[int] = None) -> pd.DataFrame:
+    """
+    Carga el DataFrame de accesos para el usuario especificado.
+    Para nuevos gimnasios registrados (user_id > 1), si no han subido su base de datos propia,
+    retorna un DataFrame completamente vacio (sin tablas ni graficos hasta cargar datos).
+    Para la cuenta de evaluacion academica (user_id == 1 o None), carga el dataset de muestra oficial.
+    """
+    # Si se especifico un user_id mayor a 1 (nuevo registro de gimnasio)
+    if user_id is not None and user_id > 1:
+        user_csv = os.path.join(UPLOADS_DIR, f"custom_data_user_{user_id}.csv")
+        if os.path.exists(user_csv):
+            try:
+                df = pd.read_csv(user_csv)
+                if 'fecha' in df.columns:
+                    df['fecha'] = pd.to_datetime(df['fecha'])
+                return df
+            except Exception:
+                return pd.DataFrame()
+        # Nuevo usuario sin base de datos propia cargada: completamente vacio
+        return pd.DataFrame()
+
+    # Cuenta de evaluacion academica / Dylan (user_id == 1 o None)
+    user_1_csv = os.path.join(UPLOADS_DIR, "custom_data_user_1.csv")
+    if os.path.exists(user_1_csv):
+        try:
+            df = pd.read_csv(user_1_csv)
+            if 'fecha' in df.columns:
+                df['fecha'] = pd.to_datetime(df['fecha'])
+            return df
+        except Exception:
+            pass
+
     if SESSION_STATE.get("custom_data_loaded") and os.path.exists(CUSTOM_DATA_PATH):
         try:
             df = pd.read_csv(CUSTOM_DATA_PATH)
@@ -114,19 +144,7 @@ def obtener_dataframe_limpio() -> pd.DataFrame:
         df['fecha'] = pd.to_datetime(df['fecha'])
         return df
     else:
-        # Respaldo si no existe el CSV
-        dias = pd.date_range("2025-01-01", "2026-06-30", freq="D")
-        return pd.DataFrame({
-            "fecha": dias,
-            "sucursal": "Sucursal Centro (Matriz)",
-            "id_socio": [f"SOC-{i%100:03d}" for i in range(len(dias))],
-            "plan_membresia": "General",
-            "monto_mensualidad": 650.0,
-            "hora": 18,
-            "duracion_minutos": 60,
-            "dias_sin_asistir": 3,
-            "estado_socio": "Activo"
-        })
+        return pd.DataFrame()
 
 # --------------------------------------------------------------------------
 # RUTAS DE PÁGINAS WEB (HTML)
@@ -521,8 +539,16 @@ async def mercadopago_guardar_credenciales(
 async def dashboard_page(request: Request):
     """Panel de control principal completo (No Streamlit, Web nativa)."""
     usuario = obtener_usuario_actual(request)
+    user_id = usuario.get("id")
+    df = obtener_dataframe_limpio(user_id=user_id)
+    tiene_datos = len(df) > 0
+
+    user_csv_exists = os.path.join(UPLOADS_DIR, f"custom_data_user_{user_id}.csv")
+    custom_loaded = os.path.exists(user_csv_exists) or (user_id == 1 and SESSION_STATE.get("custom_data_loaded", False))
+
     session_data = {
         "usuario_autenticado": True,
+        "usuario_id": user_id,
         "nombre_usuario": usuario.get("nombre_dueno", "Dylan Espinosa"),
         "nombre_gym": usuario.get("nombre_gym", "Titan Fitness Center"),
         "plan_activo": usuario.get("plan_activo", "Pro"),
@@ -530,14 +556,13 @@ async def dashboard_page(request: Request):
         "estado_pago": usuario.get("estado_pago", "Activo"),
         "logo_url": SESSION_STATE.get("logo_url"),
         "sucursal_activa": SESSION_STATE.get("sucursal_activa", "Todas las sucursales (Consolidado)"),
-        "custom_data_loaded": SESSION_STATE.get("custom_data_loaded", False),
-        "custom_data_name": SESSION_STATE.get("custom_data_name")
+        "tiene_datos": tiene_datos,
+        "custom_data_loaded": custom_loaded,
+        "custom_data_name": SESSION_STATE.get("custom_data_name") if user_id == 1 else "Base de Datos Propia"
     }
     
-    df = obtener_dataframe_limpio()
-    
     sucursales = ["Todas las sucursales (Consolidado)"]
-    if "sucursal" in df.columns:
+    if tiene_datos and "sucursal" in df.columns:
         sucursales += sorted(df["sucursal"].dropna().unique().tolist())
         
     return templates.TemplateResponse(
@@ -558,11 +583,44 @@ async def dashboard_page(request: Request):
 # --------------------------------------------------------------------------
 
 @app.get("/api/analytics")
-async def api_analytics(sucursal: Optional[str] = "Todas las sucursales (Consolidado)"):
+async def api_analytics(request: Request, sucursal: Optional[str] = "Todas las sucursales (Consolidado)"):
     """
     Calcula los 4 KPIs oficiales y prepara los datos para las 6 gráficas de E1.
+    Si el usuario no tiene datos subidos, retorna estructura limpia sin datos.
     """
-    df = obtener_dataframe_limpio()
+    usuario = obtener_usuario_actual(request)
+    df = obtener_dataframe_limpio(user_id=usuario.get("id"))
+    
+    if len(df) == 0:
+        return {
+            "tiene_datos": False,
+            "kpis": {
+                "total_accesos": 0,
+                "promedio_diario": 0.0,
+                "socios_unicos": 0,
+                "ticket_promedio": 0.0,
+                "ingreso_mensual_estimado": 0.0,
+                "plan_estrella": "--",
+                "ultimos_7": 0,
+                "previos_7": 0,
+                "variacion_pct": 0.0
+            },
+            "graficas": {
+                "tendencia": {"fechas": [], "accesos": [], "media_movil": []},
+                "histograma": {"labels": [], "valores": [], "k_sturges": 0},
+                "calor": {
+                    "dias": ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"],
+                    "horas": [f"{h:02d}:00" for h in range(6, 23)],
+                    "matriz": [[0]*17 for _ in range(7)]
+                },
+                "dispersion": [],
+                "fft": {"periodos": [], "magnitud": []},
+                "planes": {"labels": [], "valores": []}
+            },
+            "filtros": {
+                "sucursales": ["Todas las sucursales (Consolidado)"]
+            }
+        }
     
     # Filtro por sucursal seguro
     if sucursal and sucursal != "Todas las sucursales (Consolidado)" and "sucursal" in df.columns:
@@ -575,9 +633,9 @@ async def api_analytics(sucursal: Optional[str] = "Todas las sucursales (Consoli
     asistencias_diarias = df.groupby(df['fecha'].dt.date).size()
     promedio_diario = float(asistencias_diarias.mean()) if len(asistencias_diarias) > 0 else 0.0
     
-    socios_unicos = int(df["id_socio"].nunique()) if "id_socio" in df.columns else 250
+    socios_unicos = int(df["id_socio"].nunique()) if "id_socio" in df.columns else 0
     df_socios = df.drop_duplicates(subset=["id_socio"]) if "id_socio" in df.columns else df
-    ticket_promedio = float(df_socios["monto_mensualidad"].mean()) if "monto_mensualidad" in df_socios.columns else 650.0
+    ticket_promedio = float(df_socios["monto_mensualidad"].mean()) if "monto_mensualidad" in df_socios.columns else 0.0
     ingreso_mensual_estimado = float(socios_unicos * ticket_promedio)
     
     plan_estrella = str(df["plan_membresia"].value_counts().index[0]) if "plan_membresia" in df.columns and len(df)>0 else "General"
@@ -616,11 +674,20 @@ async def api_analytics(sucursal: Optional[str] = "Todas las sucursales (Consoli
     dias_orden = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo']
     dias_map = {0: 'Lunes', 1: 'Martes', 2: 'Miércoles', 3: 'Jueves', 4: 'Viernes', 5: 'Sábado', 6: 'Domingo'}
     df_calor = df.copy()
-    df_calor['dia_nombre'] = df_calor['fecha'].dt.weekday.map(dias_map)
+    if 'fecha' in df_calor.columns and pd.api.types.is_datetime64_any_dtype(df_calor['fecha']):
+        df_calor['dia_nombre'] = df_calor['fecha'].dt.weekday.map(dias_map)
+        if 'hora' not in df_calor.columns:
+            df_calor['hora'] = df_calor['fecha'].dt.hour
+    else:
+        df_calor['dia_nombre'] = 'Lunes'
+        if 'hora' not in df_calor.columns:
+            df_calor['hora'] = 18
+    
+    df_calor['hora'] = df_calor['hora'].fillna(18).astype(int)
     tabla_calor = pd.crosstab(df_calor['hora'], df_calor['dia_nombre']).reindex(columns=dias_orden, fill_value=0)
     
     grafica_calor = {
-        "horas": [f"{h}:00" for h in tabla_calor.index.tolist()],
+        "horas": [f"{h:02d}:00" for h in tabla_calor.index.tolist()],
         "dias": dias_orden,
         "matriz": tabla_calor.values.tolist()
     }
@@ -672,6 +739,7 @@ async def api_analytics(sucursal: Optional[str] = "Todas las sucursales (Consoli
     }
     
     return {
+        "tiene_datos": True,
         "kpis": {
             "total_accesos": total_accesos,
             "promedio_diario": round(promedio_diario, 1),
@@ -695,13 +763,42 @@ async def api_analytics(sucursal: Optional[str] = "Todas las sucursales (Consoli
 
 
 @app.get("/api/churn-radar")
-async def api_churn_radar(sucursal: Optional[str] = "Todas las sucursales (Consolidado)"):
+async def api_churn_radar(request: Request, sucursal: Optional[str] = "Todas las sucursales (Consolidado)"):
     """
     Devuelve el listado de socios categorizados por riesgo de abandono,
     metricas financieras ejecutivas (MRR, fuga potencial, ROI de FitPulse)
     y estado de gestion CRM de retencion por WhatsApp.
     """
-    df = obtener_dataframe_limpio()
+    usuario = obtener_usuario_actual(request)
+    df = obtener_dataframe_limpio(user_id=usuario.get("id"))
+    
+    if len(df) == 0:
+        return {
+            "tiene_datos": False,
+            "total": 0,
+            "criticos": 0,
+            "moderados": 0,
+            "bajos": 0,
+            "contactados": 0,
+            "pendientes_criticos": 0,
+            "financiero": {
+                "mrr_total": 0.0,
+                "dinero_critico": 0.0,
+                "dinero_moderado": 0.0,
+                "pct_mrr_critico": 0.0,
+                "socios_rescatables_est": 0,
+                "dinero_rescatable_est": 0.0,
+                "costo_plan_pro": 899.0,
+                "multiplo_roi_pro": 0.0,
+                "ganancia_neta_roi": 0.0,
+                "desglose_planes": {},
+                "desglose_sucursales": {}
+            },
+            "dinero_critico": 0.0,
+            "dinero_moderado": 0.0,
+            "tasa_riesgo": 0.0,
+            "socios": []
+        }
     if sucursal and sucursal != "Todas las sucursales (Consolidado)" and "sucursal" in df.columns:
         df = df[df["sucursal"] == sucursal].copy()
         
@@ -837,6 +934,7 @@ async def api_churn_radar(sucursal: Optional[str] = "Todas las sucursales (Conso
         desglose_sucursales[s["sucursal"]] = round(desglose_sucursales.get(s["sucursal"], 0.0) + s["cuota"], 2)
     
     return {
+        "tiene_datos": True,
         "total": len(socios),
         "criticos": len(criticos_lista),
         "moderados": len(moderados_lista),
@@ -1003,7 +1101,7 @@ def buscar_socio_en_bd(query: str, df: pd.DataFrame):
 
 
 @app.post("/api/checkin-qr")
-async def api_checkin_qr(datos: dict):
+async def api_checkin_qr(datos: dict, request: Request):
     """
     Registra el acceso inmediato de un socio escaneando su QR o ingresando su ID/Nombre.
     Valida rigurosamente la existencia del socio en la base de datos.
@@ -1019,7 +1117,8 @@ async def api_checkin_qr(datos: dict):
     fecha_str = ahora.strftime("%Y-%m-%d %H:%M")
     hora_str = ahora.strftime("%H:%M hrs")
     
-    df = obtener_dataframe_limpio()
+    usuario = obtener_usuario_actual(request)
+    df = obtener_dataframe_limpio(user_id=usuario.get("id"))
     resultado = buscar_socio_en_bd(id_socio_buscado, df)
     
     if resultado is None:
@@ -1162,7 +1261,7 @@ async def pagina_reporte_ejecutivo(request: Request, sucursal: Optional[str] = "
     Vista ejecutiva de reporte mensual lista para descargar e imprimir en PDF (Propuesta 4).
     Diseño corporativo tamaño Carta para gerencia y evaluadores de EV3.
     """
-    datos_radar = await api_churn_radar(sucursal=sucursal)
+    datos_radar = await api_churn_radar(request=request, sucursal=sucursal)
     finanzas = datos_radar.get("financiero", {})
     socios_criticos = [s for s in datos_radar.get("socios", []) if s["nivel"] == "Critico"]
     
@@ -1222,9 +1321,18 @@ async def api_ejecutar_limpieza():
 
 
 @app.get("/api/exportar-csv")
-async def api_exportar_csv():
+async def api_exportar_csv(request: Request):
     """Descarga el reporte de socios y probabilidad de deserción en formato CSV."""
-    df = obtener_dataframe_limpio()
+    usuario = obtener_usuario_actual(request)
+    df = obtener_dataframe_limpio(user_id=usuario.get("id"))
+    
+    if len(df) == 0:
+        return Response(
+            content="id_socio,sucursal,plan_membresia,monto_mensualidad,dias_sin_asistir,riesgo_desercion\n",
+            media_type="text/csv",
+            headers={"Content-Disposition": "attachment; filename=fitpulse_socios_riesgo_vacio.csv"}
+        )
+
     resumen = df.groupby("id_socio").agg({
         "sucursal": "first",
         "plan_membresia": "first",
@@ -1246,7 +1354,7 @@ async def api_exportar_csv():
 
 
 @app.post("/api/upload-csv")
-async def api_upload_csv(file: UploadFile = File(...)):
+async def api_upload_csv(request: Request, file: UploadFile = File(...)):
     """Permite al gimnasio subir su propio archivo CSV de accesos/asistencias."""
     if not file.filename.lower().endswith(".csv"):
         raise HTTPException(status_code=400, detail="El archivo debe tener extension .csv")
@@ -1288,6 +1396,8 @@ async def api_upload_csv(file: UploadFile = File(...)):
             df_subido["duracion_minutos"] = 60
         if "sucursal" not in df_subido.columns:
             df_subido["sucursal"] = "Sucursal Principal"
+        if "hora" not in df_subido.columns:
+            df_subido["hora"] = pd.to_datetime(df_subido["fecha"], errors="coerce").dt.hour.fillna(18).astype(int)
 
         # Calculo automatico e inteligente de dias de ausencia si el software del gym no los tiene
         if "dias_sin_asistir" not in df_subido.columns:
@@ -1302,15 +1412,22 @@ async def api_upload_csv(file: UploadFile = File(...)):
         from services.worker.limpieza import limpiar_datos_accesos
         df_limpio, reporte = limpiar_datos_accesos(df_subido)
         
-        # Guardar en archivo personalizado
-        df_limpio.to_csv(CUSTOM_DATA_PATH, index=False)
-        SESSION_STATE["custom_data_loaded"] = True
-        SESSION_STATE["custom_data_name"] = file.filename
+        # Guardar en archivo personalizado del usuario autenticado
+        usuario = obtener_usuario_actual(request)
+        user_id = usuario.get("id", 1)
+        user_csv_path = os.path.join(UPLOADS_DIR, f"custom_data_user_{user_id}.csv")
+        df_limpio.to_csv(user_csv_path, index=False)
+
+        if user_id == 1:
+            df_limpio.to_csv(CUSTOM_DATA_PATH, index=False)
+            SESSION_STATE["custom_data_loaded"] = True
+            SESSION_STATE["custom_data_name"] = file.filename
         
         sucursales = ["Todas las sucursales (Consolidado)"] + sorted(df_limpio["sucursal"].dropna().unique().tolist())
         
         return {
             "status": "ok",
+            "tiene_datos": True,
             "registros": len(df_limpio),
             "nombre_archivo": file.filename,
             "reporte": reporte,
@@ -1321,16 +1438,25 @@ async def api_upload_csv(file: UploadFile = File(...)):
 
 
 @app.post("/api/reset-data")
-async def api_reset_data():
+async def api_reset_data(request: Request):
     """Restablece el dataset al conjunto de datos de muestra original."""
-    SESSION_STATE["custom_data_loaded"] = False
-    SESSION_STATE["custom_data_name"] = None
-    if os.path.exists(CUSTOM_DATA_PATH):
+    usuario = obtener_usuario_actual(request)
+    user_id = usuario.get("id", 1)
+    user_csv = os.path.join(UPLOADS_DIR, f"custom_data_user_{user_id}.csv")
+    if os.path.exists(user_csv):
         try:
-            os.remove(CUSTOM_DATA_PATH)
+            os.remove(user_csv)
         except Exception:
             pass
-    return {"status": "ok", "mensaje": "Datos restablecidos al conjunto de muestra"}
+    if user_id == 1:
+        SESSION_STATE["custom_data_loaded"] = False
+        SESSION_STATE["custom_data_name"] = None
+        if os.path.exists(CUSTOM_DATA_PATH):
+            try:
+                os.remove(CUSTOM_DATA_PATH)
+            except Exception:
+                pass
+    return {"status": "ok", "mensaje": "Datos restablecidos"}
 
 
 # --------------------------------------------------------------------------
@@ -1340,18 +1466,37 @@ MODELS_DIR = os.path.join(BASE_DIR, "..", "..", "models")
 
 
 @app.get("/pronostico", tags=["Inteligencia E3"])
-async def endpoint_pronostico(dias: int = 14):
+async def endpoint_pronostico(request: Request, dias: int = 14):
     """
     Pronostico SARIMA(1,1,1)x(1,1,1,7) de afluencia diaria con bandas de confianza al 95%.
     Requerido por rubrica E3: consumido por el tablero y evaluado en produccion.
     """
+    usuario = obtener_usuario_actual(request)
+    df = obtener_dataframe_limpio(user_id=usuario.get("id"))
+    dias = max(1, min(30, dias))
+    
+    if len(df) == 0:
+        return {
+            "tiene_datos": False,
+            "horizonte_dias": dias,
+            "modelo": "SARIMA (Sin datos)",
+            "aic": 0.0,
+            "mae": 0.0,
+            "rmse": 0.0,
+            "mape": 0.0,
+            "fechas": [],
+            "proyeccion": [],
+            "limite_inferior": [],
+            "limite_superior": []
+        }
+
     meta_path = os.path.join(MODELS_DIR, "sarima_meta.json")
     if not os.path.exists(meta_path):
         raise HTTPException(status_code=404, detail="Modelo SARIMA no entrenado aun")
     with open(meta_path, "r", encoding="utf-8") as f:
         meta = json.load(f)
-    dias = max(1, min(30, dias))
     return {
+        "tiene_datos": True,
         "horizonte_dias": dias,
         "modelo": "SARIMA(1,1,1)x(1,1,1,7)",
         "aic": meta.get("metricas", {}).get("aic", 4968.41),

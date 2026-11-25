@@ -292,7 +292,15 @@
             </div>
             <div class="flex items-center gap-2">
                 <span id="badgeDataset" class="text-xs font-semibold px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 border border-slate-200">
-                    Dataset: Muestra (65,050 reg)
+                    {% if session.tiene_datos %}
+                        {% if session.custom_data_loaded %}
+                            Dataset: {{ session.custom_data_name }}
+                        {% else %}
+                            Dataset: Muestra (65,050 reg)
+                        {% endif %}
+                    {% else %}
+                        Base de Datos: Vacia (0 registros)
+                    {% endif %}
                 </span>
                 <a href="/" class="text-xs font-semibold text-slate-600 hover:text-brand-600 px-2 py-1 transition">
                     Inicio
@@ -349,7 +357,49 @@
                     </div>
                 </div>
 
-                <!-- 4 KPIS OFICIALES ESTILIZADOS -->
+                <!-- ESTADO VACIO: CUANDO EL USUARIO RECIEN REGISTRADO AUN NO CARGA SU BASE DE DATOS -->
+                <div id="emptyStateAnalitica" class="{% if session.tiene_datos %}hidden{% endif %} bg-white rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-sm text-center">
+                    <div class="max-w-xl mx-auto space-y-6">
+                        <div class="w-20 h-20 rounded-3xl bg-brand-50 text-brand-600 mx-auto flex items-center justify-center border border-brand-100 shadow-inner">
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
+                                Onboarding de Nueva Cuenta
+                            </span>
+                            <h3 class="text-2xl font-black text-navy-900 mt-3">Aun no has agregado la base de datos de tu gimnasio</h3>
+                            <p class="text-xs sm:text-sm text-slate-500 mt-2 leading-relaxed">
+                                Para activar el tablero con tus 4 KPIs oficiales, las 6 graficas de afluencia por hora y el modelo predictivo SARIMA, carga el archivo de asistencias o accesos de tu club (formato CSV o Excel).
+                            </p>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-left pt-2">
+                            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-100">
+                                <span class="text-xs font-black text-brand-600 block">Paso 1</span>
+                                <span class="text-xs font-bold text-navy-900 block mt-0.5">Exporta tu archivo</span>
+                                <span class="text-[11px] text-slate-500 leading-tight block mt-1">Descarga el registro de accesos desde el software o lector biometrico de tu gimnasio.</span>
+                            </div>
+                            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-100">
+                                <span class="text-xs font-black text-brand-600 block">Paso 2</span>
+                                <span class="text-xs font-bold text-navy-900 block mt-0.5">Sube el CSV</span>
+                                <span class="text-[11px] text-slate-500 leading-tight block mt-1">El sistema mapea automaticamente columnas como fecha, socio, sucursal y cuota.</span>
+                            </div>
+                            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-100">
+                                <span class="text-xs font-black text-brand-600 block">Paso 3</span>
+                                <span class="text-xs font-bold text-navy-900 block mt-0.5">Visualiza en vivo</span>
+                                <span class="text-[11px] text-slate-500 leading-tight block mt-1">Se generan tus metricas, horas pico, alertas de churn y pronostico predictivo.</span>
+                            </div>
+                        </div>
+                        <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
+                            <button onclick="cambiarSeccion('subircsv')" class="w-full sm:w-auto px-7 py-3.5 bg-brand-600 hover:bg-brand-500 active:scale-95 text-white font-extrabold text-xs rounded-xl shadow-lg shadow-brand-600/30 transition flex items-center justify-center gap-2 cursor-pointer">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+                                <span>Subir Base de Datos (CSV / Excel)</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="contenedorGraficasAnalitica" class="{% if not session.tiene_datos %}hidden{% endif %} space-y-6">
+                    <!-- 4 KPIS OFICIALES ESTILIZADOS -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     <!-- KPI 1 -->
                     <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
@@ -645,6 +695,7 @@
                         </div>
                     </div>
                 </div>
+                </div>
             </section>
 
             <!-- ========================================== -->
@@ -652,6 +703,31 @@
             <!-- ========================================== -->
             <section id="panelChurn" class="space-y-6 hidden">
                 
+                <!-- ESTADO VACIO: CUANDO EL USUARIO RECIEN REGISTRADO AUN NO CARGA SU BASE DE DATOS -->
+                <div id="emptyStateChurn" class="{% if session.tiene_datos %}hidden{% endif %} bg-white rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-sm text-center">
+                    <div class="max-w-xl mx-auto space-y-6">
+                        <div class="w-20 h-20 rounded-3xl bg-rose-50 text-rose-600 mx-auto flex items-center justify-center border border-rose-100 shadow-inner">
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
+                                Deteccion de Desercion
+                            </span>
+                            <h3 class="text-2xl font-black text-navy-900 mt-3">Radar de Desercion y Churn sin datos</h3>
+                            <p class="text-xs sm:text-sm text-slate-500 mt-2 leading-relaxed">
+                                El modelo predictivo de cancelacion necesita el historial de asistencias de tus socios para identificar inactividad prolongada, estimar el dinero en riesgo de mensualidades y activar el protocolo de rescate por WhatsApp.
+                            </p>
+                        </div>
+                        <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+                            <button onclick="cambiarSeccion('subircsv')" class="w-full sm:w-auto px-7 py-3.5 bg-brand-600 hover:bg-brand-500 active:scale-95 text-white font-extrabold text-xs rounded-xl shadow-lg shadow-brand-600/30 transition flex items-center justify-center gap-2 cursor-pointer">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+                                <span>Cargar Base de Socios para Analizar</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="contenedorChurnContenido" class="{% if not session.tiene_datos %}hidden{% endif %} space-y-6">
                 <!-- MODULO FINANCIERO: IMPACTO EN INGRESOS Y RETENCION (PROPUESTA 2 Y 4) -->
                 <div class="bg-gradient-to-br from-slate-950 via-navy-950 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-800 relative">
 
@@ -916,7 +992,7 @@
                     <h4 class="text-sm font-bold text-navy-900">No se encontraron socios</h4>
                     <p class="text-xs text-slate-500 mt-1">Prueba cambiando los terminos de busqueda o el filtro de nivel de riesgo.</p>
                 </div>
-
+                </div>
             </section>
 
             <!-- ========================================== -->
@@ -1939,6 +2015,17 @@
                     // Actualizar badge
                     document.getElementById('badgeDataset').innerText = `Dataset: ${data.nombre_archivo} (${data.registros} reg)`;
 
+                    // Revelar contenedores de analitica y radar
+                    const contGraficas = document.getElementById('contenedorGraficasAnalitica');
+                    const emptyState = document.getElementById('emptyStateAnalitica');
+                    if (contGraficas) contGraficas.classList.remove('hidden');
+                    if (emptyState) emptyState.classList.add('hidden');
+
+                    const contChurn = document.getElementById('contenedorChurnContenido');
+                    const emptyChurn = document.getElementById('emptyStateChurn');
+                    if (contChurn) contChurn.classList.remove('hidden');
+                    if (emptyChurn) emptyChurn.classList.add('hidden');
+
                     // Recargar analitica con los nuevos datos
                     cambiarSucursal(select.value);
                 } else {
@@ -1955,13 +2042,12 @@
 
         // Restablecer al dataset de muestra original
         async function restablecerDatasetMuestra() {
-            if (!confirm('¿Deseas restablecer el tablero al conjunto de datos de muestra original?')) return;
+            if (!confirm('Deseas restablecer el tablero al conjunto de datos original?')) return;
             try {
                 await fetch('/api/reset-data', { method: 'POST' });
-                document.getElementById('badgeDataset').innerText = 'Dataset: Muestra (65,050 reg)';
                 const resDiv = document.getElementById('resultadoSubidaCsv');
                 resDiv.className = 'mt-6 p-4 rounded-xl border bg-slate-100 border-slate-200 text-slate-700 text-xs block';
-                resDiv.innerText = 'Datos restablecidos al conjunto de muestra original.';
+                resDiv.innerText = 'Base de datos restablecida correctamente.';
                 
                 // Recargar
                 const select = document.getElementById('selectorSucursal');
@@ -2041,6 +2127,20 @@
             try {
                 const res = await fetch(`/api/analytics?sucursal=${encodeURIComponent(sucursal)}`);
                 const data = await res.json();
+
+                const contGraficas = document.getElementById('contenedorGraficasAnalitica');
+                const emptyState = document.getElementById('emptyStateAnalitica');
+
+                if (!data.tiene_datos || data.kpis.total_accesos === 0) {
+                    if (contGraficas) contGraficas.classList.add('hidden');
+                    if (emptyState) emptyState.classList.remove('hidden');
+                    const badge = document.getElementById('badgeDataset');
+                    if (badge) badge.innerText = 'Base de Datos: Vacia (0 registros)';
+                    return;
+                }
+
+                if (contGraficas) contGraficas.classList.remove('hidden');
+                if (emptyState) emptyState.classList.add('hidden');
 
                 // Actualizar KPIs
                 const k = data.kpis;
@@ -2149,6 +2249,9 @@
             try {
                 const res = await fetch(`/pronostico?dias=${dias}`);
                 const data = await res.json();
+                if (!data.fechas || data.fechas.length === 0) {
+                    return;
+                }
 
                 if (document.getElementById('sarimaAIC')) {
                     document.getElementById('sarimaAIC').innerText = Number(data.aic).toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1});
@@ -2248,6 +2351,19 @@
             try {
                 const res = await fetch(`/api/churn-radar?sucursal=${encodeURIComponent(sucursal)}`);
                 const data = await res.json();
+
+                const contChurn = document.getElementById('contenedorChurnContenido');
+                const emptyChurn = document.getElementById('emptyStateChurn');
+
+                if (!data.tiene_datos || data.total === 0) {
+                    if (contChurn) contChurn.classList.add('hidden');
+                    if (emptyChurn) emptyChurn.classList.remove('hidden');
+                    todosLosSocios = [];
+                    return;
+                }
+
+                if (contChurn) contChurn.classList.remove('hidden');
+                if (emptyChurn) emptyChurn.classList.add('hidden');
 
                 // 1. Metricas financieras e impacto ejecutivo (Propuesta 2)
                 datosFinancierosGlobal = data.financiero || {};
