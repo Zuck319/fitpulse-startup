@@ -1344,7 +1344,7 @@
                                     </button>
                                 </div>
                                 <div id="txtQrDestino" class="text-[11px] text-brand-700 font-mono font-bold bg-brand-50 p-2 rounded-xl border border-brand-200">
-                                    Abre: http://192.168.101.21:8000/checkin-socio
+                                    Abre: <span id="spanUrlQrWeb">/checkin-socio</span>
                                 </div>
                             </div>
                         </div>
@@ -1727,7 +1727,7 @@
                 img.src = '/api/qr-poster.png?tipo=web&t=' + timestamp;
                 btnWeb.className = 'px-3 py-1.5 rounded-lg bg-navy-900 text-white transition';
                 btnWa.className = 'px-3 py-1.5 rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300 transition';
-                txtDestino.innerText = 'Abre: http://192.168.101.21:8000/checkin-socio';
+                txtDestino.innerHTML = 'Abre: <span id="spanUrlQrWeb">' + window.location.origin + '/checkin-socio</span>';
                 if (linkCompleto) linkCompleto.href = '/cartel-imprimir?tipo=web';
             }
         }
@@ -2874,6 +2874,10 @@
 
         // Carga inicial y sondeo en tiempo real de entradas
         window.addEventListener('DOMContentLoaded', () => {
+            const spanQr = document.getElementById('spanUrlQrWeb');
+            if (spanQr) {
+                spanQr.innerText = window.location.origin + '/checkin-socio';
+            }
             const sucursalInicial = document.getElementById('selectorSucursal').value;
             cargarDatosDashboard(sucursalInicial);
             cargarDatosChurn(sucursalInicial);
