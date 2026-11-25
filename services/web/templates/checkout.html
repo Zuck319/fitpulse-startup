@@ -71,33 +71,12 @@
                 
                 <!-- Selector de Metodo de Pago -->
                 <div class="flex items-center justify-between pb-4 mb-5 border-b border-slate-100">
-                    <h2 class="text-base font-black text-navy-900">Metodo de Pago</h2>
-                    <div class="flex items-center gap-2">
-                        <span class="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-0.5 rounded">PCI-DSS Level 1</span>
+                    <div>
+                        <h2 class="text-base font-black text-navy-900">Tarjeta de Credito o Debito Directa</h2>
+                        <span class="text-xs text-slate-400">Procesamiento seguro directo en terminal bancaria</span>
                     </div>
-                </div>
-
-                <!-- Boton Mercado Pago Oficial Directo -->
-                <div class="mb-6">
-                    <a href="/mercadopago/iniciar?plan={{ plan_seleccionado or 'pro' }}" id="btnPagarMercadoPago" class="w-full p-4 rounded-2xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white font-black text-sm flex items-center justify-between shadow-lg shadow-sky-500/25 transition group">
-                        <div class="flex items-center gap-3">
-                            <div class="w-9 h-9 rounded-xl bg-white text-blue-600 font-black text-xs flex items-center justify-center shadow-xs">
-                                MP
-                            </div>
-                            <div class="text-left">
-                                <div class="text-sm font-black leading-none">Pagar con Mercado Pago</div>
-                                <div class="text-[10px] text-sky-100 mt-1">Tarjeta, Transferencia SPEI o Efectivo en OXXO</div>
-                            </div>
-                        </div>
-                        <span class="text-xs font-black bg-white/20 px-3 py-1.5 rounded-xl group-hover:translate-x-1 transition">
-                            Ir a Mercado Pago &rarr;
-                        </span>
-                    </a>
-
-                    <div class="flex items-center my-6">
-                        <div class="flex-grow border-t border-slate-200"></div>
-                        <span class="flex-shrink mx-4 text-xs font-bold text-slate-400 uppercase">O paga con tarjeta directa</span>
-                        <div class="flex-grow border-t border-slate-200"></div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-md">PCI-DSS Level 1</span>
                     </div>
                 </div>
 
@@ -193,6 +172,13 @@
                         Al presionar el boton, aceptas los terminos de suscripcion recurrente mensual. Puedes cancelar en cualquier momento desde tu panel de control con 1 solo clic.
                     </p>
                 </form>
+
+                <div class="mt-6 pt-5 border-t border-slate-100 flex items-center justify-between text-xs">
+                    <span class="text-slate-500 font-semibold">¿Prefieres pagar con SPEI o en OXXO?</span>
+                    <a href="/mercadopago/iniciar?plan={{ plan_seleccionado or 'pro' }}" id="btnPagarMercadoPago" class="text-sky-600 hover:text-sky-700 font-black hover:underline flex items-center gap-1">
+                        <span>Pagar con Mercado Pago &rarr;</span>
+                    </a>
+                </div>
             </div>
 
             <!-- COLUMNA DERECHA: RESUMEN DE LA ORDEN (5 COLS) -->
