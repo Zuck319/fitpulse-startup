@@ -803,25 +803,30 @@ async def api_churn_radar(request: Request, sucursal: Optional[str] = "Todas las
         df = df[df["sucursal"] == sucursal].copy()
         
     df_temp = df.copy()
-    if "fecha" in df_temp.columns:
+    resumen_cols = {
+        "sucursal": "first",
+        "plan_membresia": "first",
+        "monto_mensualidad": "first",
+        "duracion_minutos": "mean"
+    }
+    if "nombre" in df_temp.columns:
+        resumen_cols["nombre"] = "first"
+    if "telefono" in df_temp.columns:
+        resumen_cols["telefono"] = "first"
+
+    if "dias_sin_asistir" in df_temp.columns:
+        resumen_cols["dias_sin_asistir"] = "max"
+        resumen = df_temp.groupby("id_socio").agg(resumen_cols).reset_index()
+    elif "fecha" in df_temp.columns:
         df_temp["fecha_dt"] = pd.to_datetime(df_temp["fecha"], errors="coerce")
         max_fecha = df_temp["fecha_dt"].max()
-        resumen = df_temp.groupby("id_socio").agg(
-            sucursal=("sucursal", "first"),
-            plan_membresia=("plan_membresia", "first"),
-            monto_mensualidad=("monto_mensualidad", "first"),
-            ultima_visita=("fecha_dt", "max"),
-            duracion_minutos=("duracion_minutos", "mean")
-        ).reset_index()
+        resumen_cols["fecha_dt"] = "max"
+        resumen = df_temp.groupby("id_socio").agg(resumen_cols).reset_index()
+        resumen.rename(columns={"fecha_dt": "ultima_visita"}, inplace=True)
         resumen["dias_sin_asistir"] = (max_fecha - resumen["ultima_visita"]).dt.days.fillna(0).astype(int)
     else:
-        resumen = df.groupby("id_socio").agg({
-            "sucursal": "first",
-            "plan_membresia": "first",
-            "monto_mensualidad": "first",
-            "dias_sin_asistir": "max",
-            "duracion_minutos": "mean"
-        }).reset_index()
+        resumen_cols["dias_sin_asistir"] = lambda x: 3
+        resumen = df_temp.groupby("id_socio").agg(resumen_cols).reset_index()
     
     nombres_muestra = [
         "Alejandro Ruiz", "Mariana Gomez", "Carlos Mendoza", "Fernanda Ortiz", "Jorge Morales",
@@ -836,14 +841,33 @@ async def api_churn_radar(request: Request, sucursal: Optional[str] = "Todas las
     for idx, row in resumen.iterrows():
         dias = int(row["dias_sin_asistir"])
         id_socio = str(row["id_socio"])
-        nombre_simulado = nombres_muestra[idx % len(nombres_muestra)]
+        
+        # Usar nombre real del archivo si existe, sino asignar del catalogo
+        if "nombre" in row and pd.notnull(row["nombre"]) and str(row["nombre"]).strip():
+            nombre_simulado = str(row["nombre"]).strip()
+        else:
+            nombre_simulado = nombres_muestra[idx % len(nombres_muestra)]
+            
         plan = str(row["plan_membresia"])
         cuota = float(row["monto_mensualidad"])
         sucursal_socio = str(row["sucursal"])
         
-        # Telefono con lada real de Colima / Mexico (+52 312 ...)
-        tel_num = f"52312{1900195 if idx < 3 else (1000000 + (idx * 3719) % 9000000)}"
-        tel_fmt = f"+52 312 {tel_num[5:8]} {tel_num[8:12]}"
+        # Usar telefono real del archivo si existe
+        if "telefono" in row and pd.notnull(row["telefono"]) and str(row["telefono"]).strip():
+            tel_str = str(row["telefono"]).strip()
+            digits = "".join(filter(str.isdigit, tel_str))
+            if len(digits) == 10:
+                tel_num = f"52{digits}"
+                tel_fmt = f"+52 {digits[:3]} {digits[3:6]} {digits[6:]}"
+            elif len(digits) == 12 and digits.startswith("52"):
+                tel_num = digits
+                tel_fmt = f"+52 {digits[2:5]} {digits[5:8]} {digits[8:]}"
+            else:
+                tel_num = digits if digits else "523121900195"
+                tel_fmt = tel_str
+        else:
+            tel_num = f"52312{1900195 if idx < 3 else (1000000 + (idx * 3719) % 9000000)}"
+            tel_fmt = f"+52 312 {tel_num[5:8]} {tel_num[8:12]}"
         
         if dias >= 8:
             nivel = "Critico"
@@ -1371,7 +1395,9 @@ async def api_upload_csv(request: Request, file: UploadFile = File(...)):
             "duracion_minutos": ["duracion_minutos", "duracion", "tiempo_minutos", "minutos", "tiempo_min", "duration"],
             "plan_membresia": ["plan_membresia", "plan", "tipo_plan", "membresia", "tipo_membresia", "membership"],
             "monto_mensualidad": ["monto_mensualidad", "monto", "mensualidad", "cuota", "precio", "tarifa", "costo", "pago"],
-            "dias_sin_asistir": ["dias_sin_asistir", "dias_ausente", "dias_inactivo", "ausencia", "dias_falta", "inactividad"]
+            "dias_sin_asistir": ["dias_sin_asistir", "dias_ausente", "dias_inactivo", "ausencia", "dias_falta", "inactividad"],
+            "nombre": ["nombre", "nombre_socio", "cliente_nombre", "name", "socio_nombre", "full_name", "cliente"],
+            "telefono": ["telefono", "celular", "tel", "phone", "whatsapp", "movil", "numero_telefono", "telefono_socio", "numero"]
         }
         col_map_actual = {}
         for col_orig in df_subido.columns:
