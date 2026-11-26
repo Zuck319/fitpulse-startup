@@ -981,7 +981,8 @@ async def api_churn_radar(request: Request, sucursal: Optional[str] = "Todas las
         "dinero_critico": round(dinero_critico, 2),
         "dinero_moderado": round(dinero_moderado, 2),
         "tasa_riesgo": round((len(criticos_lista) + len(moderados_lista)) / len(socios) * 100, 1) if len(socios) > 0 else 0,
-        "socios": socios
+        "total_mostrados": min(len(socios), 250),
+        "socios": socios[:250]
     }
 
 

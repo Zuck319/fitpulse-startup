@@ -8,4 +8,5 @@ venv/
 .DS_Store
 Thumbs.db
 *.db
+services/web/static/uploads/custom_*.csv
 
